@@ -7,6 +7,14 @@ var show = require('../show');
 router.route('', 'search', function (){
   show('search');
 
+  $('.compare').on('click', function(e) {
+  	e.preventDefault();
+
+  	$('.search-city-comp').removeClass('hidden');
+  	$('.search-city-comp').addClass(' show-input');
+  	$(this).addClass('hidden');
+  });
+
   $('.compare-form').on('submit', function(e) {
   	e.preventDefault();
 
@@ -20,8 +28,6 @@ router.route('', 'search', function (){
   	} else {
   		alert('Please enter the city you would like to see')
   	}
-
-
-});
+	});
 
 });
