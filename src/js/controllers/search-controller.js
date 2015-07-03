@@ -4,6 +4,6 @@ var views = require('views');
 var router = require('../router');
 var show = require('../show');
 
-router.route('', function (){
-  show('home') 
+router.route('', 'search', function (){
+  show('search');
 });
