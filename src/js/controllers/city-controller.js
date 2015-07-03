@@ -5,5 +5,7 @@ var router = require('../router');
 var show = require('../show');
 
 router.route('search/:cityName', function (cityName){
-  show('city');
+  
+  show('city', {city: cityName});;
+
 });
