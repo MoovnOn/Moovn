@@ -20,5 +20,5 @@ from . import views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^$', views.IndexView),
+    url(r'^$', views.IndexView.as_view()),
 ]

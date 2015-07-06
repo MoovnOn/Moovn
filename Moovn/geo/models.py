@@ -14,9 +14,9 @@ class Boundary(models.Model):
     boundary = models.TextField()
 
 
-class Names(models.Model):
+class Name(models.Model):
     name = models.CharField(max_length=255)
-    city = models.ForeignKey('City')
+    city = models.ForeignKey('City', related_name='names')
 
 
 class Housing(models.Model):
@@ -38,5 +38,3 @@ class Schools(models.Model):
 class City(models.Model):
     geo_id = models.IntegerField()
     state = models.CharField(max_length=2)
-    boundary = models.OneToOneField('Boundary')
-    names = models.ForeignKey('Names')
