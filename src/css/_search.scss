@@ -11,6 +11,7 @@ header{
 }
 .title-container{
   display: inline-block;
+  font-family: Century Gothic, sans-serif;
 }
 .title{
   margin: 0;
@@ -28,4 +29,11 @@ header{
 .map-image {
   max-width: 80%;
   max-height: auto; 
+}
+.submit, .compare {
+  background: rgb(28, 184, 65);
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgb(28, 184, 65);
 }
