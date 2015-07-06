@@ -1324,3 +1324,11 @@ striping:
 
 .show-input {
   display: inline-block; }
+
+.ui-autocomplete {
+  border: 1px solid grey;
+  width: 4em;
+  border-radius: 0.2em; }
+
+.ui-menu-item:hover {
+  background: lightgray; }

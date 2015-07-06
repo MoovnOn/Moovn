@@ -1,5 +1,13 @@
 @import 'reset';
 @import 'mixin';
 @import 'pure/pure';
-@import 'search'
+@import 'search';
 
+.ui-autocomplete{
+border: 1px solid grey;
+width: 4em;
+border-radius: 0.2em;
+}
+.ui-menu-item:hover{
+background: lightgray;  
+}
