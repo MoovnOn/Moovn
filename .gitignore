@@ -8,6 +8,8 @@ __pycache__/
 local_settings.py
 .envrc
 .direnv
+.DS_Store
+CityBoundaries
 
 # Created by https://www.gitignore.io
 

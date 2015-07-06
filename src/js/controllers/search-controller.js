@@ -4,6 +4,7 @@ var views = require('views');
 var router = require('../router');
 var show = require('../show');
 var autocomplete = require('jquery-ui');
+var tags = require('../city-list');
 
 router.route('', 'search', function (){
   show('search');
@@ -23,24 +24,16 @@ router.route('', 'search', function (){
 
   	if (compareCity != '' && searchCity != '') {
   		router.navigate("search/" + searchCity + "/" + compareCity, {trigger: true});
-  	} else if (compareCity === '' && searchCity != '') {		
+  	} else if (compareCity === '' && searchCity != '') {
   		router.navigate("search/" + searchCity, {trigger: true});
   	} else {
   		alert('Please enter the city you would like to see');
   	}
 	});
-  
-    
-  $(function() {
-      var availableTags = [
-        "Austin, TX", 
-        "Durham, NC", 
-        "Charlotte, NC",
-        "Fort Collins, CO",
-        "Colorado Springs, CO",
-        "Nashville, TN",
-        "Seattle, WA"
-      ];
+
+
+  // $(function tags() {
+
       $("#tags").autocomplete({
         source: availableTags,
         messages: {
@@ -55,6 +48,6 @@ router.route('', 'search', function (){
           results: function() {}
       }
       });
-  });
+  // });
 
 });
