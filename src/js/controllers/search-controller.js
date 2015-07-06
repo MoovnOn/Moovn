@@ -32,7 +32,7 @@ router.route('', 'search', function (){
 	});
 
 
-  $(function() {
+  // $(function tags() {
 
       $("#tags").autocomplete({
         source: availableTags,
@@ -48,6 +48,6 @@ router.route('', 'search', function (){
           results: function() {}
       }
       });
-  });
+  // });
 
 });
