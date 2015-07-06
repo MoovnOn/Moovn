@@ -12,11 +12,10 @@ class Boundary(models.Model):
     pass
 
 
-class names(models.Model):
+class Names(models.Model):
 
 class City(models.Model):
     name = models.CharField(max_length=255)
     state = models.CharField(max_length=2)
     boundary = models.OneToOneField('Boundary')
     names = models.ForeignKey('names')
-    
