@@ -7,5 +7,10 @@ var show = require('../show');
 router.route('search/:cityName', function (cityName){
   
   show('city', {city: cityName});;
-
+  
+  $(function() {
+     $( "#accordion" ).accordion({
+      collapsible: true
+    });
+  });
 });

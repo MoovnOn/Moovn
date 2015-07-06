@@ -1,7 +1,9 @@
 @import 'reset';
 @import 'mixin';
-@import 'pure/pure';
+@import 'pure/pure-min';
+@import 'pure/grids-responsive-min';
 @import 'search';
+@import 'city';
 
 .ui-autocomplete{
 border: 1px solid grey;
@@ -10,4 +12,7 @@ border-radius: 0.2em;
 }
 .ui-menu-item:hover{
 background: lightgray;  
+}
+.pure-g > *{
+  box-sizing: border-box; 
 }
