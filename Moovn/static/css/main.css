@@ -1168,6 +1168,23 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   .pure-u-xl-1, .pure-u-xl-1-1, .pure-u-xl-5-5, .pure-u-xl-24-24 {
     width: 100%; } }
 
+header {
+  text-align: left;
+  padding: 0.3em; }
+
+.moovnon-logo-container {
+  text-decoration: none; }
+
+.moovnon-logo {
+  max-height: 50px;
+  max-width: auto; }
+
+.title-container {
+  display: inline-block; }
+
+.title {
+  margin: 0; }
+
 .show-input {
   display: inline-block; }
 
@@ -1176,9 +1193,11 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   padding: 1em; }
 
 .map-container {
-  background-image: url(../img/Blank_US_Map.svg.png);
-  min-height: 100%;
-  width: auto; }
+  text-align: center; }
+
+.map-image {
+  max-width: 80%;
+  max-height: auto; }
 
 #accordion h3 {
   background: lightblue; }
