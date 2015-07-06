@@ -23,24 +23,16 @@ router.route('', 'search', function (){
 
   	if (compareCity != '' && searchCity != '') {
   		router.navigate("search/" + searchCity + "/" + compareCity, {trigger: true});
-  	} else if (compareCity === '' && searchCity != '') {		
+  	} else if (compareCity === '' && searchCity != '') {
   		router.navigate("search/" + searchCity, {trigger: true});
   	} else {
   		alert('Please enter the city you would like to see');
   	}
 	});
-  
-    
+
+
   $(function() {
-      var availableTags = [
-        "Austin, TX", 
-        "Durham, NC", 
-        "Charlotte, NC",
-        "Fort Collins, CO",
-        "Colorado Springs, CO",
-        "Nashville, TN",
-        "Seattle, WA"
-      ];
+
       $("#tags").autocomplete({
         source: availableTags,
         messages: {
