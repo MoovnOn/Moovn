@@ -4,6 +4,7 @@ var views = require('views');
 var router = require('../router');
 var show = require('../show');
 var autocomplete = require('jquery-ui');
+var tags = require('city-list')
 
 router.route('', 'search', function (){
   show('search');

@@ -12,11 +12,7 @@
 </head>
 
 <body>
-  <script>
-    {% autoescape on %}
-    var availableTags = [{% for item in cities %} "{{item}}", {% endfor %}]
-    {% endautoescape %}
-  </script>
+
   <div class= "main-content"></div>
 
     <script src="{% static 'js/vendor.js' %}"></script>

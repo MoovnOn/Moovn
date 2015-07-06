@@ -35,8 +35,11 @@ for item in lines:
 
 
 with open('FE_cities.py', 'w') as fh:
+    fh.write('var availableTags = [')
     for item in FE_cities:
-        fh.write(item)
+        fh.write('\"' + item + '\"' + ', ')
+
+    fh.write(']')
 
 with open('cities.py', 'w') as fh:
     for item in cities:
