@@ -34,6 +34,7 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "c3": "^0.4.10",
     "install": "^0.1.8",
     "jquery-ui": "^1.10.5",
     "npm": "^2.12.1"
