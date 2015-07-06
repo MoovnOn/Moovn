@@ -34,10 +34,10 @@ for item in lines:
                 cities[city[0][0][0] + ', ' + item.strip()] = city[1]
 
 
-with open('CityBoundaries/FE_cities.py', 'w') as fh:
+with open('FE_cities.py', 'w') as fh:
     for item in FE_cities:
         fh.write(item + '\n')
 
-with open('CityBoundaries/cities.py', 'w') as fh:
+with open('cities.py', 'w') as fh:
     for item in cities:
         fh.write(item + ':' + cities[item] + '\n')

@@ -10,11 +10,13 @@ class SchoolDistrictBoundary(models.Model):
 
 
 class Boundary(models.Model):
-    pass
+    city = models.ForeignKey('City')
+    boundary = models.TextField()
 
 
 class Names(models.Model):
-    pass
+    name = models.CharField(max_length=255)
+    city = models.ForeignKey('City')
 
 
 class Housing(models.Model):
@@ -22,6 +24,7 @@ class Housing(models.Model):
     onebrprice = models.IntegerField()
     twobrprice = models.IntegerField()
     threebrprice = models.IntegerField()
+
 
 class Schools(models.Model):
     city = models.ForeignKey('City')
