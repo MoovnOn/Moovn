@@ -10,13 +10,13 @@ class SchoolDistrictBoundary(models.Model):
 
 
 class Boundary(models.Model):
-    city = models.ForeignKey('City')
-    boundary = models.TextField()
+    city = models.OneToOneField('City', related_name='boundary', null=True)
+    data = models.TextField()
 
 
 class Name(models.Model):
     name = models.CharField(max_length=255)
-    city = models.ForeignKey('City', related_name='names')
+    city = models.ForeignKey('City', related_name='names', null=True)
 
 
 class Housing(models.Model):

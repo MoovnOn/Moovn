@@ -4,7 +4,7 @@ from django.views.generic import View
 from geo.models import Name
 
 class IndexView(View):
-    city_names = Name.objects.all()
+    city_names = list(Name.objects.all())
 
     def get(self, request):
 
@@ -16,9 +16,9 @@ class IndexView(View):
                 return redirect('?geoid=' + str(city_name.city.geo_id))
 
         else:
-
+            names = [item.name for item in self.city_names]
             context = {
-                       'cities':self.city_names,
+                       'cities':names,
                        }
 
             return render(request, 'index.html', context)

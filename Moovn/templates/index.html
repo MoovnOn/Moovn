@@ -13,7 +13,9 @@
 
 <body>
   <script>
-    availableTags = {{ city_names }}
+    {% autoescape on %}
+    var availableTags = [{% for item in cities %} "{{item}}", {% endfor %}]
+    {% endautoescape %}
   </script>
   <div class= "main-content"></div>
 
