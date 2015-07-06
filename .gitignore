@@ -74,3 +74,6 @@ target/
 
 *.sqlite3
 
+# Front End
+node_modules/
+bower.json
