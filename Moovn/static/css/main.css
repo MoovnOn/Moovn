@@ -1211,7 +1211,7 @@ header {
   background: rgba(255, 255, 255, 0.6); }
 
 #accordion h3 {
-  background: lightblue; }
+  background-color: lightgray; }
 
 .c3 svg {
   font: 10px sans-serif; }
