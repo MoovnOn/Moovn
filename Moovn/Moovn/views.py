@@ -1,18 +1,16 @@
-import json
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import View
-from moovn_apis import apis
+from Moovn.moovn_apis import apis
 from geo.models import Name
 import requests
 import xmltodict
-
+#from rest_framework import Response
 
 class IndexView(View):
     city_names = list(Name.objects.all())
 
     def get(self, request):
-
         # If they searched for a city:
         if request.GET.get('city'):
             # If the city is in the database:
@@ -34,11 +32,7 @@ class HomeView(View):
     def get(self, request):
         payload = {"zws-id": apis("zillowkey"), "state": request.GET.get('state'), "city": request.GET.get('city')}
         housing_data = requests.get("http://www.zillow.com/webservice/GetDemographics.htm", params=payload)
-        housing_data = xmltodict.parse(housing_data, xml_attribs=True)
-        housing_data = json.dumps(housing_data, indent=4)
-        housing_data = json.loads(housing_data)
-
-        response = HttpResponse(data=housing_data)
-        response.status_code = 200
+        housing_data = xmltodict.parse(housing_data.text, xml_attribs=True)
+        response = JsonResponse(housing_data)
 
         return response

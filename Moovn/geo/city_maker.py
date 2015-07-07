@@ -27,3 +27,11 @@ def make():
                       encoding='utf-8') as fh:
 
                 boundary=Boundary.objects.create(data=fh.read(), city=city)
+
+    name = Name.objects.create(name='US', state='US')
+
+    US = City.objects.create(geo_id='0')
+    US.names.add(name)
+
+    with open('geo/CityBoundaries/us.json', 'r') as fh:
+        Boundary.objects.create(data=fh.read(), city=US)

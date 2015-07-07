@@ -9,7 +9,6 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     url(r'boundary/(?P<state>[\w]+)/(?P<name>[\w]+)/', views.city_boundary_view),
-
 ]
 
 #urlpatterns.extend(router)
