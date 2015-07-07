@@ -77,3 +77,7 @@ target/
 .envrc
 .direnv
 moovn_apis.py
+
+# Front End
+node_modules/
+bower.json

@@ -10,20 +10,21 @@ class SchoolDistrictBoundary(models.Model):
 
 
 class Boundary(models.Model):
-    city = models.ForeignKey('City')
-    boundary = models.TextField()
+    city = models.OneToOneField('City', related_name='boundary', null=True)
+    data = models.TextField()
 
 
-class Names(models.Model):
+class Name(models.Model):
     name = models.CharField(max_length=255)
-    city = models.ForeignKey('City')
+    state = models.CharField(max_length=2)
+    city = models.ForeignKey('City', related_name='names', null=True)
 
 
-class Housing(models.Model):
-    city = models.ForeignKey('City')
-    onebrprice = models.IntegerField()
-    twobrprice = models.IntegerField()
-    threebrprice = models.IntegerField()
+# class Housing(models.Model):
+#     city = models.ForeignKey('City')
+#     onebrprice = models.IntegerField()
+#     twobrprice = models.IntegerField()
+#     threebrprice = models.IntegerField()
 
 
 class Schools(models.Model):
@@ -37,6 +38,3 @@ class Schools(models.Model):
 
 class City(models.Model):
     geo_id = models.IntegerField()
-    state = models.CharField(max_length=2)
-    boundary = models.OneToOneField('Boundary')
-    names = models.ForeignKey('Names')

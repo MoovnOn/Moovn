@@ -1,0 +1,42 @@
+header{
+  text-align: left;
+  padding: 0.3em;
+}
+.moovnon-logo-container{
+  text-decoration: none;
+}
+.moovnon-logo{
+  max-height: 50px;
+  max-width: auto;
+}
+.title-container{
+  display: inline-block;
+  font-family: Century Gothic, sans-serif;
+}
+.title{
+  margin: 0;
+}
+.show-input {
+	display: inline-block;
+}
+.compare-form {
+  text-align: center;
+  padding: 1em;
+}
+.map-container{
+  text-align: center;
+}
+.map-image {
+  max-width: 80%;
+  max-height: auto; 
+}
+.submit, .compare {
+  background: rgb(28, 184, 65);
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgb(28, 184, 65);
+}
+.ui-autocomplete{
+  background: rgba(255,255,255,0.6);
+}

@@ -1,3 +1,12 @@
+# API/DATA Sources
+Weather: http://openweathermap.org/current#name
+
+#Design Cues
+D3 Zoomable Map http://bl.ocks.org/mbostock/2374239
+Comparison Chart example http://www.zillow.com/durham-nc/home-values/
+Slide up/fade in example http://normandrobert.com/
+
+
 # Welcome to your new Django single-page app project!
 
 This template will ease your way in building a single-page app backed by a Django API.
