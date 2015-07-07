@@ -9,12 +9,9 @@ from geo.models import City, Boundary, Name
 
 @api_view(['GET',])
 @permission_classes((permissions.AllowAny,))
-def city_boundary_view(request):
+def city_boundary_view(request, state, name):
 
-    city_name = request.GET.get('name')
-    city_state = request.GET.get('state')
-    name = get_object_or_404(Name, name=city_name, state=city_state)
-
+    name = get_object_or_404(Name, name=name, state=state)
     response = HttpResponse(data=name.city.boundary.data)
     response.status_code = 200
 
