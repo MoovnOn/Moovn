@@ -12,8 +12,8 @@ from geo.models import City, Boundary, Name
 import xmltodict
 
 
-@api_view(['GET',])
-@permission_classes((permissions.AllowAny,))
+# @api_view(['GET',])
+# @permission_classes((permissions.AllowAny,))
 def city_boundary_view(request, state, name):
 
     name = get_object_or_404(Name, name=name, state=state)
@@ -33,14 +33,14 @@ class HomeView(View):
         return response
 
 
-@api_view(['GET',])
-@permission_classes((permissions.AllowAny,))
+# @api_view(['GET',])
+# @permission_classes((permissions.AllowAny,))
 def cell_view(request, state, name):
     query = state + '+' + name
-    coords = request.get("http://api.tiles.mapbox.com/v4/geocode/mapbox.places/" \
+    coords = requests.get("http://api.tiles.mapbox.com/v4/geocode/mapbox.places/" \
                          + query +".json?access_token=" + apis('mapbox'))
 
-    signal = request.get("http://api.opensignal.com/v2/networkstats.json?lat=" \
+    signal = requests.get("http://api.opensignal.com/v2/networkstats.json?lat=" \
                 + coords[0] + "&lng=" + coords[1] \
                 + "&distance=" + 10 \
                 #+ "&network_type=" + {network_type} +
