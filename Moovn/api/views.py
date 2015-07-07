@@ -21,6 +21,7 @@ def city_boundary_view(request, state, name):
 
     return response
 
+
 class HomeView(View):
 
     def get(self, request, state, city):
@@ -30,3 +31,20 @@ class HomeView(View):
         response = JsonResponse(housing_data)
 
         return response
+
+
+@api_view(['GET',])
+@permission_classes((permissions.AllowAny,))
+def cell_view(request, state, name):
+    query = state + '+' + name
+    coords = request.get("http://api.tiles.mapbox.com/v4/geocode/mapbox.places/" \
+                         + query +".json?access_token=" + apis('mapbox'))
+
+    signal = request.get("http://api.opensignal.com/v2/networkstats.json?lat=" \
+                + coords[0] + "&lng=" + coords[1] \
+                + "&distance=" + 10 \
+                #+ "&network_type=" + {network_type} +
+                + "&json_format=" + 2 # 2 is suggested \
+                + "&apikey=" + apis('opensignal'))
+
+    return JsonResponse(signal)
