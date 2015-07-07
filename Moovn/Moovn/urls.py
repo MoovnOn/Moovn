@@ -20,8 +20,9 @@ import rest_framework
 from . import views
 
 urlpatterns = [
-    #url(r'^admin/', include(admin.site.urls)),
+    # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.IndexView.as_view()),
-    #url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^api/', include('api.urls')),
+    url(r'^home/', views.HomeView.as_view()),
+    # url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'api/', include('api.urls')),
 ]
