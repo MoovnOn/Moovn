@@ -25,14 +25,3 @@ class IndexView(View):
             }
 
             return render(request, 'index.html', context)
-
-
-class HomeView(View):
-
-    def get(self, request):
-        payload = {"zws-id": apis("zillowkey"), "state": request.GET.get('state'), "city": request.GET.get('city')}
-        housing_data = requests.get("http://www.zillow.com/webservice/GetDemographics.htm", params=payload)
-        housing_data = xmltodict.parse(housing_data.text, xml_attribs=True)
-        response = JsonResponse(housing_data)
-
-        return response
