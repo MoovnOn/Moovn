@@ -20,6 +20,6 @@ router.route('search/:cityName', function (cityName){
       startCollapsed: 'accordion'
   });
 
-  places(cityName);
-
+  places(cityName, "banks", ".banks-tab-data");
+  places(cityName, "brewery", ".leisure-tab-data");
 });
