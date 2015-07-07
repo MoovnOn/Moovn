@@ -73,4 +73,7 @@ docs/_build/
 target/
 
 *.sqlite3
-
+/.idea/
+.envrc
+.direnv
+moovn_apis.py
