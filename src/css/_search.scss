@@ -36,10 +36,15 @@ header{
   border-radius: 4px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
   border: 1px solid rgb(28, 184, 65);
+  margin-bottom: 3px;
 }
 .ui-autocomplete{
   background: rgba(255,255,255,0.6);
 }
-.search-city{
+//overwrites pure changing inputs to display block
+@media only screen and (max-width: 480px){
+  .pure-form input:not([type]){
   display: inline-block;
+  }  
 }
+

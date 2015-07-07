@@ -139,24 +139,6 @@ table {
   opacity: 0.5; }
 
 /* Buttons */
-button {
-  display: inline-block;
-  margin-top: 10px;
-  margin-right: 10px;
-  padding: 10px 20px;
-  line-height: 100%;
-  color: black;
-  font-size: 14px;
-  text-align: center;
-  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
-  vertical-align: middle;
-  font-weight: bold;
-  border: 0;
-  border-radius: 3px;
-  background-color: lightgrey;
-  box-shadow: 0px 3px 0px 0px grey;
-  cursor: pointer; }
-
 /* Info bar */
 .info {
   display: inline-block;
@@ -1333,13 +1315,15 @@ header {
   color: white;
   border-radius: 4px;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  border: 1px solid #1cb841; }
+  border: 1px solid #1cb841;
+  margin-bottom: 3px; }
 
 .ui-autocomplete {
   background: rgba(255, 255, 255, 0.6); }
 
-.search-city {
-  display: inline-block; }
+@media only screen and (max-width: 480px) {
+  .pure-form input:not([type]) {
+    display: inline-block; } }
 
 #accordion h3 {
   background-color: lightgray; }

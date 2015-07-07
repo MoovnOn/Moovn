@@ -39,14 +39,17 @@ router.route('', 'search', function (){
         messages: {
           noResults: '',
           results: function() {}
-      }
+          },
+          _resizeMenu: function() {
+            this.menu.element.outerWidth( 500 );
+          }
       });
        $("#tags2").autocomplete({
         source: availableTags,
         messages: {
           noResults: '',
           results: function() {}
-      }
+          }
       });
   // });
 
