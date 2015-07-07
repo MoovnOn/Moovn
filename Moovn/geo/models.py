@@ -16,7 +16,7 @@ class Boundary(models.Model):
 
 class Name(models.Model):
     name = models.CharField(max_length=255)
-    state = models.CharField(max_length=2)
+    state = models.CharField(max_length=2, null=True)
     city = models.ForeignKey('City', related_name='names', null=True)
 
 
