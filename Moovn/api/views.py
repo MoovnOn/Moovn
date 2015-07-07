@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
+import geojson
 
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
@@ -12,6 +13,6 @@ from geo.models import City, Boundary, Name
 def city_boundary_view(request, state, name):
 
     name = get_object_or_404(Name, name=name, state=state)
-    response = JsonResponse(name.city.boundary.data)
-    
+    response = JsonResponse(geojson.load(name.city.boundary.data))
+
     return response
