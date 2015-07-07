@@ -16,7 +16,7 @@ router.route('', 'search', function (){
   	$(this).addClass('hidden');
   });
 
-  $('.compare-form').on('submit', function(e) {
+  $('.search-form').on('submit', function(e) {
   	e.preventDefault();
 
   	var searchCity = $('.search-city').val();
@@ -31,18 +31,13 @@ router.route('', 'search', function (){
   	}
 	});
 
-
-  // $(function tags() {
-
       $("#tags").autocomplete({
         source: availableTags,
         messages: {
           noResults: '',
           results: function() {}
           },
-          _resizeMenu: function() {
-            this.menu.element.outerWidth( 500 );
-          }
+         
       });
        $("#tags2").autocomplete({
         source: availableTags,
@@ -51,6 +46,5 @@ router.route('', 'search', function (){
           results: function() {}
           }
       });
-  // });
 
 });
