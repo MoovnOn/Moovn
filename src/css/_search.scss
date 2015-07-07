@@ -16,8 +16,17 @@ header{
 .title{
   margin: 0;
 }
+.sub-title-container{
+  margin-bottom:1em;
+}
+.sub-title{
+  margin: 0;
+  margin-bottom:0.2em;
+}
 .search-page-container{
- margin:2em; 
+ margin-right: 2em;
+ margin-left: 2em;
+ margin-bottom: 2em; 
 }
 .show-input {
 	display: inline-block;
@@ -26,8 +35,13 @@ header{
   text-align: center;
   padding: 1em;
 }
+.search-city{
+  min-width: 20em;
+}
 .map-container{
   text-align: center;
+  max-width: 50em;
+  margin: auto;
 }
 .map-image {
   max-width: 80%;
