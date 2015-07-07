@@ -16,14 +16,15 @@ class Boundary(models.Model):
 
 class Name(models.Model):
     name = models.CharField(max_length=255)
+    state = models.CharField(max_length=2)
     city = models.ForeignKey('City', related_name='names', null=True)
 
 
-class Housing(models.Model):
-    city = models.ForeignKey('City')
-    onebrprice = models.IntegerField()
-    twobrprice = models.IntegerField()
-    threebrprice = models.IntegerField()
+# class Housing(models.Model):
+#     city = models.ForeignKey('City')
+#     onebrprice = models.IntegerField()
+#     twobrprice = models.IntegerField()
+#     threebrprice = models.IntegerField()
 
 
 class Schools(models.Model):
@@ -37,4 +38,3 @@ class Schools(models.Model):
 
 class City(models.Model):
     geo_id = models.IntegerField()
-    state = models.CharField(max_length=2)

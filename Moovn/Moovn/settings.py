@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'geo',
+    'api',
     'django_extensions',
     'rest_framework',
     'requests'
