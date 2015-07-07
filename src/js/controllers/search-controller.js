@@ -16,7 +16,7 @@ router.route('', 'search', function (){
   	$(this).addClass('hidden');
   });
 
-  $('.compare-form').on('submit', function(e) {
+  $('.search-form').on('submit', function(e) {
   	e.preventDefault();
 
   	var searchCity = $('.search-city').val();
@@ -31,23 +31,20 @@ router.route('', 'search', function (){
   	}
 	});
 
-
-  // $(function tags() {
-
       $("#tags").autocomplete({
         source: availableTags,
         messages: {
           noResults: '',
           results: function() {}
-      }
+          },
+         
       });
        $("#tags2").autocomplete({
         source: availableTags,
         messages: {
           noResults: '',
           results: function() {}
-      }
+          }
       });
-  // });
 
 });
