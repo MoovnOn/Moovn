@@ -1296,10 +1296,13 @@ header {
 .title {
   margin: 0; }
 
+.search-page-container {
+  margin: 2em; }
+
 .show-input {
   display: inline-block; }
 
-.compare-form {
+.search-form {
   text-align: center;
   padding: 1em; }
 
@@ -1319,7 +1322,22 @@ header {
   margin-bottom: 3px; }
 
 .ui-autocomplete {
-  background: rgba(255, 255, 255, 0.6); }
+  background: rgba(255, 255, 255, 0.6);
+  max-height: 350px;
+  overflow-y: auto;
+  overflow-x: auto; }
+
+.flow-container {
+  margin-top: 2em; }
+
+.flow {
+  text-align: center; }
+
+.flow-icon {
+  margin: 1.5em auto;
+  height: 2em;
+  width: auto;
+  display: block; }
 
 @media only screen and (max-width: 480px) {
   .pure-form input:not([type]) {
