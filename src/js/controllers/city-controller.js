@@ -14,8 +14,6 @@ router.route('search/:cityName', function (cityName){
  	
  	chart();
 
-
-
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
   });
