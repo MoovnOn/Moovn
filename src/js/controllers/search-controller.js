@@ -16,7 +16,7 @@ router.route('', 'search', function (){
   	$(this).addClass('hidden');
   });
 
-  $('.compare-form').on('submit', function(e) {
+  $('.search-form').on('submit', function(e) {
   	e.preventDefault();
 
   	var searchCity = $('.search-city').val();
