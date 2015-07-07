@@ -17,7 +17,8 @@ import xmltodict
 def city_boundary_view(request, state, name):
 
     name = get_object_or_404(Name, name=name, state=state)
-    response = JsonResponse(geojson.load(name.city.boundary.data))
+    data =
+    response = JsonResponse(geojson.loads(name.city.boundary.data))
 
     return response
 
