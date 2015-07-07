@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="d3.min.js"></script>
+</head>
+<body>
+
+  <svg>
+  </svg>
+
+  <button id="zoom">Zoom</button>
+
+<script>
+  var svg = d3.select("svg");
+  var height = 300
+  var width = 300
+  svg.attr("width", width).attr("height", height)
+  var g = svg.append("g")
+  var projection = d3.geo.albers().scale(400).translate([150,140]);
+  var path = d3.geo.path().projection(projection);
+
+
+  d3.json("us.json", function(json){
+    // d3.json loads a specified file and passes the json from that file
+    // into the second parameter
+    // here that function adds paths to the svg for a map of the US
+
+    // Replace this with an API call that feeds json into the same
+    // function
+
+    var b = path.bounds(json);
+
+    g.append("rect").attr('width', width).attr('height', height)
+       .style('stroke', 'black').style('fill', 'blue');
+
+    g.selectAll("path")
+        .data(json.features, function(d){return d.properties.GEOID10;})
+      .enter().append("path")
+        .attr("d", path)
+        .attr("class", "feature")
+        .style("fill", "green")
+        .style("stroke-width", "1")
+        .style("stroke", "none")
+        .attr("id", function(d){return d.properties.GEOID10;});
+  });
+
+
+  function durham(){
+    // function to wrap loading of Durham, NC
+
+    d3.json("25228.json", function(json){
+      // same function used for loading/drawing the US map
+      // but applied to Durham, NC
+
+      // the main idea here is this:
+      // when the user searches for a city,
+      // if it's the first time they've searched for that one
+      // (just check the DOM for the ID of that city)
+      // add it city to the map,
+      // then Zoom.  See the zoom button for details
+
+      g.selectAll("path")
+          .data(json.features, function(d) {return d.properties.GEOID10;})
+        .enter().append("path")
+          .attr("d", path)
+          .attr("class", "feature")
+          .style("fill", "black")
+          .style("stroke-width", "1")
+          .style("stroke", "none")
+          .attr("id", function(d) {return d.properties.GEOID10;});
+    });
+  }
+
+  function clicked(){
+    // function to zoom in on Durham, NC
+    // you could replace d with a different path element
+    // to zoom to that element
+
+    var d = document.getElementById("25228");
+
+    g.transition()
+     .duration(450)
+     .style("stroke-width", 1.5/ 1 + "px")
+     .attr("transform", "translate(" + [0, 0] + ")scale(" + 1 + ")");
+
+    var bounds = path.bounds(d.__data__),
+      dx = bounds[1][0] - bounds[0][0],
+      dy = bounds[1][1] - bounds[0][1],
+      x = (bounds[0][0] + bounds[1][0])/2,
+      y = (bounds[0][1] + bounds[1][1])/2,
+      scale = .9 / Math.max( dx / width, dy / height),
+      translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+    g.transition()
+     .duration(1000)
+     .style("stroke-width", 1.5/ scale + "px")
+     .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+
+  }
+
+    // simple action attached to Zoom button for testing
+    $.when(d3.select("#zoom").on("click")).then(durham()).then(clicked());
+
+
+</script>
+</body>
+</html>

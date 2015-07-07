@@ -11,23 +11,27 @@ def make():
         item = item.split(':')
         cities[item[0].strip()] = item[1].strip()
 
-
     for item in cities:
-        name = Name.objects.create(name=item)
+        full = item.split(', ')
+        name = Name.objects.create(name=full[0], state=full[1])
 
         if City.objects.filter(geo_id=cities[item]).exists():
-
             city = City.objects.get(geo_id=cities[item])
             city.names.add(name)
 
         else:
-
             city = City.objects.create(geo_id=cities[item])
             city.names.add(name)
 
             with open('geo/CityBoundaries/' + cities[item] + '.json', 'r', \
                       encoding='utf-8') as fh:
-                      
-                boundary=Boundary.objects.create(data=fh.read())
-                city.boundary = boundary
-                city.save()
+
+                boundary=Boundary.objects.create(data=fh.read(), city=city)
+
+    name = Name.objects.create(name='US', state='US')
+
+    US = City.objects.create(geo_id='0')
+    US.names.add(name)
+
+    with open('geo/CityBoundaries/us.json', 'r') as fh:
+        Boundary.objects.create(data=fh.read(), city=US)
