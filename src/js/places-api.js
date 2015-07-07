@@ -3,13 +3,14 @@ var service;
 var infowindow;
 var $ = require('jquery') 
 
-module.exports = function(query) {
+module.exports = function(search) {
 
 	var key = 'AIzaSyB6Gp2tJP3mWdIFot6fZNfarDoopGurZSs';
-	var request = {
-	    query: "banks" + query
-	};
 
+	var request = {
+	    query: "banks" + " " + search
+	};
+console.log(request);
 	map = new google.maps.Map(document.getElementById('map'));
 
 	service = new google.maps.places.PlacesService(map);
