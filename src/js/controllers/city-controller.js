@@ -7,7 +7,7 @@ var show = require('../show');
 var chart = require('../c3-charts');
 var places = require('../places-api');
 var tab = require('responsive-tabs');
-var d3 = require('../d3');
+var d3 = require('d3');
 var drawMap = require('../drawMap');
 
 router.route('search/:cityName', function (cityName){
