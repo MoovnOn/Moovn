@@ -51,3 +51,16 @@ def cell_view(request, state, name):
                 + "&apikey=" + apis('opensignal'))
 
     return HttpResponse(signal)
+
+
+def neighborhood_view(request, state, name):
+    name = get_object_or_404(Name, name=name, state=state)
+    boundaryset = list(name.city.neighborhoodboundary_set.all())
+
+    collection = []
+    for x in boundaryset:
+        collection.extend(geojson.loads(x).features)
+
+    collection = geojson.FeatureCollection(collection)
+
+    return JsonResponse(collection)
