@@ -11,16 +11,16 @@ var svg = d3.select("svg");
     var b = path.bounds(data);
 
     g.append("rect").attr('width', width).attr('height', height)
-       .style('stroke', 'black').style('fill', 'blue');
+       .style('stroke', 'black').style('fill', 'white');
 
     g.selectAll("path")
         .data(data.features, function(d){return d.properties.GEOID10;})
       .enter().append("path")
         .attr("d", path)
         .attr("class", "feature")
-        .style("fill", "green")
-        .style("stroke-width", "1")
-        .style("stroke", "none")
+        .style("fill", "white")
+        .style("stroke-width", "0.01")
+        .style("stroke", "gray")
         .attr("id", function(d){return d.properties.GEOID10;});	
 
     var bounds = path.bounds(data),
