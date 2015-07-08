@@ -51,3 +51,11 @@ def cell_view(request, state, name):
                 + "&apikey=" + apis('opensignal'))
 
     return HttpResponse(signal)
+
+
+def neighborhood_view(request, state, name):
+    name = get_object_or_404(Name, name=name, state=state)
+    collection =
+    response = JsonResponse()
+
+    return response
