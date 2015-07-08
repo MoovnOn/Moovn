@@ -1,0 +1,442 @@
+city,code,state
+Seattle Bellevue Everett,42644,WA
+Florence,22500,SC
+Hanford Corcoran,25260,CA
+San Jose Sunnyvale Santa Clara,41940,CA
+Spokane Spokane Valley,44060,WA
+Rome,40660,GA
+Pittsfield,76600,MA
+El Centro,20940,CA
+Wheeling,48540,WV OH
+Midland,33260,TX
+Ocean City,36140,NJ
+Provo Orem,39340,UT
+Greenville,24780,NC
+Virginia Beach Norfolk Newport News,47260,VA NC
+Bellingham,13380,WA
+Jonesboro,27860,AR
+Morristown,34100,TN
+Beckley,13220,WV
+Madera,31460,CA
+Sacramento  Roseville  Arden Arcade,40900,CA
+Duluth,20260,MN WI
+Albany,10540,OR
+Jefferson City,27620,MO
+Lake Havasu City Kingman,29420,AZ
+Tyler,46340,TX
+Dover Durham,73050,NH ME
+Framingham,73104,MA
+New Orleans Metairie,35380,LA
+Phoenix Mesa Scottsdale,38060,AZ
+Akron,10420,OH
+Rochester,40380,NY
+Brunswick,15260,GA
+Lubbock,31180,TX
+Odessa,36220,TX
+Lawrence Methuen Town Salem,74204,MA NH
+"Calvert
+",17660,MD
+Kingston,28740,NY
+South Bend Mishawaka,43780,IN MI
+Grand Island,24260,NE
+Northern Virginia,94783,VA
+Albany Schenectady Troy,10580,NY
+Las Vegas Henderson Paradise,29820,NV
+Ann Arbor,11460,MI
+Charleston North Charleston,16700,SC
+Anniston Oxford Jacksonville,11500,AL
+Asheville,11700,NC
+Hot Springs,26300,AR
+Cape Coral Fort Myers,15980,FL
+Hartford West Hartford East Hartford,73450,CT
+Grants Pass,24420,OR
+Sioux Falls,43620,SD
+Lakeland Winter Haven,29460,FL
+Philadelphia Camden Wilmington,37980,PA NJ DE MD
+Cape Girardeau,16020,MO IL
+Wichita,48620,KS
+Johnstown,27780,PA
+Montgomery County Bucks County Chester County,33874,PA
+St. Cloud,41060,MN
+Ames,11180,IA
+Bangor,70750,ME
+Binghamton,13780,NY
+Columbus,17980,GA AL
+Homosassa Springs,26140,FL
+Allentown Bethlehem Easton,10900,PA NJ
+Wenatchee,48300,WA
+Glens Falls,24020,NY
+San Francisco Redwood City South San Francisco,41884,CA
+Los Angeles Long Beach Glendale,31084,CA
+Sheboygan,43100,WI
+Fairbanks,21820,AK
+Gainesville,23580,GA
+Yakima,49420,WA
+Bergen Hudson Passaic,93563,NJ
+Ogden Clearfield,36260,UT
+Cincinnati,17140,OH KY IN
+Charlotte Concord Gastonia,16740,NC SC
+Louisville/Jefferson County,31140,KY IN
+San Angelo,41660,TX
+Myrtle Beach Conway North Myrtle Beach,34820,SC NC
+Mount Vernon Anacortes,34580,WA
+Santa Fe,42140,NM
+Amarillo,11100,TX
+Baltimore Columbia Towson,12580,MD
+Kansas City,28140,MO KS
+Monroe,33780,MI
+Lansing East Lansing,29620,MI
+Casper,16220,WY
+Cumberland,19060,MD WV
+Wilmington,48864,DE MD NJ
+Lake County Kenosha County,29404,IL WI
+Orlando Kissimmee Sanford,36740,FL
+Weirton Steubenville,48260,WV OH
+Hagerstown Martinsburg,25180,MD WV
+Tacoma Lakewood,45104,WA
+McAllen Edinburg Mission,32580,TX
+Valdosta,46660,GA
+Erie,21500,PA
+San Francisco Oakland Hayward,41860,CA
+Salem,41420,OR
+Lima,30620,OH
+Kokomo,29020,IN
+Saginaw,40980,MI
+Walla Walla,47460,WA
+Oakland Hayward Berkeley,36084,CA
+Boise City,14260,ID
+Boulder,14500,CO
+Lexington Fayette,30460,KY
+Alexandria,10780,LA
+Peoria,37900,IL
+Carbondale Marion,16060,IL
+Syracuse,45060,NY
+Texarkana,45500,TX AR
+Naples Immokalee Marco Island,34940,FL
+Lawrence,29940,KS
+Rochester,40340,MN
+Fresno,23420,CA
+Milwaukee Waukesha West Allis,33340,WI
+Cedar Rapids,16300,IA
+Durham Chapel Hill,20500,NC
+Abilene,10180,TX
+Longview,30980,TX
+Springfield,44100,IL
+Sherman Denison,43300,TX
+Decatur,19460,AL
+Huntington Ashland,26580,WV KY OH
+Bridgeport Stamford Norwalk,71950,CT
+Silver Spring Frederick Rockville,43524,MD
+Carson City,16180,NV
+Tampa St. Petersburg Clearwater,45300,FL
+Peabody Salem Beverly,76524,MA
+Gadsden,23460,AL
+San Luis Obispo Paso Robles Arroyo Grande,42020,CA
+Warner Robins,47580,GA
+Salt Lake City,41620,UT
+California Lexington Park,15680,MD
+Atlanta Sandy Springs Roswell,12060,GA
+Jackson,27180,TN
+Lincoln,30700,NE
+Pine Bluff,38220,AR
+Sumter,44940,SC
+Springfield,44180,MO
+Lebanon,30140,PA
+Rocky Mount,40580,NC
+Little Rock North Little Rock Conway,30780,AR
+York Hanover,49620,PA
+Elkhart Goshen,21140,IN
+La Crosse Onalaska,29100,WI MN
+Danbury,72850,CT
+Savannah,42340,GA
+Scranton  Wilkes Barre  Hazleton,42540,PA
+Anchorage,11260,AK
+Salinas,41500,CA
+Detroit Dearborn Livonia,19804,MI
+Iowa City,26980,IA
+Middlesex Monmouth Ocean,93565,NJ
+Orange Rockland Westchester,93562,NY
+Albany,10500,GA
+Nassau County Suffolk County,35004,NY
+Bloomsburg Berwick,14100,PA
+Colorado Springs,17820,CO
+Fort Smith,22900,AR OK
+Harrisonburg,25500,VA
+Lewiston,30300,ID WA
+Hammond,25220,LA
+Pueblo,39380,CO
+Brockton Bridgewater Easton,72104,MA
+Grand Forks,24220,ND MN
+Lowell Billerica Chelmsford,74804,MA NH
+Panama City,37460,FL
+Chicago Naperville Arlington Heights,16974,IL
+Eau Claire,20740,WI
+Albuquerque,10740,NM
+Mankato North Mankato,31860,MN
+Redding,39820,CA
+Macon,31420,GA
+Kansas City,92811,MO
+Lewiston Auburn,74650,ME
+San Rafael,42034,CA
+Delaware County,97962,PA
+Santa Cruz Watsonville,42100,CA
+Columbia,17900,SC
+Parkersburg Vienna,37620,WV
+Gulfport Biloxi Pascagoula,25060,MS
+El Paso,21340,TX
+New York Jersey City White Plains,35614,NY NJ
+Auburn Opelika,12220,AL
+Worcester,79600,MA CT
+Washington Arlington Alexandria,47894,DC VA MD WV
+Leominster Gardner,74500,MA
+Knoxville,28940,TN
+Springfield,44220,OH
+Bloomington,14010,IL
+Bakersfield,12540,CA
+Sierra Vista Douglas,43420,AZ
+Santa Maria Santa Barbara,42200,CA
+Monroe,33740,LA
+Miami Miami Beach Kendall,33124,FL
+Elizabethtown Fort Knox,21060,KY
+San German,41900,PR
+Battle Creek,12980,MI
+Wausau,48140,WI
+Madison,31540,WI
+Joplin,27900,MO
+Altoona,11020,PA
+Dothan,20020,AL
+Birmingham Hoover,13820,AL
+Green Bay,24580,WI
+Laredo,29700,TX
+Newark,35084,NJ PA
+Wilmington,48900,NC
+Missoula,33540,MT
+Olympia Tumwater,36500,WA
+Prescott,39140,AZ
+Topeka,45820,KS
+Pocatello,38540,ID
+Dayton,19380,OH
+Minneapolis St. Paul Bloomington,33460,MN WI
+New York Newark Jersey City,35620,NY NJ PA
+Palm Bay Melbourne Titusville,37340,FL
+Gary,23844,IN
+Evansville,21780,IN KY
+Grand Junction,24300,CO
+Crestview Fort Walton Beach Destin,18880,FL
+Hattiesburg,25620,MS
+Stockton Lodi,44700,CA
+Davenport Moline Rock Island,19340,IA IL
+Hilton Head Island Bluffton Beaufort,25940,SC
+Dubuque,20220,IA
+Greeley,24540,CO
+Rapid City,39660,SD
+Camden,15804,NJ
+North Port Sarasota Bradenton,35840,FL
+Brownsville Harlingen,15180,TX
+Bend Redmond,13460,OR
+Yuba City,49700,CA
+Beaumont Port Arthur,13140,TX
+Salisbury,41540,MD DE
+Fayetteville Springdale Rogers,22220,AR MO
+Kingsport Bristol Bristol,28700,TN VA
+Fond du Lac,22540,WI
+Idaho Falls,26820,ID
+Lafayette West Lafayette,29200,IN
+Seattle Tacoma Bellevue,42660,WA
+Haverhill Newburyport Amesbury Town,73604,MA NH
+Houma Thibodaux,26380,LA
+Niles Benton Harbor,35660,MI
+Longview,31020,WA
+Bay City,13020,MI
+Nashville Davidson  Murfreesboro  Franklin,34980,TN
+College Station Bryan,17780,TX
+Visalia Porterville,47300,CA
+Chambersburg Waynesboro,16540,PA
+Waco,47380,TX
+Flint,22420,MI
+Billings,13740,MT
+Richmond,40060,VA
+Mansfield,31900,OH
+Portland Vancouver Hillsboro,38900,OR WA
+St. Louis,41180,MO IL
+Cleveland Elyria,17460,OH
+Pensacola Ferry Pass Brent,37860,FL
+Florence Muscle Shoals,22520,AL
+Great Falls,24500,MT
+Chicago Naperville Elgin,16980,IL IN WI
+Oxnard Thousand Oaks Ventura,37100,CA
+Riverside San Bernardino Ontario,40140,CA
+Austin Round Rock,12420,TX
+Columbia,17860,MO
+Huntsville,26620,AL
+Los Angeles Long Beach Anaheim,31080,CA
+Jackson,27140,MS
+Janesville Beloit,27500,WI
+Providence Warwick,77200,RI MA
+Deltona Daytona Beach Ormond Beach,19660,FL
+Chattanooga,16860,TN GA
+Houston The Woodlands Sugar Land,26420,TX
+Medford,32780,OR
+Denver Aurora Lakewood,19740,CO
+Wichita Falls,48660,TX
+Flagstaff,22380,AZ
+Victoria,47020,TX
+Kankakee,28100,IL
+Jacksonville,27260,FL
+Lynn Saugus Marblehead,74854,MA
+Owensboro,36980,KY
+Fort Worth Arlington,23104,TX
+Watertown Fort Drum,48060,NY
+Goldsboro,24140,NC
+The Villages,45540,FL
+Lafayette,29180,LA
+Mayaguez,32420,PR
+Harrisburg Carlisle,25420,PA
+Greensboro High Point,24660,NC
+Manhattan,31740,KS
+Oklahoma City,36420,OK
+West Palm Beach Boca Raton Delray Beach,48424,FL
+New Bern,35100,NC
+Dutchess County Putnam County,20524,NY
+Chico,17020,CA
+Philadelphia,37964,PA
+Port St. Lucie,38940,FL
+Hinesville,25980,GA
+Des Moines West Des Moines,19780,IA
+Portland South Portland,76750,ME
+Charlottesville,16820,VA
+Corvallis,18700,OR
+Elgin,20994,IL
+Warren Troy Farmington Hills,47664,MI
+Jacksonville,27340,NC
+Portsmouth,76900,NH ME
+Toledo,45780,OH
+Miami Fort Lauderdale West Palm Beach,33100,FL
+Pittsburgh,38300,PA
+Waterbury,78700,CT
+Boston Cambridge Nashua,71650,MA NH
+Morgantown,34060,WV
+Reading,39740,PA
+State College,44300,PA
+Bismarck,13900,ND
+Mobile,33660,AL
+Logan,30860,UT ID
+Gettysburg,23900,PA
+Lawton,30020,OK
+Hickory Lenoir Morganton,25860,NC
+Muskegon,34740,MI
+Trenton,45940,NJ
+Cheyenne,16940,WY
+Kalamazoo Portage,28020,MI
+Grand Rapids Wyoming,24340,MI
+Greenville Anderson Mauldin,24860,SC
+Kennewick Richland,28420,WA
+Fayetteville,22180,NC
+Baltimore City,92581,MD
+Las Cruces,29740,NM
+Elmira,21300,NY
+Napa,34900,CA
+Detroit Warren Dearborn,19820,MI
+Utica Rome,46540,NY
+San Antonio New Braunfels,41700,TX
+Ocala,36100,FL
+Blacksburg Christiansburg Radford,13980,VA
+Athens Clarke County,12020,GA
+Punta Gorda,39460,FL
+Dover,20100,DE
+Canton Massillon,15940,OH
+Bowling Green,14540,KY
+Oshkosh Neenah,36780,WI
+Farmington,22140,NM
+Lancaster,29540,PA
+Columbus,18140,OH
+Youngstown Warren Boardman,49660,OH PA
+Vallejo Fairfield,46700,CA
+Vineland Bridgeton,47220,NJ
+Atlantic City Hammonton,12100,NJ
+Montgomery,33860,AL
+Memphis,32820,TN MS AR
+Clarksville,17300,TN KY
+Barnstable Town,70900,MA
+Terre Haute,45460,IN
+St. George,41100,UT
+Decatur,19500,IL
+Muncie,34620,IN
+Racine,39540,WI
+Dalton,19140,GA
+Tucson,46060,AZ
+Guayama,25020,PR
+Johnson City,27740,TN
+Lake Charles,29340,LA
+Winston Salem,49180,NC
+Daphne Fairhope Foley,19300,AL
+Urban Honolulu,46520,HI
+Cleveland,17420,TN
+San Juan Carolina Caguas,41980,PR
+Raleigh,39580,NC
+New York City,93561,NY
+East Stroudsburg,20700,PA
+Tallahassee,45220,FL
+Bremerton Silverdale,14740,WA
+Burlington,15500,NC
+Midland,33220,MI
+Rockford,40420,IL
+Dallas Plano Irving,19124,TX
+Fort Lauderdale Pompano Beach Deerfield Beach,22744,FL
+Burlington South Burlington,72400,VT
+Sebring,42700,FL
+Arecibo,11640,PR
+Shreveport Bossier City,43340,LA
+New Haven,75700,CT
+Santa Rosa,42220,CA
+Tuscaloosa,46220,AL
+Anaheim Santa Ana Irvine,11244,CA
+Gainesville,23540,FL
+Ponce,38660,PR
+Modesto,33700,CA
+Appleton,11540,WI
+Omaha Council Bluffs,36540,NE IA
+Jackson,27100,MI
+Norwich New London Westerly,76450,CT RI
+Danville,19180,IL
+Michigan City La Porte,33140,IN
+Tulsa,46140,OK
+Fargo,22020,ND MN
+Winchester,49020,VA WV
+Manchester,74950,NH
+Waterloo Cedar Falls,47940,IA
+Killeen Temple,28660,TX
+St. Joseph,41140,MO KS
+Bloomington,14020,IN
+Boston Cambridge Newton,71654,MA
+Aguadilla Isabela,10380,PR
+Kahului Wailuku Lahaina,27980,HI
+New Bedford,75550,MA
+Champaign Urbana,16580,IL
+Sebastian Vero Beach,42680,FL
+Baton Rouge,12940,LA
+Buffalo Cheektowaga Niagara Falls,15380,NY
+Spartanburg,43900,SC
+Merced,32900,CA
+Fort Collins,22660,CO
+Kansas City,92812,KS
+San Diego Carlsbad,41740,CA
+Corpus Christi,18580,TX
+Roanoke,40220,VA
+Philadelphia City,97961,PA
+Indianapolis Carmel Anderson,26900,IN
+Taunton Middleborough Norton,78254,MA
+Nashua,75404,NH MA
+Ithaca,27060,NY
+Reno,39900,NV
+Columbus,18020,IN
+Yuma,49740,AZ
+Charleston,16620,WV
+Fort Wayne,23060,IN
+Springfield,78100,MA CT
+Staunton Waynesboro,44420,VA
+Sioux City,43580,IA NE SD
+Lynchburg,31340,VA
+Augusta Richmond County,12260,GA SC
+Williamsport,48700,PA
+Eugene,21660,OR

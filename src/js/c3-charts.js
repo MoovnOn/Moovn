@@ -1,9 +1,12 @@
 var c3 = require('c3');
+var d3 = require('d3');
 var $ = require('jquery');
-module.exports = function() {
-	$.ajax({
-    url: '/api/homeprices/NC/Durham/',
-    method: 'GET'
+module.exports = function(state, city) {
+	console.log(state);
+  console.log(city);
+  $.ajax({
+    method: 'GET',
+    url: '/api/homeprices/' + state + '/' + city + '/'
   })
   .then(parseHousing);
   
@@ -18,24 +21,42 @@ module.exports = function() {
     var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
     
-  
-  
-      var chart = c3.generate({
+    console.log(housingAfford);
+    console.log(housingRealEstate);
+    console.log(housingPeople);
+
+    var chart = c3.generate({
         bindto: 'body .city-chart-container',
         data: {
-          
+
           columns: [
-              ['Median-Condo-Value', housingAffordCondo],
-              ['Median-2-Bed-Home', housingAfford2Bed],
-              ['Median-3-Bed-Home', housingAfford3Bed],
-              ['Median-4-Bed-Home', housingAfford4Bed],
+              ['Condo', housingAffordCondo],
+              ['2-Bed-Home', housingAfford2Bed],
+              ['3-Bed-Home', housingAfford3Bed],
+              ['4-Bed-Home', housingAfford4Bed],
           ],
           type: 'bar'
         },
+        axis: {
+            x: {
+                type: 'bar',
+                tick: {
+                  format: d3.format("Median")
+                  },
+                label: {
+                text: 'Median Home Values',
+                position: 'outer-center',
+                },
+               },
+            y : {
+              tick: {
+                format: d3.format("$,")
+              }
+            }
+          },
           size: {
         		height: 400
       		},
-          
        });
        
        
@@ -43,7 +64,7 @@ module.exports = function() {
          if ($('#cell').is(':selected')){
               chart.load({
           columns: [
-              ['Verizon', 130, 120, 150, 140000, 160000, 200000],
+              ['Verizon', 130, 120, 150, 200],
               ['ATT', 30, 20, 50, 40, 60, 50],
               ['T-Mobile', 30, 20, 50, 40, 60, 50],
           ],
@@ -59,3 +80,4 @@ module.exports = function() {
   
   }
 };
+
