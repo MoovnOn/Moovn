@@ -5,6 +5,7 @@ from django.views.generic import View
 import requests
 import geojson
 from rest_framework import permissions
+from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 #from rest_framework import ViewSets
 
@@ -29,7 +30,7 @@ class HomeView(View):
         return JsonResponse(housing_data)
 
 
-# @api_view(['GET',])
+@api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
 def cell_view(request, state, name):
     query = state + '+' + name
@@ -46,7 +47,7 @@ def cell_view(request, state, name):
                 + "&json_format=" + "2" # 2 is suggested \
                 + "&apikey=" + apis('opensignal'))
 
-    return JsonResponse(signal)
+    return Response(signal)
 
 
 def neighborhood_view(request, state, name):
