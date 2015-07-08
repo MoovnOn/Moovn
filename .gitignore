@@ -10,6 +10,8 @@ local_settings.py
 .direnv
 .DS_Store
 CityBoundaries
+Moovn/geo/states
+Moovn/geo/neighborhoods
 
 # Created by https://www.gitignore.io
 
