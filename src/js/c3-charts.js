@@ -16,22 +16,30 @@ module.exports = function() {
     console.log(housingAfford);
     console.log(housingRealEstate);
     console.log(housingPeople);
-  }
+    
+    var housingAffordCondo = housingAfford[2].values.city.value["#text"];
+    var housingAfford2Bed = housingAfford[3].values.city.value["#text"];
+    var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
+    var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
+    
   
-  c3.generate({
-    bindto: 'body .city-chart-container',
-    data: {
-      columns: [
-          ['Median 2 Bed Home', 30, 200, 100, 400, 150, 250],
-          ['data2', 400, 20, 10, 40, 15, 25]
-      ],
-      type: 'bar'
-    },
-     
-    size: {
-  		height: 400
-		}
-   
-});
-
+  
+      c3.generate({
+        bindto: 'body .city-chart-container',
+        data: {
+          columns: [
+              ['Median Condo Value', housingAffordCondo],
+              ['Median 2 Bedroom Home', housingAfford2Bed],
+              ['Median 3 Bedroom Home', housingAfford3Bed],
+              ['Median 4 Bedroom Home', housingAfford4Bed],
+          ],
+          type: 'bar'
+        },
+         
+        size: {
+      		height: 400
+    		}
+       
+       });
+  }
 };
