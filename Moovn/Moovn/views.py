@@ -1,13 +1,16 @@
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.views.generic import View
-
+from Moovn.moovn_apis import apis
 from geo.models import Name
+import requests
+import xmltodict
+#from rest_framework import Response
 
 class IndexView(View):
     city_names = list(Name.objects.all())
 
     def get(self, request):
-
         # If they searched for a city:
         if request.GET.get('city'):
             # If the city is in the database:
@@ -18,7 +21,7 @@ class IndexView(View):
         else:
             names = [item.name for item in self.city_names]
             context = {
-                       'cities':names,
-                       }
+                'cities': names,
+            }
 
             return render(request, 'index.html', context)
