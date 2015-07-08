@@ -1282,12 +1282,21 @@ header {
   text-align: left;
   padding: 0.3em; }
 
+.header-home {
+  display: none; }
+
 .moovnon-logo-container {
   text-decoration: none; }
 
 .moovnon-logo {
   max-height: 50px;
   max-width: auto; }
+
+.search-page-container {
+  margin-right: 2em;
+  margin-left: 2em;
+  margin-bottom: 2em;
+  display: none; }
 
 .title-container {
   display: inline-block;
@@ -1302,11 +1311,6 @@ header {
 .sub-title {
   margin: 0;
   margin-bottom: 0.2em; }
-
-.search-page-container {
-  margin-right: 2em;
-  margin-left: 2em;
-  margin-bottom: 2em; }
 
 .show-input {
   display: inline-block; }
