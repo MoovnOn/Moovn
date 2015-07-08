@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 import requests
 import geojson
-import pandas as pd
+#import pandas as pd
 
 from rest_framework import permissions
 from rest_framework.response import Response
@@ -18,7 +18,6 @@ import json
 # @api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
 def city_boundary_view(request, state, name):
-
     name = get_object_or_404(Name, name=name, state=state)
     return JsonResponse(geojson.loads(name.city.boundary.data))
 
@@ -49,7 +48,7 @@ def cell_view(request, state, name):
                 + "&json_format=" + "2" # 2 is suggested \
                 + "&apikey=" + apis('opensignal'))
 
-    signal = json.loads(signal)
+    signal = json.loads(signal.text)
     return JsonResponse(signal)
 
 def neighborhood_view(request, state, name):
