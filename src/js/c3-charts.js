@@ -20,10 +20,6 @@ module.exports = function(state, city) {
     var housingAfford2Bed = housingAfford[3].values.city.value["#text"];
     var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
-    
-    console.log(housingAfford);
-    console.log(housingRealEstate);
-    console.log(housingPeople);
 
     var chart = c3.generate({
         bindto: 'body .city-chart-container',
