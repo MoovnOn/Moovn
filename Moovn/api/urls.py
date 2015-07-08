@@ -7,7 +7,7 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^boundary/(?P<state>[\w]+)/(?P<name>(?:[\w]+)\s?\-?(?:[\w]+))/$', views.city_boundary_view),
+    url(r'^boundary/(?P<state>[\w]+)/(?P<name>(?:[\w]+\s?\-?)+)/$', views.city_boundary_view),
     url(r'^homeprices/(?P<state>[\w\-]+)/(?P<city>[\w\-]+)/$', views.HomeView.as_view()),
     url(r'^celldata/(?P<state>[\w]+)/(?P<name>[\w]+)/$', views.cell_view),
 ]
