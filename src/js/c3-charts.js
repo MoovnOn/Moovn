@@ -13,10 +13,6 @@ module.exports = function() {
     var housingRealEstate= allHousingData["Demographics:demographics"].response.pages.page[1].tables.table;
     var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;
     
-    console.log(housingAfford);
-    console.log(housingRealEstate);
-    console.log(housingPeople);
-    
     var housingAffordCondo = housingAfford[2].values.city.value["#text"];
     var housingAfford2Bed = housingAfford[3].values.city.value["#text"];
     var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
