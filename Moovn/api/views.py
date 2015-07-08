@@ -4,6 +4,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 import requests
 import geojson
+import pandas as pd
+
 from rest_framework import permissions
 from rest_framework.decorators import api_view, permission_classes
 #from rest_framework import ViewSets
@@ -53,7 +55,8 @@ def cell_view(request, state, name):
     return HttpResponse(signal)
 
 
-# def BlsView(View):
-#
-#     def get(self, request, state, city):
-#         payload = {"blskey": apis("blskey")}
+def BlsView(View):
+
+    def get(self, request, state, city):
+        payload = {"blskey": apis("blskey")}
+        bls.loc[(bls["state"].str.contains("MO")) & (bls["city"].str.contains("St. Louis")), "code"]
