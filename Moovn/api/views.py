@@ -53,9 +53,16 @@ def cell_view(request, state, name):
     return HttpResponse(signal)
 
 
+<<<<<<< HEAD
 def neighborhood_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
     collection =
     response = JsonResponse()
 
     return response
+=======
+# def BlsView(View):
+#
+#     def get(self, request, state, city):
+#         payload = {"blskey": apis("blskey")}
+>>>>>>> c207a15fadf2b89e11e871ce7994432bd065f9c0
