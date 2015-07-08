@@ -1370,6 +1370,9 @@ header {
 .city-title {
   text-align: left; }
 
+#chartType {
+  margin: auto; }
+
 .c3 svg {
   font: 10px sans-serif; }
 

@@ -31,4 +31,6 @@ router.route('search/:cityName', function (cityName){
 
   places(cityName, "banks", ".banks-tab-data");
   places(cityName, "brewery", ".leisure-tab-data");
+
+
 });

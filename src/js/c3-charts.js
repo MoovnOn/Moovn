@@ -24,22 +24,42 @@ module.exports = function() {
     
   
   
-      c3.generate({
+      var chart = c3.generate({
         bindto: 'body .city-chart-container',
         data: {
+          
           columns: [
-              ['Median Condo Value', housingAffordCondo],
-              ['Median 2 Bedroom Home', housingAfford2Bed],
-              ['Median 3 Bedroom Home', housingAfford3Bed],
-              ['Median 4 Bedroom Home', housingAfford4Bed],
+              ['Median-Condo-Value', housingAffordCondo],
+              ['Median-2-Bed-Home', housingAfford2Bed],
+              ['Median-3-Bed-Home', housingAfford3Bed],
+              ['Median-4-Bed-Home', housingAfford4Bed],
           ],
           type: 'bar'
         },
-         
-        size: {
-      		height: 400
-    		}
-       
+          size: {
+        		height: 400
+      		},
+          
        });
+       
+       
+       $('#chartType').change( function(){ 
+         if ($('#cell').is(':selected')){
+              chart.load({
+          columns: [
+              ['Verizon', 130, 120, 150, 140000, 160000, 200000],
+              ['ATT', 30, 20, 50, 40, 60, 50],
+              ['T-Mobile', 30, 20, 50, 40, 60, 50],
+          ],
+          unload: ['Median-Condo-Value', 'Median-2-Bed-Home','Median-3-Bed-Home','Median-4-Bed-Home'],
+          
+          });
+
+         }
+       })
+       
+
+ 
+  
   }
 };
