@@ -46,7 +46,7 @@ def cell_view(request, state, name):
                 + "&json_format=" + "2" # 2 is suggested \
                 + "&apikey=" + apis('opensignal'))
 
-    return HttpResponse(signal)
+    return JsonResponse(signal)
 
 
 def neighborhood_view(request, state, name):
