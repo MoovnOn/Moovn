@@ -12,8 +12,8 @@ from geo.models import City, Boundary, Name
 import xmltodict
 
 
-@api_view(['GET',])
-@permission_classes((permissions.AllowAny,))
+# @api_view(['GET',])
+# @permission_classes((permissions.AllowAny,))
 def city_boundary_view(request, state, name):
 
     name = get_object_or_404(Name, name=name, state=state)
@@ -21,12 +21,33 @@ def city_boundary_view(request, state, name):
 
     return response
 
+
 class HomeView(View):
 
-    def get(self, request):
-        payload = {"zws-id": apis("zillowkey"), "state": request.GET.get('state'), "city": request.GET.get('city')}
+    def get(self, request, state, city):
+        payload = {"zws-id": apis("zillowkey"), "state": state, "city": city}
         housing_data = requests.get("http://www.zillow.com/webservice/GetDemographics.htm", params=payload)
         housing_data = xmltodict.parse(housing_data.text, xml_attribs=True)
         response = JsonResponse(housing_data)
 
         return response
+
+
+# @api_view(['GET',])
+# @permission_classes((permissions.AllowAny,))
+def cell_view(request, state, name):
+    query = state + '+' + name
+    places = requests.get("http://api.tiles.mapbox.com/v4/geocode/mapbox.places/" \
+                         + query +".json?access_token=" + apis('mapbox'))
+
+    places = geojson.loads(places.text)
+    coords = [places.features[0].center[0], places.features[0].center[1]]
+
+    signal = requests.get("http://api.opensignal.com/v2/networkstats.json?lat=" \
+                + str(coords[1]) + "&lng=" + str(coords[0]) \
+                + "&distance=" + "10" \
+                #+ "&network_type=" + {network_type} +
+                + "&json_format=" + "2" # 2 is suggested \
+                + "&apikey=" + apis('opensignal'))
+
+    return HttpResponse(signal)
