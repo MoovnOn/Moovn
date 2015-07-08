@@ -8,6 +8,10 @@ var tags = require('../city-list');
 
 router.route('', 'search', function (){
   show('search');
+  
+  $('.header-home').fadeIn(600);
+  $('.search-page-container').fadeIn(600);
+  
   $('.compare').on('click', function(e) {
   	e.preventDefault();
 

@@ -11,6 +11,7 @@ var d3 = require('d3');
 var drawMap = require('../drawMap');
 
 router.route('search/:cityName', function (cityName){
+  
   var citySplit = cityName.split(', ');
 
   $.ajax({

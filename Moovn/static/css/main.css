@@ -1282,12 +1282,21 @@ header {
   text-align: left;
   padding: 0.3em; }
 
+.header-home {
+  display: none; }
+
 .moovnon-logo-container {
   text-decoration: none; }
 
 .moovnon-logo {
   max-height: 50px;
   max-width: auto; }
+
+.search-page-container {
+  margin-right: 2em;
+  margin-left: 2em;
+  margin-bottom: 2em;
+  display: none; }
 
 .title-container {
   display: inline-block;
@@ -1296,8 +1305,12 @@ header {
 .title {
   margin: 0; }
 
-.search-page-container {
-  margin: 2em; }
+.sub-title-container {
+  margin-bottom: 1em; }
+
+.sub-title {
+  margin: 0;
+  margin-bottom: 0.2em; }
 
 .show-input {
   display: inline-block; }
@@ -1306,8 +1319,13 @@ header {
   text-align: center;
   padding: 1em; }
 
+.search-city {
+  min-width: 20em; }
+
 .map-container {
-  text-align: center; }
+  text-align: center;
+  max-width: 50em;
+  margin: auto; }
 
 .map-image {
   max-width: 80%;
