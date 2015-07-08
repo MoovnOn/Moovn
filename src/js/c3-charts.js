@@ -1,4 +1,5 @@
 var c3 = require('c3');
+var d3 = require('d3');
 var $ = require('jquery');
 module.exports = function(state, city) {
 	console.log(state);
@@ -26,15 +27,33 @@ module.exports = function(state, city) {
 
     var chart = c3.generate({
         bindto: 'body .city-chart-container',
-        data: {      
+        data: {
+
           columns: [
-              ['Median-Condo-Value', housingAffordCondo],
-              ['Median-2-Bed-Home', housingAfford2Bed],
-              ['Median-3-Bed-Home', housingAfford3Bed],
-              ['Median-4-Bed-Home', housingAfford4Bed],
+              ['Condo', housingAffordCondo],
+              ['2-Bed-Home', housingAfford2Bed],
+              ['3-Bed-Home', housingAfford3Bed],
+              ['4-Bed-Home', housingAfford4Bed],
           ],
           type: 'bar'
         },
+        axis: {
+            x: {
+                type: 'bar',
+                tick: {
+                  format: d3.format("Median")
+                  },
+                label: {
+                text: 'Median Home Values',
+                position: 'outer-center',
+                },
+               },
+            y : {
+              tick: {
+                format: d3.format("$,")
+              }
+            }
+          },
           size: {
         		height: 400
       		},
