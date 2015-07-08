@@ -4,6 +4,8 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 import requests
 import geojson
+import pandas as pd
+
 from rest_framework import permissions
 #from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -50,7 +52,6 @@ def cell_view(request, state, name):
     signal = json.loads(signal)
     return JsonResponse(signal)
 
-
 def neighborhood_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
     boundaryset = list(name.city.neighborhoodboundary_set.all())
@@ -62,3 +63,9 @@ def neighborhood_view(request, state, name):
     collection = geojson.FeatureCollection(collection)
 
     return JsonResponse(collection)
+
+def BlsView(View):
+
+    def get(self, request, state, city):
+        payload = {"blskey": apis("blskey")}
+        bls.loc[(bls["state"].str.contains("MO")) & (bls["city"].str.contains("St. Louis")), "code"]
