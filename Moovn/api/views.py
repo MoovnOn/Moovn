@@ -51,3 +51,9 @@ def cell_view(request, state, name):
                 + "&apikey=" + apis('opensignal'))
 
     return HttpResponse(signal)
+
+
+# def BlsView(View):
+#
+#     def get(self, request, state, city):
+#         payload = {"blskey": apis("blskey")}
