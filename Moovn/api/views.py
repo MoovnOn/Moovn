@@ -17,9 +17,7 @@ import xmltodict
 def city_boundary_view(request, state, name):
 
     name = get_object_or_404(Name, name=name, state=state)
-    response = JsonResponse(geojson.loads(name.city.boundary.data))
-
-    return response
+    return JsonResponse(geojson.loads(name.city.boundary.data))
 
 
 class HomeView(View):
@@ -28,9 +26,7 @@ class HomeView(View):
         payload = {"zws-id": apis("zillowkey"), "state": state, "city": city}
         housing_data = requests.get("http://www.zillow.com/webservice/GetDemographics.htm", params=payload)
         housing_data = xmltodict.parse(housing_data.text, xml_attribs=True)
-        response = JsonResponse(housing_data)
-
-        return response
+        return JsonResponse(housing_data)
 
 
 # @api_view(['GET',])
