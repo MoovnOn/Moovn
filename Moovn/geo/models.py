@@ -2,8 +2,10 @@ from django.db import models
 
 
 class NeighborhoodBoundary(models.Model):
-    pass
-
+    name = models.CharField(max_length=255, null=True)
+    region_id = models.IntegerField(null=True)
+    city = models.ForeignKey('City', null=True)
+    data = models.TextField(null=True)
 
 class SchoolDistrictBoundary(models.Model):
     pass
