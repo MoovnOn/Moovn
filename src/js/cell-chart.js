@@ -6,8 +6,7 @@ module.exports = function() {
   	method: 'GET',
   	url: 'api/celldata/NC/Durham/'
   }).done(function (data){	
-  	
-  	JSON.parse(data)
+  	console.log(data)
   });	
 
 

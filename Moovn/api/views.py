@@ -49,9 +49,6 @@ def cell_view(request, state, name):
                 + "&json_format=" + "2" # 2 is suggested \
                 + "&apikey=" + apis('opensignal'))
 
-<<<<<<< HEAD
-    return Response(signal)
-=======
     signal = json.loads(signal)
     return JsonResponse(signal)
 
@@ -72,4 +69,3 @@ def BlsView(View):
     def get(self, request, state, city):
         payload = {"blskey": apis("blskey")}
         bls.loc[(bls["state"].str.contains("MO")) & (bls["city"].str.contains("St. Louis")), "code"]
->>>>>>> 4d1bdbfe9aad2f29ecbc419f509cf4ff9de5eda8
