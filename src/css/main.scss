@@ -1,18 +1,24 @@
 @import 'reset';
 @import 'mixin';
+@import 'tabs/responsive-tabs';
+@import 'tabs/tabs-style';
 @import 'pure/pure-min';
 @import 'pure/grids-responsive-min';
 @import 'search';
 @import 'city';
 @import 'c3';
 
+
+body{
+  font-family: Century Gothic, sans-serif;
+}
 .ui-autocomplete{
-border: 1px solid grey;
-width: 4em;
-border-radius: 0.2em;
+  border: 1px solid grey;
+  width: 4em;
+  border-radius: 0.2em;
 }
 .ui-menu-item:hover{
-background: lightgray;  
+  background: lightgray;  
 }
 .pure-g > *{
   box-sizing: border-box; 
