@@ -44,11 +44,6 @@ router.route('', 'search', function (){
     	}
     };
 
-
-
-
-
-
   });
 
       $("#tags").autocomplete({
