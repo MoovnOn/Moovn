@@ -15662,8 +15662,7 @@ var d3 = require('d3');
 var $ = require('jquery');
 
 module.exports = function(state, city) {
-	console.log(state);
-  console.log(city);
+
   $.ajax({
     method: 'GET',
     url: '/api/homeprices/' + state + '/' + city + '/'
@@ -15705,17 +15704,11 @@ module.exports = function(state, city) {
         		height: 400
       		},
        });
-       
- 
-       
+            
        var housingPeopleIncome= housingPeople[0].data.attribute[0].values.city.value["#text"];
        var housingPeopleIncomeNation= housingPeople[0].data.attribute[0].values.nation.value["#text"];
        var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;
        var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
-       
-       console.log(housingPeopleIncome);
-       console.log(housingPeopleCommute);
-       console.log(housingPeopleCommuteNation);
        
        $('#chartType').change(function(){ 
          if ($('#income').is(':selected')){
@@ -15779,8 +15772,21 @@ var places = require('../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
 var drawMap = require('../drawMap');
+var drawNeigh = require('../neighMap')
 
 router.route('search/:cityName', function (cityName){
+   show('city', {city: cityName}); 
+
+
+
+  var svg = d3.select("#d3-graphs");
+  var height = 400;
+  var width = 400;
+  svg.attr("width", width).attr("height", height);
+  var g = svg.append("g");
+
+  var projection = d3.geo.albers().scale(200).translate([150,140]);
+  var path = d3.geo.path().projection(projection);
   
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
@@ -15790,10 +15796,17 @@ router.route('search/:cityName', function (cityName){
   	method: 'GET',
   	url: '/api/boundary/' + state + '/' + city + '/'
   }).done(function (data){	
-  	drawMap(data);
+  	drawMap(data, g, path, height, width);
   });	
 
-  show('city', {city: cityName});
+
+  $.ajax({
+    method: 'GET',
+    url: '/api/neighborhoods/' + state + '/' + city + '/'
+  }).done(function (json){  
+    drawNeigh(json, g, path);
+  }); 
+
  	
   chart(state, city); 
 
@@ -15806,7 +15819,7 @@ router.route('search/:cityName', function (cityName){
 
 
 });
-},{"../c3-charts":3,"../drawMap":9,"../places-api":11,"../router":12,"../show":13,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+},{"../c3-charts":3,"../drawMap":8,"../neighMap":10,"../places-api":11,"../router":12,"../show":13,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -15814,7 +15827,6 @@ var router = require('../router');
 var show = require('../show');
 var autocomplete = require('jquery-ui');
 var tags = require('../city-list');
-var d3Graphs = require('../d3-graph-tests');
 
 router.route('', 'search', function (){
   show('search');
@@ -15829,8 +15841,6 @@ router.route('', 'search', function (){
   	$('.search-city-comp').addClass(' show-input');
   	$(this).addClass('hidden');
   });
-
-  d3Graphs();
 
   $('.search-form').on('submit', function(e) {
   	e.preventDefault();
@@ -15876,59 +15886,10 @@ router.route('', 'search', function (){
 
 });
 
-},{"../city-list":4,"../d3-graph-tests":8,"../router":12,"../show":13,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
+},{"../city-list":4,"../router":12,"../show":13,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 $ = require('jquery');
-d3 = require('d3');
 
-module.exports = function() {
-
-// Gets liveshere descriptions
-	// $.ajax({
-	// 	method: 'GET',
-	// 	url: 'api/neighborhooddata/OR/Portland/'
-	// }).done(function(data) {
-	// 	var affordability = data['Demographics:demographics'].response.pages.page[0];
-	// 	var homes = data['Demographics:demographics'].response.pages.page[1];
-	// 	var people = data['Demographics:demographics'].response.pages.page[2];
-		
-	// 	var liveshereArray = people.segmentation.liveshere;
-
-	// 	liveshereArray.forEach(function(instance) {
-	// 		console.log(instance.name)
-	// 		console.log(instance.description)
-	// 	})
-
-	// })
-
-
-	$.ajax({
-		method: 'GET',
-		url: 'api/neighborhoods/NC/Raleigh/'
-	}).done(function(data) {
-			var array = data.features;
-			array.forEach(function(item) {
-				console.log(item.properties.NAME);
-				console.log(item.properties.GEOID10);
-			})
-
-})
-};
-
-},{"d3":"d3","jquery":"jquery"}],9:[function(require,module,exports){
-module.exports = function (data) {
-
-var svg = d3.select("svg");
-	  var height = 400;
-	  var width = 400;
-	  svg.attr("width", width).attr("height", height);
-	  var g = svg.append("g");
-	  var projection = d3.geo.albers().scale(400).translate([150,140]);
-	  var path = d3.geo.path().projection(projection);	
-
-    var b = path.bounds(data);
-
-    g.append("rect").attr('width', width).attr('height', height)
-       .style('stroke', 'black').style('fill', 'white');
+module.exports = function (data, g, path, height, width) {
 
     g.selectAll("path")
         .data(data.features, function(d){return d.properties.GEOID10;})
@@ -15954,7 +15915,7 @@ var svg = d3.select("svg");
      .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
 
 }
-},{}],10:[function(require,module,exports){
+},{"jquery":"jquery"}],9:[function(require,module,exports){
 'use strict';
 var jQuery = require("jquery");
 var $ = require("jquery");
@@ -15997,7 +15958,21 @@ $.ajaxSetup({
         }
     }
 });
-},{"./controllers/city-comp-controller.js":5,"./controllers/city-controller.js":6,"./controllers/search-controller.js":7,"./router":12,"jquery":"jquery"}],11:[function(require,module,exports){
+},{"./controllers/city-comp-controller.js":5,"./controllers/city-controller.js":6,"./controllers/search-controller.js":7,"./router":12,"jquery":"jquery"}],10:[function(require,module,exports){
+module.exports = function (json, g, path) {
+
+  g.selectAll("path")
+      .data(json.features, function(d) {return d.properties.GEOID10;})
+    .enter().append("path")
+      .attr("d", path)
+      .attr("class", "feature")
+      .style("fill", "none")
+      .style("stroke-width", "0.001")
+      .style("stroke", "black")
+      .attr("id", function(d) {return d.properties.GEOID10;});
+
+};
+},{}],11:[function(require,module,exports){
 var map;
 var service;
 var infowindow;
@@ -16086,7 +16061,7 @@ var SortedRouter = Backbone.Router.extend({
 });
  
 module.exports = SortedRouter;
-},{"backbone":"backbone","underscore":"underscore"}]},{},[10])
+},{"backbone":"backbone","underscore":"underscore"}]},{},[9])
 
 
 //# sourceMappingURL=app.js.map
