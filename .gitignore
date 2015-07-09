@@ -12,6 +12,7 @@ local_settings.py
 CityBoundaries
 Moovn/geo/states
 Moovn/geo/neighborhoods
+Moovn/Moovn/moovn_apis.py
 
 # Created by https://www.gitignore.io
 
@@ -84,3 +85,4 @@ Moovn/moovn_apis.py
 node_modules/
 bower.json
 Moovn/static/js
+
