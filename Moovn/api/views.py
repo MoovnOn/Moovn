@@ -4,7 +4,6 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 import requests
 import geojson
-#import pandas as pd
 
 from rest_framework import permissions
 #from rest_framework.response import Response
@@ -60,7 +59,6 @@ def neighborhood_view(request, state, name):
         collection.extend(geojson.loads(x).features)
 
     collection = geojson.FeatureCollection(collection)
-
     return JsonResponse(collection)
 
 def BlsView(View):
@@ -68,3 +66,14 @@ def BlsView(View):
     def get(self, request, state, city):
         payload = {"blskey": apis("blskey")}
         bls.loc[(bls["state"].str.contains("MO")) & (bls["city"].str.contains("St. Louis")), "code"]
+
+
+def school_view(request, state, name):
+    districts = requests.get(
+        "http://api.education.com/service/service.php?f=districtSearch&key=" \
+        <YourAPIKey>"&sn=sf&v=4" + "&State=" + state + "&City=" + name \
+        "&Resf=" + "json")
+    # the registration wants client computer IP address...
+    # what?
+
+    
