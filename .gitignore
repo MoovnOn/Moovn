@@ -13,6 +13,9 @@ CityBoundaries
 Moovn/geo/states
 Moovn/geo/neighborhoods
 Moovn/Moovn/moovn_apis.py
+Moovn/geo/roads
+Moovn/geo/schools
+
 
 # Created by https://www.gitignore.io
 
@@ -84,5 +87,3 @@ Moovn/moovn_apis.py
 # Front End
 node_modules/
 bower.json
-Moovn/static/js
-

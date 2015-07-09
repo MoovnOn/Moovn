@@ -7,6 +7,7 @@ class NeighborhoodBoundary(models.Model):
     city = models.ForeignKey('City', null=True)
     data = models.TextField(null=True)
 
+
 class SchoolDistrictBoundary(models.Model):
     pass
 
