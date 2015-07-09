@@ -1,15 +1,17 @@
 var $ = require('jquery');
 var c3 = require('c3');
 
-  var newArray = [];
+module.exports = function (state, city) {
 
-  $.ajax({
+  
+
+  return $.ajax({
   	method: 'GET',
   	url: 'api/celldata/NC/Durham/'
-  }).done(function (data){	
+  }).then(function (data){	
 
   	var array = data.networkRank;
-    
+    var newArray = [];
   	
   	array.forEach(function(prov) {
   		if (prov.networkName === "AT&T") {
@@ -28,10 +30,15 @@ var c3 = require('c3');
   			newArray[4] = prov
   		}
   	})
-    
+    return newArray
   });
 
-  module.exports = newArray;
+}
+
+// Use this to return newArray
+// cellChart(state, city).then(function (data) {
+//       // TODO: render data
+//     });
 
     // var aTDwnld3 = Math.round(newArray[0].type3G.downloadSpeed);
     // var vDwnld3 = Math.round(newArray[1].type3G.downloadSpeed);

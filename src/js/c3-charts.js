@@ -24,7 +24,6 @@ module.exports = function(state, city) {
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
 
-
       var chart = c3.generate({
         bindto: 'body .city-chart-container',
         data: {
