@@ -4,10 +4,13 @@
   margin-bottom:1em;
   padding:0.3em;
 }
+.side-nav-container{
+  max-width:200px;
+  float: left;
+}
 .side-nav-list{
   background-color: $primary-color;
   color: white;
-  max-width: 200px;
   height: 100vh;
 }
 .side-nav-item-container{
@@ -33,6 +36,51 @@
 .side-nav-item-container:hover .side-icon{
   color:white;
 }
+.city-content{
+  max-height: 400px;
+  max-width: 600px;
+}
+// #tabs{
+//   width:100%;
+//   // float:right;
+// }
+
+
+  .ui-tabs-nav{
+    height:60vh;
+   }
+  .ui-tabs-vertical { 
+    width: 55em; 
+   }
+  .ui-tabs-vertical .ui-tabs-nav { 
+    padding: .2em .1em .2em .2em; 
+    float: left; 
+    width: 12em; 
+    }
+  .ui-tabs-vertical .ui-tabs-nav li { 
+    clear: left; 
+    width: 100%; 
+    border-bottom-width: 1px !important; 
+    border-right-width: 0 !important; 
+    margin: 0 -1px .2em 0; 
+    }
+  .ui-tabs-vertical .ui-tabs-nav li a { 
+    display:block; 
+    }
+  .ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { 
+    padding-bottom: 0;
+    padding-right: .1em; 
+    border-right-width: 1px; 
+    }
+  .ui-tabs-vertical .ui-tabs-panel { 
+    padding: 1em; 
+    width: 40em;
+    }
+
+
+
+
+
 
 
 
