@@ -3,11 +3,7 @@ var c3 = require('c3');
 
 module.exports = function (state, city) {
 
-<<<<<<< HEAD
-=======
-  
 
->>>>>>> 884c0e3093fbeb7d77680364fb52fcf074cb3cad
   return $.ajax({
   	method: 'GET',
   	url: 'api/celldata/NC/Durham/'

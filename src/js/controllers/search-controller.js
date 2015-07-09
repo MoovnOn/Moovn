@@ -21,13 +21,9 @@ router.route('', 'search', function (){
   	$(this).addClass('hidden');
   });
 
-<<<<<<< HEAD
   d3Graphs();
 
-  $('.compare-form').on('submit', function(e) {
-=======
   $('.search-form').on('submit', function(e) {
->>>>>>> 884c0e3093fbeb7d77680364fb52fcf074cb3cad
   	e.preventDefault();
 
   	var searchCity = $('.search-city').val();
