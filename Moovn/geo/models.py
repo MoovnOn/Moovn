@@ -41,3 +41,5 @@ class Schools(models.Model):
 class City(models.Model):
     geo_id = models.IntegerField()
     ind_id = models.IntegerField(default=0)
+
+

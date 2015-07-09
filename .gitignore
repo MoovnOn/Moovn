@@ -16,6 +16,7 @@ Moovn/Moovn/moovn_apis.py
 Moovn/geo/roads
 Moovn/geo/schools
 
+
 # Created by https://www.gitignore.io
 
 ### Python ###
@@ -86,4 +87,5 @@ Moovn/moovn_apis.py
 # Front End
 node_modules/
 bower.json
+
 # Moovn/static/js
