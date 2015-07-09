@@ -1,6 +1,8 @@
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
+var cellChart = require('./cell-graphs');
+
 module.exports = function(state, city) {
 	console.log(state);
   console.log(city);
@@ -9,6 +11,7 @@ module.exports = function(state, city) {
     url: '/api/homeprices/' + state + '/' + city + '/'
   })
   .then(parseHousing);
+
   
   function parseHousing(allHousingData){
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
@@ -88,7 +91,12 @@ module.exports = function(state, city) {
            }
        })
 
- 
+      $('#chartType').change(function(){ 
+         if ($('#cell').is(':selected')){
+            cellChart()
+
+           }
+       })
   
   }
 };
