@@ -21,8 +21,6 @@ router.route('', 'search', function (){
   	$(this).addClass('hidden');
   });
 
-  cellChart();
-
   $('.search-form').on('submit', function(e) {
   	e.preventDefault();
 
