@@ -9,8 +9,10 @@ from . import views
 urlpatterns = [
     url(r'^boundary/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.city_boundary_view),
     url(r'^homeprices/(?P<state>[\w]+)/(?P<city>(?:[\w\.]+\s?\-?)+)/$', views.HomeView.as_view()),
-    url(r'^celldata/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+/$', views.cell_view),
+    # url(r'^celldata/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+/$', views.cell_view),
     url(r'^neighborhoods/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.neighborhood_view),
+    url(r'^industrydata/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.industry_view),
+
 ]
 
 #urlpatterns.extend(router)
