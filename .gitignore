@@ -10,6 +10,9 @@ local_settings.py
 .direnv
 .DS_Store
 CityBoundaries
+Moovn/geo/states
+Moovn/geo/neighborhoods
+Moovn/Moovn/moovn_apis.py
 
 # Created by https://www.gitignore.io
 
@@ -73,7 +76,13 @@ docs/_build/
 target/
 
 *.sqlite3
+/.idea/
+.envrc
+.direnv
+Moovn/moovn_apis.py
 
 # Front End
 node_modules/
 bower.json
+Moovn/static/js
+

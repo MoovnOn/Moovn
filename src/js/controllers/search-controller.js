@@ -9,6 +9,10 @@ var d3Graphs = require('../d3-graph-tests');
 
 router.route('', 'search', function (){
   show('search');
+  
+  $('.header-home').fadeIn(600);
+  $('.search-page-container').fadeIn(600);
+  
   $('.compare').on('click', function(e) {
   	e.preventDefault();
 
@@ -17,40 +21,52 @@ router.route('', 'search', function (){
   	$(this).addClass('hidden');
   });
 
+<<<<<<< HEAD
   d3Graphs();
 
   $('.compare-form').on('submit', function(e) {
+=======
+  $('.search-form').on('submit', function(e) {
+>>>>>>> 884c0e3093fbeb7d77680364fb52fcf074cb3cad
   	e.preventDefault();
 
   	var searchCity = $('.search-city').val();
   	var compareCity = $('.search-city-comp').val();
 
-  	if (compareCity != '' && searchCity != '') {
-  		router.navigate("search/" + searchCity + "/" + compareCity, {trigger: true});
-  	} else if (compareCity === '' && searchCity != '') {
-  		router.navigate("search/" + searchCity, {trigger: true});
-  	} else {
-  		alert('Please enter the city you would like to see');
-  	}
-	});
+    if ((searchCity != '' && compareCity === '') && (/[\w ]+, \w{2}/.test(searchCity) === false)) {
+      alert('Please enter city name followed by 2 digit state code')
+    } else if ((searchCity != '' && compareCity != '') && (/[\w ]+, \w{2}/.test(searchCity) === false || /[\w ]+, \w{2}/.test(compareCity) === false )) {
+      alert('Please enter city name followed by 2 digit state code')
+    } else {
+      routeToPages()
+    }
+    
+    function routeToPages() {
+    	if (compareCity != '' && searchCity != '') {
+    		router.navigate("search/" + searchCity + "/" + compareCity, {trigger: true});
+    	} else if (compareCity === '' && searchCity != '') {
+    		router.navigate("search/" + searchCity, {trigger: true});
+    	} else {
+    		alert('Please enter the city you would like to see');
+    	}
+    };
 
-
-  // $(function tags() {
+  });
 
       $("#tags").autocomplete({
         source: availableTags,
         messages: {
           noResults: '',
           results: function() {}
-      }
+          },
+         
       });
        $("#tags2").autocomplete({
         source: availableTags,
         messages: {
           noResults: '',
           results: function() {}
-      }
+          }
       });
-  // });
 
 });

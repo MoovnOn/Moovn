@@ -2,8 +2,10 @@ from django.db import models
 
 
 class NeighborhoodBoundary(models.Model):
-    pass
-
+    name = models.CharField(max_length=255, null=True)
+    region_id = models.IntegerField(null=True)
+    city = models.ForeignKey('City', null=True)
+    data = models.TextField(null=True)
 
 class SchoolDistrictBoundary(models.Model):
     pass
@@ -16,14 +18,15 @@ class Boundary(models.Model):
 
 class Name(models.Model):
     name = models.CharField(max_length=255)
+    state = models.CharField(max_length=2, null=True)
     city = models.ForeignKey('City', related_name='names', null=True)
 
 
-class Housing(models.Model):
-    city = models.ForeignKey('City')
-    onebrprice = models.IntegerField()
-    twobrprice = models.IntegerField()
-    threebrprice = models.IntegerField()
+# class Housing(models.Model):
+#     city = models.ForeignKey('City')
+#     onebrprice = models.IntegerField()
+#     twobrprice = models.IntegerField()
+#     threebrprice = models.IntegerField()
 
 
 class Schools(models.Model):
@@ -37,4 +40,4 @@ class Schools(models.Model):
 
 class City(models.Model):
     geo_id = models.IntegerField()
-    state = models.CharField(max_length=2)
+    ind_id = models.IntegerField(default=0)
