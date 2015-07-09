@@ -21,10 +21,11 @@ module.exports = function(state, city) {
     var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
-    var chart = c3.generate({
+
+
+      var chart = c3.generate({
         bindto: 'body .city-chart-container',
         data: {
-
           columns: [
               ['Condo', housingAffordCondo],
               ['2-Bed-Home', housingAfford2Bed],
@@ -34,16 +35,6 @@ module.exports = function(state, city) {
           type: 'bar'
         },
         axis: {
-            x: {
-                type: 'bar',
-                tick: {
-                  format: d3.format("Median")
-                  },
-                label: {
-                text: 'Median Home Values',
-                position: 'outer-center',
-                },
-               },
             y : {
               tick: {
                 format: d3.format("$,")
@@ -55,22 +46,47 @@ module.exports = function(state, city) {
       		},
        });
        
+ 
        
-       $('#chartType').change( function(){ 
-         if ($('#cell').is(':selected')){
-              chart.load({
-          columns: [
-              ['Verizon', 130, 120, 150, 200],
-              ['ATT', 30, 20, 50, 40, 60, 50],
-              ['T-Mobile', 30, 20, 50, 40, 60, 50],
-          ],
-          unload: ['Median-Condo-Value', 'Median-2-Bed-Home','Median-3-Bed-Home','Median-4-Bed-Home'],
-          
-          });
+       var housingPeopleIncome= housingPeople[0].data.attribute[0].values.city.value["#text"];
+       var housingPeopleIncomeNation= housingPeople[0].data.attribute[0].values.nation.value["#text"];
+       var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;
+       var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
+       
+       console.log(housingPeopleIncome);
+       console.log(housingPeopleCommute);
+       console.log(housingPeopleCommuteNation);
+       
+       $('#chartType').change(function(){ 
+         if ($('#income').is(':selected')){
+            chart.load({ 
+                columns: [
+                    ['Median-City-Income', housingPeopleIncome],
+                    ['Median-Nation-Income', housingPeopleIncomeNation],
+                ],
+                unload: ['Condo', '2-Bed-Home','3-Bed-Home','4-Bed-Home'],
+                type: 'bar',
+             
+            })
+          }
+        })
+       
+      $('#chartType').change(function(){ 
+         if ($('#housing').is(':selected')){
+            chart.load({ 
+                columns: [
+                    ['Condo', housingAffordCondo],
+                    ['2-Bed-Home', housingAfford2Bed],
+                    ['3-Bed-Home', housingAfford3Bed],
+                    ['4-Bed-Home', housingAfford4Bed],
+                ],
+                unload: ['Median-City-Income', 'Median-Nation-Income'],
+                type: 'bar',
+             
+            })
 
-         }
+           }
        })
-       
 
  
   
