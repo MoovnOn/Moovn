@@ -7,6 +7,7 @@ class NeighborhoodBoundary(models.Model):
     city = models.ForeignKey('City', null=True)
     data = models.TextField(null=True)
 
+
 class SchoolDistrictBoundary(models.Model):
     pass
 
@@ -41,5 +42,3 @@ class Schools(models.Model):
 class City(models.Model):
     geo_id = models.IntegerField()
     ind_id = models.IntegerField(default=0)
-
-

@@ -7,7 +7,6 @@ import geojson
 import json
 #pandas as pd
 
-
 from rest_framework import permissions
 #from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -65,13 +64,26 @@ def neighborhood_view(request, state, name):
     return JsonResponse(collection)
 
 
+def neighborhooddata_view(request, state, name, region_id):
+    request = requests.get("http://www.zillow.com/webservice/GetDemographics.htm?" \
+                + "zws-id=" + apis('zillowkey') \
+                + "&state=" + state \
+                + "&city=" + name
+                + "&regionid=" + region_id)
+
+    return JsonResponse(xmltodict.parse(request.text))
+
+
 def school_view(request, state, name):
     districts = requests.get(
         "http://api.education.com/service/service.php?f=districtSearch&key=" \
-        <YourAPIKey>"&sn=sf&v=4" + "&State=" + state + "&City=" + name \
-        "&Resf=" + "json")
-    # the registration wants client computer IP address...
-    # what?
+        + moovn_apis('education.com') + "&sn=sf&v=4" \
+        + "&State=" + state \
+        + "&City=" + name \
+        + "&Resf=" + "json")
+
+
+
 
 def industry_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
