@@ -26,14 +26,25 @@ router.route('', 'search', function (){
   	var searchCity = $('.search-city').val();
   	var compareCity = $('.search-city-comp').val();
 
-  	if (compareCity != '' && searchCity != '') {
-  		router.navigate("search/" + searchCity + "/" + compareCity, {trigger: true});
-  	} else if (compareCity === '' && searchCity != '') {
-  		router.navigate("search/" + searchCity, {trigger: true});
-  	} else {
-  		alert('Please enter the city you would like to see');
-  	}
-	});
+    if ((searchCity != '' && compareCity === '') && (/[\w ]+, \w{2}/.test(searchCity) === false)) {
+      alert('Please enter city name followed by 2 digit state code')
+    } else if ((searchCity != '' && compareCity != '') && (/[\w ]+, \w{2}/.test(searchCity) === false || /[\w ]+, \w{2}/.test(compareCity) === false )) {
+      alert('Please enter city name followed by 2 digit state code')
+    } else {
+      routeToPages()
+    }
+    
+    function routeToPages() {
+    	if (compareCity != '' && searchCity != '') {
+    		router.navigate("search/" + searchCity + "/" + compareCity, {trigger: true});
+    	} else if (compareCity === '' && searchCity != '') {
+    		router.navigate("search/" + searchCity, {trigger: true});
+    	} else {
+    		alert('Please enter the city you would like to see');
+    	}
+    };
+
+  });
 
       $("#tags").autocomplete({
         source: availableTags,

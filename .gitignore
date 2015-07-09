@@ -86,3 +86,4 @@ Moovn/moovn_apis.py
 node_modules/
 bower.json
 
+# Moovn/static/js

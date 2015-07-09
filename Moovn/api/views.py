@@ -4,24 +4,27 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 import requests
 import geojson
+<<<<<<< HEAD
 import json
 import pandas as pd
+=======
+#import pandas as pd
+>>>>>>> 541cd54d7b853c6b51452295554369bbbfb55ba2
 
 from rest_framework import permissions
+#from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 # from rest_framework import ViewSets
 
 from geo.models import City, Boundary, Name
 import xmltodict
-
+import json
 
 # @api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
 def city_boundary_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
-    response = JsonResponse(geojson.loads(name.city.boundary.data))
-
-    return response
+    return JsonResponse(geojson.loads(name.city.boundary.data))
 
 
 class HomeView(View):
@@ -29,12 +32,10 @@ class HomeView(View):
         payload = {"zws-id": apis("zillowkey"), "state": state, "city": city}
         housing_data = requests.get("http://www.zillow.com/webservice/GetDemographics.htm", params=payload)
         housing_data = xmltodict.parse(housing_data.text, xml_attribs=True)
-        response = JsonResponse(housing_data)
-
-        return response
+        return JsonResponse(housing_data)
 
 
-# @api_view(['GET',])
+@api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
 def cell_view(request, state, name):
     query = state + '+' + name
@@ -51,7 +52,8 @@ def cell_view(request, state, name):
                           + "&json_format=" + "2"  # 2 is suggested \
                           + "&apikey=" + apis('opensignal'))
 
-    return HttpResponse(signal)
+    signal = json.loads(signal.text)
+    return JsonResponse(signal)
 
 
 def neighborhood_view(request, state, name):

@@ -13,17 +13,19 @@ var drawMap = require('../drawMap');
 router.route('search/:cityName', function (cityName){
   
   var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
 
   $.ajax({
   	method: 'GET',
-  	url: '/api/boundary/' + citySplit[1] + '/' + citySplit[0] + '/'
+  	url: '/api/boundary/' + state + '/' + city + '/'
   }).done(function (data){	
   	drawMap(data);
   });	
 
   show('city', {city: cityName});
  	
- 	chart();
+  chart(state, city); 
 
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
@@ -31,4 +33,6 @@ router.route('search/:cityName', function (cityName){
 
   places(cityName, "banks", ".banks-tab-data");
   places(cityName, "brewery", ".leisure-tab-data");
+
+
 });
