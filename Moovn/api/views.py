@@ -87,8 +87,6 @@ def neighborhooddata_view(request, state, name, region_id=None):
                     + "&state=" + state \
                     + "&city=" + name)
 
-
-
     return JsonResponse(xmltodict.parse(request.text))
 
 

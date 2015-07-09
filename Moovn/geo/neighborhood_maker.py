@@ -7,7 +7,7 @@ def make():
     filenames = []
     for root, dirs, files in os.walk('geo/neighborhoods/'):
         for name in files:
-            if name!= '.DS_Store':
+            if name != '.DS_Store' and name != 'changer.py':
                 filenames.append(os.path.join(root, name))
 
 
