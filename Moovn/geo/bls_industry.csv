@@ -1,49 +1,35 @@
-industry_code,industry_name
-10000000,Mining and Logging
-10210013,"Oil & Gas Extraction, Well Drilling, and Support Activities"
-20000000,Construction
-31000000,Durable Goods Manufacturing
-32000000,Non-Durable Goods Manufacturing
-41000000,Wholesale Trade
-42000000,Retail Trade
-43220000,Utilities
-43400089,Transportation and Warehousing
-50511100,"Newspaper, Periodical, Book, and Directory Publishers"
-50511200,Software Publishers
-50512000,Motion Picture and Sound Recording Industries
-50515000,Broadcasting (except Internet)
-50517000,Telecommunications
-55520000,Finance and Insurance
-55530000,Real Estate and Rental and Leasing
-60541100,Legal Services
-60541200,"Accounting, Tax Preparation, Bookkeeping, and Payroll Services"
-60541300,"Architectural, Engineering, and Related Services"
-60541400,Specialized Design Services
-60541500,Computer Systems Design and Related Services
-60541600,"Management, Scientific, and Technical Consulting Services"
-60541700,Scientific Research and Development Services
-60541800,Advertising and Related Services
-60541900,"Other Professional, Scientific, and Technical Services"
-60550000,Management of Companies and Enterprises
-65610000,Educational Services
-65620013,Health Care
-65624000,Social Assistance
-70711100,Performing Arts Companies
-70711200,Spectator Sports
-70711500,"Independent Artists, Writers, and Performers"
-70712000,"Museums, Historical Sites, and Similar Institutions"
-70713100,Amusement Parks and Arcades
-70713200,Gambling Industries
-70713940,Fitness and Recreational Sports Centers
-70721000,Accommodation (Hotels)
-70722400,Drinking Places (Alcoholic Beverages)
-70722500,Restaurants
-80000000,Other Services
-80811000,Repair and Maintenance
-80813100,Religious Organizations
-80813200,Grantmaking and Giving Services
-80813300,Social Advocacy Organizations
-80813400,Civic and Social Organizations
-80813900,"Business, Professional, Labor, Political, and Similar Organizations"
-90000000,Government
-00000000,"Total Nonfarm"
+10000000,min_log
+10210013,oil_gas
+20000000,cstruct
+31000000,man_dg
+32000000,man_ndg
+41000000,w_trade
+42000000,r_trade
+43220000,utils
+43400089,util_trans
+50512000,pic_rec
+50517000,telecom
+55520000,fin_ins
+55530000,r_estat
+60541100,legal
+60541200,acctg
+60541300,engin
+60541500,comp
+60541600,consult
+60541700,research
+60541800,ads
+60550000,mngmnt
+65610000,edu
+65620013,health
+65624000,soc_as
+70711200,sports
+70712000,museums
+70713200,gambln
+70721000,hotel
+70722400,bar_clbs
+70722500,food
+80811000,repair
+80813100,relig
+90000000,gov
+05000000,totl_p
+00000000,total

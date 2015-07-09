@@ -15,7 +15,15 @@ def add_bls_codes():
 
         if (blsvalue != []) & (statecode != []):
             city = name.city
-            city.ind_id = int(str(statecode[0]) + str(blsvalue[0]))
+            series_ids = []
+            with open('geo/bls_industry.csv') as file:
+                for line in file:
+                    series_ids.append(("SMU" + str(statecode[0]) + str(blsvalue[0]) + line.split(',')[0] + "01"))
+            out = ""
+            for series in series_ids:
+                out += series + ','
+            out = out[:-1]
+            city.ind_id = out
             city.save()
         else:
             print("{}, {} is not in bls data :(".format(name.name, name.state))
