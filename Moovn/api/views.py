@@ -74,12 +74,20 @@ def neighborhood_view(request, state, name):
     return JsonResponse(collection)
 
 
-def neighborhooddata_view(request, state, name, region_id):
-    request = requests.get("http://www.zillow.com/webservice/GetDemographics.htm?" \
-                + "zws-id=" + apis('zillowkey') \
-                + "&state=" + state \
-                + "&city=" + name
-                + "&regionid=" + region_id)
+def neighborhooddata_view(request, state, name, region_id=None):
+    if region_id:
+        request = requests.get("http://www.zillow.com/webservice/GetDemographics.htm?" \
+                    + "zws-id=" + apis('zillowkey') \
+                    + "&state=" + state \
+                    + "&city=" + name
+                    + "&regionid=" + region_id)
+    else:
+        request = requests.get("http://www.zillow.com/webservice/GetDemographics.htm?" \
+                    + "zws-id=" + apis('zillowkey') \
+                    + "&state=" + state \
+                    + "&city=" + name)
+
+
 
     return JsonResponse(xmltodict.parse(request.text))
 
@@ -91,8 +99,6 @@ def school_view(request, state, name):
         + "&State=" + state \
         + "&City=" + name \
         + "&Resf=" + "json")
-
-
 
 
 def industry_view(request, state, name):
