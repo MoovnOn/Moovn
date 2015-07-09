@@ -6,12 +6,7 @@ import requests
 import geojson
 import json
 # pandas as pd
-
-
-from rest_framework import permissions
-# from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
-# from rest_framework import ViewSets
 
 from geo.models import City, Boundary, Name
 import xmltodict
@@ -64,19 +59,36 @@ def neighborhood_view(request, state, name):
 
     collection = []
     for x in boundaryset:
-        collection.extend(geojson.loads(x).features)
+        collection.extend(geojson.loads(x.data).features)
 
     collection = geojson.FeatureCollection(collection)
     return JsonResponse(collection)
 
 
-# def school_view(request, state, name):
-#     districts = requests.get(
-#         "http://api.education.com/service/service.php?f=districtSearch&key=" \
-#         <YourAPIKey>"&sn=sf&v=4" + "&State=" + state + "&City=" + name \
-#         "&Resf=" + "json")
-#     # the registration wants client computer IP address...
-#     # what?
+def neighborhooddata_view(request, state, name, region_id=None):
+    if region_id:
+        request = requests.get("http://www.zillow.com/webservice/GetDemographics.htm?" \
+                               + "zws-id=" + apis('zillowkey') \
+                               + "&state=" + state \
+                               + "&city=" + name
+                               + "&regionid=" + region_id)
+    else:
+        request = requests.get("http://www.zillow.com/webservice/GetDemographics.htm?" \
+                               + "zws-id=" + apis('zillowkey') \
+                               + "&state=" + state \
+                               + "&city=" + name)
+
+    return JsonResponse(xmltodict.parse(request.text))
+
+
+def school_view(request, state, name):
+    districts = requests.get(
+        "http://api.education.com/service/service.php?f=districtSearch&key=" \
+        + moovn_apis('education.com') + "&sn=sf&v=4" \
+        + "&State=" + state \
+        + "&City=" + name \
+        + "&Resf=" + "json")
+
 
 def industry_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
