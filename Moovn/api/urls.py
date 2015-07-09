@@ -13,7 +13,7 @@ urlpatterns = [
     url(r'^neighborhoods/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.neighborhood_view),
     url(r'^industrydata/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.industry_view),
     url(r'^neighborhooddata/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/(?P<region_id>[\w]+)/$', views.neighborhooddata_view),
-
+    # url(r'^cityneighborhoods/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.city_neighborhoods_view),
 ]
 
 #urlpatterns.extend(router)

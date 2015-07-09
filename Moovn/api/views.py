@@ -52,13 +52,23 @@ def cell_view(request, state, name):
     return JsonResponse(signal)
 
 
+# def city_neighborhoods_view(request, state, name):
+#     request = requests.get("http://www.zillow.com/webservice/GetRegionChildren.htm?" \
+#                 + "zws-id=" + apis('zillowkey') \
+#                 + "&state=" + state \
+#                 + "&city=" + name \
+#                 + "&childtype=" + "neighborhood")
+#
+#     return JsonResponse(xmltodict.parse(request.text))
+
+
 def neighborhood_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
     boundaryset = list(name.city.neighborhoodboundary_set.all())
 
     collection = []
     for x in boundaryset:
-        collection.extend(geojson.loads(x).features)
+        collection.extend(geojson.loads(x.data).features)
 
     collection = geojson.FeatureCollection(collection)
     return JsonResponse(collection)
