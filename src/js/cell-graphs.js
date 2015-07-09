@@ -1,9 +1,7 @@
 var $ = require('jquery');
 var c3 = require('c3');
 
-module.exports = function () {
-
-  
+  var newArray = [];
 
   $.ajax({
   	method: 'GET',
@@ -11,7 +9,7 @@ module.exports = function () {
   }).done(function (data){	
 
   	var array = data.networkRank;
-    var newArray = [];
+    
   	
   	array.forEach(function(prov) {
   		if (prov.networkName === "AT&T") {
@@ -30,13 +28,10 @@ module.exports = function () {
   			newArray[4] = prov
   		}
   	})
-  
-    console.log(newArray)
-  
+    
   });
 
-
-};
+  module.exports = newArray;
 
     // var aTDwnld3 = Math.round(newArray[0].type3G.downloadSpeed);
     // var vDwnld3 = Math.round(newArray[1].type3G.downloadSpeed);
