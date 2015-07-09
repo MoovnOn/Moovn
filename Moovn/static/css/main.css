@@ -1303,7 +1303,8 @@ header {
   font-family: Century Gothic, sans-serif; }
 
 .title {
-  margin: 0; }
+  margin: 0;
+  font-size: 1.6em; }
 
 .sub-title-container {
   margin-bottom: 1em; }
@@ -1360,6 +1361,40 @@ header {
 @media only screen and (max-width: 480px) {
   .pure-form input:not([type]) {
     display: inline-block; } }
+
+.logo-container {
+  max-width: 200px;
+  display: inline-block;
+  margin-bottom: 1em;
+  padding: 0.3em; }
+
+.side-nav-list {
+  background-color: #354052;
+  color: white;
+  max-width: 200px;
+  height: 100vh; }
+
+.side-nav-item-container {
+  text-decoration: none;
+  color: #A5B6C3;
+  font-size: 1em; }
+
+.side-nav-item {
+  padding: 0.5em;
+  padding-left: 1em;
+  border-left: 3px solid #354052; }
+
+.side-icon {
+  min-width: 25px;
+  color: #A5B6C3; }
+
+.side-nav-item-container:hover .side-nav-item {
+  color: white;
+  background: #2F3948;
+  border-left: 3px solid white; }
+
+.side-nav-item-container:hover .side-icon {
+  color: white; }
 
 #accordion h3 {
   background-color: lightgray; }

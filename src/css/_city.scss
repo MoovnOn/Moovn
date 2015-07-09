@@ -1,3 +1,39 @@
+.logo-container{
+  max-width: 200px;
+  display: inline-block;
+  margin-bottom:1em;
+  padding:0.3em;
+}
+.side-nav-list{
+  background-color: $primary-color;
+  color: white;
+  max-width: 200px;
+  height: 100vh;
+}
+.side-nav-item-container{
+  text-decoration: none;
+  color:$light-primary-color;
+  font-size: 1em;
+}
+.side-nav-item{
+  padding:0.5em;
+  padding-left:1em;
+  border-left:3px solid $primary-color;
+}
+
+.side-icon{
+  min-width:25px;
+  color:$light-primary-color;
+}
+.side-nav-item-container:hover .side-nav-item{
+  color:white;
+  background: $dark-primary-color;
+  border-left:3px solid white;
+}
+.side-nav-item-container:hover .side-icon{
+  color:white;
+}
+
 
 
 #accordion h3{
