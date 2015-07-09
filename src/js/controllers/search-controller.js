@@ -5,6 +5,7 @@ var router = require('../router');
 var show = require('../show');
 var autocomplete = require('jquery-ui');
 var tags = require('../city-list');
+var d3Graphs = require('../d3-graph-tests');
 
 router.route('', 'search', function (){
   show('search');
@@ -15,6 +16,8 @@ router.route('', 'search', function (){
   	$('.search-city-comp').addClass(' show-input');
   	$(this).addClass('hidden');
   });
+
+  d3Graphs();
 
   $('.compare-form').on('submit', function(e) {
   	e.preventDefault();
