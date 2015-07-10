@@ -1,16 +1,30 @@
 
+#accordion h3{
+  background-color: lightgray;
+}
+.city-all-container{
+  margin-right: 2em;
+  margin-bottom: 2em;
+}
+.city-title{
+  text-align: left;
+}
 
+#chartType{
+position: absolute;
+top:0;
+right:0;
+}
+.graph{
+  width:50%;
+}
+.city-map-container {
+	text-align: center;
+}
 
-
-
-
-
-
-
-
-
-
-
+.tab-list-container{
+  width: 50%;
+}
 
 
 
@@ -57,20 +71,3 @@
 
 
 
-#accordion h3{
-  background-color: lightgray;
-}
-.city-all-container{
-  margin-right: 2em;
-  margin-bottom: 2em;
-}
-.city-title{
-  text-align: left;
-}
-
-#chartType{
-margin: auto;
-}
-.city-map-container {
-	text-align: center;
-}
