@@ -29,10 +29,6 @@ class Schools(models.Model):
     rating = models.IntegerField()
 
 
-# class IndustryData(models.Model):
-#     city = models.ForeignKey('City')
-
 class City(models.Model):
     geo_id = models.IntegerField()
     ind_id = models.TextField(default="0")
-

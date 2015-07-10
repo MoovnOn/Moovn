@@ -12,10 +12,12 @@ from geo.models import City, Boundary, Name
 import xmltodict
 import json
 
-with open('geo/bls_industry.csv') as file:
+# with open('geo/bls_industry.csv') as file:
+with open('geo/all_bls_codes.csv') as file:
     industry = {
         line.split(',')[1][:-1]: line.split(',')[0] for line in file
         }
+
 
 # @api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
@@ -109,11 +111,18 @@ def industry_view(request, state, name):
             for name in industry:
                 if industry[name] == line["seriesID"][10:-2] and len(line["data"]) > 0:
                     datadict[name] = line["data"][0]["value"]
+    # for val in datadict:
+    #     if val != "gov" and val != "totl_p" and val != "total":
+    #         datadict[val] = \
+    #             round(
+    #                 ((float(datadict[val]) / (float((datadict["gov"])) +
+    #  float(datadict["totl_p"]))) * 100), ndigits=1)
     for val in datadict:
-        if val != "gov" and val != "totl_p" and val != "total":
+        if val != "Total Nonfarm" and val != "Total Private" and val != "Government":
             datadict[val] = \
                 round(
-                    ((float(datadict[val]) / (float((datadict["gov"])) + float(datadict["totl_p"]))) * 100), ndigits=1)
+                    ((float(datadict[val]) / float(datadict["Total Nonfarm"])) * 100), ndigits=1)
+    datadict['Gov'] = str(round((float(datadict["Total Nonfarm"]) - float(datadict["Total Private"])), ndigits=1))
     response = JsonResponse(datadict)
     # response = HttpResponse(ind_data)
 
