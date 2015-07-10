@@ -9,12 +9,19 @@ import json
 
 from rest_framework import permissions
 from rest_framework.response import Response
+
 from rest_framework.decorators import api_view, permission_classes
-# from rest_framework import ViewSets
 
 from geo.models import City, Boundary, Name
 import xmltodict
 import json
+
+# with open('geo/bls_industry.csv') as file:
+with open('geo/all_bls_codes.csv') as file:
+    industry = {
+        line.split(',')[1][:-1]: line.split(',')[0] for line in file
+        }
+
 
 # @api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
@@ -31,7 +38,7 @@ class HomeView(View):
         return JsonResponse(housing_data)
 
 
-@api_view(['GET',])
+@api_view(['GET', ])
 # @permission_classes((permissions.AllowAny,))
 def cell_view(request, state, name):
     query = state + '+' + name
@@ -52,16 +59,6 @@ def cell_view(request, state, name):
     return JsonResponse(signal)
 
 
-# def city_neighborhoods_view(request, state, name):
-#     request = requests.get("http://www.zillow.com/webservice/GetRegionChildren.htm?" \
-#                 + "zws-id=" + apis('zillowkey') \
-#                 + "&state=" + state \
-#                 + "&city=" + name \
-#                 + "&childtype=" + "neighborhood")
-#
-#     return JsonResponse(xmltodict.parse(request.text))
-
-
 def neighborhood_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
     boundaryset = list(name.city.neighborhoodboundary_set.all())
@@ -77,15 +74,15 @@ def neighborhood_view(request, state, name):
 def neighborhooddata_view(request, state, name, region_id=None):
     if region_id:
         request = requests.get("http://www.zillow.com/webservice/GetDemographics.htm?" \
-                    + "zws-id=" + apis('zillowkey') \
-                    + "&state=" + state \
-                    + "&city=" + name
-                    + "&regionid=" + region_id)
+                               + "zws-id=" + apis('zillowkey') \
+                               + "&state=" + state \
+                               + "&city=" + name
+                               + "&regionid=" + region_id)
     else:
         request = requests.get("http://www.zillow.com/webservice/GetDemographics.htm?" \
-                    + "zws-id=" + apis('zillowkey') \
-                    + "&state=" + state \
-                    + "&city=" + name)
+                               + "zws-id=" + apis('zillowkey') \
+                               + "&state=" + state \
+                               + "&city=" + name)
 
     return JsonResponse(xmltodict.parse(request.text))
 
@@ -101,19 +98,36 @@ def school_view(request, state, name):
 
 def industry_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
-    code = name.city.ind_id
-    series_ids = []
-    with open('geo/bls_industry.csv') as file:
-        for line in file:
-            series_ids.append(("SMU" + str(code) + line.split(',')[0] + "01"))
+    seriesids = name.city.ind_id.split(',')
     headers = {'Content-type': 'application/json'}
-    data = json.dumps({"seriesid": series_ids,
-                       "startyear": "2014", "endyear": "2015",
+    data = json.dumps({"seriesid": seriesids,
+                       "startyear": "2015", "endyear": "2015",
                        "registrationKey": apis("blskey"),
-                       "catalog": True,
-                       "calculations": True,
-                       "annualaverage": True})
+                       })
     ind_data = requests.post('http://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
-    response = HttpResponse(ind_data)
+    ndata = json.loads(ind_data.text)
+    datadict = {}
+    if len(ndata["Results"]["series"]) == 0:
+        response = HttpResponse(print("no data"))
+        return response
+    else:
+        for line in ndata["Results"]["series"]:
+            for name in industry:
+                if industry[name] == line["seriesID"][10:-2] and len(line["data"]) > 0:
+                    datadict[name] = line["data"][0]["value"]
+    # for val in datadict:
+    #     if val != "gov" and val != "totl_p" and val != "total":
+    #         datadict[val] = \
+    #             round(
+    #                 ((float(datadict[val]) / (float((datadict["gov"])) +
+    #  float(datadict["totl_p"]))) * 100), ndigits=1)
+    for val in datadict:
+        if val != "Total Nonfarm" and val != "Total Private" and val != "Government":
+            datadict[val] = \
+                round(
+                    ((float(datadict[val]) / float(datadict["Total Nonfarm"])) * 100), ndigits=1)
+    datadict['Gov'] = str(round((float(datadict["Total Nonfarm"]) - float(datadict["Total Private"])), ndigits=1))
+    response = JsonResponse(datadict)
+    # response = HttpResponse(ind_data)
 
     return response
