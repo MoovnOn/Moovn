@@ -38,7 +38,7 @@ router.route('search/:cityName', function (cityName){
 
 //google places
   places(cityName, "banks", ".banks-tab-data");
-  places(cityName, "brewery", ".leisure-tab-data");
+  places(cityName, "attractions", ".leisure-tab-data");
 
 
    
@@ -56,6 +56,14 @@ $.ajax({
   }).done(function (data){	
   	drawMap(data);
   });	
-    show('city', {city: cityName});
+    show('city-cost', {city: cityName});
   
+    $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+  //google places
+    places(cityName, "banks", ".income-tab-data");
+    places(cityName, "attractions", ".leisure-tab-data");
+
 })
