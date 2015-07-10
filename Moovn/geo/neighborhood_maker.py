@@ -24,11 +24,15 @@ def make():
             state_name = item.properties['STATE']
 
             for name_obj in names:
-                if city_name.find(name_obj.name) != -1 and name_obj.state == state_name:
+                if city_name.find(name_obj.name) != -1 and name_obj.state == \
+                   state_name:
+
                     used.append(name_obj)
-            #if Name.objects.filter(name=city_name, state=state_name):
-                    NeighborhoodBoundary.objects.create(city=name_obj.city, name=item_name, \
+            # if Name.objects.filter(name=city_name, state=state_name):
+                    NeighborhoodBoundary.objects.create(city=name_obj.city, \
+                                    name=item_name, \
                                     region_id=region_id, \
-                                    data=geojson.dumps(geojson.FeatureCollection([item,])))
+                                    data=geojson.dumps(\
+                                           geojson.FeatureCollection([item,])))
 
     print([(item.name, item.state) for item in names if item not in used])
