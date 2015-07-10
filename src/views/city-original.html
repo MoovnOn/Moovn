@@ -1,0 +1,37 @@
+<header>
+  <a class="moovnon-logo-container" href="#search"><img class = "moovnon-logo" src="static/img/logo-large-cow.png" alt="MoovnOn logo">
+  </a> 
+   <div class="title-container">
+    <h1 class="title">Moovn On</h1>
+    <p class = "title-motto title-city"><%- m.city %></p>
+   </div>
+</header>
+
+<div class="city-all-container">
+  <div class="pure-g">
+    <div class="pure-u-1 pure-u-md-1-2 city-map-container"><svg></svg></div>
+    <!--Chart-->
+    <div class="pure-u-1 pure-u-md-1-2 city-chart-container"><p>Chart</p></div>
+      <select id="chartType">
+        <option value="housing" id="housing">Housing</option>
+        <option value="income" id="income">Income</option>
+      </select>
+
+    <!--Lists-->
+      <div class="pure-u-1 pure-u-lg-1-1 city-list-container" id="responsiveTabsDemo">
+        <ul>
+            <li class="banks-tab-title"><a href="#tab-1"> Banks </a></li>
+            <li class="taxes-tab-title"><a href="#tab-2"> Taxes </a></li>
+            <li class="local-tab-title"><a href="#tab-3"> Local Resources </a></li>
+            <li class="leisure-tab-title"><a href="#tab-4"> Popular Leisure </a></li>
+        </ul>
+        <div class="banks-tab-data" id="tab-1"></div>
+        <div class="taxes-tab-data" id="tab-2"></div>
+        <div class="local-tab-data" id="tab-3"></div>
+        <div class="leisure-tab-data" id="tab-4"></div>
+      </div>
+  
+  </div>
+</div>
+<!-- div for google places -->
+<div id="map"></div>

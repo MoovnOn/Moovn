@@ -1,5 +1,2 @@
 -r requirements.txt
 fake-factory==0.5.2
-ipython
-pandas
-xmltodict

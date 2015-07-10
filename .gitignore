@@ -12,7 +12,13 @@ local_settings.py
 CityBoundaries
 Moovn/geo/states
 Moovn/geo/neighborhoods
+<<<<<<< HEAD
 Moovn/Moovn/moovn_apis.py
+=======
+Moovn/geo/roads
+Moovn/geo/schools
+
+>>>>>>> back
 
 # Created by https://www.gitignore.io
 
@@ -79,7 +85,7 @@ target/
 /.idea/
 .envrc
 .direnv
-moovn_apis.py
+Moovn/Moovn/moovn_apis.py
 
 # Front End
 node_modules/
