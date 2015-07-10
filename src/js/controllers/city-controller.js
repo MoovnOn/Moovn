@@ -73,12 +73,12 @@ Promise.all(
 
     })
   ]
-).then(function(results){
+).then(
+  function(results){
 
     zoom(results[0], results[1], g, path, height, width);
 
-})
-
+  })
 })
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
