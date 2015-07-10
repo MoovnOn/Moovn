@@ -12,3 +12,8 @@ static3==0.6.1
 requests==2.7.0
 geojson==1.2.1
 xmltodict
+django-ipware
+django-user-agents
+pyyaml==3.11
+ua-parser==0.3.6
+user-agents==0.3.2
