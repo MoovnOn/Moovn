@@ -2,6 +2,7 @@ from Moovn.moovn_apis import apis
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
+from ipware.ip import get_ip, get_real_ip
 import requests
 import geojson
 import json
@@ -12,7 +13,6 @@ from geo.models import City, Boundary, Name
 import xmltodict
 import json
 
-# with open('geo/bls_industry.csv') as file:
 with open('geo/all_bls_codes.csv') as file:
     industry = {
         line.split(',')[1][:-1]: line.split(',')[0] for line in file
@@ -111,12 +111,7 @@ def industry_view(request, state, name):
             for name in industry:
                 if industry[name] == line["seriesID"][10:-2] and len(line["data"]) > 0:
                     datadict[name] = line["data"][0]["value"]
-    # for val in datadict:
-    #     if val != "gov" and val != "totl_p" and val != "total":
-    #         datadict[val] = \
-    #             round(
-    #                 ((float(datadict[val]) / (float((datadict["gov"])) +
-    #  float(datadict["totl_p"]))) * 100), ndigits=1)
+
     for val in datadict:
         if val != "Total Nonfarm" and val != "Total Private" and val != "Government":
             datadict[val] = \
@@ -127,3 +122,44 @@ def industry_view(request, state, name):
     # response = HttpResponse(ind_data)
 
     return response
+
+
+jcdata = "1,2,3,4,5,6,7,8,9,10," \
+         "11,12,13,14,15,16,17,18,19,20," \
+         "21,22,23,24,25,26,27,28,29,30," \
+         "31,32"
+
+
+def jobs_view(request, state, name):
+    # ip = get_real_ip(request)
+    ip = request.META.get("REMOTE_ADDR")
+    # browser = request.user_agent.browser
+    browser = request.META.get("HTTP_USER_AGENT")
+    headers = {"user-agent": browser}
+    if ip is not None:
+        # # name = get_object_or_404(Name, name=name, state=state)
+        # data = json.dumps({"v": "1.1",
+        #                    "format": "json",
+        #                    "t.p": apis("glass_tp"),
+        #                    "t.k": apis("glass_tk"),
+        #                    "userip": ip,
+        #                    "useragent": browser,
+        #                    "action": "jobs-stats",
+        #                    # "l": "city",
+        #                    # "city": name.name,
+        #                    # "city": "Denver",
+        #                    # "state": name.state,
+        #                    # "state": "CO",
+        #                    # "fromAge": "30",
+        #                    # "radius": "25",
+        #                    # "jc": jcdata,
+        #                    # "returnJobTitles": True,
+        #                    "returnStates": True,
+        #                    "admLevelRequested": "1"
+        #                    })
+        # gldata = requests.get('http://api.glassdoor.com/api/api.htm', data=data, headers=headers)
+        # response = HttpResponse(gldata)
+        # return response
+        return HttpResponse("IP: {}, User-Agent: {}".format(ip, browser))
+    else:
+        return HttpResponse("No ip didn't work")
