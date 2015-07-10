@@ -4,7 +4,7 @@ import pandas as pd
 
 def add_bls_codes():
     bls = pd.read_csv('geo/final_bls.csv')
-    abv = pd.read_csv('geo/bls_abv.csv')
+    abv = pd.read_csv('geo/bls_abv.csv', converters={'code': lambda x: str(x)})
 
     city_names = Name.objects.all()
 
@@ -15,7 +15,17 @@ def add_bls_codes():
 
         if (blsvalue != []) & (statecode != []):
             city = name.city
-            city.ind_id = int(str(statecode[0]) + str(blsvalue[0]))
+            series_ids = []
+            # with open('geo/bls_industry.csv') as file:
+            with open('geo/all_bls_codes.csv') as file:
+
+                for line in file:
+                    series_ids.append(("SMU" + statecode[0] + str(blsvalue[0]) + line.split(',')[0] + "01"))
+            out = ""
+            for series in series_ids:
+                out += series + ','
+            out = out[:-1]
+            city.ind_id = out
             city.save()
         else:
             print("{}, {} is not in bls data :(".format(name.name, name.state))

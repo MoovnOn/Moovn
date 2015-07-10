@@ -13,52 +13,47 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Boundary',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('boundary', models.TextField()),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('data', models.TextField()),
             ],
         ),
         migrations.CreateModel(
             name='City',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('geo_id', models.IntegerField()),
-                ('state', models.CharField(max_length=2)),
-            ],
-        ),
-        migrations.CreateModel(
-            name='Housing',
-            fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('onebrprice', models.IntegerField()),
-                ('twobrprice', models.IntegerField()),
-                ('threebrprice', models.IntegerField()),
-                ('city', models.ForeignKey(to='geo.City')),
+                ('ind_id', models.TextField(default='0')),
             ],
         ),
         migrations.CreateModel(
             name='Name',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('name', models.CharField(max_length=255)),
-                ('city', models.ForeignKey(to='geo.City', related_name='names')),
+                ('state', models.CharField(null=True, max_length=2)),
+                ('city', models.ForeignKey(to='geo.City', related_name='names', null=True)),
             ],
         ),
         migrations.CreateModel(
             name='NeighborhoodBoundary',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
+                ('name', models.CharField(null=True, max_length=255)),
+                ('region_id', models.IntegerField(null=True)),
+                ('data', models.TextField(null=True)),
+                ('city', models.ForeignKey(to='geo.City', null=True)),
             ],
         ),
         migrations.CreateModel(
             name='SchoolDistrictBoundary',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
             ],
         ),
         migrations.CreateModel(
             name='Schools',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('id', models.AutoField(primary_key=True, auto_created=True, verbose_name='ID', serialize=False)),
                 ('name', models.CharField(max_length=255)),
                 ('rating', models.IntegerField()),
                 ('city', models.ForeignKey(to='geo.City')),
@@ -67,6 +62,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='boundary',
             name='city',
-            field=models.ForeignKey(to='geo.City'),
+            field=models.OneToOneField(to='geo.City', null=True, related_name='boundary'),
         ),
     ]
