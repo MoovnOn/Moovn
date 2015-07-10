@@ -14,8 +14,10 @@ var drawNeigh = require('../neighMap')
 router.route('search/:cityName', function (cityName){
 
   show('city', {city: cityName});
-  $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-  $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+  // Jquery UI tabs 
+  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
 
   var svg = d3.select("#d3-graphs");
@@ -38,7 +40,6 @@ router.route('search/:cityName', function (cityName){
   	drawMap(data, g, path, height, width);
   });	
 
-<<<<<<< HEAD
   $.ajax({
     method: 'GET',
     url: '/api/neighborhoods/' + state + '/' + city + '/'
@@ -46,13 +47,10 @@ router.route('search/:cityName', function (cityName){
     drawNeigh(json, g, path);
   }); 
 
-=======
-  show('city', {city: cityName});
 
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
->>>>>>> 286cd01cd2d712009e15a4055869b041b34ff50e
  	
   chart(state, city); 
 

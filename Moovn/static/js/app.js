@@ -15777,8 +15777,10 @@ var drawNeigh = require('../neighMap')
 router.route('search/:cityName', function (cityName){
 
   show('city', {city: cityName});
-  $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-  $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+  // Jquery UI tabs 
+  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
 
   var svg = d3.select("#d3-graphs");
@@ -15808,12 +15810,10 @@ router.route('search/:cityName', function (cityName){
     drawNeigh(json, g, path);
   }); 
 
-  show('city', {city: cityName});
 
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-
  	
   chart(state, city); 
 
@@ -15829,9 +15829,6 @@ router.route('search/:cityName', function (cityName){
 
    
 });
-<<<<<<< HEAD
-},{"../c3-charts":3,"../drawMap":8,"../neighMap":10,"../places-api":11,"../router":12,"../show":13,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
-=======
 
 router.route('search/:cityName/cost', function (cityName){
 
@@ -15856,8 +15853,7 @@ $.ajax({
     places(cityName, "attractions", ".leisure-tab-data");
 
 })
-},{"../c3-charts":3,"../drawMap":8,"../places-api":10,"../router":11,"../show":12,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
->>>>>>> 286cd01cd2d712009e15a4055869b041b34ff50e
+},{"../c3-charts":3,"../drawMap":8,"../neighMap":10,"../places-api":11,"../router":12,"../show":13,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
