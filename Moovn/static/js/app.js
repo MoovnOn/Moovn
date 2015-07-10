@@ -15755,11 +15755,11 @@ var views = require('views');
 var router = require('../router');
 var show = require('../show');
 
-router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
+// router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   
-  show('city-comp', {city1: cityName1, city2: cityName2});
+//   show('city-comp', {city1: cityName1, city2: cityName2});
 
-});
+// });
 },{"../router":12,"../show":13,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
@@ -15775,8 +15775,12 @@ var drawMap = require('../drawMap');
 var drawNeigh = require('../neighMap')
 
 router.route('search/:cityName', function (cityName){
-   show('city', {city: cityName}); 
 
+  show('city', {city: cityName});
+
+  // Jquery UI tabs 
+  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
 
   var svg = d3.select("#d3-graphs");
@@ -15799,7 +15803,6 @@ router.route('search/:cityName', function (cityName){
   	drawMap(data, g, path, height, width);
   });	
 
-
   $.ajax({
     method: 'GET',
     url: '/api/neighborhoods/' + state + '/' + city + '/'
@@ -15807,18 +15810,49 @@ router.route('search/:cityName', function (cityName){
     drawNeigh(json, g, path);
   }); 
 
+
+//for the jquery UI tabs
+  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
  	
   chart(state, city); 
 
+//gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
   });
 
+//google places
   places(cityName, "banks", ".banks-tab-data");
-  places(cityName, "brewery", ".leisure-tab-data");
+  places(cityName, "attractions", ".leisure-tab-data");
 
 
+   
 });
+
+router.route('search/:cityName/cost', function (cityName){
+
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+  
+$.ajax({
+  	method: 'GET',
+  	url: '/api/boundary/' + state + '/' + city + '/'
+  }).done(function (data){	
+  	drawMap(data);
+  });	
+    show('city-cost', {city: cityName});
+  
+    $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+  //google places
+    places(cityName, "banks", ".income-tab-data");
+    places(cityName, "attractions", ".leisure-tab-data");
+
+})
 },{"../c3-charts":3,"../drawMap":8,"../neighMap":10,"../places-api":11,"../router":12,"../show":13,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');

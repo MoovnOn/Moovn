@@ -3,7 +3,6 @@ var c3 = require('c3');
 
 module.exports = function (state, city) {
 
-
   return $.ajax({
   	method: 'GET',
   	url: 'api/celldata/NC/Durham/'
@@ -138,15 +137,15 @@ module.exports = function (state, city) {
 //             categories: ['3G-Reliability', '4G-Reliability']
 //         	}
 //     		},
-<<<<<<< HEAD
+
 // 		}); 	
-=======
+// 		}); 	
 // 		});
  	
 
 
 
->>>>>>> 884c0e3093fbeb7d77680364fb52fcf074cb3cad
+
 //  	});	
 // };
 

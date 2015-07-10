@@ -1,11 +1,77 @@
-<header>
-  <a class="moovnon-logo-container" href="#search"><img class = "moovnon-logo" src="static/img/logo-large-cow.png" alt="MoovnOn logo">
-  </a> 
-   <div class="title-container">
-    <h1 class="title">Moovn On</h1>
-    <p class = "title-motto title-city"><%- m.city %></p>
-   </div>
-</header>
+
+  <form class="pure-form search-form2">
+    <input class="search-city2" id="tags" placeholder="Search another city" autofocus>
+      <button class="submit pure-button">Search
+      </button>
+  </form>
+
+  
+<!--side bar-->
+<div class = "side-nav-container">
+  <ul class="side-nav-list">
+    <div class="logo-container">
+      <a class="moovnon-logo-container" href="#search"><img class = "moovnon-logo" src="static/img/logo-large-cow-white.png" alt="MoovnOn logo">
+      </a> 
+       <div class="title-container">
+        <h1 class="title">Moovn On</h1>
+        <p class = "title-motto title-city"><%- m.city %></p>
+       </div>
+    </div>
+
+
+    <a href="#search/<%- m.city %>/cost" class = "side-nav-item-container">
+      <li class="side-nav-item">
+        <i class="fa fa-usd side-icon"></i>
+        COST OF LIVING 
+      </li>
+    </a>
+    
+    
+    <a href="#search/<%- m.city %>/internet" class = "side-nav-item-container">
+      <li class="side-nav-item">
+        <i class="fa fa-laptop side-icon"></i>
+        INTERNET
+      </li>
+    </a>
+    
+    <a href="#search/<%- m.city %>/cell" class = "side-nav-item-container">
+      <li class="side-nav-item">
+        <i class="fa fa-mobile side-icon"></i>
+        CELL COVERAGE
+      </li>
+    </a>
+
+    
+    <a href="#search/<%- m.city %>/industry" class = "side-nav-item-container">
+      <li class="side-nav-item">
+        <i class="fa fa-building side-icon"></i>
+        INDUSTRY
+      </li>
+      </a>
+      
+   <a href="#search/<%- m.city %>/education" class = "side-nav-item-container">
+      <li class="side-nav-item">
+        <i class="fa fa-book side-icon"></i>
+        EDUCATION
+      </li>
+    </a>
+    
+    <a href="#search/<%- m.city %>/taxes" class = "side-nav-item-container">
+      <li class="side-nav-item">
+        <i class="fa fa-money side-icon"></i>
+        TAXES
+      </li>
+    </a>
+    
+    <a href="#search/<%- m.city %>/people" class = "side-nav-item-container">
+      <li class="side-nav-item">
+        <i class="fa fa-male side-icon"></i>
+        PEOPLE
+      </li>
+    </a>
+  
+   </ul>
+</div>
 
 <div class="city-all-container">
   <div class="pure-g">
@@ -20,7 +86,7 @@
       </select>
 
     <!--Lists-->
-      <div class="pure-u-1 pure-u-lg-1-1 city-list-container" id="responsiveTabsDemo">
+      <div class="pure-u-1 pure-u-lg-1-1 tab-list-container" id="responsiveTabsDemo">
         <ul>
             <li class="banks-tab-title"><a href="#tab-1"> Banks </a></li>
             <li class="taxes-tab-title"><a href="#tab-2"> Taxes </a></li>
