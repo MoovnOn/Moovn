@@ -15794,21 +15794,41 @@ router.route('search/:cityName', function (cityName){
   });	
 
   show('city', {city: cityName});
-  $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-  $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+//for the jquery UI tabs
+  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
  	
   chart(state, city); 
 
+//gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
   });
 
+//google places
   places(cityName, "banks", ".banks-tab-data");
   places(cityName, "brewery", ".leisure-tab-data");
 
 
    
 });
+
+router.route('search/:cityName/cost', function (cityName){
+
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+  
+$.ajax({
+  	method: 'GET',
+  	url: '/api/boundary/' + state + '/' + city + '/'
+  }).done(function (data){	
+  	drawMap(data);
+  });	
+    show('city', {city: cityName});
+  
+})
 },{"../c3-charts":3,"../drawMap":8,"../places-api":10,"../router":11,"../show":12,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');

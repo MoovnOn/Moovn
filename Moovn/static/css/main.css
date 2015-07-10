@@ -1287,7 +1287,8 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 
 .side-nav-container {
   max-width: 200px;
-  float: left; }
+  float: left;
+  box-shadow: 2px 0px 7px 2px rgba(0, 0, 0, 0.54); }
 
 .side-nav-list {
   background-color: #354052;
@@ -1302,7 +1303,10 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 .side-nav-item {
   padding: 0.5em;
   padding-left: 1em;
-  border-left: 3px solid #354052; }
+  border-left: 3px solid #354052;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-style: bold;
+  font-size: 0.8em; }
 
 .side-icon {
   min-width: 25px;
@@ -1422,7 +1426,8 @@ header {
   text-align: center; }
 
 .tab-list-container {
-  width: 50%; }
+  width: 50%;
+  margin: 1em; }
 
 .c3 svg {
   font: 10px sans-serif; }
