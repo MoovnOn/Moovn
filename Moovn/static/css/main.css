@@ -1307,7 +1307,7 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   border-left: 3px solid #354052;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-style: bold;
-  font-size: 0.8em; }
+  font-size: 0.9em; }
 
 .side-icon {
   min-width: 25px;
@@ -1349,6 +1349,10 @@ header {
   margin: 0;
   font-size: 1.6em; }
 
+.title-motto {
+  font-size: 0.8em;
+  font-weight: normal; }
+
 .sub-title-container {
   margin-bottom: 1em; }
 
@@ -1359,11 +1363,11 @@ header {
 .show-input {
   display: inline-block; }
 
-.search-form {
+.search-form-searchView {
   text-align: center;
   padding: 1em; }
 
-.search-city {
+.search-city-searchView {
   min-width: 20em; }
 
 .map-container {
@@ -1414,7 +1418,9 @@ header {
   margin-left: 12em; }
 
 .city-title {
-  text-align: left; }
+  padding: 0.8em;
+  font-size: 1.8em;
+  text-align: right; }
 
 #chartType {
   position: absolute;
@@ -1436,11 +1442,18 @@ header {
   width: 50%;
   margin: 1em; }
 
-.search-form2 {
-  position: absolute;
-  top: 0;
-  right: 0;
+.search-form-city-view {
+  color: black;
   padding: 1em; }
+
+.search-city-view {
+  border-radius: 0.2em;
+  border: none;
+  padding: 0.3em; }
+
+.submit-city-view {
+  background-color: #A5B6C3;
+  border: none; }
 
 .c3 svg {
   font: 10px sans-serif; }

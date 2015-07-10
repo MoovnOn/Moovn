@@ -11,12 +11,26 @@ var d3 = require('d3');
 var drawMap = require('../drawMap');
 var drawNeigh = require('../neighMap');
 var zoom = require('../zoom');
+var searchFunction = require('../search');
+var views = require('views');
+
 
 router.route('search/:cityName', function (cityName){
+
 
   show('city', {city: cityName});
 
   // Jquery UI tabs
+
+var sideBarHTML = views['side-bar-city-search'];
+
+console.log(sideBarHTML);
+
+  $('.side-bar-content').html(sideBarHTML);
+
+  searchFunction();
+  // Jquery UI tabs
+
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
