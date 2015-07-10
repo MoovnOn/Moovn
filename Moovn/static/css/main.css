@@ -1349,6 +1349,10 @@ header {
   margin: 0;
   font-size: 1.6em; }
 
+.title-motto {
+  font-size: 0.8em;
+  font-weight: normal; }
+
 .sub-title-container {
   margin-bottom: 1em; }
 
@@ -1414,7 +1418,9 @@ header {
   margin-left: 12em; }
 
 .city-title {
-  text-align: left; }
+  padding: 0.8em;
+  font-size: 1.8em;
+  text-align: right; }
 
 #chartType {
   position: absolute;
@@ -1437,10 +1443,17 @@ header {
   margin: 1em; }
 
 .search-form-city-view {
-  position: absolute;
-  top: 0;
-  right: 0;
+  color: black;
   padding: 1em; }
+
+.search-city-view {
+  border-radius: 0.2em;
+  border: none;
+  padding: 0.3em; }
+
+.submit-city-view {
+  background-color: #A5B6C3;
+  border: none; }
 
 .c3 svg {
   font: 10px sans-serif; }

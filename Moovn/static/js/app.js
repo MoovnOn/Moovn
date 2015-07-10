@@ -15876,6 +15876,7 @@ var searchFunction = require('../search');
 
 router.route('', 'search',  function (){
   show('search');
+  $('.side-bar-content').html('');
   
   $('.header-home').fadeIn(600);
   $('.search-page-container').fadeIn(600);
