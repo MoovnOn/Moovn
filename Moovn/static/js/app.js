@@ -15784,8 +15784,6 @@ router.route('search/:cityName', function (cityName){
 
 var sideBarHTML = views['side-bar-city-search'];
 
-console.log(sideBarHTML);
-
   $('.side-bar-content').html(sideBarHTML);
 
   searchFunction();
@@ -15989,6 +15987,7 @@ module.exports = function(city, searchTerm, tabContainer) {
 	service.textSearch(request, function(results) {
 	  for (var i = 0; i < results.length; i++) {
     var place = results[i];
+    // console.log(place);
     	$(tabContainer).append('<p>' + place.name + '</p>')
   	}
 	});

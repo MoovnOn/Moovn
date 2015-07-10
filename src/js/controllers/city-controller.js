@@ -21,8 +21,6 @@ router.route('search/:cityName', function (cityName){
 
 var sideBarHTML = views['side-bar-city-search'];
 
-console.log(sideBarHTML);
-
   $('.side-bar-content').html(sideBarHTML);
 
   searchFunction();
