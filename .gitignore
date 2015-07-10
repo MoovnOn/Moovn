@@ -12,7 +12,6 @@ local_settings.py
 CityBoundaries
 Moovn/geo/states
 Moovn/geo/neighborhoods
-Moovn/Moovn/moovn_apis.py
 Moovn/geo/roads
 Moovn/geo/schools
 
