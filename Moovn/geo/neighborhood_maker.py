@@ -10,21 +10,25 @@ def make():
             if name != '.DS_Store' and name != 'changer.py':
                 filenames.append(os.path.join(root, name))
 
-
+    names = list(Name.objects.all())
+    used = []
     for name in filenames:
 
         with open(name, 'r') as fh:
             features = geojson.load(fh)
 
         for item in features.features:
-            name = item.properties['NAME']
+            item_name = item.properties['NAME']
             city_name = item.properties['CITY']
             region_id = item.properties['REGIONID']
             state_name = item.properties['STATE']
 
-            if Name.objects.filter(name=city_name, state=state_name):
-                city_name1 = Name.objects.get(name=city_name, state=state_name)
+            for name_obj in names:
+                if city_name.find(name_obj.name) != -1 and name_obj.state == state_name:
+                    used.append(name_obj)
+            #if Name.objects.filter(name=city_name, state=state_name):
+                    NeighborhoodBoundary.objects.create(city=name_obj.city, name=item_name, \
+                                    region_id=region_id, \
+                                    data=geojson.dumps(geojson.FeatureCollection([item,])))
 
-                NeighborhoodBoundary.objects.create(city=city_name1.city, name=name, \
-                                region_id=region_id, \
-                                data=geojson.dumps(geojson.FeatureCollection([item,])))
+    print([(item.name, item.state) for item in names if item not in used])
