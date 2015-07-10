@@ -137,7 +137,15 @@ module.exports = function (state, city) {
 //             categories: ['3G-Reliability', '4G-Reliability']
 //         	}
 //     		},
+
 // 		}); 	
+// 		}); 	
+// 		});
+ 	
+
+
+
+
 //  	});	
 // };
 

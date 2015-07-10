@@ -1,17 +1,6 @@
-module.exports = function (data) {
+$ = require('jquery');
 
-var svg = d3.select("svg");
-	  var height = 400;
-	  var width = 400;
-	  svg.attr("width", width).attr("height", height);
-	  var g = svg.append("g");
-	  var projection = d3.geo.albers().scale(400).translate([150,140]);
-	  var path = d3.geo.path().projection(projection);	
-
-    var b = path.bounds(data);
-
-    g.append("rect").attr('width', width).attr('height', height)
-       .style('stroke', 'black').style('fill', 'white');
+module.exports = function (data, g, path, height, width) {
 
     g.selectAll("path")
         .data(data.features, function(d){return d.properties.GEOID10;})

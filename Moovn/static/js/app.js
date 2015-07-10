@@ -15662,8 +15662,7 @@ var d3 = require('d3');
 var $ = require('jquery');
 
 module.exports = function(state, city) {
-	console.log(state);
-  console.log(city);
+
   $.ajax({
     method: 'GET',
     url: '/api/homeprices/' + state + '/' + city + '/'
@@ -15705,17 +15704,11 @@ module.exports = function(state, city) {
         		height: 400
       		},
        });
-       
- 
-       
+            
        var housingPeopleIncome= housingPeople[0].data.attribute[0].values.city.value["#text"];
        var housingPeopleIncomeNation= housingPeople[0].data.attribute[0].values.nation.value["#text"];
        var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;
        var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
-       
-       console.log(housingPeopleIncome);
-       console.log(housingPeopleCommute);
-       console.log(housingPeopleCommuteNation);
        
        $('#chartType').change(function(){ 
          if ($('#income').is(':selected')){
@@ -15767,7 +15760,7 @@ var show = require('../show');
 //   show('city-comp', {city1: cityName1, city2: cityName2});
 
 // });
-},{"../router":11,"../show":12,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
+},{"../router":12,"../show":13,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -15779,9 +15772,24 @@ var places = require('../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
 var drawMap = require('../drawMap');
+var drawNeigh = require('../neighMap')
 
 router.route('search/:cityName', function (cityName){
 
+  show('city', {city: cityName});
+  $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+  $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+
+  var svg = d3.select("#d3-graphs");
+  var height = 400;
+  var width = 400;
+  svg.attr("width", width).attr("height", height);
+  var g = svg.append("g");
+
+  var projection = d3.geo.albers().scale(200).translate([150,140]);
+  var path = d3.geo.path().projection(projection);
+  
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -15790,12 +15798,16 @@ router.route('search/:cityName', function (cityName){
   	method: 'GET',
   	url: '/api/boundary/' + state + '/' + city + '/'
   }).done(function (data){	
-  	drawMap(data);
+  	drawMap(data, g, path, height, width);
   });	
 
-  show('city', {city: cityName});
-  $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-  $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+  $.ajax({
+    method: 'GET',
+    url: '/api/neighborhoods/' + state + '/' + city + '/'
+  }).done(function (json){  
+    drawNeigh(json, g, path);
+  }); 
+
  	
   chart(state, city); 
 
@@ -15809,7 +15821,7 @@ router.route('search/:cityName', function (cityName){
 
    
 });
-},{"../c3-charts":3,"../drawMap":8,"../places-api":10,"../router":11,"../show":12,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+},{"../c3-charts":3,"../drawMap":8,"../neighMap":10,"../places-api":11,"../router":12,"../show":13,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -15876,21 +15888,10 @@ router.route('', 'search', function (){
 
 });
 
-},{"../city-list":4,"../router":11,"../show":12,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
-module.exports = function (data) {
+},{"../city-list":4,"../router":12,"../show":13,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
+$ = require('jquery');
 
-var svg = d3.select("svg");
-	  var height = 400;
-	  var width = 400;
-	  svg.attr("width", width).attr("height", height);
-	  var g = svg.append("g");
-	  var projection = d3.geo.albers().scale(400).translate([150,140]);
-	  var path = d3.geo.path().projection(projection);	
-
-    var b = path.bounds(data);
-
-    g.append("rect").attr('width', width).attr('height', height)
-       .style('stroke', 'black').style('fill', 'white');
+module.exports = function (data, g, path, height, width) {
 
     g.selectAll("path")
         .data(data.features, function(d){return d.properties.GEOID10;})
@@ -15916,7 +15917,7 @@ var svg = d3.select("svg");
      .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
 
 }
-},{}],9:[function(require,module,exports){
+},{"jquery":"jquery"}],9:[function(require,module,exports){
 'use strict';
 var jQuery = require("jquery");
 var $ = require("jquery");
@@ -15959,7 +15960,21 @@ $.ajaxSetup({
         }
     }
 });
-},{"./controllers/city-comp-controller.js":5,"./controllers/city-controller.js":6,"./controllers/search-controller.js":7,"./router":11,"jquery":"jquery"}],10:[function(require,module,exports){
+},{"./controllers/city-comp-controller.js":5,"./controllers/city-controller.js":6,"./controllers/search-controller.js":7,"./router":12,"jquery":"jquery"}],10:[function(require,module,exports){
+module.exports = function (json, g, path) {
+
+  g.selectAll("path")
+      .data(json.features, function(d) {return d.properties.GEOID10;})
+    .enter().append("path")
+      .attr("d", path)
+      .attr("class", "feature")
+      .style("fill", "none")
+      .style("stroke-width", "0.001")
+      .style("stroke", "black")
+      .attr("id", function(d) {return d.properties.GEOID10;});
+
+};
+},{}],11:[function(require,module,exports){
 var map;
 var service;
 var infowindow;
@@ -15982,13 +15997,13 @@ module.exports = function(city, searchTerm, tabContainer) {
 
 };	
 
-},{"jquery":"jquery"}],11:[function(require,module,exports){
+},{"jquery":"jquery"}],12:[function(require,module,exports){
 'use strict';
 
 var SortedRouter = require('./sorted-router');
 
 module.exports = new SortedRouter();
-},{"./sorted-router":13}],12:[function(require,module,exports){
+},{"./sorted-router":14}],13:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -16002,7 +16017,7 @@ module.exports = function (templateName, model) {
   
   $('.main-content').html(hydratedHTML);
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],13:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 'use strict';
  
 var Backbone = require('backbone');

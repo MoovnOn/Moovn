@@ -3,8 +3,7 @@ var d3 = require('d3');
 var $ = require('jquery');
 
 module.exports = function(state, city) {
-	console.log(state);
-  console.log(city);
+
   $.ajax({
     method: 'GET',
     url: '/api/homeprices/' + state + '/' + city + '/'
@@ -46,17 +45,11 @@ module.exports = function(state, city) {
         		height: 400
       		},
        });
-       
- 
-       
+            
        var housingPeopleIncome= housingPeople[0].data.attribute[0].values.city.value["#text"];
        var housingPeopleIncomeNation= housingPeople[0].data.attribute[0].values.nation.value["#text"];
        var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;
        var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
-       
-       console.log(housingPeopleIncome);
-       console.log(housingPeopleCommute);
-       console.log(housingPeopleCommuteNation);
        
        $('#chartType').change(function(){ 
          if ($('#income').is(':selected')){
