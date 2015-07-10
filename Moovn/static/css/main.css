@@ -1278,6 +1278,43 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   .pure-u-xl-1, .pure-u-xl-1-1, .pure-u-xl-5-5, .pure-u-xl-24-24 {
     width: 100%; } }
 
+.logo-container {
+  max-width: 200px;
+  display: inline-block;
+  margin-bottom: 1em;
+  padding: 0.3em; }
+
+.side-nav-container {
+  max-width: 200px;
+  float: left; }
+
+.side-nav-list {
+  background-color: #354052;
+  color: white;
+  height: 100vh; }
+
+.side-nav-item-container {
+  text-decoration: none;
+  color: #A5B6C3;
+  font-size: 1em; }
+
+.side-nav-item {
+  padding: 0.5em;
+  padding-left: 1em;
+  border-left: 3px solid #354052; }
+
+.side-icon {
+  min-width: 25px;
+  color: #A5B6C3; }
+
+.side-nav-item-container:hover .side-nav-item {
+  color: white;
+  background: #2F3948;
+  border-left: 3px solid white; }
+
+.side-nav-item-container:hover .side-icon {
+  color: white; }
+
 header {
   text-align: left;
   padding: 0.3em; }
@@ -1362,82 +1399,12 @@ header {
   .pure-form input:not([type]) {
     display: inline-block; } }
 
-.logo-container {
-  max-width: 200px;
-  display: inline-block;
-  margin-bottom: 1em;
-  padding: 0.3em; }
-
-.side-nav-container {
-  max-width: 200px;
-  float: left; }
-
-.side-nav-list {
-  background-color: #354052;
-  color: white;
-  height: 100vh; }
-
-.side-nav-item-container {
-  text-decoration: none;
-  color: #A5B6C3;
-  font-size: 1em; }
-
-.side-nav-item {
-  padding: 0.5em;
-  padding-left: 1em;
-  border-left: 3px solid #354052; }
-
-.side-icon {
-  min-width: 25px;
-  color: #A5B6C3; }
-
-.side-nav-item-container:hover .side-nav-item {
-  color: white;
-  background: #2F3948;
-  border-left: 3px solid white; }
-
-.side-nav-item-container:hover .side-icon {
-  color: white; }
-
-.city-content {
-  max-height: 400px;
-  max-width: 600px; }
-
-.ui-tabs-nav {
-  height: 60vh; }
-
-.ui-tabs-vertical {
-  width: 55em; }
-
-.ui-tabs-vertical .ui-tabs-nav {
-  padding: 0.2em 0.1em 0.2em 0.2em;
-  float: left;
-  width: 12em; }
-
-.ui-tabs-vertical .ui-tabs-nav li {
-  clear: left;
-  width: 100%;
-  border-bottom-width: 1px !important;
-  border-right-width: 0 !important;
-  margin: 0 -1px 0.2em 0; }
-
-.ui-tabs-vertical .ui-tabs-nav li a {
-  display: block; }
-
-.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active {
-  padding-bottom: 0;
-  padding-right: .1em;
-  border-right-width: 1px; }
-
-.ui-tabs-vertical .ui-tabs-panel {
-  padding: 1em;
-  width: 40em; }
-
 #accordion h3 {
   background-color: lightgray; }
 
 .city-all-container {
-  margin: 2em; }
+  margin-right: 2em;
+  margin-bottom: 2em; }
 
 .city-title {
   text-align: left; }
