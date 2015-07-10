@@ -3,11 +3,11 @@
 /* Tabs container */
 .r-tabs {
 	position: relative;
-	background-color: lightgrey;
-	border-top: 1px solid lightgrey;
-	border-right: 1px solid lightgrey;
-	border-left: 1px solid lightgrey;
-	border-bottom: 4px solid lightgrey;
+	background-color: $light-primary-color;;
+	border-top: 1px solid $light-primary-color;;
+	border-right: 1px solid $light-primary-color;;
+	border-left: 1px solid $light-primary-color;;
+	border-bottom: 4px solid $light-primary-color;;
 	border-radius: 4px;
 
 }
@@ -15,7 +15,7 @@
 /* Tab element */
 .r-tabs .r-tabs-nav .r-tabs-tab {
 	position: relative;
-	background-color: lightgrey;
+	background-color: $light-primary-color;;
 }
 
 /* Tab anchor */
@@ -37,7 +37,7 @@
 
 /* Active state tab anchor */
 .r-tabs .r-tabs-nav .r-tabs-state-active .r-tabs-anchor {
-	color: black;
+	color: $dark-primary-color;
 	text-shadow: none;
 
 	background-color: white;
@@ -49,9 +49,8 @@
 /* Tab panel */
 .r-tabs .r-tabs-panel {
 	background-color: white;
-
 	border-bottom: 4px solid white;
-
+	color: $dark-primary-color;
 	border-bottom-right-radius: 4px;
 	border-bottom-left-radius: 4px;
 
@@ -61,8 +60,7 @@
 .r-tabs .r-tabs-accordion-title .r-tabs-anchor {
 	display: block;
 	padding: 10px;
-
-	background-color: lightgrey;
+	background-color: $light-primary-color;;
 	color: #fff;
 	font-weight: bold;
 	text-decoration: none;
@@ -76,7 +74,7 @@
 /* Active accordion anchor */
 .r-tabs .r-tabs-accordion-title.r-tabs-state-active .r-tabs-anchor {
 	background-color: #fff;
-	color: black;
+	color: $dark-primary-color;
 	text-shadow: none;
 }
 
@@ -104,7 +102,7 @@
 // 	-webkit-border-radius: 3px;
 // 	-moz-border-radius: 3px;
 // 	border-radius: 3px;
-// 	background-color: lightgrey;
+// 	background-color: $light-primary-color;;
 // 	box-shadow: 0px 3px 0px 0px grey;
 	
 // 	cursor: pointer;
@@ -121,7 +119,7 @@
 
 	font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
 	font-size: 14px;
-	color: black;
+	color: $dark-primary-color;
 	border: 2px solid #00ab94;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;

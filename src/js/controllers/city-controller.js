@@ -11,7 +11,7 @@ var d3 = require('d3');
 var drawMap = require('../drawMap');
 
 router.route('search/:cityName', function (cityName){
-  
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -24,6 +24,8 @@ router.route('search/:cityName', function (cityName){
   });	
 
   show('city', {city: cityName});
+  $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+  $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
  	
   chart(state, city); 
 
@@ -35,4 +37,5 @@ router.route('search/:cityName', function (cityName){
   places(cityName, "brewery", ".leisure-tab-data");
 
 
+   
 });

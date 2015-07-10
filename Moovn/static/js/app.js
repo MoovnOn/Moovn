@@ -15013,7 +15013,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require("jquery");
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -15762,11 +15762,11 @@ var views = require('views');
 var router = require('../router');
 var show = require('../show');
 
-router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
+// router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   
-  show('city-comp', {city1: cityName1, city2: cityName2});
+//   show('city-comp', {city1: cityName1, city2: cityName2});
 
-});
+// });
 },{"../router":11,"../show":12,"jquery":"jquery","underscore":"underscore","views":"views"}],6:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
@@ -15781,7 +15781,7 @@ var d3 = require('d3');
 var drawMap = require('../drawMap');
 
 router.route('search/:cityName', function (cityName){
-  
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -15794,6 +15794,8 @@ router.route('search/:cityName', function (cityName){
   });	
 
   show('city', {city: cityName});
+  $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+  $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
  	
   chart(state, city); 
 
@@ -15805,6 +15807,7 @@ router.route('search/:cityName', function (cityName){
   places(cityName, "brewery", ".leisure-tab-data");
 
 
+   
 });
 },{"../c3-charts":3,"../drawMap":8,"../places-api":10,"../router":11,"../show":12,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
