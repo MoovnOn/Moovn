@@ -6,6 +6,7 @@ def apis(name):
         'opensignal': "b6ca3f15d741e43e7764717cc778ebde"
         }
 
+
     for key in keys:
         if name == key:
             return keys[name]
