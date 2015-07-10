@@ -4,10 +4,10 @@ module.exports = function (json, g, path) {
       .data(json.features, function(d) {return d.properties.GEOID10;})
     .enter().append("path")
       .attr("d", path)
-      .attr("class", "feature")
+      .attr("class", "feature-neighborhood")
       .style("fill", "none")
-      .style("stroke-width", "0.001")
-      .style("stroke", "black")
+      .style("stroke-width", "0.01")
+      .style("stroke", "grey")
       .attr("id", function(d) {return d.properties.GEOID10;});
 
 };

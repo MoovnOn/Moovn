@@ -15138,7 +15138,7 @@ var jQuery = require("jquery");
         // Trigger loaded event
         this.$element.trigger('tabs-load');
     };
-    
+
     //
     // PRIVATE FUNCTIONS
     //
@@ -15270,7 +15270,7 @@ var jQuery = require("jquery");
     ResponsiveTabs.prototype._getStartTab = function() {
         var tabRef = this._getTabRefBySelector(window.location.hash);
         var startTab;
-        
+
         // Check if the page has a hash set that is linked to a tab
         if(tabRef >= 0 && !this._getTab(tabRef).disabled) {
             // If so, set the current tab to the linked tab
@@ -15349,7 +15349,7 @@ var jQuery = require("jquery");
         _this._doTransition(oTab.panel, _this.options.animation, 'open', function() {
             // When finished, set active class to the panel
             oTab.panel.removeClass(_this.options.classes.stateDefault).addClass(_this.options.classes.stateActive);
-          
+
            // And if enabled and state is accordion, scroll to the accordion tab
             if(_this.getState() === 'accordion' && _this.options.scrollToAccordion && (!_this._isInView(oTab.accordionTab) || _this.options.animation !== 'default')) {
                 // Check if the animation option is enabled, and if the duration isn't 0
@@ -15530,7 +15530,7 @@ var jQuery = require("jquery");
 
     //
     // HELPER FUNCTIONS
-    // 
+    //
 
     ResponsiveTabs.prototype._isInView = function($element) {
         var docViewTop = $(window).scrollTop(),
@@ -15772,13 +15772,14 @@ var places = require('../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
 var drawMap = require('../drawMap');
-var drawNeigh = require('../neighMap')
+var drawNeigh = require('../neighMap');
+var zoom = require('../zoom');
 
 router.route('search/:cityName', function (cityName){
 
   show('city', {city: cityName});
 
-  // Jquery UI tabs 
+  // Jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
@@ -15791,31 +15792,62 @@ router.route('search/:cityName', function (cityName){
 
   var projection = d3.geo.albers().scale(200).translate([150,140]);
   var path = d3.geo.path().projection(projection);
-  
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
+  var cityjson = [];
+  var boundaryjson = [];
 
-  $.ajax({
-  	method: 'GET',
-  	url: '/api/boundary/' + state + '/' + city + '/'
-  }).done(function (data){	
-  	drawMap(data, g, path, height, width);
-  });	
+Promise.all([$.ajax({
 
-  $.ajax({
     method: 'GET',
-    url: '/api/neighborhoods/' + state + '/' + city + '/'
-  }).done(function (json){  
-    drawNeigh(json, g, path);
-  }); 
+    url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
 
+}).done(function (json){
 
+    cityjson = json;
+    drawMap(json, g, path, "black");
+
+})]).then(function(results){
+
+Promise.all(
+  [
+    $.ajax({
+
+    	method: 'GET',
+    	url: '/api/boundary/' + state + '/' + city + '/'
+
+    }).done(function (json){
+
+      cityjson = json;
+    	drawMap(json, g, path, "brown");
+
+    }),
+    $.ajax({
+
+      method: 'GET',
+      url: '/api/neighborhoods/' + state + '/' + city + '/'
+
+    }).done(function (json){
+
+      boundaryjson = json;
+      drawNeigh(json, g, path);
+
+    })
+  ]
+).then(function(results){
+
+    zoom(results[0], results[1], g, path, height, width);
+
+})
+
+})
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
- 	
-  chart(state, city); 
+
+  chart(state, city);
 
 //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
@@ -15827,7 +15859,7 @@ router.route('search/:cityName', function (cityName){
   places(cityName, "attractions", ".leisure-tab-data");
 
 
-   
+
 });
 
 router.route('search/:cityName/cost', function (cityName){
@@ -15835,15 +15867,15 @@ router.route('search/:cityName/cost', function (cityName){
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
-  
+
 $.ajax({
   	method: 'GET',
   	url: '/api/boundary/' + state + '/' + city + '/'
-  }).done(function (data){	
+  }).done(function (data){
   	drawMap(data);
-  });	
+  });
     show('city-cost', {city: cityName});
-  
+
     $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
   });
@@ -15853,7 +15885,8 @@ $.ajax({
     places(cityName, "attractions", ".leisure-tab-data");
 
 })
-},{"../c3-charts":3,"../drawMap":8,"../neighMap":10,"../places-api":11,"../router":12,"../show":13,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+
+},{"../c3-charts":3,"../drawMap":8,"../neighMap":10,"../places-api":11,"../router":12,"../show":13,"../zoom":15,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -15921,35 +15954,21 @@ router.route('', 'search', function (){
 });
 
 },{"../city-list":4,"../router":12,"../show":13,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
-$ = require('jquery');
+module.exports = function (json, g, path, color) {
 
-module.exports = function (data, g, path, height, width) {
-
-    g.selectAll("path")
-        .data(data.features, function(d){return d.properties.GEOID10;})
-      .enter().append("path")
-        .attr("d", path)
-        .attr("class", "feature")
-        .style("fill", "white")
-        .style("stroke-width", "0.01")
-        .style("stroke", "gray")
-        .attr("id", function(d){return d.properties.GEOID10;});	
-
-    var bounds = path.bounds(data),
-      dx = bounds[1][0] - bounds[0][0],
-      dy = bounds[1][1] - bounds[0][1],
-      x = (bounds[0][0] + bounds[1][0])/2,
-      y = (bounds[0][1] + bounds[1][1])/2,
-      scale = .9 / Math.max( dx / width, dy / height),
-      translate = [width / 2 - scale * x, height / 2 - scale * y];
-
-    g.transition()
-     .duration(1000)
-     .style("stroke-width", 1.5/ scale + "px")
-     .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+  g.selectAll("path")
+      .data(json.features, function(d){return d.properties.GEOID10;})
+    .enter().append("path")
+      .attr("d", path)
+      .attr("class", "feature")
+      .style("fill", "none")
+      .style("stroke-width", "0.01")
+      .style("stroke", color)
+      .attr("id", function(d){return d.properties.GEOID10;});
 
 }
-},{"jquery":"jquery"}],9:[function(require,module,exports){
+
+},{}],9:[function(require,module,exports){
 'use strict';
 var jQuery = require("jquery");
 var $ = require("jquery");
@@ -15999,13 +16018,14 @@ module.exports = function (json, g, path) {
       .data(json.features, function(d) {return d.properties.GEOID10;})
     .enter().append("path")
       .attr("d", path)
-      .attr("class", "feature")
+      .attr("class", "feature-neighborhood")
       .style("fill", "none")
-      .style("stroke-width", "0.001")
-      .style("stroke", "black")
+      .style("stroke-width", "0.01")
+      .style("stroke", "grey")
       .attr("id", function(d) {return d.properties.GEOID10;});
 
 };
+
 },{}],11:[function(require,module,exports){
 var map;
 var service;
@@ -16095,7 +16115,40 @@ var SortedRouter = Backbone.Router.extend({
 });
  
 module.exports = SortedRouter;
-},{"backbone":"backbone","underscore":"underscore"}]},{},[9])
+},{"backbone":"backbone","underscore":"underscore"}],15:[function(require,module,exports){
+module.exports = function (cityjson, boundaryjson, g, path, height, width){
+
+  var bounds1 = path.bounds(cityjson);
+  var bounds2 = path.bounds(boundaryjson);
+
+  var dx = function (bound) {
+    return bound[1][0] - bound[0][0];
+  }
+  var dy = function (bound){
+    return bound[1][1] - bound[0][1];
+  }
+
+  if(dx(bounds1) * dy(bounds1) >= dx(bounds2) * dy(bounds2)){
+    var bounds = bounds1;
+  }else{
+    var bounds = bounds2;
+  }
+
+    dx = bounds[1][0] - bounds[0][0],
+    dy = bounds[1][1] - bounds[0][1],
+    x = (bounds[0][0] + bounds[1][0])/2,
+    y = (bounds[0][1] + bounds[1][1])/2,
+    scale = .85 / Math.max( dx / width, dy / height),
+    translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+  g.transition()
+   .duration(700)
+   .style("stroke-width", 1.5/ scale + "px")
+   .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+
+}
+
+},{}]},{},[9])
 
 
 //# sourceMappingURL=app.js.map
