@@ -15013,7 +15013,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require("jquery");
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -15138,7 +15138,7 @@ var jQuery = require("jquery");
         // Trigger loaded event
         this.$element.trigger('tabs-load');
     };
-
+    
     //
     // PRIVATE FUNCTIONS
     //
@@ -15270,7 +15270,7 @@ var jQuery = require("jquery");
     ResponsiveTabs.prototype._getStartTab = function() {
         var tabRef = this._getTabRefBySelector(window.location.hash);
         var startTab;
-
+        
         // Check if the page has a hash set that is linked to a tab
         if(tabRef >= 0 && !this._getTab(tabRef).disabled) {
             // If so, set the current tab to the linked tab
@@ -15349,7 +15349,7 @@ var jQuery = require("jquery");
         _this._doTransition(oTab.panel, _this.options.animation, 'open', function() {
             // When finished, set active class to the panel
             oTab.panel.removeClass(_this.options.classes.stateDefault).addClass(_this.options.classes.stateActive);
-
+          
            // And if enabled and state is accordion, scroll to the accordion tab
             if(_this.getState() === 'accordion' && _this.options.scrollToAccordion && (!_this._isInView(oTab.accordionTab) || _this.options.animation !== 'default')) {
                 // Check if the animation option is enabled, and if the duration isn't 0
@@ -15530,7 +15530,7 @@ var jQuery = require("jquery");
 
     //
     // HELPER FUNCTIONS
-    //
+    // 
 
     ResponsiveTabs.prototype._isInView = function($element) {
         var docViewTop = $(window).scrollTop(),
@@ -15783,18 +15783,21 @@ router.route('search/:cityName', function (cityName){
 
   show('city', {city: cityName});
 
-  // Jquery UI tabs
-
-var sideBarHTML = views['side-bar-city-search'];
-
+  var sideBarHTML = views['side-bar-city-search'];
   $('.side-bar-content').html(sideBarHTML);
-
   searchFunction();
   // Jquery UI tabs
-
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
+  $('.bar-menu-icon').click(function(){
+    $('.side-nav-container').css({
+      'margin-left': '0px',
+      'z-index':'100',
+      'box-shadow': '83px 0px 100px 28px rgba(0,0,0,0.57)'
+      });
+    $('.bar-menu-icon').css('display', 'none');
+  })
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
@@ -15870,33 +15873,7 @@ Promise.all(
   places(cityName, "banks", ".banks-tab-data");
   places(cityName, "attractions", ".leisure-tab-data");
 
-
-
 });
-
-router.route('search/:cityName/cost', function (cityName){
-
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
-$.ajax({
-  	method: 'GET',
-  	url: '/api/boundary/' + state + '/' + city + '/'
-  }).done(function (data){
-  	drawMap(data);
-  });
-    show('city-cost', {city: cityName});
-
-    $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
-  });
-
-  //google places
-    places(cityName, "banks", ".income-tab-data");
-    places(cityName, "attractions", ".leisure-tab-data");
-
-})
 
 },{"../c3-charts":3,"../drawMap":8,"../neighMap":10,"../places-api":11,"../router":12,"../search":13,"../show":14,"../zoom":16,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');

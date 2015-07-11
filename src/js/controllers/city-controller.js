@@ -20,18 +20,21 @@ router.route('search/:cityName', function (cityName){
 
   show('city', {city: cityName});
 
-  // Jquery UI tabs
-
-var sideBarHTML = views['side-bar-city-search'];
-
+  var sideBarHTML = views['side-bar-city-search'];
   $('.side-bar-content').html(sideBarHTML);
-
   searchFunction();
   // Jquery UI tabs
-
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
+  $('.bar-menu-icon').click(function(){
+    $('.side-nav-container').css({
+      'margin-left': '0px',
+      'z-index':'100',
+      'box-shadow': '83px 0px 100px 28px rgba(0,0,0,0.57)'
+      });
+    $('.bar-menu-icon').css('display', 'none');
+  })
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
@@ -107,30 +110,4 @@ Promise.all(
   places(cityName, "banks", ".banks-tab-data");
   places(cityName, "attractions", ".leisure-tab-data");
 
-
-
 });
-
-router.route('search/:cityName/cost', function (cityName){
-
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
-$.ajax({
-  	method: 'GET',
-  	url: '/api/boundary/' + state + '/' + city + '/'
-  }).done(function (data){
-  	drawMap(data);
-  });
-    show('city-cost', {city: cityName});
-
-    $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
-  });
-
-  //google places
-    places(cityName, "banks", ".income-tab-data");
-    places(cityName, "attractions", ".leisure-tab-data");
-
-})

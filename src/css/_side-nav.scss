@@ -41,3 +41,19 @@
 .side-nav-item-container:hover .side-icon{
   color:white;
 }
+.bar-menu-icon{
+  display: none;
+}
+
+@media screen and (max-width: 670px) {
+    .side-nav-container{
+        margin-left: -400px;
+    }
+    .bar-menu-icon{
+      display: inline-block;
+      margin: 1em;
+      font-size: 1.2em;
+      border:none;
+      background:white;
+    }
+}
