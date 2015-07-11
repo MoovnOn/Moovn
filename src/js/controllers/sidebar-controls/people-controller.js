@@ -21,4 +21,9 @@ router.route('search/:cityName/people', function (cityName){
   searchFunction();
   show('test', {city: cityName});
 
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
+
 });

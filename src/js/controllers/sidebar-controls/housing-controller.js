@@ -12,8 +12,6 @@ var drawMap = require('../../drawMap');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
-var views = require('views');
-var viewsContent = require('views/content');
 var showSideBar = require('../../show-sidebar');
 
 router.route('search/:cityName/housing', function (cityName){
@@ -22,13 +20,18 @@ router.route('search/:cityName/housing', function (cityName){
   searchFunction();
   show('city-template-4', {city: cityName});
   
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
+  
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
   
   chart(state, city);
   
-  var tabsList = viewsContent['tabs-lists'];
+  var tabsList = views['content/tabs-lists'];
   
   $('.quad-4').html(tabsList)
   

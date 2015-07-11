@@ -15789,14 +15789,12 @@ router.route('search/:cityName',{trigger: true} , function (cityName){
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
-  $('.bar-menu-icon').click(function(){
-    $('.side-nav-container').css({
-      'margin-left': '0px',
-      'z-index':'100',
-      'box-shadow': '83px 0px 100px 28px rgba(0,0,0,0.57)'
-      });
-    $('.bar-menu-icon').css('display', 'none');
-  })
+  
+
+$('.bar-menu-icon').click(function() {
+  $( ".side-nav-container" ).toggle( "slide" );
+});
+
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
@@ -15920,6 +15918,12 @@ router.route('search/:cityName/education', function (cityName){
   searchFunction();
   show('test', {city: cityName});
   
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
+  
+  
 });
 },{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 var $ = require('jquery');
@@ -15936,7 +15940,6 @@ var drawMap = require('../../drawMap');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
-var views = require('views');
 var showSideBar = require('../../show-sidebar');
 
 router.route('search/:cityName/housing', function (cityName){
@@ -15945,6 +15948,11 @@ router.route('search/:cityName/housing', function (cityName){
   searchFunction();
   show('city-template-4', {city: cityName});
   
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
+  
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -15952,8 +15960,6 @@ router.route('search/:cityName/housing', function (cityName){
   chart(state, city);
   
   var tabsList = views['content/tabs-lists'];
-  
-  console.log(views);
   
   $('.quad-4').html(tabsList)
   
@@ -15990,6 +15996,11 @@ router.route('search/:cityName/industry', function (cityName){
   searchFunction();
   show('test', {city: cityName});
   
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
+  
 });
 },{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
@@ -16014,6 +16025,11 @@ router.route('search/:cityName/internet', function (cityName){
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
   show('test', {city: cityName});
+  
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
   
 });
 },{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
@@ -16040,6 +16056,11 @@ router.route('search/:cityName/jobs', function (cityName){
   searchFunction();
   show('test', {city: cityName});
   
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
+  
 });
 },{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 var $ = require('jquery');
@@ -16064,6 +16085,11 @@ router.route('search/:cityName/leisure', function (cityName){
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
   show('test', {city: cityName});
+  
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
   
 });
 },{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
@@ -16090,6 +16116,11 @@ router.route('search/:cityName/people', function (cityName){
   searchFunction();
   show('test', {city: cityName});
 
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
+
 });
 },{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],15:[function(require,module,exports){
 var $ = require('jquery');
@@ -16114,6 +16145,11 @@ router.route('search/:cityName/taxes', function (cityName){
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
   show('test', {city: cityName});
+
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
 
 });
 },{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],16:[function(require,module,exports){
@@ -16140,6 +16176,10 @@ router.route('search/:cityName/transportation', function (cityName){
   searchFunction();
   show('test', {city: cityName});
  
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
 });
 },{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],17:[function(require,module,exports){
 module.exports = function (json, g, path, color) {

@@ -26,14 +26,12 @@ router.route('search/:cityName',{trigger: true} , function (cityName){
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
-  $('.bar-menu-icon').click(function(){
-    $('.side-nav-container').css({
-      'margin-left': '0px',
-      'z-index':'100',
-      'box-shadow': '83px 0px 100px 28px rgba(0,0,0,0.57)'
-      });
-    $('.bar-menu-icon').css('display', 'none');
-  })
+  
+
+$('.bar-menu-icon').click(function() {
+  $( ".side-nav-container" ).toggle( "slide" );
+});
+
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
