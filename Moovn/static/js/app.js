@@ -15013,7 +15013,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require("jquery");
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -15784,13 +15784,19 @@ router.route('search/:cityName',{trigger: true} , function (cityName){
 
   show('city', {city: cityName});
   showSideBar('side-bar-city-search', cityName);
-  
   searchFunction();
   // Jquery UI tabs
-
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
+  $('.bar-menu-icon').click(function(){
+    $('.side-nav-container').css({
+      'margin-left': '0px',
+      'z-index':'100',
+      'box-shadow': '83px 0px 100px 28px rgba(0,0,0,0.57)'
+      });
+    $('.bar-menu-icon').css('display', 'none');
+  })
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
@@ -15866,10 +15872,9 @@ Promise.all(
   places(cityName, "banks", ".banks-tab-data");
   places(cityName, "attractions", ".leisure-tab-data");
 
-
-
 });
 
+<<<<<<< HEAD
 router.route('search/:cityName/cost', function (cityName){
 
   var citySplit = cityName.split(', ');
@@ -15895,6 +15900,9 @@ $.ajax({
 })
 
 },{"../c3-charts":3,"../drawMap":17,"../neighMap":19,"../places-api":20,"../router":21,"../search":22,"../show":24,"../show-sidebar":23,"../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+=======
+},{"../c3-charts":3,"../drawMap":8,"../neighMap":10,"../places-api":11,"../router":12,"../search":13,"../show":14,"../zoom":16,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+>>>>>>> 48c511301e1e2fdba8f962bd4b4a4106d3f962b1
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -16169,6 +16177,7 @@ module.exports = function(city, searchTerm, tabContainer) {
 	service.textSearch(request, function(results) {
 	  for (var i = 0; i < results.length; i++) {
     var place = results[i];
+    // console.log(place);
     	$(tabContainer).append('<p>' + place.name + '</p>')
   	}
 	});
