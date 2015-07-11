@@ -1326,7 +1326,8 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 
 @media screen and (max-width: 670px) {
   .side-nav-container {
-    margin-left: -400px; }
+    z-index: 100;
+    display: none; }
   .bar-menu-icon {
     display: inline-block;
     margin: 1em;

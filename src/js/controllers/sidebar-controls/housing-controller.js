@@ -21,13 +21,18 @@ router.route('search/:cityName/housing', function (cityName){
   searchFunction();
   show('city-template-4', {city: cityName});
   
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
+  
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
   
   chart(state, city);
   
-  var tabsList = viewsContent['content/tabs-lists'];
+  var tabsList = views['content/tabs-lists'];
   
   $('.quad-4').html(tabsList)
   

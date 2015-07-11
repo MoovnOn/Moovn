@@ -33,4 +33,9 @@ router.route('search/:cityName/internet', function (cityName){
       reliabilityGraph(data)
     });
   
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
+  
 });

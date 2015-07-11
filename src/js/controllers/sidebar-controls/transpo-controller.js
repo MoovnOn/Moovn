@@ -21,4 +21,8 @@ router.route('search/:cityName/transportation', function (cityName){
   searchFunction();
   show('test', {city: cityName});
  
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
 });
