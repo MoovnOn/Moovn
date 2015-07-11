@@ -1379,7 +1379,7 @@ header {
 
 .search-form-searchView {
   text-align: center;
-  padding: 1em; }
+  padding: 0.3em; }
 
 .search-city-searchView {
   min-width: 20em; }
@@ -1406,9 +1406,6 @@ header {
   max-height: 350px;
   overflow-y: auto;
   overflow-x: auto; }
-
-.flow-container {
-  margin-top: 2em; }
 
 .flow {
   text-align: center; }
