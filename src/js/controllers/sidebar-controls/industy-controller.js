@@ -14,13 +14,22 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var showSideBar = require('../../show-sidebar');
+var industryGraph = require('../../graphs/industry');
 
 router.route('search/:cityName/industry', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test', {city: cityName});
+  show('city-template-2', {city: cityName});
+
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
   
+  industryGraph(state, city).done(function(data) {
+  	console.log(data)
+  })
+
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
