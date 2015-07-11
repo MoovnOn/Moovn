@@ -33,8 +33,10 @@ except:
 # @api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
 def city_boundary_view(request, state, name):
-    name = get_object_or_404(Name, name=name, state=state)
-    return JsonResponse(geojson.loads(name.city.boundary.data))
+    name_obj = get_object_or_404(Name, name=name, state=state)
+    if name == 'US':
+        return JsonResponse(json.loads(name_obj.city.boundary.data))
+    return JsonResponse(geojson.loads(name_obj.city.boundary.data))
 
 
 class HomeView(View):
