@@ -15007,13 +15007,13 @@ $.widget( "ui.tooltip", {
 
 },{"jquery":"jquery"}],2:[function(require,module,exports){
 /*
- *  Project: jquery.responsiveTabs.js
+ *  Project: jQuery.responsiveTabs.js
  *  Description: A plugin that creates responsive tabs, optimized for all devices
  *  Author: Jelle Kralt (jelle@jellekralt.nl)
  *  Version: 1.4.5
  *  License: MIT
  */
-
+var jQuery = require('jquery');
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -15138,7 +15138,7 @@ $.widget( "ui.tooltip", {
         // Trigger loaded event
         this.$element.trigger('tabs-load');
     };
-    
+
     //
     // PRIVATE FUNCTIONS
     //
@@ -15270,7 +15270,7 @@ $.widget( "ui.tooltip", {
     ResponsiveTabs.prototype._getStartTab = function() {
         var tabRef = this._getTabRefBySelector(window.location.hash);
         var startTab;
-        
+
         // Check if the page has a hash set that is linked to a tab
         if(tabRef >= 0 && !this._getTab(tabRef).disabled) {
             // If so, set the current tab to the linked tab
@@ -15349,7 +15349,7 @@ $.widget( "ui.tooltip", {
         _this._doTransition(oTab.panel, _this.options.animation, 'open', function() {
             // When finished, set active class to the panel
             oTab.panel.removeClass(_this.options.classes.stateDefault).addClass(_this.options.classes.stateActive);
-          
+
            // And if enabled and state is accordion, scroll to the accordion tab
             if(_this.getState() === 'accordion' && _this.options.scrollToAccordion && (!_this._isInView(oTab.accordionTab) || _this.options.animation !== 'default')) {
                 // Check if the animation option is enabled, and if the duration isn't 0
@@ -15530,7 +15530,7 @@ $.widget( "ui.tooltip", {
 
     //
     // HELPER FUNCTIONS
-    // 
+    //
 
     ResponsiveTabs.prototype._isInView = function($element) {
         var docViewTop = $(window).scrollTop(),
@@ -15656,7 +15656,7 @@ $.widget( "ui.tooltip", {
 
 }(jQuery, window));
 
-},{}],3:[function(require,module,exports){
+},{"jquery":"jquery"}],3:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
