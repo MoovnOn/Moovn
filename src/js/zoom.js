@@ -24,7 +24,7 @@ module.exports = function (cityjson, boundaryjson, g, path, height, width){
     translate = [width / 2 - scale * x, height / 2 - scale * y];
 
   g.transition()
-   .duration(700)
+   .duration(1000)
    .style("stroke-width", 1.5/ scale + "px")
    .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
 

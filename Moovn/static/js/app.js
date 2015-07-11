@@ -15007,13 +15007,13 @@ $.widget( "ui.tooltip", {
 
 },{"jquery":"jquery"}],2:[function(require,module,exports){
 /*
- *  Project: jquery.responsiveTabs.js
+ *  Project: jQuery.responsiveTabs.js
  *  Description: A plugin that creates responsive tabs, optimized for all devices
  *  Author: Jelle Kralt (jelle@jellekralt.nl)
  *  Version: 1.4.5
  *  License: MIT
  */
-
+var jQuery = require('jquery');
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -15138,7 +15138,7 @@ $.widget( "ui.tooltip", {
         // Trigger loaded event
         this.$element.trigger('tabs-load');
     };
-    
+
     //
     // PRIVATE FUNCTIONS
     //
@@ -15270,7 +15270,7 @@ $.widget( "ui.tooltip", {
     ResponsiveTabs.prototype._getStartTab = function() {
         var tabRef = this._getTabRefBySelector(window.location.hash);
         var startTab;
-        
+
         // Check if the page has a hash set that is linked to a tab
         if(tabRef >= 0 && !this._getTab(tabRef).disabled) {
             // If so, set the current tab to the linked tab
@@ -15349,7 +15349,7 @@ $.widget( "ui.tooltip", {
         _this._doTransition(oTab.panel, _this.options.animation, 'open', function() {
             // When finished, set active class to the panel
             oTab.panel.removeClass(_this.options.classes.stateDefault).addClass(_this.options.classes.stateActive);
-          
+
            // And if enabled and state is accordion, scroll to the accordion tab
             if(_this.getState() === 'accordion' && _this.options.scrollToAccordion && (!_this._isInView(oTab.accordionTab) || _this.options.animation !== 'default')) {
                 // Check if the animation option is enabled, and if the duration isn't 0
@@ -15530,7 +15530,7 @@ $.widget( "ui.tooltip", {
 
     //
     // HELPER FUNCTIONS
-    // 
+    //
 
     ResponsiveTabs.prototype._isInView = function($element) {
         var docViewTop = $(window).scrollTop(),
@@ -15656,7 +15656,7 @@ $.widget( "ui.tooltip", {
 
 }(jQuery, window));
 
-},{}],3:[function(require,module,exports){
+},{"jquery":"jquery"}],3:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
@@ -15821,7 +15821,7 @@ Promise.all([$.ajax({
 }).done(function (json){
 
     cityjson = json;
-    drawMap(json, g, path, "black");
+    drawMap(json, g, path, "black", 1);
 
 })]).then(function(results){
 
@@ -15835,7 +15835,7 @@ Promise.all(
     }).done(function (json){
 
       cityjson = json;
-    	drawMap(json, g, path, "brown");
+    	drawMap(json, g, path, "brown", .01);
 
     }),
     $.ajax({
@@ -15873,32 +15873,7 @@ Promise.all(
   places(cityName, "attractions", ".leisure-tab-data");
 
 
-
 });
-
-router.route('search/:cityName/cost', function (cityName){
-
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
-$.ajax({
-  	method: 'GET',
-  	url: '/api/boundary/' + state + '/' + city + '/'
-  }).done(function (data){
-  	drawMap(data);
-  });
-    show('city-cost', {city: cityName});
-
-    $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
-  });
-
-  //google places
-    places(cityName, "banks", ".income-tab-data");
-    places(cityName, "attractions", ".leisure-tab-data");
-
-})
 
 },{"../c3-charts":3,"../drawMap":8,"../neighMap":10,"../places-api":11,"../router":12,"../search":13,"../show":14,"../zoom":16,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
@@ -15923,7 +15898,7 @@ router.route('', 'search',  function (){
 });
 
 },{"../city-list":4,"../router":12,"../search":13,"../show":14,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
-module.exports = function (json, g, path, color) {
+module.exports = function (json, g, path, color, sw) {
 
   g.selectAll("path")
       .data(json.features, function(d){return d.properties.GEOID10;})
@@ -15931,7 +15906,7 @@ module.exports = function (json, g, path, color) {
       .attr("d", path)
       .attr("class", "feature")
       .style("fill", "none")
-      .style("stroke-width", "0.01")
+      //.style("stroke-width", sw + "px")//"0.01")
       .style("stroke", color)
       .attr("id", function(d){return d.properties.GEOID10;});
 
@@ -15989,8 +15964,8 @@ module.exports = function (json, g, path) {
       .attr("d", path)
       .attr("class", "feature-neighborhood")
       .style("fill", "none")
-      .style("stroke-width", "0.01")
-      .style("stroke", "grey")
+      //.style("stroke-width", "0.01")
+      .style("stroke", "darkgrey")
       .attr("id", function(d) {return d.properties.GEOID10;});
 
 };
@@ -16174,7 +16149,7 @@ module.exports = function (cityjson, boundaryjson, g, path, height, width){
     translate = [width / 2 - scale * x, height / 2 - scale * y];
 
   g.transition()
-   .duration(700)
+   .duration(1000)
    .style("stroke-width", 1.5/ scale + "px")
    .attr("transform", "translate(" + translate + ")scale(" + scale + ")");
 

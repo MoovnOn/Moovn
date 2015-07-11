@@ -58,7 +58,7 @@ Promise.all([$.ajax({
 }).done(function (json){
 
     cityjson = json;
-    drawMap(json, g, path, "black");
+    drawMap(json, g, path, "black", 1);
 
 })]).then(function(results){
 
@@ -72,7 +72,7 @@ Promise.all(
     }).done(function (json){
 
       cityjson = json;
-    	drawMap(json, g, path, "brown");
+    	drawMap(json, g, path, "brown", .01);
 
     }),
     $.ajax({
@@ -110,29 +110,4 @@ Promise.all(
   places(cityName, "attractions", ".leisure-tab-data");
 
 
-
 });
-
-router.route('search/:cityName/cost', function (cityName){
-
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
-$.ajax({
-  	method: 'GET',
-  	url: '/api/boundary/' + state + '/' + city + '/'
-  }).done(function (data){
-  	drawMap(data);
-  });
-    show('city-cost', {city: cityName});
-
-    $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
-  });
-
-  //google places
-    places(cityName, "banks", ".income-tab-data");
-    places(cityName, "attractions", ".leisure-tab-data");
-
-})
