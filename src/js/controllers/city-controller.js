@@ -8,6 +8,7 @@ var chart = require('../c3-charts');
 var places = require('../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
+var topojson = require('../topojson');
 var drawMap = require('../drawMap');
 var drawNeigh = require('../neighMap');
 var zoom = require('../zoom');
@@ -24,7 +25,7 @@ router.route('search/:cityName', function (cityName){
 
 var sideBarHTML = views['side-bar-city-search'];
 
-console.log(sideBarHTML);
+//console.log(sideBarHTML);
 
   $('.side-bar-content').html(sideBarHTML);
 
@@ -56,9 +57,9 @@ Promise.all([$.ajax({
     url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
 
 }).done(function (json){
-
+    //console.log(json)
     cityjson = json;
-    drawMap(json, g, path, "black", 1);
+    drawMap(json, g, path, "black", 1, true);
 
 })]).then(function(results){
 
@@ -72,7 +73,7 @@ Promise.all(
     }).done(function (json){
 
       cityjson = json;
-    	drawMap(json, g, path, "brown", .01);
+    	drawMap(json, g, path, "brown", .01, false);
 
     }),
     $.ajax({
