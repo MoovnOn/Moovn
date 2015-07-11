@@ -1422,13 +1422,19 @@ header {
   .pure-form input:not([type]) {
     display: inline-block; } }
 
+.quad-1, .quad-2 {
+  margin-top: 3em; }
+
+.duo-1, duo-2 {
+  border: solid 1px black; }
+
 #accordion h3 {
   background-color: lightgray; }
 
 .city-all-container {
   margin-right: 2em;
   margin-bottom: 2em;
-  margin-left: 12em; }
+  margin-left: 14em; }
 
 .city-title {
   display: inline-block;
@@ -1442,17 +1448,6 @@ header {
 .graph {
   width: 50%; }
 
-.city-map-container {
-  text-align: center;
-  margin-top: 3em; }
-
-.city-chart-container {
-  margin-top: 3em; }
-
-.tab-list-container {
-  width: 50%;
-  margin: 1em; }
-
 .search-form-city-view {
   color: black;
   padding: 1em; }
@@ -1464,7 +1459,8 @@ header {
 
 .submit-city-view {
   background-color: #A5B6C3;
-  border: none; }
+  border: none;
+  width: 100%; }
 
 @media screen and (max-width: 670px) {
   .city-all-container {

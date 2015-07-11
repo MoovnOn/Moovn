@@ -15013,7 +15013,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require("jquery");
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -15943,13 +15943,19 @@ router.route('search/:cityName/housing', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test', {city: cityName});
+  show('city-template-4', {city: cityName});
   
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
   
   chart(state, city);
+  
+  var tabsList = views['content/tabs-lists'];
+  
+  console.log(views);
+  
+  $('.quad-4').html(tabsList)
   
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
