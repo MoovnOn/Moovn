@@ -20,7 +20,7 @@ import json
 
 # with open('geo/bls_industry.csv') as file:
 
-with open('geo/all_bls_codes.csv') as file:
+with open('Moovn/geo/all_bls_codes.csv') as file:
     industry = {
         line.split(',')[1][:-1]: line.split(',')[0] for line in file
         }
