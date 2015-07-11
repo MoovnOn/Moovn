@@ -7,7 +7,7 @@ var autocomplete = require('jquery-ui');
 var tags = require('../city-list');
 var searchFunction = require('../search');
 
-router.route('', 'search',  function (){
+router.route('', 'search', function (){
   show('search');
   $('.side-bar-content').html('');
   
