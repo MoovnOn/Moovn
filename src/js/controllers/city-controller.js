@@ -20,14 +20,7 @@ router.route('search/:cityName',{trigger: true} , function (cityName){
 
 
   show('city', {city: cityName});
-<<<<<<< HEAD
   showSideBar('side-bar-city-search', cityName);
-  
-=======
-
-  var sideBarHTML = views['side-bar-city-search'];
-  $('.side-bar-content').html(sideBarHTML);
->>>>>>> 48c511301e1e2fdba8f962bd4b4a4106d3f962b1
   searchFunction();
   // Jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
