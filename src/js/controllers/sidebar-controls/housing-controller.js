@@ -25,8 +25,6 @@ router.route('search/:cityName/housing', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
   
-  console.log(citySplit);
-  
   chart(state, city);
   
   //gets the lists displaying as tabs and can change to accordian

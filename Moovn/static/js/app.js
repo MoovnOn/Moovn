@@ -15013,7 +15013,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
- var jQuery = require("jquery");
+var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -15898,24 +15898,30 @@ router.route('', 'search', function (){
 
 },{"../city-list":4,"../router":21,"../search":22,"../show":24,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
+var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-var autocomplete = require('jquery-ui');
-var tags = require('../../city-list');
+var chart = require('../../c3-charts');
+var places = require('../../places-api');
+var tab = require('responsive-tabs');
+var d3 = require('d3');
+var drawMap = require('../../drawMap');
+var drawNeigh = require('../../neighMap');
+var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var views = require('views');
 var showSideBar = require('../../show-sidebar');
-var searchFunction = require('../../search')
 
 router.route('search/:cityName/education', function (cityName){
-	
+
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test');
-
+  show('test', {city: cityName});
+  
 });
-},{"../../city-list":4,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
+},{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -15943,8 +15949,6 @@ router.route('search/:cityName/housing', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
   
-  console.log(citySplit);
-  
   chart(state, city);
   
   //gets the lists displaying as tabs and can change to accordian
@@ -15958,131 +15962,180 @@ router.route('search/:cityName/housing', function (cityName){
 });
 },{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 var $ = require('jquery');
+var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-var autocomplete = require('jquery-ui');
-var tags = require('../../city-list');
+var chart = require('../../c3-charts');
+var places = require('../../places-api');
+var tab = require('responsive-tabs');
+var d3 = require('d3');
+var drawMap = require('../../drawMap');
+var drawNeigh = require('../../neighMap');
+var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var views = require('views');
 var showSideBar = require('../../show-sidebar');
 
 router.route('search/:cityName/industry', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test');
+  show('test', {city: cityName});
   
 });
-},{"../../city-list":4,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
+},{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
+var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-var autocomplete = require('jquery-ui');
-var tags = require('../../city-list');
+var chart = require('../../c3-charts');
+var places = require('../../places-api');
+var tab = require('responsive-tabs');
+var d3 = require('d3');
+var drawMap = require('../../drawMap');
+var drawNeigh = require('../../neighMap');
+var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var views = require('views');
 var showSideBar = require('../../show-sidebar');
 
 router.route('search/:cityName/internet', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test');
+  show('test', {city: cityName});
   
 });
-},{"../../city-list":4,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
+},{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
 var $ = require('jquery');
+var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-var autocomplete = require('jquery-ui');
-var tags = require('../../city-list');
+var chart = require('../../c3-charts');
+var places = require('../../places-api');
+var tab = require('responsive-tabs');
+var d3 = require('d3');
+var drawMap = require('../../drawMap');
+var drawNeigh = require('../../neighMap');
+var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var views = require('views');
 var showSideBar = require('../../show-sidebar');
 
 router.route('search/:cityName/jobs', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test');
+  show('test', {city: cityName});
   
 });
-},{"../../city-list":4,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
+},{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 var $ = require('jquery');
+var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-var autocomplete = require('jquery-ui');
-var tags = require('../../city-list');
+var chart = require('../../c3-charts');
+var places = require('../../places-api');
+var tab = require('responsive-tabs');
+var d3 = require('d3');
+var drawMap = require('../../drawMap');
+var drawNeigh = require('../../neighMap');
+var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var views = require('views');
 var showSideBar = require('../../show-sidebar');
 
 router.route('search/:cityName/leisure', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test');
+  show('test', {city: cityName});
   
 });
-},{"../../city-list":4,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
+},{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 var $ = require('jquery');
+var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-var autocomplete = require('jquery-ui');
-var tags = require('../../city-list');
+var chart = require('../../c3-charts');
+var places = require('../../places-api');
+var tab = require('responsive-tabs');
+var d3 = require('d3');
+var drawMap = require('../../drawMap');
+var drawNeigh = require('../../neighMap');
+var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var views = require('views');
 var showSideBar = require('../../show-sidebar');
 
 router.route('search/:cityName/people', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test');
-  
+  show('test', {city: cityName});
+
 });
-},{"../../city-list":4,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],15:[function(require,module,exports){
+},{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],15:[function(require,module,exports){
 var $ = require('jquery');
+var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-var autocomplete = require('jquery-ui');
-var tags = require('../../city-list');
+var chart = require('../../c3-charts');
+var places = require('../../places-api');
+var tab = require('responsive-tabs');
+var d3 = require('d3');
+var drawMap = require('../../drawMap');
+var drawNeigh = require('../../neighMap');
+var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var views = require('views');
 var showSideBar = require('../../show-sidebar');
 
 router.route('search/:cityName/taxes', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test');
-  
+  show('test', {city: cityName});
+
 });
-},{"../../city-list":4,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],16:[function(require,module,exports){
+},{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],16:[function(require,module,exports){
 var $ = require('jquery');
+var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-var autocomplete = require('jquery-ui');
-var tags = require('../../city-list');
+var chart = require('../../c3-charts');
+var places = require('../../places-api');
+var tab = require('responsive-tabs');
+var d3 = require('d3');
+var drawMap = require('../../drawMap');
+var drawNeigh = require('../../neighMap');
+var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var views = require('views');
 var showSideBar = require('../../show-sidebar');
 
-router.route('search/:cityName/transportation',  function (cityName){
+router.route('search/:cityName/transportation', function (cityName){
 
-	showSideBar('side-bar-city-search', cityName);
-	searchFunction();
-  show('test');
-
+  showSideBar('side-bar-city-search', cityName);
+  searchFunction();
+  show('test', {city: cityName});
+ 
 });
-},{"../../city-list":4,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],17:[function(require,module,exports){
+},{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],17:[function(require,module,exports){
 module.exports = function (json, g, path, color) {
 
   g.selectAll("path")
