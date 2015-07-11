@@ -6,8 +6,8 @@ module.exports = function (json, g, path) {
       .attr("d", path)
       .attr("class", "feature-neighborhood")
       .style("fill", "none")
-      .style("stroke-width", "0.01")
-      .style("stroke", "grey")
+      //.style("stroke-width", "0.01")
+      .style("stroke", "darkgrey")
       .attr("id", function(d) {return d.properties.GEOID10;});
 
 };

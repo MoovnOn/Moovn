@@ -20,17 +20,24 @@ import json
 
 # with open('geo/bls_industry.csv') as file:
 
-with open('Moovn/geo/all_bls_codes.csv') as file:
-    industry = {
-        line.split(',')[1][:-1]: line.split(',')[0] for line in file
+try:
+    with open('geo/all_bls_codes.csv') as file:
+        industry = {
+            line.split(',')[1][:-1]: line.split(',')[0] for line in file
+            }
+except:
+    with open('Moovn/geo/all_bls_codes.csv') as file:
+        industry = {
+            line.split(',')[1][:-1]: line.split(',')[0] for line in file
         }
-
 
 # @api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
 def city_boundary_view(request, state, name):
-    name = get_object_or_404(Name, name=name, state=state)
-    return JsonResponse(geojson.loads(name.city.boundary.data))
+    name_obj = get_object_or_404(Name, name=name, state=state)
+    if name == 'US':
+        return JsonResponse(json.loads(name_obj.city.boundary.data))
+    return JsonResponse(geojson.loads(name_obj.city.boundary.data))
 
 
 class HomeView(View):

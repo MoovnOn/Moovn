@@ -1,4 +1,4 @@
-var $ = require('jquery');
+ var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -8,32 +8,45 @@ var chart = require('../c3-charts');
 var places = require('../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
+var topojson = require('../topojson');
 var drawMap = require('../drawMap');
 var drawNeigh = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
+var showSideBar = require('../show-sidebar')
 
 
-router.route('search/:cityName', function (cityName){
+router.route('search/:cityName',{trigger: true} , function (cityName){
 
 
   show('city', {city: cityName});
+
 
   // Jquery UI tabs
 
 var sideBarHTML = views['side-bar-city-search'];
 
-console.log(sideBarHTML);
+//console.log(sideBarHTML);
 
   $('.side-bar-content').html(sideBarHTML);
 
+
+  showSideBar('side-bar-city-search', cityName);
+
   searchFunction();
   // Jquery UI tabs
-
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
+  $('.bar-menu-icon').click(function(){
+    $('.side-nav-container').css({
+      'margin-left': '0px',
+      'z-index':'100',
+      'box-shadow': '83px 0px 100px 28px rgba(0,0,0,0.57)'
+      });
+    $('.bar-menu-icon').css('display', 'none');
+  })
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
@@ -56,9 +69,9 @@ Promise.all([$.ajax({
     url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
 
 }).done(function (json){
-
+    //console.log(json)
     cityjson = json;
-    drawMap(json, g, path, "black");
+    drawMap(json, g, path, "black", 1, true);
 
 })]).then(function(results){
 
@@ -72,7 +85,7 @@ Promise.all(
     }).done(function (json){
 
       cityjson = json;
-    	drawMap(json, g, path, "brown");
+    	drawMap(json, g, path, "brown", .01, false);
 
     }),
     $.ajax({
@@ -110,29 +123,4 @@ Promise.all(
   places(cityName, "attractions", ".leisure-tab-data");
 
 
-
 });
-
-router.route('search/:cityName/cost', function (cityName){
-
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
-$.ajax({
-  	method: 'GET',
-  	url: '/api/boundary/' + state + '/' + city + '/'
-  }).done(function (data){
-  	drawMap(data);
-  });
-    show('city-cost', {city: cityName});
-
-    $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
-  });
-
-  //google places
-    places(cityName, "banks", ".income-tab-data");
-    places(cityName, "attractions", ".leisure-tab-data");
-
-})

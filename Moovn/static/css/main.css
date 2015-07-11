@@ -1321,6 +1321,19 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 .side-nav-item-container:hover .side-icon {
   color: white; }
 
+.bar-menu-icon {
+  display: none; }
+
+@media screen and (max-width: 670px) {
+  .side-nav-container {
+    margin-left: -400px; }
+  .bar-menu-icon {
+    display: inline-block;
+    margin: 1em;
+    font-size: 1.2em;
+    border: none;
+    background: white; } }
+
 header {
   text-align: left;
   padding: 0.3em; }
@@ -1418,15 +1431,13 @@ header {
   margin-left: 12em; }
 
 .city-title {
+  display: inline-block;
   padding: 0.8em;
   font-size: 1.8em;
-  text-align: right; }
-
-#chartType {
+  text-align: right;
   position: absolute;
   top: 0;
-  right: 0;
-  margin-top: 35%; }
+  right: 0; }
 
 .graph {
   width: 50%; }
@@ -1454,6 +1465,10 @@ header {
 .submit-city-view {
   background-color: #A5B6C3;
   border: none; }
+
+@media screen and (max-width: 670px) {
+  .city-all-container {
+    margin-left: 2em; } }
 
 .c3 svg {
   font: 10px sans-serif; }
