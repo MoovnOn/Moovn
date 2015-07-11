@@ -13,7 +13,6 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var viewsContent = require('views/content');
 var showSideBar = require('../../show-sidebar');
 
 router.route('search/:cityName/housing', function (cityName){
@@ -28,7 +27,7 @@ router.route('search/:cityName/housing', function (cityName){
   
   chart(state, city);
   
-  var tabsList = viewsContent['tabs-lists'];
+  var tabsList = viewsContent['content/tabs-lists'];
   
   $('.quad-4').html(tabsList)
   

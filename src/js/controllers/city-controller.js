@@ -16,7 +16,7 @@ var views = require('views');
 var showSideBar = require('../show-sidebar');
 
 
-router.route('search/:cityName',{trigger: true} , function (cityName){
+router.route('search/:cityName', function (cityName){
 
 
   show('city', {city: cityName});
