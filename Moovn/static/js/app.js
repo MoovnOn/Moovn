@@ -15013,7 +15013,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require("jquery");
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -15776,7 +15776,7 @@ var drawNeigh = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
-var showSideBar = require('../show-sidebar')
+var showSideBar = require('../show-sidebar');
 
 
 router.route('search/:cityName',{trigger: true} , function (cityName){
@@ -15861,7 +15861,7 @@ Promise.all(
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
-  chart(state, city);
+
 
 //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
@@ -15917,23 +15917,46 @@ router.route('search/:cityName/education', function (cityName){
 });
 },{"../../city-list":4,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 var $ = require('jquery');
+var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-var autocomplete = require('jquery-ui');
-var tags = require('../../city-list');
+var chart = require('../../c3-charts');
+var places = require('../../places-api');
+var tab = require('responsive-tabs');
+var d3 = require('d3');
+var drawMap = require('../../drawMap');
+var drawNeigh = require('../../neighMap');
+var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var views = require('views');
 var showSideBar = require('../../show-sidebar');
 
 router.route('search/:cityName/housing', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test');
+  show('test', {city: cityName});
   
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+  
+  console.log(citySplit);
+  
+  chart(state, city);
+  
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+//google places
+  places(cityName, "banks", ".banks-tab-data");
+  places(cityName, "attractions", ".leisure-tab-data");
 });
-},{"../../city-list":4,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
+},{"../../c3-charts":3,"../../drawMap":17,"../../neighMap":19,"../../places-api":20,"../../router":21,"../../search":22,"../../show":24,"../../show-sidebar":23,"../../zoom":26,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');

@@ -13,7 +13,7 @@ var drawNeigh = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
-var showSideBar = require('../show-sidebar')
+var showSideBar = require('../show-sidebar');
 
 
 router.route('search/:cityName',{trigger: true} , function (cityName){
@@ -98,7 +98,7 @@ Promise.all(
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
-  chart(state, city);
+
 
 //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
