@@ -37,7 +37,7 @@ var sideBarHTML = views['side-bar-city-search'];
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
-  
+
 
 $('.bar-menu-icon').click(function() {
   $( ".side-nav-container" ).toggle( "slide" );
@@ -102,7 +102,7 @@ Promise.all([
   ).then(
   function(results){
 
-    zoom(cityjson, boundaryjson, g, path, height, width);
+    zoom(cityjson, boundaryjson, svg, g, path, height, width);
 
   })
 })

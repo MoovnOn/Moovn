@@ -1,7 +1,7 @@
 var topojson = require('topojson')
 
 module.exports = function (json, g, path, color, type) {
-  console.log(json)
+  //console.log(json)
   //console.log(json.objects[Object.keys(json.objects)[0]])
 
   var data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]])
