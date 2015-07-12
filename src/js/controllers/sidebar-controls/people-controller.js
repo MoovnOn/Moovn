@@ -47,7 +47,4 @@ router.route('search/:cityName/people', function (cityName){
 
   liveshere(state, city);
 
-  // //google places
-  //   places(cityName, "banks", ".tab-data1", ".tab-title1");
-    // places(cityName, "attractions", ".tab-data2", ".tab-title2");
 });

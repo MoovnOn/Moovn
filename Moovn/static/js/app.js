@@ -16011,15 +16011,29 @@ var views = require('views');
 
 router.route('search/:cityName/leisure', function (cityName){
 
-  show('side-bar-city-search', '.side-bar-content', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-  show('test', '.main-content', {city: cityName});
+  show('city-template-2', '.main-content', {city: cityName} );
   
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
   
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+  
+  show('content/tabs-lists', '.duo-1')
+  
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+//google places
+  places(cityName, "Bars", ".tab-data1", ".tab-title1");
+  places(cityName, "Attractions", ".tab-data2", ".tab-title2");
 });
 },{"../../drawMap":16,"../../neighMap":29,"../../places-api":30,"../../router":31,"../../search":32,"../../show":33,"../../zoom":35,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 var $ = require('jquery');
@@ -16071,9 +16085,6 @@ router.route('search/:cityName/people', function (cityName){
 
   liveshere(state, city);
 
-  // //google places
-  //   places(cityName, "banks", ".tab-data1", ".tab-title1");
-    // places(cityName, "attractions", ".tab-data2", ".tab-title2");
 });
 },{"../../drawMap":16,"../../graphs/people-age":24,"../../graphs/people-household":25,"../../graphs/people-relationships":26,"../../list-data/liveshere":28,"../../neighMap":29,"../../places-api":30,"../../router":31,"../../search":32,"../../show":33,"../../zoom":35,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 var $ = require('jquery');
