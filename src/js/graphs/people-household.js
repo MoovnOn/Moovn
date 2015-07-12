@@ -13,12 +13,9 @@ module.exports = function(state, city) {
   
   function parseHousing(allHousingData){
     
-    
     var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;    
     var housingNoKids = housingPeople[3].data.attribute[0].value['#text'];
     var housingWithKids = housingPeople[3].data.attribute[1].value['#text'];
-   
-    console.log(housingPeople);
     
       c3.generate({
           bindto: 'body .quad-2',

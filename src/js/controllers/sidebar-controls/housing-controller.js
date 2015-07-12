@@ -40,6 +40,6 @@ router.route('search/:cityName/housing', function (cityName){
   });
 
 //google places
-  places(cityName, "banks", ".tab-data1", ".tab-title1");
-  places(cityName, "attractions", ".tab-data2", ".tab-title2");
+  places(cityName, "Realty", ".tab-data1", ".tab-title1");
+  places(cityName, "banks", ".tab-data2", ".tab-title2");
 });

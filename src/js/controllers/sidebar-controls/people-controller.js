@@ -15,6 +15,7 @@ var views = require('views');
 var peopleAge = require('../../graphs/people-age');
 var peopleHousehold = require('../../graphs/people-household');
 var peopleRelationships = require('../../graphs/people-relationships');
+var liveshere = require('../../list-data/liveshere');
 
 
 router.route('search/:cityName/people', function (cityName){
@@ -36,4 +37,17 @@ router.route('search/:cityName/people', function (cityName){
   peopleAge(state, city);
   peopleHousehold(state, city);
   peopleRelationships(state, city);
+
+  show('content/tabs-lists', '.quad-4')
+  
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+  liveshere(state, city);
+
+  // //google places
+  //   places(cityName, "banks", ".tab-data1", ".tab-title1");
+    // places(cityName, "attractions", ".tab-data2", ".tab-title2");
 });
