@@ -16179,15 +16179,28 @@ module.exports = function (data) {
             ['Verizon', vDwnld3, vUpld3, vDwnld4, vUpld4 ],
             ['Sprint', sDwnld3, sUpld3, sDwnld4, sUpld4 ],
             ['T-mobile', tmDwnld3, tmUpld3, tmDwnld4, tmUpld4 ],
-            ['Cellular-one', c1Dwnld3, c1Upld3]
+            // ['Cellular-one', c1Dwnld3, c1Upld3]
         ],
-        type: 'bar',   
-  			},
+          type: 'bar',     			
+          colors: {
+              'AT&T': '#F8A01C',
+              'Verizon': '#ED1C24',
+              'Sprint': '#FFDE05',
+              'T-mobile': '#EB278D',
+          },
+          color: function (color, d) {
+              // d will be 'id' when called for legends
+              return d.id && d.id === 'data3' ? d3.rgb(color).darker(d.value / 150) : color;
+          }
+        },
   	 		axis: {
        		x: {
             type: 'category',
-            categories: ['3G-Download-Speed-Mbps', '3G-Upload-Speed-Mbps' , '4G-Download-Speed-Mbps', '4G-Upload-Speed-Mbps']
-        	}
+            categories: ['3G Download Speed', '3G Upload Speed' , '4G Download Speed', '4G Upload Speed']
+        	},
+          y: {
+            label: "Megabits Per Second"
+          }
     		},
 		});
 
@@ -16216,13 +16229,30 @@ module.exports = function(data) {
             ['Sprint', sRel4],
             ['T-mobile', tmRel3, tmRel4],
         ],
-        type: 'bar',   
+        type: 'bar', 
+        colors: {
+          'AT&T': '#F8A01C',
+          'Verizon': '#ED1C24',
+          'Sprint': '#FFDE05',
+          'T-mobile': '#EB278D',
+          },
+          color: function (color, d) {
+              // d will be 'id' when called for legends
+              return d.id && d.id === 'data3' ? d3.rgb(color).darker(d.value / 150) : color;
+          }  
   			},
   	 		axis: {
        		x: {
             type: 'category',
             categories: ['3G-Reliability', '4G-Reliability']
-        	}
+        	},
+          y: {
+            label: "Reliability Score",
+            max: 100,
+            min: 85,
+            // Range includes padding, set 0 if no padding needed
+            // padding: {top:0, bottom:0}
+          }
     		},
 		}); 	
 };
