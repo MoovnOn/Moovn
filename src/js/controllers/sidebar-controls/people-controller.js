@@ -14,6 +14,7 @@ var searchFunction = require('../../search');
 var views = require('views');
 var showSideBar = require('../../show-sidebar');
 var peopleAge = require('../../graphs/people-age');
+var peopleHousehold = require('../../graphs/people-household');
 
 router.route('search/:cityName/people', function (cityName){
 
@@ -30,6 +31,7 @@ router.route('search/:cityName/people', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
   
-  peopleAge(city, state);
+  peopleAge(state, city);
+  peopleHousehold(state, city);
 
 });
