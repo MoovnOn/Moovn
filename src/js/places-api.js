@@ -4,7 +4,7 @@ var infowindow;
 var $ = require('jquery') 
 
 module.exports = function(city, searchTerm, tabContainer, tabtitle) {
-	$(tabtitle).children('a').text(searchTerm);
+	$(tabtitle).children('a').text(searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1));
 	
 	var key = 'AIzaSyB6Gp2tJP3mWdIFot6fZNfarDoopGurZSs';
 	var request = {
