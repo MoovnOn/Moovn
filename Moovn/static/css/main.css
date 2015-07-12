@@ -1423,6 +1423,17 @@ header {
 .quad-1, .quad-2 {
   margin-top: 3em; }
 
+.quad-3, .quad-4 {
+  margin-top: 1em; }
+
+.duo-1, duo-2 {
+  margin-top: 3em; }
+
+.refresh {
+  font-size: 3em;
+  text-align: center; }
+
+> > > > > > > eeb5dee67c1ed563175108af1e2c6eb40b314f71
 #accordion h3 {
   background-color: lightgray; }
 

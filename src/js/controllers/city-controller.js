@@ -4,7 +4,6 @@ var _ = require('underscore');
 var views = require('views');
 var router = require('../router');
 var show = require('../show');
-var chart = require('../c3-charts');
 var places = require('../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
@@ -13,15 +12,14 @@ var drawNeigh = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
-var showSideBar = require('../show-sidebar');
 
 
 router.route('search/:cityName', function (cityName){
 
 
-  show('city', {city: cityName});
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
+  show('city', '.main-content', {city: cityName});
   // Jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
