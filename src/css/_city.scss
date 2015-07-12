@@ -1,3 +1,17 @@
+.quad-1, .quad-2{
+  margin-top:3em;
+}
+.quad-3, .quad-4{
+  margin-top: 1em
+}
+.duo-1, duo-2{
+  margin-top: 3em;
+}
+
+.refresh{
+  font-size: 3em;
+  text-align: center;
+}
 
 #accordion h3{
   background-color: lightgray;
@@ -5,7 +19,7 @@
 .city-all-container{
   margin-right: 2em;
   margin-bottom: 2em;
-  margin-left: 12em;
+  margin-left: 14em;
 }
 .city-title{
   display:inline-block;
@@ -19,17 +33,6 @@
 .graph{
   width:50%;
 }
-.city-map-container {
-	text-align: center;
-  margin-top: 3em;
-}
-.city-chart-container{
-  margin-top: 3em;
-}
-.tab-list-container{
-  width: 50%;
-  margin:1em;
-}
 .search-form-city-view{
   color:black;
   padding:1em;
@@ -42,7 +45,10 @@
 .submit-city-view{
   background-color: $light-primary-color;
   border: none;
+  width: 100%;
 }
+
+
 @media screen and (max-width: 670px) {
     .city-all-container{
       margin-left: 2em;

@@ -4,7 +4,6 @@ var _ = require('underscore');
 var views = require('views');
 var router = require('../router');
 var show = require('../show');
-var chart = require('../c3-charts');
 var places = require('../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
@@ -13,10 +12,10 @@ var neighMap = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
-var showSideBar = require('../show-sidebar')
+var showSideBar = require('../show-sidebar');
 
 
-router.route('search/:cityName',{trigger: true} , function (cityName){
+router.route('search/:cityName', function (cityName){
 
 
   show('city', {city: cityName});
@@ -38,14 +37,12 @@ var sideBarHTML = views['side-bar-city-search'];
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
-  $('.bar-menu-icon').click(function(){
-    $('.side-nav-container').css({
-      'margin-left': '0px',
-      'z-index':'100',
-      'box-shadow': '83px 0px 100px 28px rgba(0,0,0,0.57)'
-      });
-    $('.bar-menu-icon').css('display', 'none');
-  })
+  
+
+$('.bar-menu-icon').click(function() {
+  $( ".side-nav-container" ).toggle( "slide" );
+});
+
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
@@ -113,7 +110,7 @@ Promise.all([
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 
-  chart(state, city);
+
 
 //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
