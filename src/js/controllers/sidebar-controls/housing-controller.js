@@ -4,7 +4,6 @@ var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-// var chart = require('../../c3-charts');
 var places = require('../../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
