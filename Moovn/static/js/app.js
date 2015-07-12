@@ -16284,8 +16284,8 @@ Promise.all([
 
 ]).then(function(results){
 
-  Promise.all(
-    [
+  Promise.all([
+
       $.ajax({
 
       	method: 'GET',
@@ -16294,9 +16294,14 @@ Promise.all([
       }).done(function (json){
 
 
-      	cityjson = neighMap(json, g, path, "brown", city);
+      	cityjson = neighMap(json, g, path, "brown", "city");
 
       }),
+
+  ]).then(function(results){
+
+    Promise.all([
+
       $.ajax({
 
         method: 'GET',
@@ -16304,16 +16309,18 @@ Promise.all([
 
       }).done(function (json){
 
-        boundaryjson = neighMap(json, g, path, "grey", city + "neighborhood");
+        boundaryjson = neighMap(json, g, path, "grey", "neighborhood");
 
       })
-    ]
-  ).then(
-  function(results){
 
-    zoom(cityjson, boundaryjson, svg, g, path, height, width);
+    ]).then(function(results){
 
-  })
+        zoom(cityjson, boundaryjson, svg, g, path, height, width);
+
+    });
+
+  });
+
 })
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
@@ -17085,13 +17092,30 @@ module.exports = function (json, g, path, color, type) {
 
   var data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]])
 
+  var fill;
+  var stroke;
+  var opacity = 1;
+
+  if (type === "US"){
+    fill = "none";
+    stroke = "black";
+  }else if (type === "city"){
+    fill = "brown";
+    stroke = "none";
+    opacity = .4
+  }else{
+    fill = "grey";
+    stroke = "none"
+  }
+
   g.selectAll("path")
       .data(data.features, function(d){return d.properties.GEOID10;})
     .enter().append("path")
       .attr("d", path)
       .attr("class", "feature" + type)
-      .style("fill", "none")
-      .style("stroke", color)
+      .style("fill", fill)
+      .style("fill-opacity", opacity)
+      .style("stroke", stroke)
       .attr("id", function(d){return d.properties.GEOID10;});
 
   return data;

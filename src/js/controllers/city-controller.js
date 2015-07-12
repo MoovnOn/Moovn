@@ -75,8 +75,8 @@ Promise.all([
 
 ]).then(function(results){
 
-  Promise.all(
-    [
+  Promise.all([
+
       $.ajax({
 
       	method: 'GET',
@@ -85,9 +85,14 @@ Promise.all([
       }).done(function (json){
 
 
-      	cityjson = neighMap(json, g, path, "brown", city);
+      	cityjson = neighMap(json, g, path, "brown", "city");
 
       }),
+
+  ]).then(function(results){
+
+    Promise.all([
+
       $.ajax({
 
         method: 'GET',
@@ -95,16 +100,18 @@ Promise.all([
 
       }).done(function (json){
 
-        boundaryjson = neighMap(json, g, path, "grey", city + "neighborhood");
+        boundaryjson = neighMap(json, g, path, "grey", "neighborhood");
 
       })
-    ]
-  ).then(
-  function(results){
 
-    zoom(cityjson, boundaryjson, svg, g, path, height, width);
+    ]).then(function(results){
 
-  })
+        zoom(cityjson, boundaryjson, svg, g, path, height, width);
+
+    });
+
+  });
+
 })
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
