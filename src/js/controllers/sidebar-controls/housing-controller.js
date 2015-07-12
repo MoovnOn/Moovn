@@ -32,17 +32,14 @@ router.route('search/:cityName/housing', function (cityName){
   //currenty bound to quad-1
   housingGraphGeneral(state, city);
   
+  show('content/tabs-lists', '.quad-4')
   
-  
-//   var tabsList = views['content/tabs-lists'];
-//   $('.quad-4').html(tabsList)
-  
-//   //gets the lists displaying as tabs and can change to accordian
-//   $('#responsiveTabsDemo').responsiveTabs({
-//       startCollapsed: 'accordion'
-//   });
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
 
-// //google places
-//   places(cityName, "banks", ".banks-tab-data");
-//   places(cityName, "attractions", ".leisure-tab-data");
+//google places
+  places(cityName, "banks", ".tab-data1", ".tab-title1");
+  places(cityName, "attractions", ".tab-data2", ".tab-title2");
 });

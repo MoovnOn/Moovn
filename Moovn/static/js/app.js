@@ -15013,7 +15013,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
- var jQuery = require("jquery");
+var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -15867,19 +15867,16 @@ router.route('search/:cityName/housing', function (cityName){
   //currenty bound to quad-1
   housingGraphGeneral(state, city);
   
+  show('content/tabs-lists', '.quad-4')
   
-  
-//   var tabsList = views['content/tabs-lists'];
-//   $('.quad-4').html(tabsList)
-  
-//   //gets the lists displaying as tabs and can change to accordian
-//   $('#responsiveTabsDemo').responsiveTabs({
-//       startCollapsed: 'accordion'
-//   });
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
 
-// //google places
-//   places(cityName, "banks", ".banks-tab-data");
-//   places(cityName, "attractions", ".leisure-tab-data");
+//google places
+  places(cityName, "banks", ".tab-data1", ".tab-title1");
+  places(cityName, "attractions", ".tab-data2", ".tab-title2");
 });
 },{"../../drawMap":16,"../../graphs/housing":20,"../../neighMap":27,"../../places-api":28,"../../router":29,"../../search":30,"../../show":31,"../../zoom":33,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 var $ = require('jquery');
@@ -16600,8 +16597,9 @@ var service;
 var infowindow;
 var $ = require('jquery') 
 
-module.exports = function(city, searchTerm, tabContainer) {
-
+module.exports = function(city, searchTerm, tabContainer, tabtitle) {
+	$(tabtitle).children('a').text(searchTerm);
+	
 	var key = 'AIzaSyB6Gp2tJP3mWdIFot6fZNfarDoopGurZSs';
 	var request = {
 	    query: searchTerm + " " + city
@@ -16611,7 +16609,6 @@ module.exports = function(city, searchTerm, tabContainer) {
 	service.textSearch(request, function(results) {
 	  for (var i = 0; i < results.length; i++) {
     var place = results[i];
-    // console.log(place);
     	$(tabContainer).append('<p>' + place.name + '</p>')
   	}
 	});
