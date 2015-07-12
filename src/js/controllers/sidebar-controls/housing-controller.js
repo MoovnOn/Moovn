@@ -30,17 +30,20 @@ router.route('search/:cityName/housing', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
   
+  //currenty bound to quad-1
   housingGraphGeneral(state, city);
   
-  var tabsList = views['content/tabs-lists'];
-  $('.quad-4').html(tabsList)
   
-  //gets the lists displaying as tabs and can change to accordian
-  $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
-  });
+  
+//   var tabsList = views['content/tabs-lists'];
+//   $('.quad-4').html(tabsList)
+  
+//   //gets the lists displaying as tabs and can change to accordian
+//   $('#responsiveTabsDemo').responsiveTabs({
+//       startCollapsed: 'accordion'
+//   });
 
-//google places
-  places(cityName, "banks", ".banks-tab-data");
-  places(cityName, "attractions", ".leisure-tab-data");
+// //google places
+//   places(cityName, "banks", ".banks-tab-data");
+//   places(cityName, "attractions", ".leisure-tab-data");
 });

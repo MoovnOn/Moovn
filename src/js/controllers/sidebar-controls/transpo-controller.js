@@ -13,15 +13,23 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var showSideBar = require('../../show-sidebar');
+var commuteTime = require('../../graphs/commute-times')
 
 router.route('search/:cityName/transportation', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test', {city: cityName});
+  show('city-template-2', {city: cityName});
  
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
+  
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+  
+  commuteTime(city, state);
+  
 });

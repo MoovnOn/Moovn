@@ -46,43 +46,6 @@ module.exports = function(state, city) {
       		},
        });
             
-       var housingPeopleIncome= housingPeople[0].data.attribute[0].values.city.value["#text"];
-       var housingPeopleIncomeNation= housingPeople[0].data.attribute[0].values.nation.value["#text"];
-       var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;
-       var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
-       
-       $('#chartType').change(function(){ 
-         if ($('#income').is(':selected')){
-            chart.load({ 
-                columns: [
-                    ['Median-City-Income', housingPeopleIncome],
-                    ['Median-Nation-Income', housingPeopleIncomeNation],
-                ],
-                unload: ['Condo', '2-Bed-Home','3-Bed-Home','4-Bed-Home'],
-                type: 'bar',
-             
-            })
-          }
-        })
-       
-      // $('#chartType').change(function(){ 
-      //    if ($('#housing').is(':selected')){
-      //       chart.load({ 
-      //           columns: [
-      //               ['Condo', housingAffordCondo],
-      //               ['2-Bed-Home', housingAfford2Bed],
-      //               ['3-Bed-Home', housingAfford3Bed],
-      //               ['4-Bed-Home', housingAfford4Bed],
-      //           ],
-      //           unload: ['Median-City-Income', 'Median-Nation-Income', 'Condo'],
-      //           type: 'bar',
-             
-      //       })
-
-      //      }
-      //  })
-
-  
   }
 };
 
