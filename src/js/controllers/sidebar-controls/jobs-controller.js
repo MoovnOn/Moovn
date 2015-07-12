@@ -7,7 +7,6 @@ var show = require('../../show');
 var places = require('../../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
-var drawMap = require('../../drawMap');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
@@ -19,10 +18,10 @@ router.route('search/:cityName/jobs', function (cityName){
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
   show('test', {city: cityName});
-  
+
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
-  
+
 });
