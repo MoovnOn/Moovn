@@ -12,6 +12,8 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
+var peopleAge = require('../../graphs/people-age');
+var peopleHousehold = require('../../graphs/people-household');
 
 
 router.route('search/:cityName/people', function (cityName){
@@ -20,9 +22,17 @@ router.route('search/:cityName/people', function (cityName){
   searchFunction();
   show('city-template-4', '.main-content' , {city: cityName});
 
+
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
+  
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+  
+  peopleAge(state, city);
+  peopleHousehold(state, city);
 
 });

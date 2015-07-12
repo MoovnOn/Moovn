@@ -25,8 +25,6 @@ router.route('search/:cityName/industry', function (cityName){
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
-
-  show('city-template-4', {city: cityName});
   
   industryGraph(state, city).done(function(data) {
   	console.log(data)

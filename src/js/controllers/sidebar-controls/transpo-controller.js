@@ -29,6 +29,6 @@ router.route('search/:cityName/transportation', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
   
-  commuteTime(city, state);
+  commuteTime(state, city);
   
 });
