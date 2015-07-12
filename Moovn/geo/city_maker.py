@@ -11,7 +11,7 @@ def make():
         item = item.split(':')
 
         if item[0].find('/') != -1:
-            item[0][item[0].find('/')] = '-'
+            item[0].replace('/', '-')
 
         cities[item[0].strip()] = item[1].strip()
 
@@ -28,7 +28,7 @@ def make():
             city = City.objects.create(geo_id=cities[item])
             city.names.add(name)
 
-            with open('geo/CityBoundaries/' + cities[item] + '.json', 'r', \
+            with open('geo/CityBoundaries/converted/' + cities[item] + '.json', 'r', \
                       encoding='utf-8') as fh:
 
                 boundary=Boundary.objects.create(data=fh.read(), city=city)

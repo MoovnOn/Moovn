@@ -9,7 +9,6 @@ var places = require('../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
 var topojson = require('../topojson');
-var drawMap = require('../drawMap');
 var neighMap = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
@@ -64,45 +63,49 @@ var sideBarHTML = views['side-bar-city-search'];
   var boundaryjson = [];
   var id = 0;
 
-Promise.all([$.ajax({
+Promise.all([
+
+  $.ajax({
 
     method: 'GET',
     url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
 
-}).done(function (json){
+  }).done(function (json){
 
-    drawMap(json, g, path, "black", true, "US");
+    neighMap(json, g, path, "black", "US");
 
-})]).then(function(results){
+  })
 
-Promise.all(
-  [
-    $.ajax({
+]).then(function(results){
 
-    	method: 'GET',
-    	url: '/api/boundary/' + state + '/' + city + '/'
+  Promise.all(
+    [
+      $.ajax({
 
-    }).done(function (json){
+      	method: 'GET',
+      	url: '/api/boundary/' + state + '/' + city + '/'
 
-      cityjson = json;
-    	drawMap(json, g, path, "brown", false, "city");
+      }).done(function (json){
 
-    }),
-    $.ajax({
 
-      method: 'GET',
-      url: '/api/neighborhoods/' + state + '/' + city + '/'
+      	cityjson = neighMap(json, g, path, "brown", city);
 
-    }).done(function (json){
+      }),
+      $.ajax({
 
-      boundaryjson = neighMap(json, g, path, "grey", city + "neighborhood");
+        method: 'GET',
+        url: '/api/neighborhoods/' + state + '/' + city + '/'
 
-    })
-  ]
-).then(
+      }).done(function (json){
+
+        boundaryjson = neighMap(json, g, path, "grey", city + "neighborhood");
+
+      })
+    ]
+  ).then(
   function(results){
 
-    zoom(results[0], boundaryjson, g, path, height, width);
+    zoom(cityjson, boundaryjson, g, path, height, width);
 
   })
 })

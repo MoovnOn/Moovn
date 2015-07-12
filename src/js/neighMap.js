@@ -1,11 +1,11 @@
 var topojson = require('topojson')
 
 module.exports = function (json, g, path, color, type) {
-  // console.log(json)
+  console.log(json)
   //console.log(json.objects[Object.keys(json.objects)[0]])
 
   var data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]])
-  //console.log(data)
+
   g.selectAll("path")
       .data(data.features, function(d){return d.properties.GEOID10;})
     .enter().append("path")
