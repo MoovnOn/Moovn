@@ -92,13 +92,27 @@ def neighborhooddata_view(request, state, name, region_id=None):
     return JsonResponse(xmltodict.parse(request.text))
 
 
-def school_view(request, state, name):
+def school_districts_view(request, state, name):
+    city = name.replace('-', '_')
+    city = city.replace(' ', '-')
+
     districts = requests.get(
-        "http://api.education.com/service/service.php?f=districtSearch&key=" \
-        + moovn_apis('education.com') + "&sn=sf&v=4" \
-        + "&State=" + state \
-        + "&City=" + name \
-        + "&Resf=" + "json")
+    "http://api.greatschools.org/districts/" +
+    state + '/' +
+    city + '/' +
+    "?key=" + apis("greatschools"))
+
+    return JsonResponse(xmltodict.parse(districts.text))
+
+def nearby_schools_view(request, state):
+    lat = request.GET.get('lat')
+    lon = request.GET.get('lon')
+
+    data = requests.get("http://api.greatschools.org/schools/nearby?key=" +
+    apis('greatschools') + "&state=" + state +
+    "&lat=" + lat + "&lon=" + lon)
+
+    return JsonResponse(xmltodict.parse(data.text))
 
 
 def industry_view(request, state, name):
