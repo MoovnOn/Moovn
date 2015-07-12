@@ -96,7 +96,7 @@ Promise.all(
     }).done(function (json){
 
       boundaryjson = neighMap(json, g, path, "grey", city + "neighborhood");
-      console.log(boundaryjson)
+
     })
   ]
 ).then(
