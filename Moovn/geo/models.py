@@ -2,9 +2,7 @@ from django.db import models
 
 
 class NeighborhoodBoundary(models.Model):
-    name = models.CharField(max_length=255, null=True)
-    region_id = models.IntegerField(null=True)
-    city = models.ForeignKey('City', null=True)
+    city = models.OneToOneField('City', null=True, related_name='neighborhood')
     data = models.TextField(null=True)
 
 

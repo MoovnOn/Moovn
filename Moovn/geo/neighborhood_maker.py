@@ -5,34 +5,48 @@ from geo.models import NeighborhoodBoundary, City, Name
 
 def make():
     filenames = []
-    for root, dirs, files in os.walk('geo/neighborhoods/'):
+    for root, dirs, files in os.walk('geo/neighborhoods/original'):
         for name in files:
-            if name != '.DS_Store' and name != 'changer.py':
+            if name != '.DS_Store' and name != 'changer.py' and os.path.join(root,name).find('.git') == -1:
                 filenames.append(os.path.join(root, name))
 
+
     names = list(Name.objects.all())
-    used = []
+    cities = {item.city:[] for item in names}
+
     for name in filenames:
 
         with open(name, 'r') as fh:
             features = geojson.load(fh)
 
         for item in features.features:
-            item_name = item.properties['NAME']
             city_name = item.properties['CITY']
-            region_id = item.properties['REGIONID']
             state_name = item.properties['STATE']
+
+            if city_name.find('/') != -1:
+                city_name = city_name.replace('/', '-') # I mean you, Jefferson f'in County
+                item.properties['CITY'] = city_name
 
             for name_obj in names:
                 if city_name.find(name_obj.name) != -1 and name_obj.state == \
                    state_name:
 
-                    used.append(name_obj)
-            # if Name.objects.filter(name=city_name, state=state_name):
-                    NeighborhoodBoundary.objects.create(city=name_obj.city, \
-                                    name=item_name, \
-                                    region_id=region_id, \
-                                    data=geojson.dumps(\
-                                           geojson.FeatureCollection([item,])))
+                   cities[name_obj.city].append(item)
 
-    print([(item.name, item.state) for item in names if item not in used])
+
+    for item in cities:
+        if cities[item] != []:
+            data = geojson.FeatureCollection(cities[item])
+            filename = item.geo_id
+
+            with open('geo/neighborhoods/citynb/' + str(filename) + '.json', 'w') as fh:
+                fh.write(geojson.dumps(data))
+
+        #NeighborhoodBoundary.objects.create(city=item, data=geojson.dumps(data))
+
+
+                    # NeighborhoodBoundary.objects.create(city=name_obj.city, \
+                    #                 name=item_name, \
+                    #                 region_id=region_id, \
+                    #                 data=geojson.dumps(\
+                    #                        geojson.FeatureCollection([item,])))

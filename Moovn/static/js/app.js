@@ -16309,7 +16309,7 @@ var tab = require('responsive-tabs');
 var d3 = require('d3');
 var topojson = require('../topojson');
 var drawMap = require('../drawMap');
-var drawNeigh = require('../neighMap');
+var neighMap = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
@@ -16361,6 +16361,7 @@ var sideBarHTML = views['side-bar-city-search'];
   var state = citySplit[1];
   var cityjson = [];
   var boundaryjson = [];
+  var id = 0;
 
 Promise.all([$.ajax({
 
@@ -16368,9 +16369,8 @@ Promise.all([$.ajax({
     url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
 
 }).done(function (json){
-    //console.log(json)
-    cityjson = json;
-    drawMap(json, g, path, "black", 1, true);
+
+    drawMap(json, g, path, "black", true, "US");
 
 })]).then(function(results){
 
@@ -16384,7 +16384,7 @@ Promise.all(
     }).done(function (json){
 
       cityjson = json;
-    	drawMap(json, g, path, "brown", .01, false);
+    	drawMap(json, g, path, "brown", false, "city");
 
     }),
     $.ajax({
@@ -16394,15 +16394,14 @@ Promise.all(
 
     }).done(function (json){
 
-      boundaryjson = json;
-      drawNeigh(json, g, path);
+      boundaryjson = neighMap(json, g, path, "grey", city + "neighborhood");
 
     })
   ]
 ).then(
   function(results){
 
-    zoom(results[0], results[1], g, path, height, width);
+    zoom(results[0], boundaryjson, g, path, height, width);
 
   })
 })
@@ -16611,19 +16610,19 @@ router.route('search/:cityName/transportation',  function (cityName){
 });
 },{"../../city-list":5,"../../router":22,"../../search":23,"../../show":25,"../../show-sidebar":24,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],18:[function(require,module,exports){
 var topojson = require('topojson');
-module.exports = function (json, g, path, color, sw, topo) {
-
+module.exports = function (json, g, path, color, topo, type) {
+  //console.log(json)
   if (topo === true){
-    //console.log(topojson.feature(json, json.objects.us).features)
+
     data = topojson.feature(json, json.objects.us).features//.features
+    //console.log(data)
 
     g.selectAll("path")
         .data(data)//, function(d){return d.properties.GEOID10;})
       .enter().append("path")
         .attr("d", path)
-        .attr("class", "feature")
+        .attr("class", "feature" + type)
         .style("fill", "none")
-        //.style("stroke-width", sw + "px")//"0.01")
         .style("stroke", color)
         .attr("id", function(d){return d.properties.GEOID10;});
 
@@ -16636,9 +16635,9 @@ module.exports = function (json, g, path, color, sw, topo) {
       .data(data, function(d){return d.properties.GEOID10;})
     .enter().append("path")
       .attr("d", path)
-      .attr("class", "feature")
+      .attr("class", "feature" + type)
       .style("fill", "none")
-      //.style("stroke-width", sw + "px")//"0.01")
+
       .style("stroke", color)
       .attr("id", function(d){return d.properties.GEOID10;});
 
@@ -16689,21 +16688,28 @@ $.ajaxSetup({
     }
 });
 },{"./controllers/city-comp-controller.js":6,"./controllers/city-controller.js":7,"./controllers/search-controller.js":8,"./controllers/sidebar-controls/education-controller.js":9,"./controllers/sidebar-controls/housing-controller.js":10,"./controllers/sidebar-controls/industy-controller.js":11,"./controllers/sidebar-controls/internet-controller.js":12,"./controllers/sidebar-controls/jobs-controller.js":13,"./controllers/sidebar-controls/leisure-controller.js":14,"./controllers/sidebar-controls/people-controller.js":15,"./controllers/sidebar-controls/taxes.js":16,"./controllers/sidebar-controls/transpo-controller.js":17,"./router":22,"jquery":"jquery"}],20:[function(require,module,exports){
-module.exports = function (json, g, path) {
+var topojson = require('topojson')
 
+module.exports = function (json, g, path, color, type) {
+  // console.log(json)
+  //console.log(json.objects[Object.keys(json.objects)[0]])
+
+  var data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]])
+  //console.log(data)
   g.selectAll("path")
-      .data(json.features, function(d) {return d.properties.GEOID10;})
+      .data(data.features, function(d){return d.properties.GEOID10;})
     .enter().append("path")
       .attr("d", path)
-      .attr("class", "feature-neighborhood")
+      .attr("class", "feature" + type)
       .style("fill", "none")
-      //.style("stroke-width", "0.01")
-      .style("stroke", "darkgrey")
-      .attr("id", function(d) {return d.properties.GEOID10;});
+      .style("stroke", color)
+      .attr("id", function(d){return d.properties.GEOID10;});
+
+  return data;
 
 };
 
-},{}],21:[function(require,module,exports){
+},{"topojson":3}],21:[function(require,module,exports){
 var map;
 var service;
 var infowindow;

@@ -9,10 +9,15 @@ def make():
 
     for item in items:
         item = item.split(':')
+
+        if item[0].find('/') != -1:
+            item[0][item[0].find('/')] = '-'
+
         cities[item[0].strip()] = item[1].strip()
 
     for item in cities:
         full = item.split(', ')
+
         name = Name.objects.create(name=full[0], state=full[1])
 
         if City.objects.filter(geo_id=cities[item]).exists():
@@ -33,5 +38,5 @@ def make():
     US = City.objects.create(geo_id='0')
     US.names.add(name)
 
-    with open('geo/CityBoundaries/us.json', 'r') as fh:
+    with open('geo/CityBoundaries/us_topo.json', 'r') as fh:
         Boundary.objects.create(data=fh.read(), city=US)

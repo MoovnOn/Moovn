@@ -1,17 +1,17 @@
 var topojson = require('topojson');
-module.exports = function (json, g, path, color, sw, topo) {
-
+module.exports = function (json, g, path, color, topo, type) {
+  //console.log(json)
   if (topo === true){
-    //console.log(topojson.feature(json, json.objects.us).features)
+
     data = topojson.feature(json, json.objects.us).features//.features
+    //console.log(data)
 
     g.selectAll("path")
         .data(data)//, function(d){return d.properties.GEOID10;})
       .enter().append("path")
         .attr("d", path)
-        .attr("class", "feature")
+        .attr("class", "feature" + type)
         .style("fill", "none")
-        //.style("stroke-width", sw + "px")//"0.01")
         .style("stroke", color)
         .attr("id", function(d){return d.properties.GEOID10;});
 
@@ -24,9 +24,9 @@ module.exports = function (json, g, path, color, sw, topo) {
       .data(data, function(d){return d.properties.GEOID10;})
     .enter().append("path")
       .attr("d", path)
-      .attr("class", "feature")
+      .attr("class", "feature" + type)
       .style("fill", "none")
-      //.style("stroke-width", sw + "px")//"0.01")
+
       .style("stroke", color)
       .attr("id", function(d){return d.properties.GEOID10;});
 
