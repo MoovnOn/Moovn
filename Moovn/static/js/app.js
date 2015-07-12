@@ -15670,7 +15670,7 @@ var show = require('../show');
 //   show('city-comp', {city1: cityName1, city2: cityName2});
 
 // });
-},{"../router":26,"../show":29,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
+},{"../router":27,"../show":30,"jquery":"jquery","underscore":"underscore","views":"views"}],5:[function(require,module,exports){
  var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -15781,7 +15781,7 @@ Promise.all(
 
 });
 
-},{"../drawMap":16,"../neighMap":24,"../places-api":25,"../router":26,"../search":27,"../show":29,"../show-sidebar":28,"../zoom":31,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],6:[function(require,module,exports){
+},{"../drawMap":16,"../neighMap":25,"../places-api":26,"../router":27,"../search":28,"../show":30,"../show-sidebar":29,"../zoom":32,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],6:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -15803,7 +15803,7 @@ router.route('', 'search', function (){
 
 });
 
-},{"../city-list":3,"../router":26,"../search":27,"../show":29,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+},{"../city-list":3,"../router":27,"../search":28,"../show":30,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -15833,7 +15833,7 @@ router.route('search/:cityName/education', function (cityName){
   
   
 });
-},{"../../drawMap":16,"../../neighMap":24,"../../places-api":25,"../../router":26,"../../search":27,"../../show":29,"../../show-sidebar":28,"../../zoom":31,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
+},{"../../drawMap":16,"../../neighMap":25,"../../places-api":26,"../../router":27,"../../search":28,"../../show":30,"../../show-sidebar":29,"../../zoom":32,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -15883,7 +15883,7 @@ router.route('search/:cityName/housing', function (cityName){
 //   places(cityName, "banks", ".banks-tab-data");
 //   places(cityName, "attractions", ".leisure-tab-data");
 });
-},{"../../drawMap":16,"../../graphs/housing":20,"../../neighMap":24,"../../places-api":25,"../../router":26,"../../search":27,"../../show":29,"../../show-sidebar":28,"../../zoom":31,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
+},{"../../drawMap":16,"../../graphs/housing":20,"../../neighMap":25,"../../places-api":26,"../../router":27,"../../search":28,"../../show":30,"../../show-sidebar":29,"../../zoom":32,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -15919,7 +15919,7 @@ router.route('search/:cityName/industry', function (cityName){
   incomeCity(state, city);
   
 });
-},{"../../drawMap":16,"../../graphs/income-city-wide":21,"../../neighMap":24,"../../places-api":25,"../../router":26,"../../search":27,"../../show":29,"../../show-sidebar":28,"../../zoom":31,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
+},{"../../drawMap":16,"../../graphs/income-city-wide":21,"../../neighMap":25,"../../places-api":26,"../../router":27,"../../search":28,"../../show":30,"../../show-sidebar":29,"../../zoom":32,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -15960,7 +15960,7 @@ router.route('search/:cityName/internet', function (cityName){
   });
   
 });
-},{"../../drawMap":16,"../../graphs/cell-download":17,"../../graphs/cell-reliability":18,"../../graphs/parse-cell":22,"../../neighMap":24,"../../places-api":25,"../../router":26,"../../search":27,"../../show":29,"../../show-sidebar":28,"../../zoom":31,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
+},{"../../drawMap":16,"../../graphs/cell-download":17,"../../graphs/cell-reliability":18,"../../graphs/parse-cell":22,"../../neighMap":25,"../../places-api":26,"../../router":27,"../../search":28,"../../show":30,"../../show-sidebar":29,"../../zoom":32,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -15989,7 +15989,7 @@ router.route('search/:cityName/jobs', function (cityName){
   });
   
 });
-},{"../../drawMap":16,"../../neighMap":24,"../../places-api":25,"../../router":26,"../../search":27,"../../show":29,"../../show-sidebar":28,"../../zoom":31,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
+},{"../../drawMap":16,"../../neighMap":25,"../../places-api":26,"../../router":27,"../../search":28,"../../show":30,"../../show-sidebar":29,"../../zoom":32,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -16018,7 +16018,7 @@ router.route('search/:cityName/leisure', function (cityName){
   });
   
 });
-},{"../../drawMap":16,"../../neighMap":24,"../../places-api":25,"../../router":26,"../../search":27,"../../show":29,"../../show-sidebar":28,"../../zoom":31,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
+},{"../../drawMap":16,"../../neighMap":25,"../../places-api":26,"../../router":27,"../../search":28,"../../show":30,"../../show-sidebar":29,"../../zoom":32,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -16034,20 +16034,27 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var showSideBar = require('../../show-sidebar');
+var peopleAge = require('../../graphs/people-age');
 
 router.route('search/:cityName/people', function (cityName){
 
   showSideBar('side-bar-city-search', cityName);
   searchFunction();
-  show('test', {city: cityName});
+  show('city-template-4', {city: cityName});
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
+  
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+  
+  peopleAge(city, state);
 
 });
-},{"../../drawMap":16,"../../neighMap":24,"../../places-api":25,"../../router":26,"../../search":27,"../../show":29,"../../show-sidebar":28,"../../zoom":31,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
+},{"../../drawMap":16,"../../graphs/people-age":23,"../../neighMap":25,"../../places-api":26,"../../router":27,"../../search":28,"../../show":30,"../../show-sidebar":29,"../../zoom":32,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -16076,7 +16083,7 @@ router.route('search/:cityName/taxes', function (cityName){
   });
 
 });
-},{"../../drawMap":16,"../../neighMap":24,"../../places-api":25,"../../router":26,"../../search":27,"../../show":29,"../../show-sidebar":28,"../../zoom":31,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],15:[function(require,module,exports){
+},{"../../drawMap":16,"../../neighMap":25,"../../places-api":26,"../../router":27,"../../search":28,"../../show":30,"../../show-sidebar":29,"../../zoom":32,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],15:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -16109,10 +16116,10 @@ router.route('search/:cityName/transportation', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
   
-  commuteTime(city, state);
+  commuteTime(state, city);
   
 });
-},{"../../drawMap":16,"../../graphs/commute-times":19,"../../neighMap":24,"../../places-api":25,"../../router":26,"../../search":27,"../../show":29,"../../show-sidebar":28,"../../zoom":31,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],16:[function(require,module,exports){
+},{"../../drawMap":16,"../../graphs/commute-times":19,"../../neighMap":25,"../../places-api":26,"../../router":27,"../../search":28,"../../show":30,"../../show-sidebar":29,"../../zoom":32,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],16:[function(require,module,exports){
 module.exports = function (json, g, path, color) {
 
   g.selectAll("path")
@@ -16238,17 +16245,18 @@ module.exports = function(state, city) {
         bindto: 'body .duo-1',
         data: {
           columns: [
-              ['Commute-Time-City', housingPeopleCommute],
-              ['Commute-Time-Nation', housingPeopleCommuteNation],              
+              ['Minutes Spent Commuting', housingPeopleCommute, housingPeopleCommuteNation],
           ],
           type: 'bar'
         },
         axis: {
-            y : {
-              tick: {
-                format: d3.format("$,")
-              }
-            }
+            y: {
+              label: 'minutes'
+            },
+            x: {
+              type: 'category',
+              categories: [ city + " " + 'Commute Time', 'National Commute Time']
+        	  },
           },
           size: {
         		height: 400
@@ -16401,6 +16409,94 @@ module.exports = function (state, city) {
 
 }
 },{"c3":"c3","jquery":"jquery"}],23:[function(require,module,exports){
+var c3 = require('c3');
+var d3 = require('d3');
+var $ = require('jquery');
+
+module.exports = function(state, city) {
+
+  $.ajax({
+    method: 'GET',
+    url: '/api/homeprices/' + state + '/' + city + '/'
+  })
+  .then(parseHousing);
+
+  
+  function parseHousing(allHousingData){
+    
+    
+    var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;    
+    var housingPeople0 = housingPeople[1].data.attribute[1].value['#text'];
+    var housingPeople10 = housingPeople[1].data.attribute[2].value['#text'];
+    var housingPeople20 = housingPeople[1].data.attribute[3].value['#text'];
+    var housingPeople30 = housingPeople[1].data.attribute[4].value['#text'];
+    var housingPeople40 = housingPeople[1].data.attribute[5].value['#text'];
+    var housingPeople50 = housingPeople[1].data.attribute[6].value['#text'];
+    var housingPeople60 = housingPeople[1].data.attribute[7].value['#text'];
+    var housingPeople70 = housingPeople[1].data.attribute[0].value['#text'];
+    
+      c3.generate({
+          bindto: 'body .quad-1',
+          data: {
+              columns: [
+                  ['0-9', housingPeople0],
+                  ['10-19', housingPeople10],
+                  ['20-29', housingPeople20],
+                  ['30-39', housingPeople30],
+                  ['40-49', housingPeople40],
+                  ['50-59', housingPeople50],
+                  ['60-69', housingPeople60],
+                  ['70+', housingPeople70],
+              ],
+              type : 'donut',
+              onclick: function (d, i) { console.log("onclick", d, i); },
+              onmouseover: function (d, i) { console.log("onmouseover", d, i); },
+              onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+          },
+          donut: {
+              title: "Age of Population (yrs)"
+          },
+          size: {
+      		height: 400
+      		},
+      });
+             
+       
+       
+
+      // c3.generate({
+      //   bindto: 'body .quad-1',
+      //   data: {
+      //     columns: [
+      //         ['Minutes Spent Commuting', housingPeopleCommute],
+      //         ['Minutes Spent Commuting', housingPeopleCommute],
+      //     ],
+      //     type: 'bar'
+      //   },
+      //   axis: {
+      //       y: {
+      //         label: 'minutes'
+      //       },
+      //       x: {
+      //         type: 'category',
+      //         categories: [ city + " " + 'Commute Time', 'National Commute Time']
+      //   	  },
+      //     },
+      //     size: {
+      //   		height: 400
+      // 		},
+      //  });
+            
+
+
+    
+
+  
+  }
+};
+
+
+},{"c3":"c3","d3":"d3","jquery":"jquery"}],24:[function(require,module,exports){
 'use strict';
 var jQuery = require("jquery");
 var $ = require("jquery");
@@ -16443,7 +16539,7 @@ $.ajaxSetup({
         }
     }
 });
-},{"./controllers/city-comp-controller.js":4,"./controllers/city-controller.js":5,"./controllers/search-controller.js":6,"./controllers/sidebar-controls/education-controller.js":7,"./controllers/sidebar-controls/housing-controller.js":8,"./controllers/sidebar-controls/industry-controller.js":9,"./controllers/sidebar-controls/internet-controller.js":10,"./controllers/sidebar-controls/jobs-controller.js":11,"./controllers/sidebar-controls/leisure-controller.js":12,"./controllers/sidebar-controls/people-controller.js":13,"./controllers/sidebar-controls/taxes.js":14,"./controllers/sidebar-controls/transpo-controller.js":15,"./router":26,"jquery":"jquery"}],24:[function(require,module,exports){
+},{"./controllers/city-comp-controller.js":4,"./controllers/city-controller.js":5,"./controllers/search-controller.js":6,"./controllers/sidebar-controls/education-controller.js":7,"./controllers/sidebar-controls/housing-controller.js":8,"./controllers/sidebar-controls/industry-controller.js":9,"./controllers/sidebar-controls/internet-controller.js":10,"./controllers/sidebar-controls/jobs-controller.js":11,"./controllers/sidebar-controls/leisure-controller.js":12,"./controllers/sidebar-controls/people-controller.js":13,"./controllers/sidebar-controls/taxes.js":14,"./controllers/sidebar-controls/transpo-controller.js":15,"./router":27,"jquery":"jquery"}],25:[function(require,module,exports){
 module.exports = function (json, g, path) {
 
   g.selectAll("path")
@@ -16458,7 +16554,7 @@ module.exports = function (json, g, path) {
 
 };
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 var map;
 var service;
 var infowindow;
@@ -16482,13 +16578,13 @@ module.exports = function(city, searchTerm, tabContainer) {
 
 };	
 
-},{"jquery":"jquery"}],26:[function(require,module,exports){
+},{"jquery":"jquery"}],27:[function(require,module,exports){
 'use strict';
 
 var SortedRouter = require('./sorted-router');
 
 module.exports = new SortedRouter();
-},{"./sorted-router":30}],27:[function(require,module,exports){
+},{"./sorted-router":31}],28:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -16551,7 +16647,7 @@ module.exports = function(){
 
 
 }
-},{"./city-list":3,"./router":26,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],28:[function(require,module,exports){
+},{"./city-list":3,"./router":27,"jquery":"jquery","jquery-ui":1,"underscore":"underscore","views":"views"}],29:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -16565,7 +16661,7 @@ module.exports = function (templateName, model) {
   
   $('.side-bar-content').html(hydratedHTML);
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],29:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],30:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
@@ -16579,7 +16675,7 @@ module.exports = function (templateName, model) {
   
   $('.main-content').html(hydratedHTML);
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],30:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],31:[function(require,module,exports){
 'use strict';
  
 var Backbone = require('backbone');
@@ -16625,7 +16721,7 @@ var SortedRouter = Backbone.Router.extend({
 });
  
 module.exports = SortedRouter;
-},{"backbone":"backbone","underscore":"underscore"}],31:[function(require,module,exports){
+},{"backbone":"backbone","underscore":"underscore"}],32:[function(require,module,exports){
 module.exports = function (cityjson, boundaryjson, g, path, height, width){
 
   var bounds1 = path.bounds(cityjson);
@@ -16658,7 +16754,7 @@ module.exports = function (cityjson, boundaryjson, g, path, height, width){
 
 }
 
-},{}]},{},[23])
+},{}]},{},[24])
 
 
 //# sourceMappingURL=app.js.map

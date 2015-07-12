@@ -24,17 +24,18 @@ module.exports = function(state, city) {
         bindto: 'body .duo-1',
         data: {
           columns: [
-              ['Commute-Time-City', housingPeopleCommute],
-              ['Commute-Time-Nation', housingPeopleCommuteNation],              
+              ['Minutes Spent Commuting', housingPeopleCommute, housingPeopleCommuteNation],
           ],
           type: 'bar'
         },
         axis: {
-            y : {
-              tick: {
-                format: d3.format("$,")
-              }
-            }
+            y: {
+              label: 'minutes'
+            },
+            x: {
+              type: 'category',
+              categories: [ city + " " + 'Commute Time', 'National Commute Time']
+        	  },
           },
           size: {
         		height: 400
