@@ -37,6 +37,9 @@ router.route('search/:cityName/leisure', function (cityName){
   });
 
 //google places
-  places(cityName, "Bars", ".tab-data1", ".tab-title1");
-  places(cityName, "Attractions", ".tab-data2", ".tab-title2");
+  places(cityName, "Attractions", ".tab-data1", ".tab-title1");
+  places(cityName, "Bars", ".tab-data2", ".tab-title2");
+  places(cityName, "Restaurants", ".tab-data3", ".tab-title3");
+  places(cityName, "Shopping", ".tab-data4", ".tab-title4");
+  places(cityName, "Coffee & Tea", ".tab-data5", ".tab-title5");
 });

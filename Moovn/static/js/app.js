@@ -15821,16 +15821,29 @@ var views = require('views');
 
 router.route('search/:cityName/education', function (cityName){
 
-  show('side-bar-city-search', '.side-bar-content', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-  show('test', '.main-content' ,{city: cityName});
+  show('city-template-2', '.main-content', {city: cityName} );
   
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
   
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
   
+  show('content/tabs-lists', '.duo-1')
+  
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+//google places
+  places(cityName, "colleges", ".tab-data1", ".tab-title1");
+  places(cityName, "community college", ".tab-data2", ".tab-title2");
 });
 },{"../../drawMap":16,"../../neighMap":29,"../../places-api":30,"../../router":31,"../../search":32,"../../show":33,"../../zoom":35,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
@@ -16032,8 +16045,11 @@ router.route('search/:cityName/leisure', function (cityName){
   });
 
 //google places
-  places(cityName, "Bars", ".tab-data1", ".tab-title1");
-  places(cityName, "Attractions", ".tab-data2", ".tab-title2");
+  places(cityName, "Attractions", ".tab-data1", ".tab-title1");
+  places(cityName, "Bars", ".tab-data2", ".tab-title2");
+  places(cityName, "Restaurants", ".tab-data3", ".tab-title3");
+  places(cityName, "Shopping", ".tab-data4", ".tab-title4");
+  places(cityName, "Coffee & Tea", ".tab-data5", ".tab-title5");
 });
 },{"../../drawMap":16,"../../neighMap":29,"../../places-api":30,"../../router":31,"../../search":32,"../../show":33,"../../zoom":35,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 var $ = require('jquery');

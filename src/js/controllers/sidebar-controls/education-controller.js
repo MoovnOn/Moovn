@@ -16,14 +16,27 @@ var views = require('views');
 
 router.route('search/:cityName/education', function (cityName){
 
-  show('side-bar-city-search', '.side-bar-content', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-  show('test', '.main-content' ,{city: cityName});
+  show('city-template-2', '.main-content', {city: cityName} );
   
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
   
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
   
+  show('content/tabs-lists', '.duo-1')
+  
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+//google places
+  places(cityName, "colleges", ".tab-data1", ".tab-title1");
+  places(cityName, "community college", ".tab-data2", ".tab-title2");
 });
