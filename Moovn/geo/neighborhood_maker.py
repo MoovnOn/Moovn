@@ -5,10 +5,11 @@ from geo.models import NeighborhoodBoundary, City, Name
 
 def make():
     filenames = []
-    for root, dirs, files in os.walk('geo/neighborhoods/'):
+    for root, dirs, files in os.walk('geo/neighborhoods/original'):
         for name in files:
-            if name != '.DS_Store' and name != 'changer.py':
+            if name != '.DS_Store' and name != 'changer.py' and os.path.join(root,name).find('.git') == -1:
                 filenames.append(os.path.join(root, name))
+
 
     names = list(Name.objects.all())
     cities = {item.city:[] for item in names}
@@ -23,7 +24,7 @@ def make():
             state_name = item.properties['STATE']
 
             if city_name.find('/') != -1:
-                city_name[city_name.find('/')] = '-' # I mean you, Jefferson f'in County
+                city_name = city_name.replace('/', '-') # I mean you, Jefferson f'in County
                 item.properties['CITY'] = city_name
 
             for name_obj in names:
@@ -33,13 +34,13 @@ def make():
                    cities[name_obj.city].append(item)
 
 
-
     for item in cities:
-        data = geojson.FeatureCollection(cities[item])
-        filename = item.geo_id
+        if cities[item] != []:
+            data = geojson.FeatureCollection(cities[item])
+            filename = item.geo_id
 
-        with open('geo/neighborhoods/city/' + filename + '.json', 'w') as fh:
-            fh.write(geojson.dumps(data))
+            with open('geo/neighborhoods/citynb/' + str(filename) + '.json', 'w') as fh:
+                fh.write(geojson.dumps(data))
 
         #NeighborhoodBoundary.objects.create(city=item, data=geojson.dumps(data))
 

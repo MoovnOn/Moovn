@@ -1,7 +1,11 @@
 module.exports = function (cityjson, boundaryjson, g, path, height, width){
 
+  console.log(boundaryjson)
+
   var bounds1 = path.bounds(cityjson);
   var bounds2 = path.bounds(boundaryjson);
+
+  console.log(bounds2)
 
   var dx = function (bound) {
     return bound[1][0] - bound[0][0];

@@ -70,14 +70,9 @@ def cell_view(request, state, name):
 
 def neighborhood_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
-    boundaryset = list(name.city.neighborhoodboundary_set.all())
+    boundaries = json.loads(name.city.neighborhood.data)
 
-    collection = []
-    for x in boundaryset:
-        collection.extend(geojson.loads(x.data).features)
-
-    collection = geojson.FeatureCollection(collection)
-    return JsonResponse(collection)
+    return JsonResponse(boundaries)
 
 
 def neighborhooddata_view(request, state, name, region_id=None):
