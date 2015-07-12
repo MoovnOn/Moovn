@@ -24,7 +24,7 @@ module.exports = function(state, city) {
 
 
       var chart = c3.generate({
-        bindto: 'body .city-chart-container',
+        bindto: 'body .quad-1',
         data: {
           columns: [
               ['Condo', housingAffordCondo],
@@ -65,22 +65,22 @@ module.exports = function(state, city) {
           }
         })
        
-      $('#chartType').change(function(){ 
-         if ($('#housing').is(':selected')){
-            chart.load({ 
-                columns: [
-                    ['Condo', housingAffordCondo],
-                    ['2-Bed-Home', housingAfford2Bed],
-                    ['3-Bed-Home', housingAfford3Bed],
-                    ['4-Bed-Home', housingAfford4Bed],
-                ],
-                unload: ['Median-City-Income', 'Median-Nation-Income', 'Condo'],
-                type: 'bar',
+      // $('#chartType').change(function(){ 
+      //    if ($('#housing').is(':selected')){
+      //       chart.load({ 
+      //           columns: [
+      //               ['Condo', housingAffordCondo],
+      //               ['2-Bed-Home', housingAfford2Bed],
+      //               ['3-Bed-Home', housingAfford3Bed],
+      //               ['4-Bed-Home', housingAfford4Bed],
+      //           ],
+      //           unload: ['Median-City-Income', 'Median-Nation-Income', 'Condo'],
+      //           type: 'bar',
              
-            })
+      //       })
 
-           }
-       })
+      //      }
+      //  })
 
   
   }

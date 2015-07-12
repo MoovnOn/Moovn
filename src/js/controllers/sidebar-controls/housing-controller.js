@@ -4,7 +4,7 @@ var _ = require('underscore');
 var views = require('views');
 var router = require('../../router');
 var show = require('../../show');
-var chart = require('../../c3-charts');
+// var chart = require('../../c3-charts');
 var places = require('../../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
@@ -14,6 +14,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var showSideBar = require('../../show-sidebar');
+var housingGraphGeneral = require('../../graphs/housing');
 
 router.route('search/:cityName/housing', function (cityName){
 
@@ -30,10 +31,9 @@ router.route('search/:cityName/housing', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
   
-  chart(state, city);
+  housingGraphGeneral(state, city);
   
   var tabsList = views['content/tabs-lists'];
-  
   $('.quad-4').html(tabsList)
   
   //gets the lists displaying as tabs and can change to accordian
