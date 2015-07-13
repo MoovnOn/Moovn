@@ -19,18 +19,39 @@ module.exports = function (json, g, path, color, type) {
     opacity = .4
   }else{
     fill = "grey";
-    stroke = "none"
+    stroke = "none";
+    mo = true;
   }
 
-  g.selectAll("path")
-      .data(data.features, function(d){return d.properties.GEOID10;})
-    .enter().append("path")
-      .attr("d", path)
-      .attr("class", "feature" + type)
-      .style("fill", fill)
-      .style("fill-opacity", opacity)
-      .style("stroke", stroke)
-      .attr("id", function(d){return d.properties.GEOID10;});
+  if (type !== "neighborhood"){
+
+    g.selectAll("path")
+        .data(data.features, function(d){return d.properties.GEOID10;})
+      .enter().append("path")
+        .attr("d", path)
+        .attr("class", "feature-" + type)
+        .style("fill", fill)
+        .style("fill-opacity", opacity)
+        .style("stroke", stroke)
+        .attr("id", function(d){return d.properties.GEOID10;});
+
+  }else{
+
+    var neighG = g.append("g");
+
+    neighG.attr("class", "neighborhoods");
+
+    neighG.selectAll("path")
+        .data(data.features, function(d){return d.properties.GEOID10;})
+      .enter().append("path")
+        .attr("d", path)
+        .attr("class", "feature-" + type)
+        .style("fill", fill)
+        .style("fill-opacity", opacity)
+        .style("stroke", stroke)
+        .attr("id", function(d){return d.properties.GEOID10;});
+
+  }
 
   return data;
 

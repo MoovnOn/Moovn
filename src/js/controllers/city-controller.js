@@ -13,7 +13,7 @@ var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
 var showSideBar = require('../show-sidebar');
-
+var mouseOverZoom = require('../mouseoverzoom')
 
 router.route('search/:cityName', function (cityName){
 
@@ -105,9 +105,13 @@ Promise.all([
       })
 
     ]).then(function(results){
+        zoom(cityjson, boundaryjson, g, path, height, width);
 
-        zoom(cityjson, boundaryjson, svg, g, path, height, width);
+        var mouseOutZoom = function (d) { return zoom(cityjson, boundaryjson, g, path, height, width);};
+        var mouseZoom = function(d) { return mouseOverZoom(d, path, g, height, width);};
 
+        d3.selectAll(".feature-neighborhood").on("mouseenter", mouseZoom);
+        d3.selectAll(".neighborhoods").on("mouseleave", mouseOutZoom);
     });
 
   });
