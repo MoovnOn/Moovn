@@ -1,10 +1,10 @@
 var $ = require('jQuery');
 var mouseout = require('./mouseout');
+var neighborhoodRequests = require('./neighborhood-requests')
 
+module.exports = function (d, path, g, height, width, zoomout, state, city){
 
-module.exports = function (d, path, g, height, width, zoomout){
-
-
+  //console.log(d)
   var bounds = path.bounds(d);
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
@@ -29,30 +29,30 @@ module.exports = function (d, path, g, height, width, zoomout){
         .size([width, height])
         .on("zoom", zoomed);
 
-  var clicked = function (){
+    var dx = function (bound) {
+      return bound[1][0] - bound[0][0];
+    }
+    var dy = function (bound){
+      return bound[1][1] - bound[0][1];
+    }
+    var center_x = function (bound) {
+      return (bound[0][0] + bound[1][0])/2;
+    }
+    var center_y = function (bound) {
+      return (bound[0][1] + bound[1][1])/2;
+    }
 
-      var dx = function (bound) {
-        return bound[1][0] - bound[0][0];
-      }
-      var dy = function (bound){
-        return bound[1][1] - bound[0][1];
-      }
-      var center_x = function (bound) {
-        return (bound[0][0] + bound[1][0])/2;
-      }
-      var center_y = function (bound) {
-        return (bound[0][1] + bound[1][1])/2;
-      }
+    var clicked = function (){
+
+        var scale = .5 / Math.max( dx(bounds) / width, dy(bounds) / height);
+        var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
+
+        g.transition()
+         .duration(250)
+         .call(zoomMap.translate(translate).scale(scale).event);
 
 
-      var scale = .5 / Math.max( dx(bounds) / width, dy(bounds) / height);
-      var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
-
-      g.transition()
-       .duration(250)
-       .call(zoomMap.translate(translate).scale(scale).event);
-
-  }
+    }
 
     function zoomed(translate, scale){
 
@@ -62,6 +62,8 @@ module.exports = function (d, path, g, height, width, zoomout){
     };
 
     clicked();
+    var ident = d3.geo.path().projection({stream: function(d){return d;}})
+    neighborhoodRequests(state, city, d.properties['GEOID10'], ident.centroid(d));
   }
 
 }

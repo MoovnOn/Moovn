@@ -13,7 +13,7 @@ from rest_framework.response import Response
 
 from rest_framework.decorators import api_view, permission_classes
 
-from geo.models import City, Boundary, Name
+from geo.models import City, Boundary, Name, NeighborhoodBoundary
 import xmltodict
 import json
 
@@ -71,9 +71,15 @@ def cell_view(request, state, name):
 
 def neighborhood_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
-    boundaries = json.loads(name.city.neighborhood.data)
 
-    return JsonResponse(boundaries)
+    if NeighborhoodBoundary.objects.filter(city=name.city).exists():
+        boundaries = json.loads(name.city.neighborhood.data)
+        return JsonResponse(boundaries)
+
+    else:
+        response = HttpResponse()
+        response.status_code = 404
+        return HttpResponse()
 
 
 def neighborhooddata_view(request, state, name, region_id=None):
@@ -112,7 +118,11 @@ def nearby_schools_view(request, state):
     apis('greatschools') + "&state=" + state +
     "&lat=" + lat + "&lon=" + lon)
 
-    return JsonResponse(xmltodict.parse(data.text))
+    returndata = xmltodict.parse(data.text)
+    returndata['lat'] = lat
+    returndata['lon'] = lon
+
+    return JsonResponse(returndata) # xmltodict.parse(data.text))
 
 
 def industry_view(request, state, name):

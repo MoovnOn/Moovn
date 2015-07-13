@@ -87,20 +87,30 @@ Promise.all([
         url: '/api/neighborhoods/' + state + '/' + city + '/'
 
       }).done(function (json){
-
-        boundaryjson = neighMap(json, g, path, "grey", "neighborhood");
+        if (json){
+          boundaryjson = neighMap(json, g, path, "grey", "neighborhood");
+        } else {
+          boundaryjson = false
+        }
 
       })
 
     ]).then(function(results){
+
+      if (boundaryjson){
         zoom(cityjson, boundaryjson, g, path, height, width);
 
         var mouseOutZoom = function () { return zoom(cityjson, boundaryjson, g, path, height, width);};
-        var mouseZoom = function(d) { return mouseOverZoom(d, path, g, height, width, mouseOutZoom);};
+        var mouseZoom = function(d) { return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);};
 
         d3.selectAll(".feature-neighborhood").on("click", mouseZoom);
-        //d3.selectAll(".neighborhoods").on("mouseleave", mouseOutZoom);
-        //d3.selectAll(".feature-neighborhood clicked").on("click", mouseout)
+      } else {
+
+        zoom(cityjson, cityjson, g, path, height, width);
+
+      }
+
+
     });
 
   });
