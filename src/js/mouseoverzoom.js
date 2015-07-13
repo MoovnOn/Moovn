@@ -2,9 +2,6 @@ var $ = require('jQuery')
 module.exports = function (d, path, g, height, width){
 
   var bounds = path.bounds(d);
-  //console.log(d);
-  //item = $.("#" + d.properties['GEOID10'])
-  console.log(d3.select($("#" + d.properties['GEOID10'])))
   d3.select($("#" + d.properties['GEOID10'])[0]).style("fill", "orange")
 
 
