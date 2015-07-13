@@ -18,14 +18,12 @@ var d3 = require('d3');
 var topojson = require('../../topojson');
 var neighMap = require('../../neighMap');
 var zoom = require('../../zoom');
-var mouseOverZoom = require('../../mouseoverzoom')
+var mouseOverZoom = require('../../mouseoverzoom');
 
 router.route('search/:cityName/housing', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-  activeSelection();
-
   show('city-template-4-map', '.main-content', {city: cityName} );
 
 
@@ -46,7 +44,6 @@ router.route('search/:cityName/housing', function (cityName){
   var id = 0;
 
   Promise.all([
-
 
   $.ajax({
 
@@ -96,12 +93,21 @@ router.route('search/:cityName/housing', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
+
         zoom(cityjson, boundaryjson, g, path, height, width);
 
-        var mouseOutZoom = function () { return zoom(cityjson, boundaryjson, g, path, height, width);};
-        var mouseZoom = function(d) { return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);};
+        var mouseOutZoom = function () {
+          $("#neighborhood-title").text("Select A Neighborhood");
+          return zoom(cityjson, boundaryjson, g, path, height, width);
+        };
+
+        var mouseZoom = function(d) {
+          $("#neighborhood-title").text(d.properties.NAME);
+          return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
+        };
 
         d3.selectAll(".feature-neighborhood").on("click", mouseZoom);
+
       } else {
 
         zoom(cityjson, cityjson, g, path, height, width);
@@ -116,28 +122,19 @@ router.route('search/:cityName/housing', function (cityName){
   })
 
 
->>>>>>> back
+  activeSelection();
+
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-<<<<<<< HEAD
-    
-  
-=======
-
-  $('.side-nav-item').click(function(){
-   this.addclass("side-nav-item-active");
-  })
-
->>>>>>> back
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
 
-  //currenty bound to quad-1
-  var cityHousing = housingGraphGeneral(state, city);
+  //currenty bound to quad-3
+  housingGraphGeneral(state, city);
 
 
   show('content/tabs-lists', '.quad-4')
@@ -152,10 +149,5 @@ router.route('search/:cityName/housing', function (cityName){
   places(cityName, "apartments", ".tab-data1", ".tab-title1");
   places(cityName, "realty", ".tab-data2", ".tab-title2");
   places(cityName, "banks", ".tab-data3", ".tab-title3");
-<<<<<<< HEAD
-  
-  
+
 });
-=======
-});
->>>>>>> back

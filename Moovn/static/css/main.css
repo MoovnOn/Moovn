@@ -1288,8 +1288,7 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 .side-nav-container {
   max-width: 200px;
   float: left;
-  position: fixed;
-  box-shadow: 2px 0px 7px 2px rgba(0, 0, 0, 0.54); }
+  position: fixed; }
 
 .side-nav-list {
   background-color: #354052;
@@ -1335,6 +1334,7 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 @media screen and (max-width: 670px) {
   .side-nav-container {
     z-index: 100;
+    width: 100%;
     display: none; }
   .bar-menu-icon {
     display: inline-block;

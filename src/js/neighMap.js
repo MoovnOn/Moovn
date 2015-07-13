@@ -1,4 +1,4 @@
-var topojson = require('topojson')
+var topojson = require('./topojson')
 
 module.exports = function (json, g, path, color, type) {
 
