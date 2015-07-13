@@ -1,11 +1,12 @@
 .quad-1, .quad-2{
-  margin-top:3em;
+  margin-top:3.5em;
 }
+
 .quad-3, .quad-4{
   margin-top: 1em
 }
-.duo-1, duo-2{
-  margin-top: 3em;
+.duo-1, .duo-2{
+  margin-top: 3.5em;
 }
 
 .refresh{
@@ -41,6 +42,7 @@
   border-radius: 0.2em;
   border: none;
   padding:0.3em;
+  width: 95%;
 }
 .submit-city-view{
   background-color: $light-primary-color;

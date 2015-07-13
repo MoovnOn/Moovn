@@ -38,9 +38,9 @@ module.exports = function(state, city) {
                   ['70+', housingPeople70],
               ],
               type : 'donut',
-              onclick: function (d, i) { console.log("onclick", d, i); },
-              onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-              onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+              onclick: function (d, i) {},
+              onmouseover: function (d, i) {},
+              onmouseout: function (d, i) {}
           },
           donut: {
               title: "Age of Population (yrs)"
@@ -50,37 +50,6 @@ module.exports = function(state, city) {
       		},
       });
              
-       
-       
-
-      // c3.generate({
-      //   bindto: 'body .quad-1',
-      //   data: {
-      //     columns: [
-      //         ['Minutes Spent Commuting', housingPeopleCommute],
-      //         ['Minutes Spent Commuting', housingPeopleCommute],
-      //     ],
-      //     type: 'bar'
-      //   },
-      //   axis: {
-      //       y: {
-      //         label: 'minutes'
-      //       },
-      //       x: {
-      //         type: 'category',
-      //         categories: [ city + " " + 'Commute Time', 'National Commute Time']
-      //   	  },
-      //     },
-      //     size: {
-      //   		height: 400
-      // 		},
-      //  });
-            
-
-
-    
-
-  
   }
 };
 

@@ -25418,7 +25418,7 @@ var show = require('../show');
 //   show('city-comp', {city1: cityName1, city2: cityName2});
 
 // });
-},{"../router":30,"../show":33,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+},{"../router":34,"../show":36,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
  var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25433,28 +25433,16 @@ var neighMap = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
-var showSideBar = require('../show-sidebar');
 var mouseOverZoom = require('../mouseoverzoom')
 var mouseout = require('../mouseout')
+
 
 router.route('search/:cityName', function (cityName){
 
 
-  show('city', {city: cityName});
-
-
-  // Jquery UI tabs
-
-var sideBarHTML = views['side-bar-city-search'];
-
-//console.log(sideBarHTML);
-
-  $('.side-bar-content').html(sideBarHTML);
-
-
-  showSideBar('side-bar-city-search', cityName);
-
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
+  show('city', '.main-content', {city: cityName});
   // Jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
@@ -25558,7 +25546,7 @@ Promise.all([
 
 });
 
-},{"../mouseout":26,"../mouseoverzoom":27,"../neighMap":28,"../places-api":29,"../router":30,"../search":31,"../show":33,"../show-sidebar":32,"../topojson":35,"../zoom":36,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
+},{"../mouseout":30,"../mouseoverzoom":31,"../neighMap":32,"../places-api":33,"../router":34,"../search":35,"../show":36,"../topojson":38,"../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -25569,7 +25557,7 @@ var tags = require('../city-list');
 var searchFunction = require('../search');
 
 router.route('', 'search', function (){
-  show('search');
+  show('search', '.main-content');
   $('.side-bar-content').html('');
   
   $('.header-home').fadeIn(600);
@@ -25580,7 +25568,7 @@ router.route('', 'search', function (){
 
 });
 
-},{"../city-list":5,"../router":30,"../search":31,"../show":33,"jquery":"jquery","jquery-ui":2,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
+},{"../city-list":5,"../router":34,"../search":35,"../show":36,"jquery":"jquery","jquery-ui":2,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25594,13 +25582,14 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
+
 
 router.route('search/:cityName/education', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-  show('test', {city: cityName});
+
+  show('city-template-2', '.main-content', {city: cityName} );
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -25608,9 +25597,23 @@ router.route('search/:cityName/education', function (cityName){
   });
 
 
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+
+  show('content/tabs-lists', '.duo-1')
+
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+//google places
+  places(cityName, "colleges", ".tab-data1", ".tab-title1");
+  places(cityName, "community college", ".tab-data2", ".tab-title2");
 });
 
-},{"../../neighMap":28,"../../places-api":29,"../../router":30,"../../search":31,"../../show":33,"../../show-sidebar":32,"../../zoom":36,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
+},{"../../neighMap":32,"../../places-api":33,"../../router":34,"../../search":35,"../../show":36,"../../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25624,14 +25627,14 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
 var housingGraphGeneral = require('../../graphs/housing');
 
 router.route('search/:cityName/housing', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-  show('city-template-4', {city: cityName});
+
+  show('city-template-4', '.main-content', {city: cityName} );
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -25646,21 +25649,19 @@ router.route('search/:cityName/housing', function (cityName){
   housingGraphGeneral(state, city);
 
 
+  show('content/tabs-lists', '.quad-4')
 
-//   var tabsList = views['content/tabs-lists'];
-//   $('.quad-4').html(tabsList)
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
 
-//   //gets the lists displaying as tabs and can change to accordian
-//   $('#responsiveTabsDemo').responsiveTabs({
-//       startCollapsed: 'accordion'
-//   });
-
-// //google places
-//   places(cityName, "banks", ".banks-tab-data");
-//   places(cityName, "attractions", ".leisure-tab-data");
+//google places
+  places(cityName, "Realty", ".tab-data1", ".tab-title1");
+  places(cityName, "banks", ".tab-data2", ".tab-title2");
 });
 
-},{"../../graphs/housing":21,"../../neighMap":28,"../../places-api":29,"../../router":30,"../../search":31,"../../show":33,"../../show-sidebar":32,"../../zoom":36,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
+},{"../../graphs/housing":22,"../../neighMap":32,"../../places-api":33,"../../router":34,"../../search":35,"../../show":36,"../../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25674,14 +25675,20 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
 var incomeCity = require ('../../graphs/income-city-wide')
+
 
 router.route('search/:cityName/industry', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('city-template-4', {city: cityName});
+
+  show('city-template-4', '.main-content', {city: cityName});
+
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -25696,7 +25703,7 @@ router.route('search/:cityName/industry', function (cityName){
 
 });
 
-},{"../../graphs/income-city-wide":22,"../../neighMap":28,"../../places-api":29,"../../router":30,"../../search":31,"../../show":33,"../../show-sidebar":32,"../../zoom":36,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
+},{"../../graphs/income-city-wide":23,"../../neighMap":32,"../../places-api":33,"../../router":34,"../../search":35,"../../show":36,"../../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25710,16 +25717,15 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
 var parseCell = require('../../graphs/parse-cell');
 var downloadGraph = require('../../graphs/cell-download');
 var reliabilityGraph = require('../../graphs/cell-reliability');
 
 router.route('search/:cityName/internet', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('city-template-2', {city: cityName});
+  show('city-template-2', '.main-content', {city: cityName});
 
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
@@ -25737,7 +25743,7 @@ router.route('search/:cityName/internet', function (cityName){
 
 });
 
-},{"../../graphs/cell-download":18,"../../graphs/cell-reliability":19,"../../graphs/parse-cell":23,"../../neighMap":28,"../../places-api":29,"../../router":30,"../../search":31,"../../show":33,"../../show-sidebar":32,"../../zoom":36,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
+},{"../../graphs/cell-download":19,"../../graphs/cell-reliability":20,"../../graphs/parse-cell":24,"../../neighMap":32,"../../places-api":33,"../../router":34,"../../search":35,"../../show":36,"../../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25751,14 +25757,15 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
+
 
 router.route('search/:cityName/jobs', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('test', {city: cityName});
 
+  show('test', '.main-content', {city: cityName});
+  
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
@@ -25766,7 +25773,7 @@ router.route('search/:cityName/jobs', function (cityName){
 
 });
 
-},{"../../neighMap":28,"../../places-api":29,"../../router":30,"../../search":31,"../../show":33,"../../show-sidebar":32,"../../zoom":36,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
+},{"../../neighMap":32,"../../places-api":33,"../../router":34,"../../search":35,"../../show":36,"../../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25780,43 +25787,14 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
+
 
 router.route('search/:cityName/leisure', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-  show('test', {city: cityName});
 
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
-
-});
-
-},{"../../neighMap":28,"../../places-api":29,"../../router":30,"../../search":31,"../../show":33,"../../show-sidebar":32,"../../zoom":36,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],15:[function(require,module,exports){
-var $ = require('jquery');
-var jQuery = require('jquery');
-var _ = require('underscore');
-var views = require('views');
-var router = require('../../router');
-var show = require('../../show');
-var places = require('../../places-api');
-var tab = require('responsive-tabs');
-var d3 = require('d3');
-var drawNeigh = require('../../neighMap');
-var zoom = require('../../zoom');
-var searchFunction = require('../../search');
-var views = require('views');
-var showSideBar = require('../../show-sidebar');
-var peopleAge = require('../../graphs/people-age');
-
-router.route('search/:cityName/people', function (cityName){
-
-  showSideBar('side-bar-city-search', cityName);
-  searchFunction();
-  show('city-template-4', {city: cityName});
+  show('city-template-2', '.main-content', {city: cityName} );
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -25827,11 +25805,22 @@ router.route('search/:cityName/people', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  peopleAge(city, state);
+  show('content/tabs-lists', '.duo-1')
 
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+//google places
+  places(cityName, "Attractions", ".tab-data1", ".tab-title1");
+  places(cityName, "Bars", ".tab-data2", ".tab-title2");
+  places(cityName, "Restaurants", ".tab-data3", ".tab-title3");
+  places(cityName, "Shopping", ".tab-data4", ".tab-title4");
+  places(cityName, "Coffee & Tea", ".tab-data5", ".tab-title5");
 });
 
-},{"../../graphs/people-age":24,"../../neighMap":28,"../../places-api":29,"../../router":30,"../../search":31,"../../show":33,"../../show-sidebar":32,"../../zoom":36,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],16:[function(require,module,exports){
+},{"../../neighMap":32,"../../places-api":33,"../../router":34,"../../search":35,"../../show":36,"../../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],15:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25845,13 +25834,65 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
+var peopleAge = require('../../graphs/people-age');
+var peopleHousehold = require('../../graphs/people-household');
+var peopleRelationships = require('../../graphs/people-relationships');
+var liveshere = require('../../list-data/liveshere');
+
+
+router.route('search/:cityName/people', function (cityName){
+
+  show('side-bar-city-search', '.side-bar-content', cityName);
+  searchFunction();
+  show('city-template-4', '.main-content' , {city: cityName});
+
+
+  //slides the side-nav
+  $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
+
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+
+
+  peopleAge(state, city);
+  peopleHousehold(state, city);
+  peopleRelationships(state, city);
+
+  show('content/tabs-lists', '.quad-4')
+
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+  liveshere(state, city);
+
+});
+
+},{"../../graphs/people-age":25,"../../graphs/people-household":26,"../../graphs/people-relationships":27,"../../list-data/liveshere":29,"../../neighMap":32,"../../places-api":33,"../../router":34,"../../search":35,"../../show":36,"../../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],16:[function(require,module,exports){
+var $ = require('jquery');
+var jQuery = require('jquery');
+var _ = require('underscore');
+var views = require('views');
+var router = require('../../router');
+var show = require('../../show');
+var places = require('../../places-api');
+var tab = require('responsive-tabs');
+var d3 = require('d3');
+var drawNeigh = require('../../neighMap');
+var zoom = require('../../zoom');
+var searchFunction = require('../../search');
+var views = require('views');
+
 
 router.route('search/:cityName/taxes', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('test', {city: cityName});
+  show('test', '.main-content', {city: cityName});
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -25860,7 +25901,7 @@ router.route('search/:cityName/taxes', function (cityName){
 
 });
 
-},{"../../neighMap":28,"../../places-api":29,"../../router":30,"../../search":31,"../../show":33,"../../show-sidebar":32,"../../zoom":36,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],17:[function(require,module,exports){
+},{"../../neighMap":32,"../../places-api":33,"../../router":34,"../../search":35,"../../show":36,"../../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],17:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25874,20 +25915,29 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
-var commuteTime = require('../../graphs/commute-times')
+var commuteTime = require('../../graphs/commute-times');
+var googleMap = require('../../google-maps');
 
 router.route('search/:cityName/transportation', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('city-template-2', {city: cityName});
+
+  show('city-template-2', '.main-content', {city: cityName});
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
+  // hacky way to make height change. should be refactored
+  $('#google-map').attr('style','height: 400px');
+  googleMap(state, city);
+  
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -25896,7 +25946,75 @@ router.route('search/:cityName/transportation', function (cityName){
 
 });
 
-},{"../../graphs/commute-times":20,"../../neighMap":28,"../../places-api":29,"../../router":30,"../../search":31,"../../show":33,"../../show-sidebar":32,"../../zoom":36,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],18:[function(require,module,exports){
+},{"../../google-maps":18,"../../graphs/commute-times":21,"../../neighMap":32,"../../places-api":33,"../../router":34,"../../search":35,"../../show":36,"../../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],18:[function(require,module,exports){
+var $ = require('jquery');
+
+module.exports = function(state, city) {
+
+	var geocoder =  new google.maps.Geocoder();
+    geocoder.geocode( { 'address': city + ',' + state}, function(results) {
+      var lat = results[0].geometry.location.lat();
+     	var lon = results[0].geometry.location.lng();
+
+	  var mapOptions = {
+			zoom: 10,
+			center: new google.maps.LatLng(lat, lon),
+			panControl: false,
+			panControlOptions: {
+				position: google.maps.ControlPosition.BOTTOM_LEFT
+			},
+			zoomControl: true,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.LARGE,
+				position: google.maps.ControlPosition.RIGHT_CENTER
+			},
+			scaleControl: false
+
+		};
+
+		map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+
+
+		var request = {
+	    query: "airports " + city
+		};
+		service = new google.maps.places.PlacesService(map);
+		
+			var infowindow = new google.maps.InfoWindow({
+      		content: 'hello'
+  			});
+
+		service.textSearch(request, function(results) {
+		  for (var i = 0; i < results.length; i++) {
+	    	var place = results[i];
+	    	placeLat = place.geometry.location['A'];
+	    	placeLon = place.geometry.location['F'];
+		  	var myLatlng = new google.maps.LatLng(placeLat, placeLon);
+
+			 	var marker = new google.maps.Marker({
+		      position: myLatlng,
+		      map: map,
+		      title: 'Hello World!',
+  		 	});
+
+			 	var infoWindow = new google.maps.InfoWindow({
+					content: place.name
+			});
+ 
+			google.maps.event.addListener(marker, 'click', function(pointer, bubble) {
+				return function() {
+					bubble.open(map, pointer);
+				};
+			}(marker, infoWindow));	
+ 
+	  	};
+
+		});
+
+  });
+
+};
+},{"jquery":"jquery"}],19:[function(require,module,exports){
 var $ = require('jquery');
 var c3 = require('c3');
 
@@ -25933,20 +26051,33 @@ module.exports = function (data) {
             ['Verizon', vDwnld3, vUpld3, vDwnld4, vUpld4 ],
             ['Sprint', sDwnld3, sUpld3, sDwnld4, sUpld4 ],
             ['T-mobile', tmDwnld3, tmUpld3, tmDwnld4, tmUpld4 ],
-            ['Cellular-one', c1Dwnld3, c1Upld3]
+            // ['Cellular-one', c1Dwnld3, c1Upld3]
         ],
-        type: 'bar',   
-  			},
+          type: 'bar',     			
+          colors: {
+              'AT&T': '#F8A01C',
+              'Verizon': '#ED1C24',
+              'Sprint': '#FFDE05',
+              'T-mobile': '#EB278D',
+          },
+          color: function (color, d) {
+              // d will be 'id' when called for legends
+              return d.id && d.id === 'data3' ? d3.rgb(color).darker(d.value / 150) : color;
+          }
+        },
   	 		axis: {
        		x: {
             type: 'category',
-            categories: ['3G-Download-Speed-Mbps', '3G-Upload-Speed-Mbps' , '4G-Download-Speed-Mbps', '4G-Upload-Speed-Mbps']
-        	}
+            categories: ['3G Download Speed', '3G Upload Speed' , '4G Download Speed', '4G Upload Speed']
+        	},
+          y: {
+            label: "Megabits Per Second"
+          }
     		},
 		});
 
 };
-},{"c3":"c3","jquery":"jquery"}],19:[function(require,module,exports){
+},{"c3":"c3","jquery":"jquery"}],20:[function(require,module,exports){
 var $ = require('jquery');
 var c3 = require('c3');
 
@@ -25970,17 +26101,34 @@ module.exports = function(data) {
             ['Sprint', sRel4],
             ['T-mobile', tmRel3, tmRel4],
         ],
-        type: 'bar',   
+        type: 'bar', 
+        colors: {
+          'AT&T': '#F8A01C',
+          'Verizon': '#ED1C24',
+          'Sprint': '#FFDE05',
+          'T-mobile': '#EB278D',
+          },
+          color: function (color, d) {
+              // d will be 'id' when called for legends
+              return d.id && d.id === 'data3' ? d3.rgb(color).darker(d.value / 150) : color;
+          }  
   			},
   	 		axis: {
        		x: {
             type: 'category',
             categories: ['3G-Reliability', '4G-Reliability']
-        	}
+        	},
+          y: {
+            label: "Reliability Score",
+            max: 100,
+            min: 85,
+            // Range includes padding, set 0 if no padding needed
+            // padding: {top:0, bottom:0}
+          }
     		},
 		}); 	
 };
-},{"c3":"c3","jquery":"jquery"}],20:[function(require,module,exports){
+},{"c3":"c3","jquery":"jquery"}],21:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
@@ -25996,7 +26144,6 @@ module.exports = function(state, city) {
   
   function parseHousing(allHousingData){
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
-    console.log(housingResponse);
     
     var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;    
     var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;
@@ -26034,7 +26181,7 @@ module.exports = function(state, city) {
 };
 
 
-},{"c3":"c3","d3":"d3","jquery":"jquery"}],21:[function(require,module,exports){
+},{"c3":"c3","d3":"d3","jquery":"jquery"}],22:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
@@ -26087,7 +26234,7 @@ module.exports = function(state, city) {
 };
 
 
-},{"c3":"c3","d3":"d3","jquery":"jquery"}],22:[function(require,module,exports){
+},{"c3":"c3","d3":"d3","jquery":"jquery"}],23:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
@@ -26135,7 +26282,7 @@ module.exports = function(state, city) {
 };
 
 
-},{"c3":"c3","d3":"d3","jquery":"jquery"}],23:[function(require,module,exports){
+},{"c3":"c3","d3":"d3","jquery":"jquery"}],24:[function(require,module,exports){
 var $ = require('jquery');
 var c3 = require('c3');
 
@@ -26170,7 +26317,7 @@ module.exports = function (state, city) {
   });
 
 }
-},{"c3":"c3","jquery":"jquery"}],24:[function(require,module,exports){
+},{"c3":"c3","jquery":"jquery"}],25:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
@@ -26211,9 +26358,9 @@ module.exports = function(state, city) {
                   ['70+', housingPeople70],
               ],
               type : 'donut',
-              onclick: function (d, i) { console.log("onclick", d, i); },
-              onmouseover: function (d, i) { console.log("onmouseover", d, i); },
-              onmouseout: function (d, i) { console.log("onmouseout", d, i); }
+              onclick: function (d, i) {},
+              onmouseover: function (d, i) {},
+              onmouseout: function (d, i) {}
           },
           donut: {
               title: "Age of Population (yrs)"
@@ -26223,42 +26370,113 @@ module.exports = function(state, city) {
       		},
       });
              
-       
-       
-
-      // c3.generate({
-      //   bindto: 'body .quad-1',
-      //   data: {
-      //     columns: [
-      //         ['Minutes Spent Commuting', housingPeopleCommute],
-      //         ['Minutes Spent Commuting', housingPeopleCommute],
-      //     ],
-      //     type: 'bar'
-      //   },
-      //   axis: {
-      //       y: {
-      //         label: 'minutes'
-      //       },
-      //       x: {
-      //         type: 'category',
-      //         categories: [ city + " " + 'Commute Time', 'National Commute Time']
-      //   	  },
-      //     },
-      //     size: {
-      //   		height: 400
-      // 		},
-      //  });
-            
-
-
-    
-
-  
   }
 };
 
 
-},{"c3":"c3","d3":"d3","jquery":"jquery"}],25:[function(require,module,exports){
+},{"c3":"c3","d3":"d3","jquery":"jquery"}],26:[function(require,module,exports){
+var c3 = require('c3');
+var d3 = require('d3');
+var $ = require('jquery');
+
+module.exports = function(state, city) {
+
+  $.ajax({
+    method: 'GET',
+    url: '/api/homeprices/' + state + '/' + city + '/'
+  })
+  .then(parseHousing);
+
+  
+  function parseHousing(allHousingData){
+    
+    var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;    
+    var housingNoKids = housingPeople[3].data.attribute[0].value['#text'];
+    var housingWithKids = housingPeople[3].data.attribute[1].value['#text'];
+    
+      c3.generate({
+          bindto: 'body .quad-2',
+          data: {
+              columns: [
+                  ['% No Kids', housingNoKids],
+                  ['% With Kids', housingWithKids],
+              ],
+              type : 'donut',
+              onclick: function (d, i) {},
+              onmouseover: function (d, i) {  },
+              onmouseout: function (d, i) { }
+          },
+          donut: {
+              title: "Household Composition"
+          },
+          size: {
+      		height: 400
+      		},
+      });
+             
+  }
+};
+
+
+},{"c3":"c3","d3":"d3","jquery":"jquery"}],27:[function(require,module,exports){
+var c3 = require('c3');
+var d3 = require('d3');
+var $ = require('jquery');
+
+module.exports = function(state, city) {
+
+  $.ajax({
+    method: 'GET',
+    url: '/api/homeprices/' + state + '/' + city + '/'
+  })
+  .then(parseHousing);
+
+  
+  function parseHousing(allHousingData){
+    
+    
+    var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;    
+    var housingDivFemale = housingPeople[4].data.attribute[0].value['#text'];
+    var housingDivMale = housingPeople[4].data.attribute[1].value['#text'];
+    var housingMarriedFemale = housingPeople[4].data.attribute[2].value['#text'];
+    var housingMarriedMale = housingPeople[4].data.attribute[3].value['#text'];
+    var housingSingleFemale = housingPeople[4].data.attribute[4].value['#text'];
+    var housingSingleMale = housingPeople[4].data.attribute[5].value['#text'];
+    var housingWidowedFemale = housingPeople[4].data.attribute[6].value['#text'];
+    var housingWidowedMale = housingPeople[4].data.attribute[7].value['#text'];
+
+    
+      c3.generate({
+          bindto: 'body .quad-3',
+          data: {
+              columns: [
+                  ['Divorsed Female', housingDivFemale],
+                  ['Divorsed Male', housingDivMale],
+                  ['Married Female', housingMarriedFemale],
+                  ['Married Male', housingMarriedMale],
+                  ['Single Female', housingSingleFemale],
+                  ['Single Male', housingSingleMale],
+                  ['Widowed Female', housingWidowedFemale],
+                  ['Widowed Male', housingWidowedMale],
+              ],
+              type : 'donut',
+              onclick: function (d, i) {},
+              onmouseover: function (d, i) {},
+              onmouseout: function (d, i) {}
+          },
+          donut: {
+              title: "Relationship Status"
+          },
+          size: {
+      		height: 400
+      		},
+      });
+             
+  }
+};
+
+
+},{"c3":"c3","d3":"d3","jquery":"jquery"}],28:[function(require,module,exports){
 'use strict';
 var jQuery = require("jquery");
 var $ = require("jquery");
@@ -26301,7 +26519,50 @@ $.ajaxSetup({
         }
     }
 });
-},{"./controllers/city-comp-controller.js":6,"./controllers/city-controller.js":7,"./controllers/search-controller.js":8,"./controllers/sidebar-controls/education-controller.js":9,"./controllers/sidebar-controls/housing-controller.js":10,"./controllers/sidebar-controls/industry-controller.js":11,"./controllers/sidebar-controls/internet-controller.js":12,"./controllers/sidebar-controls/jobs-controller.js":13,"./controllers/sidebar-controls/leisure-controller.js":14,"./controllers/sidebar-controls/people-controller.js":15,"./controllers/sidebar-controls/taxes.js":16,"./controllers/sidebar-controls/transpo-controller.js":17,"./router":30,"jquery":"jquery"}],26:[function(require,module,exports){
+},{"./controllers/city-comp-controller.js":6,"./controllers/city-controller.js":7,"./controllers/search-controller.js":8,"./controllers/sidebar-controls/education-controller.js":9,"./controllers/sidebar-controls/housing-controller.js":10,"./controllers/sidebar-controls/industry-controller.js":11,"./controllers/sidebar-controls/internet-controller.js":12,"./controllers/sidebar-controls/jobs-controller.js":13,"./controllers/sidebar-controls/leisure-controller.js":14,"./controllers/sidebar-controls/people-controller.js":15,"./controllers/sidebar-controls/taxes.js":16,"./controllers/sidebar-controls/transpo-controller.js":17,"./router":34,"jquery":"jquery"}],29:[function(require,module,exports){
+var c3 = require('c3');
+var d3 = require('d3');
+var $ = require('jquery');
+
+module.exports = function(state, city) {
+
+  $.ajax({
+    method: 'GET',
+    url: '/api/homeprices/' + state + '/' + city + '/'
+  })
+  .then(parseHousing);
+
+  
+  function parseHousing(allHousingData){
+    var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
+    var liveshere0 = housingResponse[2].segmentation.liveshere[0].description;
+    var liveshere0name = housingResponse[2].segmentation.liveshere[0].name;
+    var liveshere1 = housingResponse[2].segmentation.liveshere[1].description;
+    var liveshere1name = housingResponse[2].segmentation.liveshere[1].name;
+    var liveshere2 = housingResponse[2].segmentation.liveshere[2].description;
+    var liveshere2name = housingResponse[2].segmentation.liveshere[2].name;
+    var liveshere3 = housingResponse[2].segmentation.liveshere[3].description;
+    var liveshere3name = housingResponse[2].segmentation.liveshere[3].name;
+    var liveshere4 = housingResponse[2].segmentation.liveshere[4].description;
+    var liveshere4name = housingResponse[2].segmentation.liveshere[4].name;
+    
+
+
+
+  $(".tab-title1").html('<a href="#tab-1" class="r-tabs-anchor">People Who Live Here</a>');
+  $(".tab-data1").append(
+    liveshere0name + "<br><p>" + liveshere0 + "</p><br>" +
+    liveshere1name + "<br><p>" + liveshere1 + "</p><br>" +
+    liveshere2name + "<br><p>" + liveshere2 + "</p><br>" +
+    liveshere3name + "<br><p>" + liveshere3 + "</p><br>" +
+    liveshere4name + "<br><p>" + liveshere4 + "</p><br>"
+    );
+            
+  }
+};
+
+
+},{"c3":"c3","d3":"d3","jquery":"jquery"}],30:[function(require,module,exports){
 var $ = require('jQuery')
 module.exports = function (d){
 
@@ -26309,7 +26570,7 @@ module.exports = function (d){
 
 }
 
-},{"jQuery":1}],27:[function(require,module,exports){
+},{"jQuery":1}],31:[function(require,module,exports){
 var $ = require('jQuery')
 module.exports = function (d, path, g, height, width){
 
@@ -26367,7 +26628,7 @@ var clicked = function (){
 
 }
 
-},{"jQuery":1}],28:[function(require,module,exports){
+},{"jQuery":1}],32:[function(require,module,exports){
 var topojson = require('topojson')
 
 module.exports = function (json, g, path, color, type) {
@@ -26425,14 +26686,15 @@ module.exports = function (json, g, path, color, type) {
 
 };
 
-},{"topojson":4}],29:[function(require,module,exports){
+},{"topojson":4}],33:[function(require,module,exports){
 var map;
 var service;
 var infowindow;
 var $ = require('jquery') 
 
-module.exports = function(city, searchTerm, tabContainer) {
-
+module.exports = function(city, searchTerm, tabContainer, tabtitle) {
+	$(tabtitle).children('a').text(searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1));
+	
 	var key = 'AIzaSyB6Gp2tJP3mWdIFot6fZNfarDoopGurZSs';
 	var request = {
 	    query: searchTerm + " " + city
@@ -26442,20 +26704,19 @@ module.exports = function(city, searchTerm, tabContainer) {
 	service.textSearch(request, function(results) {
 	  for (var i = 0; i < results.length; i++) {
     var place = results[i];
-    // console.log(place);
     	$(tabContainer).append('<p>' + place.name + '</p>')
   	}
 	});
 
 };	
 
-},{"jquery":"jquery"}],30:[function(require,module,exports){
+},{"jquery":"jquery"}],34:[function(require,module,exports){
 'use strict';
 
 var SortedRouter = require('./sorted-router');
 
 module.exports = new SortedRouter();
-},{"./sorted-router":34}],31:[function(require,module,exports){
+},{"./sorted-router":37}],35:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -26518,35 +26779,21 @@ module.exports = function(){
 
 
 }
-},{"./city-list":5,"./router":30,"jquery":"jquery","jquery-ui":2,"underscore":"underscore","views":"views"}],32:[function(require,module,exports){
+},{"./city-list":5,"./router":34,"jquery":"jquery","jquery-ui":2,"underscore":"underscore","views":"views"}],36:[function(require,module,exports){
 'use strict';
 
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
 
-module.exports = function (templateName, model) {
+module.exports = function (templateName, htmlEl, model) {
   var rawTemplate = views[templateName];
   var templateFn = _.template(rawTemplate, { variable: 'm' });
   var hydratedHTML = templateFn(model);
   
-  $('.side-bar-content').html(hydratedHTML);
+  $(htmlEl).html(hydratedHTML);
 };
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],33:[function(require,module,exports){
-'use strict';
-
-var $ = require('jquery');
-var _ = require('underscore');
-var views = require('views');
-
-module.exports = function (templateName, model) {
-  var rawTemplate = views[templateName];
-  var templateFn = _.template(rawTemplate, { variable: 'm' });
-  var hydratedHTML = templateFn(model);
-  
-  $('.main-content').html(hydratedHTML);
-};
-},{"jquery":"jquery","underscore":"underscore","views":"views"}],34:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore","views":"views"}],37:[function(require,module,exports){
 'use strict';
  
 var Backbone = require('backbone');
@@ -26592,10 +26839,10 @@ var SortedRouter = Backbone.Router.extend({
 });
  
 module.exports = SortedRouter;
-},{"backbone":"backbone","underscore":"underscore"}],35:[function(require,module,exports){
+},{"backbone":"backbone","underscore":"underscore"}],38:[function(require,module,exports){
 !function(){function t(n,t){function r(t){var r,e=n.arcs[0>t?~t:t],o=e[0];return n.transform?(r=[0,0],e.forEach(function(n){r[0]+=n[0],r[1]+=n[1]})):r=e[e.length-1],0>t?[r,o]:[o,r]}function e(n,t){for(var r in n){var e=n[r];delete t[e.start],delete e.start,delete e.end,e.forEach(function(n){o[0>n?~n:n]=1}),f.push(e)}}var o={},i={},u={},f=[],c=-1;return t.forEach(function(r,e){var o,i=n.arcs[0>r?~r:r];i.length<3&&!i[1][0]&&!i[1][1]&&(o=t[++c],t[c]=r,t[e]=o)}),t.forEach(function(n){var t,e,o=r(n),f=o[0],c=o[1];if(t=u[f])if(delete u[t.end],t.push(n),t.end=c,e=i[c]){delete i[e.start];var a=e===t?t:t.concat(e);i[a.start=t.start]=u[a.end=e.end]=a}else i[t.start]=u[t.end]=t;else if(t=i[c])if(delete i[t.start],t.unshift(n),t.start=f,e=u[f]){delete u[e.end];var s=e===t?t:e.concat(t);i[s.start=e.start]=u[s.end=t.end]=s}else i[t.start]=u[t.end]=t;else t=[n],i[t.start=f]=u[t.end=c]=t}),e(u,i),e(i,u),t.forEach(function(n){o[0>n?~n:n]||f.push([n])}),f}function r(n,r,e){function o(n){var t=0>n?~n:n;(s[t]||(s[t]=[])).push({i:n,g:a})}function i(n){n.forEach(o)}function u(n){n.forEach(i)}function f(n){"GeometryCollection"===n.type?n.geometries.forEach(f):n.type in l&&(a=n,l[n.type](n.arcs))}var c=[];if(arguments.length>1){var a,s=[],l={LineString:i,MultiLineString:u,Polygon:u,MultiPolygon:function(n){n.forEach(u)}};f(r),s.forEach(arguments.length<3?function(n){c.push(n[0].i)}:function(n){e(n[0].g,n[n.length-1].g)&&c.push(n[0].i)})}else for(var h=0,p=n.arcs.length;p>h;++h)c.push(h);return{type:"MultiLineString",arcs:t(n,c)}}function e(r,e){function o(n){n.forEach(function(t){t.forEach(function(t){(f[t=0>t?~t:t]||(f[t]=[])).push(n)})}),c.push(n)}function i(n){return l(u(r,{type:"Polygon",arcs:[n]}).coordinates[0])>0}var f={},c=[],a=[];return e.forEach(function(n){"Polygon"===n.type?o(n.arcs):"MultiPolygon"===n.type&&n.arcs.forEach(o)}),c.forEach(function(n){if(!n._){var t=[],r=[n];for(n._=1,a.push(t);n=r.pop();)t.push(n),n.forEach(function(n){n.forEach(function(n){f[0>n?~n:n].forEach(function(n){n._||(n._=1,r.push(n))})})})}}),c.forEach(function(n){delete n._}),{type:"MultiPolygon",arcs:a.map(function(e){var o=[];if(e.forEach(function(n){n.forEach(function(n){n.forEach(function(n){f[0>n?~n:n].length<2&&o.push(n)})})}),o=t(r,o),(n=o.length)>1)for(var u,c=i(e[0][0]),a=0;n>a;++a)if(c===i(o[a])){u=o[0],o[0]=o[a],o[a]=u;break}return o})}}function o(n,t){return"GeometryCollection"===t.type?{type:"FeatureCollection",features:t.geometries.map(function(t){return i(n,t)})}:i(n,t)}function i(n,t){var r={type:"Feature",id:t.id,properties:t.properties||{},geometry:u(n,t)};return null==t.id&&delete r.id,r}function u(n,t){function r(n,t){t.length&&t.pop();for(var r,e=s[0>n?~n:n],o=0,i=e.length;i>o;++o)t.push(r=e[o].slice()),a(r,o);0>n&&f(t,i)}function e(n){return n=n.slice(),a(n,0),n}function o(n){for(var t=[],e=0,o=n.length;o>e;++e)r(n[e],t);return t.length<2&&t.push(t[0].slice()),t}function i(n){for(var t=o(n);t.length<4;)t.push(t[0].slice());return t}function u(n){return n.map(i)}function c(n){var t=n.type;return"GeometryCollection"===t?{type:t,geometries:n.geometries.map(c)}:t in l?{type:t,coordinates:l[t](n)}:null}var a=v(n.transform),s=n.arcs,l={Point:function(n){return e(n.coordinates)},MultiPoint:function(n){return n.coordinates.map(e)},LineString:function(n){return o(n.arcs)},MultiLineString:function(n){return n.arcs.map(o)},Polygon:function(n){return u(n.arcs)},MultiPolygon:function(n){return n.arcs.map(u)}};return c(t)}function f(n,t){for(var r,e=n.length,o=e-t;o<--e;)r=n[o],n[o++]=n[e],n[e]=r}function c(n,t){for(var r=0,e=n.length;e>r;){var o=r+e>>>1;n[o]<t?r=o+1:e=o}return r}function a(n){function t(n,t){n.forEach(function(n){0>n&&(n=~n);var r=o[n];r?r.push(t):o[n]=[t]})}function r(n,r){n.forEach(function(n){t(n,r)})}function e(n,t){"GeometryCollection"===n.type?n.geometries.forEach(function(n){e(n,t)}):n.type in u&&u[n.type](n.arcs,t)}var o={},i=n.map(function(){return[]}),u={LineString:t,MultiLineString:r,Polygon:r,MultiPolygon:function(n,t){n.forEach(function(n){r(n,t)})}};n.forEach(e);for(var f in o)for(var a=o[f],s=a.length,l=0;s>l;++l)for(var h=l+1;s>h;++h){var p,g=a[l],v=a[h];(p=i[g])[f=c(p,v)]!==v&&p.splice(f,0,v),(p=i[v])[f=c(p,g)]!==g&&p.splice(f,0,g)}return i}function s(n,t){function r(n){i.remove(n),n[1][2]=t(n),i.push(n)}var e=v(n.transform),o=m(n.transform),i=g();return t||(t=h),n.arcs.forEach(function(n){for(var u,f,c=[],a=0,s=0,l=n.length;l>s;++s)f=n[s],e(n[s]=[f[0],f[1],1/0],s);for(var s=1,l=n.length-1;l>s;++s)u=n.slice(s-1,s+2),u[1][2]=t(u),c.push(u),i.push(u);for(var s=0,l=c.length;l>s;++s)u=c[s],u.previous=c[s-1],u.next=c[s+1];for(;u=i.pop();){var h=u.previous,p=u.next;u[1][2]<a?u[1][2]=a:a=u[1][2],h&&(h.next=p,h[2]=u[2],r(h)),p&&(p.previous=h,p[0]=u[0],r(p))}n.forEach(o)}),n}function l(n){for(var t,r=-1,e=n.length,o=n[e-1],i=0;++r<e;)t=o,o=n[r],i+=t[0]*o[1]-t[1]*o[0];return.5*i}function h(n){var t=n[0],r=n[1],e=n[2];return Math.abs((t[0]-e[0])*(r[1]-t[1])-(t[0]-r[0])*(e[1]-t[1]))}function p(n,t){return n[1][2]-t[1][2]}function g(){function n(n,t){for(;t>0;){var r=(t+1>>1)-1,o=e[r];if(p(n,o)>=0)break;e[o._=t]=o,e[n._=t=r]=n}}function t(n,t){for(;;){var r=t+1<<1,i=r-1,u=t,f=e[u];if(o>i&&p(e[i],f)<0&&(f=e[u=i]),o>r&&p(e[r],f)<0&&(f=e[u=r]),u===t)break;e[f._=t]=f,e[n._=t=u]=n}}var r={},e=[],o=0;return r.push=function(t){return n(e[t._=o]=t,o++),o},r.pop=function(){if(!(0>=o)){var n,r=e[0];return--o>0&&(n=e[o],t(e[n._=0]=n,0)),r}},r.remove=function(r){var i,u=r._;if(e[u]===r)return u!==--o&&(i=e[o],(p(i,r)<0?n:t)(e[i._=u]=i,u)),u},r}function v(n){if(!n)return y;var t,r,e=n.scale[0],o=n.scale[1],i=n.translate[0],u=n.translate[1];return function(n,f){f||(t=r=0),n[0]=(t+=n[0])*e+i,n[1]=(r+=n[1])*o+u}}function m(n){if(!n)return y;var t,r,e=n.scale[0],o=n.scale[1],i=n.translate[0],u=n.translate[1];return function(n,f){f||(t=r=0);var c=(n[0]-i)/e|0,a=(n[1]-u)/o|0;n[0]=c-t,n[1]=a-r,t=c,r=a}}function y(){}var d={version:"1.6.19",mesh:function(n){return u(n,r.apply(this,arguments))},meshArcs:r,merge:function(n){return u(n,e.apply(this,arguments))},mergeArcs:e,feature:o,neighbors:a,presimplify:s};"function"==typeof define&&define.amd?define(d):"object"==typeof module&&module.exports?module.exports=d:this.topojson=d}();
 
-},{}],36:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 var d3 = require('d3')
 module.exports = function (cityjson, boundaryjson, g, path, height, width){
 
@@ -26656,7 +26903,7 @@ var clicked = function (){
 
 }
 
-},{"d3":"d3"}]},{},[25])
+},{"d3":"d3"}]},{},[28])
 
 
 //# sourceMappingURL=app.js.map

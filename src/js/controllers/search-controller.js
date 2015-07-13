@@ -8,7 +8,7 @@ var tags = require('../city-list');
 var searchFunction = require('../search');
 
 router.route('', 'search', function (){
-  show('search');
+  show('search', '.main-content');
   $('.side-bar-content').html('');
   
   $('.header-home').fadeIn(600);

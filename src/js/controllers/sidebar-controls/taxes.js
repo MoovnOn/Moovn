@@ -11,13 +11,13 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
+
 
 router.route('search/:cityName/taxes', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('test', {city: cityName});
+  show('test', '.main-content', {city: cityName});
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {

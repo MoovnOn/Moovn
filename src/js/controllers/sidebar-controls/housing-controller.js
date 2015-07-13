@@ -11,14 +11,14 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
 var housingGraphGeneral = require('../../graphs/housing');
 
 router.route('search/:cityName/housing', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-  show('city-template-4', {city: cityName});
+
+  show('city-template-4', '.main-content', {city: cityName} );
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -33,16 +33,14 @@ router.route('search/:cityName/housing', function (cityName){
   housingGraphGeneral(state, city);
 
 
+  show('content/tabs-lists', '.quad-4')
 
-//   var tabsList = views['content/tabs-lists'];
-//   $('.quad-4').html(tabsList)
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
 
-//   //gets the lists displaying as tabs and can change to accordian
-//   $('#responsiveTabsDemo').responsiveTabs({
-//       startCollapsed: 'accordion'
-//   });
-
-// //google places
-//   places(cityName, "banks", ".banks-tab-data");
-//   places(cityName, "attractions", ".leisure-tab-data");
+//google places
+  places(cityName, "Realty", ".tab-data1", ".tab-title1");
+  places(cityName, "banks", ".tab-data2", ".tab-title2");
 });

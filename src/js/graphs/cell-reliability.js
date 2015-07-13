@@ -21,13 +21,30 @@ module.exports = function(data) {
             ['Sprint', sRel4],
             ['T-mobile', tmRel3, tmRel4],
         ],
-        type: 'bar',   
+        type: 'bar', 
+        colors: {
+          'AT&T': '#F8A01C',
+          'Verizon': '#ED1C24',
+          'Sprint': '#FFDE05',
+          'T-mobile': '#EB278D',
+          },
+          color: function (color, d) {
+              // d will be 'id' when called for legends
+              return d.id && d.id === 'data3' ? d3.rgb(color).darker(d.value / 150) : color;
+          }  
   			},
   	 		axis: {
        		x: {
             type: 'category',
             categories: ['3G-Reliability', '4G-Reliability']
-        	}
+        	},
+          y: {
+            label: "Reliability Score",
+            max: 100,
+            min: 85,
+            // Range includes padding, set 0 if no padding needed
+            // padding: {top:0, bottom:0}
+          }
     		},
 		}); 	
 };

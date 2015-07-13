@@ -11,17 +11,35 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
+
 
 router.route('search/:cityName/leisure', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-  show('test', {city: cityName});
+
+  show('city-template-2', '.main-content', {city: cityName} );
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+
+  show('content/tabs-lists', '.duo-1')
+
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+//google places
+  places(cityName, "Attractions", ".tab-data1", ".tab-title1");
+  places(cityName, "Bars", ".tab-data2", ".tab-title2");
+  places(cityName, "Restaurants", ".tab-data3", ".tab-title3");
+  places(cityName, "Shopping", ".tab-data4", ".tab-title4");
+  places(cityName, "Coffee & Tea", ".tab-data5", ".tab-title5");
 });

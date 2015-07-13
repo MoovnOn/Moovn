@@ -11,14 +11,20 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
 var incomeCity = require ('../../graphs/income-city-wide')
+
 
 router.route('search/:cityName/industry', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('city-template-4', {city: cityName});
+
+  show('city-template-4', '.main-content', {city: cityName});
+
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {

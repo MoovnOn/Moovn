@@ -12,28 +12,16 @@ var neighMap = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
-var showSideBar = require('../show-sidebar');
 var mouseOverZoom = require('../mouseoverzoom')
 var mouseout = require('../mouseout')
+
 
 router.route('search/:cityName', function (cityName){
 
 
-  show('city', {city: cityName});
-
-
-  // Jquery UI tabs
-
-var sideBarHTML = views['side-bar-city-search'];
-
-//console.log(sideBarHTML);
-
-  $('.side-bar-content').html(sideBarHTML);
-
-
-  showSideBar('side-bar-city-search', cityName);
-
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
+  show('city', '.main-content', {city: cityName});
   // Jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );

@@ -11,13 +11,14 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
+
 
 router.route('search/:cityName/education', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-  show('test', {city: cityName});
+
+  show('city-template-2', '.main-content', {city: cityName} );
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -25,4 +26,18 @@ router.route('search/:cityName/education', function (cityName){
   });
 
 
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+
+  show('content/tabs-lists', '.duo-1')
+
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+//google places
+  places(cityName, "colleges", ".tab-data1", ".tab-title1");
+  places(cityName, "community college", ".tab-data2", ".tab-title2");
 });

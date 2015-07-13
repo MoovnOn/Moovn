@@ -11,14 +11,18 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var showSideBar = require('../../show-sidebar');
 var peopleAge = require('../../graphs/people-age');
+var peopleHousehold = require('../../graphs/people-household');
+var peopleRelationships = require('../../graphs/people-relationships');
+var liveshere = require('../../list-data/liveshere');
+
 
 router.route('search/:cityName/people', function (cityName){
 
-  showSideBar('side-bar-city-search', cityName);
+  show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('city-template-4', {city: cityName});
+  show('city-template-4', '.main-content' , {city: cityName});
+
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -29,6 +33,18 @@ router.route('search/:cityName/people', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  peopleAge(city, state);
+
+  peopleAge(state, city);
+  peopleHousehold(state, city);
+  peopleRelationships(state, city);
+
+  show('content/tabs-lists', '.quad-4')
+
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+
+  liveshere(state, city);
 
 });
