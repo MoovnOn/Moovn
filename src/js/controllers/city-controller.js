@@ -12,6 +12,7 @@ var drawNeigh = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
+var googleMap = require('../google-maps');
 
 
 router.route('search/:cityName', function (cityName){
@@ -19,12 +20,7 @@ router.route('search/:cityName', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('city', '.main-content', {city: cityName});
-  // Jquery UI tabs
-  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-
-  
+  show('city-template-2', '.main-content', {city: cityName});
 
 $('.bar-menu-icon').click(function() {
   $( ".side-nav-container" ).toggle( "slide" );
@@ -46,63 +42,66 @@ $('.bar-menu-icon').click(function() {
   var cityjson = [];
   var boundaryjson = [];
 
-Promise.all([$.ajax({
+// Promise.all([$.ajax({
 
-    method: 'GET',
-    url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
+//     method: 'GET',
+//     url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
 
-}).done(function (json){
+// }).done(function (json){
 
-    cityjson = json;
-    drawMap(json, g, path, "black");
+//     cityjson = json;
+//     drawMap(json, g, path, "black");
 
-})]).then(function(results){
+// })]).then(function(results){
 
-Promise.all(
-  [
-    $.ajax({
+// Promise.all(
+//   [
+//     $.ajax({
 
-    	method: 'GET',
-    	url: '/api/boundary/' + state + '/' + city + '/'
+//     	method: 'GET',
+//     	url: '/api/boundary/' + state + '/' + city + '/'
 
-    }).done(function (json){
+//     }).done(function (json){
 
-      cityjson = json;
-    	drawMap(json, g, path, "brown");
+//       cityjson = json;
+//     	drawMap(json, g, path, "brown");
 
-    }),
-    $.ajax({
+//     }),
+//     $.ajax({
 
-      method: 'GET',
-      url: '/api/neighborhoods/' + state + '/' + city + '/'
+//       method: 'GET',
+//       url: '/api/neighborhoods/' + state + '/' + city + '/'
 
-    }).done(function (json){
+//     }).done(function (json){
 
-      boundaryjson = json;
-      drawNeigh(json, g, path);
+//       boundaryjson = json;
+//       drawNeigh(json, g, path);
 
-    })
-  ]
-).then(
-  function(results){
+//     })
+//   ]
+// ).then(
+//   function(results){
 
-    zoom(results[0], results[1], g, path, height, width);
+//     zoom(results[0], results[1], g, path, height, width);
 
-  })
-})
-//for the jquery UI tabs
-  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-
+//   })
+// })
+  
+  // 
+  
+  
+  // hacky way to make height change. should be refactored
+  $('#google-map').attr('style','height: 400px');
+  googleMap(state, city);
 
 
 //gets the lists displaying as tabs and can change to accordian
+  show('content/tabs-lists', '.duo-1')
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
   });
 
 //google places
-  places(cityName, "banks", ".banks-tab-data");
-  places(cityName, "attractions", ".leisure-tab-data");
+  places(cityName, city, ".tab-data1", ".tab-title1");
 
 });

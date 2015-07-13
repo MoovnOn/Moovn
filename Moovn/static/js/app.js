@@ -15685,6 +15685,7 @@ var drawNeigh = require('../neighMap');
 var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
+var googleMap = require('../google-maps');
 
 
 router.route('search/:cityName', function (cityName){
@@ -15692,12 +15693,7 @@ router.route('search/:cityName', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('city', '.main-content', {city: cityName});
-  // Jquery UI tabs
-  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-
-  
+  show('city-template-2', '.main-content', {city: cityName});
 
 $('.bar-menu-icon').click(function() {
   $( ".side-nav-container" ).toggle( "slide" );
@@ -15719,68 +15715,71 @@ $('.bar-menu-icon').click(function() {
   var cityjson = [];
   var boundaryjson = [];
 
-Promise.all([$.ajax({
+// Promise.all([$.ajax({
 
-    method: 'GET',
-    url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
+//     method: 'GET',
+//     url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
 
-}).done(function (json){
+// }).done(function (json){
 
-    cityjson = json;
-    drawMap(json, g, path, "black");
+//     cityjson = json;
+//     drawMap(json, g, path, "black");
 
-})]).then(function(results){
+// })]).then(function(results){
 
-Promise.all(
-  [
-    $.ajax({
+// Promise.all(
+//   [
+//     $.ajax({
 
-    	method: 'GET',
-    	url: '/api/boundary/' + state + '/' + city + '/'
+//     	method: 'GET',
+//     	url: '/api/boundary/' + state + '/' + city + '/'
 
-    }).done(function (json){
+//     }).done(function (json){
 
-      cityjson = json;
-    	drawMap(json, g, path, "brown");
+//       cityjson = json;
+//     	drawMap(json, g, path, "brown");
 
-    }),
-    $.ajax({
+//     }),
+//     $.ajax({
 
-      method: 'GET',
-      url: '/api/neighborhoods/' + state + '/' + city + '/'
+//       method: 'GET',
+//       url: '/api/neighborhoods/' + state + '/' + city + '/'
 
-    }).done(function (json){
+//     }).done(function (json){
 
-      boundaryjson = json;
-      drawNeigh(json, g, path);
+//       boundaryjson = json;
+//       drawNeigh(json, g, path);
 
-    })
-  ]
-).then(
-  function(results){
+//     })
+//   ]
+// ).then(
+//   function(results){
 
-    zoom(results[0], results[1], g, path, height, width);
+//     zoom(results[0], results[1], g, path, height, width);
 
-  })
-})
-//for the jquery UI tabs
-  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-
+//   })
+// })
+  
+  // 
+  
+  
+  // hacky way to make height change. should be refactored
+  $('#google-map').attr('style','height: 400px');
+  googleMap(state, city);
 
 
 //gets the lists displaying as tabs and can change to accordian
+  show('content/tabs-lists', '.duo-1')
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
   });
 
 //google places
-  places(cityName, "banks", ".banks-tab-data");
-  places(cityName, "attractions", ".leisure-tab-data");
+  places(cityName, city, ".tab-data1", ".tab-title1");
 
 });
 
-},{"../drawMap":16,"../neighMap":29,"../places-api":30,"../router":31,"../search":32,"../show":33,"../zoom":35,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],6:[function(require,module,exports){
+},{"../drawMap":16,"../google-maps":17,"../neighMap":29,"../places-api":30,"../router":31,"../search":32,"../show":33,"../zoom":35,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],6:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -16167,10 +16166,6 @@ router.route('search/:cityName/transportation', function (cityName){
   // hacky way to make height change. should be refactored
   $('#google-map').attr('style','height: 400px');
   googleMap(state, city);
-  
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
   
   commuteTime(state, city);
   

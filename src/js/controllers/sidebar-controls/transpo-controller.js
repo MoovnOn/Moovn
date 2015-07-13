@@ -34,10 +34,6 @@ router.route('search/:cityName/transportation', function (cityName){
   $('#google-map').attr('style','height: 400px');
   googleMap(state, city);
   
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-  
   commuteTime(state, city);
   
 });
