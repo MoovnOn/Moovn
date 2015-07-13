@@ -1,4 +1,4 @@
- var $ = require('jquery');
+var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -34,7 +34,6 @@ $('.bar-menu-icon').click(function() {
 });
 
 
-
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
@@ -47,6 +46,7 @@ $('.bar-menu-icon').click(function() {
   // hacky way to make height change. should be refactored
   $('#google-map').attr('style','height: 400px');
   googleMap(state, city);
+
 
 
 //gets the lists displaying as tabs and can change to accordian

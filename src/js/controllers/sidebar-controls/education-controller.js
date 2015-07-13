@@ -11,6 +11,7 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
+var activeSelection = require('../active-selection');
 
 
 router.route('search/:cityName/education', function (cityName){
@@ -19,6 +20,8 @@ router.route('search/:cityName/education', function (cityName){
   searchFunction();
 
   show('city-template-2', '.main-content', {city: cityName} );
+
+  activeSelection();
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {

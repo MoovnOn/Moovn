@@ -12,6 +12,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var incomeCity = require ('../../graphs/income-city-wide')
+var activeSelection = require('../active-selection');
 
 
 router.route('search/:cityName/industry', function (cityName){
@@ -20,7 +21,8 @@ router.route('search/:cityName/industry', function (cityName){
   searchFunction();
 
   show('city-template-4', '.main-content', {city: cityName});
-
+  activeSelection();
+  
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];

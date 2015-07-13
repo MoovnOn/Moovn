@@ -11,6 +11,7 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
+var activeSelection = require('../active-selection');
 
 
 router.route('search/:cityName/leisure', function (cityName){
@@ -20,6 +21,8 @@ router.route('search/:cityName/leisure', function (cityName){
 
   show('city-template-2', '.main-content', {city: cityName} );
 
+  activeSelection();
+  
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );

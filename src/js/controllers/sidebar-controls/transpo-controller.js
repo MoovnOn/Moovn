@@ -13,6 +13,7 @@ var searchFunction = require('../../search');
 var views = require('views');
 var commuteTime = require('../../graphs/commute-times');
 var googleMap = require('../../google-maps');
+var activeSelection = require('../active-selection');
 
 router.route('search/:cityName/transportation', function (cityName){
 
@@ -24,6 +25,8 @@ router.route('search/:cityName/transportation', function (cityName){
   searchFunction();
 
   show('city-template-2', '.main-content', {city: cityName});
+
+  activeSelection();
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
