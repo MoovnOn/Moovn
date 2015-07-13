@@ -14,6 +14,7 @@ var searchFunction = require('../search');
 var views = require('views');
 var showSideBar = require('../show-sidebar');
 var mouseOverZoom = require('../mouseoverzoom')
+var mouseout = require('../mouseout')
 
 router.route('search/:cityName', function (cityName){
 
@@ -112,6 +113,7 @@ Promise.all([
 
         d3.selectAll(".feature-neighborhood").on("mouseenter", mouseZoom);
         d3.selectAll(".neighborhoods").on("mouseleave", mouseOutZoom);
+        d3.selectAll(".feature-neighborhood").on("mouseleave", mouseout)
     });
 
   });
