@@ -15,7 +15,7 @@ module.exports = function (allHousingData){
   }
 
   var chart = c3.generate({
-    bindto: 'body .quad-3',
+    bindto: 'body .quad-2',
     data: {
       columns: [
           ['Condo', housingAffordData[0]],

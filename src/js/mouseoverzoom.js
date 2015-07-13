@@ -4,11 +4,11 @@ var neighborhoodRequests = require('./neighborhood-requests')
 
 module.exports = function (d, path, g, height, width, zoomout, state, city){
 
-  //console.log(d)
   var bounds = path.bounds(d);
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
     zoomout();
+
   } else {
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)

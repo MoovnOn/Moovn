@@ -128,7 +128,7 @@ router.route('search/:cityName/housing', function (cityName){
   var state = citySplit[1];
 
   //currenty bound to quad-1
-  housingGraphGeneral(state, city);
+  var cityHousing = housingGraphGeneral(state, city);
 
 
   show('content/tabs-lists', '.quad-4')

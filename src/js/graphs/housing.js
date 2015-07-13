@@ -23,28 +23,32 @@ module.exports = function(state, city) {
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
 
-      var chart = c3.generate({
-        bindto: 'body .quad-3',
-        data: {
-          columns: [
-              ['Condo', housingAffordCondo],
-              ['2-Bed-Home', housingAfford2Bed],
-              ['3-Bed-Home', housingAfford3Bed],
-              ['4-Bed-Home', housingAfford4Bed],
-          ],
-          type: 'bar'
-        },
-        axis: {
-            y : {
-              tick: {
-                format: d3.format("$,")
-              }
+    chartdata = {
+      bindto: 'body .quad-3',
+      data: {
+        columns: [
+            ['Condo', housingAffordCondo],
+            ['2-Bed-Home', housingAfford2Bed],
+            ['3-Bed-Home', housingAfford3Bed],
+            ['4-Bed-Home', housingAfford4Bed],
+        ],
+        type: 'bar'
+      },
+      axis: {
+          y : {
+            tick: {
+              format: d3.format("$,")
             }
-          },
-          size: {
-        		height: 400
-      		},
-       });
+          }
+        },
+        size: {
+      		height: 400
+    		},
+     }
+
+    c3.generate(chartdata);
+
+    return chartdata;
 
   }
 };

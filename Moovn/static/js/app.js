@@ -25677,7 +25677,7 @@ router.route('search/:cityName/housing', function (cityName){
   var state = citySplit[1];
 
   //currenty bound to quad-1
-  housingGraphGeneral(state, city);
+  var cityHousing = housingGraphGeneral(state, city);
 
 
   show('content/tabs-lists', '.quad-4')
@@ -26235,28 +26235,32 @@ module.exports = function(state, city) {
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
 
-      var chart = c3.generate({
-        bindto: 'body .quad-3',
-        data: {
-          columns: [
-              ['Condo', housingAffordCondo],
-              ['2-Bed-Home', housingAfford2Bed],
-              ['3-Bed-Home', housingAfford3Bed],
-              ['4-Bed-Home', housingAfford4Bed],
-          ],
-          type: 'bar'
-        },
-        axis: {
-            y : {
-              tick: {
-                format: d3.format("$,")
-              }
+    chartdata = {
+      bindto: 'body .quad-3',
+      data: {
+        columns: [
+            ['Condo', housingAffordCondo],
+            ['2-Bed-Home', housingAfford2Bed],
+            ['3-Bed-Home', housingAfford3Bed],
+            ['4-Bed-Home', housingAfford4Bed],
+        ],
+        type: 'bar'
+      },
+      axis: {
+          y : {
+            tick: {
+              format: d3.format("$,")
             }
-          },
-          size: {
-        		height: 400
-      		},
-       });
+          }
+        },
+        size: {
+      		height: 400
+    		},
+     }
+
+    c3.generate(chartdata);
+
+    return chartdata;
 
   }
 };
@@ -26327,7 +26331,7 @@ module.exports = function (allHousingData){
   }
 
   var chart = c3.generate({
-    bindto: 'body .quad-3',
+    bindto: 'body .quad-2',
     data: {
       columns: [
           ['Condo', housingAffordData[0]],
@@ -26646,11 +26650,11 @@ var neighborhoodRequests = require('./neighborhood-requests')
 
 module.exports = function (d, path, g, height, width, zoomout, state, city){
 
-  //console.log(d)
   var bounds = path.bounds(d);
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
     zoomout();
+
   } else {
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
