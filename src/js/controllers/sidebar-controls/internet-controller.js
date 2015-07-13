@@ -7,7 +7,6 @@ var show = require('../../show');
 var places = require('../../places-api');
 var tab = require('responsive-tabs');
 var d3 = require('d3');
-var drawMap = require('../../drawMap');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
@@ -32,10 +31,10 @@ router.route('search/:cityName/internet', function (cityName){
       downloadGraph(data)
       reliabilityGraph(data)
     });
-  
+
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
-  
+
 });

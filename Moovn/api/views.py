@@ -2,6 +2,7 @@ from Moovn.moovn_apis import apis
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
+from ipware.ip import get_ip, get_real_ip
 import requests
 import geojson
 import json
@@ -12,22 +13,31 @@ from rest_framework.response import Response
 
 from rest_framework.decorators import api_view, permission_classes
 
-from geo.models import City, Boundary, Name
+from geo.models import City, Boundary, Name, NeighborhoodBoundary
 import xmltodict
 import json
 
-# with open('geo/bls_industry.csv') as file:
-with open('Moovn/geo/all_bls_codes.csv') as file:
-    industry = {
-        line.split(',')[1][:-1]: line.split(',')[0] for line in file
-        }
 
+# with open('geo/bls_industry.csv') as file:
+
+try:
+    with open('geo/all_bls_codes.csv') as file:
+        industry = {
+            line.split(',')[1][:-1]: line.split(',')[0] for line in file
+            }
+except:
+    with open('Moovn/geo/all_bls_codes.csv') as file:
+        industry = {
+            line.split(',')[1][:-1]: line.split(',')[0] for line in file
+        }
 
 # @api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
 def city_boundary_view(request, state, name):
-    name = get_object_or_404(Name, name=name, state=state)
-    return JsonResponse(geojson.loads(name.city.boundary.data))
+    name_obj = get_object_or_404(Name, name=name, state=state)
+    if name == 'US':
+        return JsonResponse(json.loads(name_obj.city.boundary.data))
+    return JsonResponse(geojson.loads(name_obj.city.boundary.data))
 
 
 class HomeView(View):
@@ -61,14 +71,15 @@ def cell_view(request, state, name):
 
 def neighborhood_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
-    boundaryset = list(name.city.neighborhoodboundary_set.all())
 
-    collection = []
-    for x in boundaryset:
-        collection.extend(geojson.loads(x.data).features)
+    if NeighborhoodBoundary.objects.filter(city=name.city).exists():
+        boundaries = json.loads(name.city.neighborhood.data)
+        return JsonResponse(boundaries)
 
-    collection = geojson.FeatureCollection(collection)
-    return JsonResponse(collection)
+    else:
+        response = HttpResponse()
+        response.status_code = 404
+        return HttpResponse()
 
 
 def neighborhooddata_view(request, state, name, region_id=None):
@@ -87,13 +98,31 @@ def neighborhooddata_view(request, state, name, region_id=None):
     return JsonResponse(xmltodict.parse(request.text))
 
 
-def school_view(request, state, name):
+def school_districts_view(request, state, name):
+    city = name.replace('-', '_')
+    city = city.replace(' ', '-')
+
     districts = requests.get(
-        "http://api.education.com/service/service.php?f=districtSearch&key=" \
-        + moovn_apis('education.com') + "&sn=sf&v=4" \
-        + "&State=" + state \
-        + "&City=" + name \
-        + "&Resf=" + "json")
+    "http://api.greatschools.org/districts/" +
+    state + '/' +
+    city + '/' +
+    "?key=" + apis("greatschools"))
+
+    return JsonResponse(xmltodict.parse(districts.text))
+
+def nearby_schools_view(request, state):
+    lat = request.GET.get('lat')
+    lon = request.GET.get('lon')
+
+    data = requests.get("http://api.greatschools.org/schools/nearby?key=" +
+    apis('greatschools') + "&state=" + state +
+    "&lat=" + lat + "&lon=" + lon)
+
+    returndata = xmltodict.parse(data.text)
+    returndata['lat'] = lat
+    returndata['lon'] = lon
+
+    return JsonResponse(returndata) # xmltodict.parse(data.text))
 
 
 def industry_view(request, state, name):
@@ -115,12 +144,7 @@ def industry_view(request, state, name):
             for name in industry:
                 if industry[name] == line["seriesID"][10:-2] and len(line["data"]) > 0:
                     datadict[name] = line["data"][0]["value"]
-    # for val in datadict:
-    #     if val != "gov" and val != "totl_p" and val != "total":
-    #         datadict[val] = \
-    #             round(
-    #                 ((float(datadict[val]) / (float((datadict["gov"])) +
-    #  float(datadict["totl_p"]))) * 100), ndigits=1)
+
     for val in datadict:
         if val != "Total Nonfarm" and val != "Total Private" and val != "Government":
             datadict[val] = \
@@ -131,3 +155,44 @@ def industry_view(request, state, name):
     # response = HttpResponse(ind_data)
 
     return response
+
+
+jcdata = "1,2,3,4,5,6,7,8,9,10," \
+         "11,12,13,14,15,16,17,18,19,20," \
+         "21,22,23,24,25,26,27,28,29,30," \
+         "31,32"
+
+
+def jobs_view(request, state, name):
+    # ip = get_real_ip(request)
+    ip = request.META.get("REMOTE_ADDR")
+    # browser = request.user_agent.browser
+    browser = request.META.get("HTTP_USER_AGENT")
+    headers = {"user-agent": browser}
+    if ip is not None:
+        # # name = get_object_or_404(Name, name=name, state=state)
+        # data = json.dumps({"v": "1.1",
+        #                    "format": "json",
+        #                    "t.p": apis("glass_tp"),
+        #                    "t.k": apis("glass_tk"),
+        #                    "userip": ip,
+        #                    "useragent": browser,
+        #                    "action": "jobs-stats",
+        #                    # "l": "city",
+        #                    # "city": name.name,
+        #                    # "city": "Denver",
+        #                    # "state": name.state,
+        #                    # "state": "CO",
+        #                    # "fromAge": "30",
+        #                    # "radius": "25",
+        #                    # "jc": jcdata,
+        #                    # "returnJobTitles": True,
+        #                    "returnStates": True,
+        #                    "admLevelRequested": "1"
+        #                    })
+        # gldata = requests.get('http://api.glassdoor.com/api/api.htm', data=data, headers=headers)
+        # response = HttpResponse(gldata)
+        # return response
+        return HttpResponse("IP: {}, User-Agent: {}".format(ip, browser))
+    else:
+        return HttpResponse("No ip didn't work")
