@@ -14,6 +14,8 @@ var searchFunction = require('../search');
 var views = require('views');
 var mouseOverZoom = require('../mouseoverzoom')
 var mouseout = require('../mouseout')
+var googleMap = require('../google-maps');
+
 
 
 router.route('search/:cityName', function (cityName){
@@ -21,11 +23,7 @@ router.route('search/:cityName', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('city', '.main-content', {city: cityName});
-  // Jquery UI tabs
-  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-
+  show('city-template-2', '.main-content', {city: cityName});
 
 
 $('.bar-menu-icon').click(function() {
@@ -50,6 +48,7 @@ $('.bar-menu-icon').click(function() {
   var id = 0;
 
 Promise.all([
+
 
   $.ajax({
 
@@ -110,17 +109,25 @@ Promise.all([
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+//   })
+// })
 
+  //
+
+
+  // hacky way to make height change. should be refactored
+  $('#google-map').attr('style','height: 400px');
+  googleMap(state, city);
 
 
 //gets the lists displaying as tabs and can change to accordian
+  show('content/tabs-lists', '.duo-1')
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
   });
 
 //google places
-  places(cityName, "banks", ".banks-tab-data");
-  places(cityName, "attractions", ".leisure-tab-data");
+  places(cityName, city, ".tab-data1", ".tab-title1");
 
 
 });

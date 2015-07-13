@@ -25435,6 +25435,8 @@ var searchFunction = require('../search');
 var views = require('views');
 var mouseOverZoom = require('../mouseoverzoom')
 var mouseout = require('../mouseout')
+var googleMap = require('../google-maps');
+
 
 
 router.route('search/:cityName', function (cityName){
@@ -25442,11 +25444,7 @@ router.route('search/:cityName', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('city', '.main-content', {city: cityName});
-  // Jquery UI tabs
-  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-
+  show('city-template-2', '.main-content', {city: cityName});
 
 
 $('.bar-menu-icon').click(function() {
@@ -25471,6 +25469,7 @@ $('.bar-menu-icon').click(function() {
   var id = 0;
 
 Promise.all([
+
 
   $.ajax({
 
@@ -25531,22 +25530,30 @@ Promise.all([
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+//   })
+// })
 
+  //
+
+
+  // hacky way to make height change. should be refactored
+  $('#google-map').attr('style','height: 400px');
+  googleMap(state, city);
 
 
 //gets the lists displaying as tabs and can change to accordian
+  show('content/tabs-lists', '.duo-1')
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
   });
 
 //google places
-  places(cityName, "banks", ".banks-tab-data");
-  places(cityName, "attractions", ".leisure-tab-data");
+  places(cityName, city, ".tab-data1", ".tab-title1");
 
 
 });
 
-},{"../mouseout":30,"../mouseoverzoom":31,"../neighMap":32,"../places-api":33,"../router":34,"../search":35,"../show":36,"../topojson":38,"../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
+},{"../google-maps":18,"../mouseout":30,"../mouseoverzoom":31,"../neighMap":32,"../places-api":33,"../router":34,"../search":35,"../show":36,"../topojson":38,"../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -25641,6 +25648,11 @@ router.route('search/:cityName/housing', function (cityName){
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
+
+  $('.side-nav-item').click(function(){
+   this.addclass("side-nav-item-active");
+  })
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -25657,8 +25669,10 @@ router.route('search/:cityName/housing', function (cityName){
   });
 
 //google places
-  places(cityName, "Realty", ".tab-data1", ".tab-title1");
-  places(cityName, "banks", ".tab-data2", ".tab-title2");
+
+  places(cityName, "apartments", ".tab-data1", ".tab-title1");
+  places(cityName, "realty", ".tab-data2", ".tab-title2");
+  places(cityName, "banks", ".tab-data3", ".tab-title3");
 });
 
 },{"../../graphs/housing":22,"../../neighMap":32,"../../places-api":33,"../../router":34,"../../search":35,"../../show":36,"../../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
@@ -25937,11 +25951,6 @@ router.route('search/:cityName/transportation', function (cityName){
   // hacky way to make height change. should be refactored
   $('#google-map').attr('style','height: 400px');
   googleMap(state, city);
-  
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
   commuteTime(state, city);
 
 });

@@ -1318,6 +1318,11 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   background: #2F3948;
   border-left: 3px solid white; }
 
+.side-nav-item-active {
+  color: white;
+  background: #2F3948;
+  border-left: 3px solid white; }
+
 .side-nav-item-container:hover .side-icon {
   color: white; }
 
@@ -1338,9 +1343,6 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 header {
   text-align: left;
   padding: 0.3em; }
-
-.header-home {
-  display: none; }
 
 .moovnon-logo-container {
   text-decoration: none; }
@@ -1408,26 +1410,58 @@ header {
   overflow-x: auto; }
 
 .flow {
-  text-align: center; }
+  text-align: center;
+  margin-top: 0.5em; }
 
 .flow-icon {
-  margin: 1.5em auto;
-  height: 2em;
+  margin: auto;
+  height: 1.5em;
   width: auto;
-  display: block; }
+  display: block;
+  font-size: 2em; }
+
+.fa-compass {
+  color: darkred; }
+
+.fa-bar-chart {
+  color: darkblue; }
+
+.fa-globe {
+  color: darkgreen; }
+
+.powered-by-container {
+  position: relative;
+  text-align: center;
+  vertical-align: middle; }
+
+.glass-door {
+  display: inline-block;
+  max-width: 100px;
+  margin-left: 1em; }
+
+.powered-by a {
+  text-decoration: none;
+  color: black;
+  font-size: 0.7em; }
 
 @media only screen and (max-width: 480px) {
   .pure-form input:not([type]) {
-    display: inline-block; } }
+    display: inline-block; }
+  .header-home {
+    text-align: left; }
+  .sub-title {
+    display: none; }
+  .sub-title-container {
+    margin-top: 1em; } }
 
 .quad-1, .quad-2 {
   margin-top: 3.5em; }
 
-.quad-3, .quad-4 {
-  margin-top: 1em; }
-
-.duo-1, .duo-2 {
+.duo-1 {
   margin-top: 3.5em; }
+
+.duo-2 {
+  margin-top: 1em; }
 
 .refresh {
   font-size: 3em;
