@@ -23,8 +23,8 @@ router.route('search/:cityName', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('city-template-2', '.main-content', {city: cityName});
-
+  show('city-template-4-map', '.main-content', {city: cityName});
+  //show('city', '.main-content', {city: cityName})
 
 $('.bar-menu-icon').click(function() {
   $( ".side-nav-container" ).toggle( "slide" );
@@ -121,7 +121,7 @@ Promise.all([
 
 
 //gets the lists displaying as tabs and can change to accordian
-  show('content/tabs-lists', '.duo-1')
+  show('content/tabs-lists', '.quad-2')
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
   });
