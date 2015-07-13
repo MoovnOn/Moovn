@@ -20,6 +20,9 @@ var googleMap = require('../google-maps');
 
 router.route('search/:cityName', function (cityName){
 
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
@@ -31,7 +34,7 @@ $('.bar-menu-icon').click(function() {
 });
 
 
-  
+
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );

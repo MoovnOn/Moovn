@@ -25441,6 +25441,9 @@ var googleMap = require('../google-maps');
 
 router.route('search/:cityName', function (cityName){
 
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
@@ -25452,7 +25455,7 @@ $('.bar-menu-icon').click(function() {
 });
 
 
-  
+
 //for the jquery UI tabs
   // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
   // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
@@ -25566,7 +25569,7 @@ var d3 = require('d3');
 var topojson = require('../../topojson');
 var neighMap = require('../../neighMap');
 var zoom = require('../../zoom');
-var mouseOverZoom = require('../../mouseoverzoom')
+var mouseOverZoom = require('../../mouseoverzoom');
 
 router.route('search/:cityName/housing', function (cityName){
 
@@ -25592,7 +25595,6 @@ router.route('search/:cityName/housing', function (cityName){
   var id = 0;
 
   Promise.all([
-
 
   $.ajax({
 
@@ -25644,10 +25646,17 @@ router.route('search/:cityName/housing', function (cityName){
       if (boundaryjson){
         zoom(cityjson, boundaryjson, g, path, height, width);
 
-        var mouseOutZoom = function () { return zoom(cityjson, boundaryjson, g, path, height, width);};
-        var mouseZoom = function(d) { return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);};
+        var mouseOutZoom = function () {
+          $("#neighborhood-title").text("Select A Neighborhood");
+          return zoom(cityjson, boundaryjson, g, path, height, width);
+        };
+        var mouseZoom = function(d) {
+          $("#neighborhood-title").text(d.properties.NAME);
+          return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
+        };
 
         d3.selectAll(".feature-neighborhood").on("click", mouseZoom);
+
       } else {
 
         zoom(cityjson, cityjson, g, path, height, width);
@@ -25676,8 +25685,8 @@ router.route('search/:cityName/housing', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  //currenty bound to quad-1
-  var cityHousing = housingGraphGeneral(state, city);
+  //currenty bound to quad-3
+  housingGraphGeneral(state, city);
 
 
   show('content/tabs-lists', '.quad-4')
@@ -26235,32 +26244,28 @@ module.exports = function(state, city) {
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
 
-    chartdata = {
-      bindto: 'body .quad-3',
-      data: {
-        columns: [
-            ['Condo', housingAffordCondo],
-            ['2-Bed-Home', housingAfford2Bed],
-            ['3-Bed-Home', housingAfford3Bed],
-            ['4-Bed-Home', housingAfford4Bed],
-        ],
-        type: 'bar'
-      },
-      axis: {
-          y : {
-            tick: {
-              format: d3.format("$,")
-            }
-          }
+      var chart = c3.generate({
+        bindto: 'body .quad-3',
+        data: {
+          columns: [
+              ['Condo', housingAffordCondo],
+              ['2-Bed-Home', housingAfford2Bed],
+              ['3-Bed-Home', housingAfford3Bed],
+              ['4-Bed-Home', housingAfford4Bed],
+          ],
+          type: 'bar'
         },
-        size: {
-      		height: 400
-    		},
-     }
-
-    c3.generate(chartdata);
-
-    return chartdata;
+        axis: {
+            y : {
+              tick: {
+                format: d3.format("$,")
+              }
+            }
+          },
+          size: {
+        		height: 400
+      		},
+       });
 
   }
 };
@@ -26319,7 +26324,9 @@ var d3 = require('d3');
 var $ = require('jquery');
 
 module.exports = function (allHousingData){
-  var housingAfford = allHousingData["Demographics:demographics"].response.pages.page[0].tables.table.data.attribute;
+  try{
+    var housingAfford = allHousingData["Demographics:demographics"].response.pages.page[0].tables.table.data.attribute;
+  } catch (e){
 
   var housingAffordData = [];
   for (var i = 2; i < 6; i++){
@@ -26342,6 +26349,12 @@ module.exports = function (allHousingData){
       type: 'bar'
     },
     axis: {
+        // x: {
+        //   label: {
+        //     text: 'Your X Axis',
+        //     position: 'inner-middle',
+        //   }
+        // },
         y : {
           tick: {
             format: d3.format("$,")
@@ -26352,7 +26365,7 @@ module.exports = function (allHousingData){
     		height: 400
   		},
    });
-
+  };
 };
 
 },{"c3":"c3","d3":"d3","jquery":"jquery"}],25:[function(require,module,exports){
@@ -26647,6 +26660,7 @@ module.exports = function (d){
 var $ = require('jQuery');
 var mouseout = require('./mouseout');
 var neighborhoodRequests = require('./neighborhood-requests')
+var c3 = require('c3')
 
 module.exports = function (d, path, g, height, width, zoomout, state, city){
 
@@ -26654,6 +26668,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
     zoomout();
+
 
   } else {
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
@@ -26714,7 +26729,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
 }
 
-},{"./mouseout":31,"./neighborhood-requests":34,"jQuery":1}],33:[function(require,module,exports){
+},{"./mouseout":31,"./neighborhood-requests":34,"c3":"c3","jQuery":1}],33:[function(require,module,exports){
 var topojson = require('topojson')
 
 module.exports = function (json, g, path, color, type) {
@@ -26786,10 +26801,10 @@ module.exports = function(state, city, id, coords){
     housing(data);
   });
 
-  $.ajax({
-    method: "GET",
-    url: "api/cityschools/" + state + "/" + city + "/",
-  }).then(function(data){console.log(data);});
+  // $.ajax({
+  //   method: "GET",
+  //   url: "api/cityschools/" + state + "/" + city + "/",
+  // }).then(function(data){console.log(data);});
 
 
 }

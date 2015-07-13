@@ -3,7 +3,9 @@ var d3 = require('d3');
 var $ = require('jquery');
 
 module.exports = function (allHousingData){
-  var housingAfford = allHousingData["Demographics:demographics"].response.pages.page[0].tables.table.data.attribute;
+  try{
+    var housingAfford = allHousingData["Demographics:demographics"].response.pages.page[0].tables.table.data.attribute;
+  } catch (e){
 
   var housingAffordData = [];
   for (var i = 2; i < 6; i++){
@@ -26,6 +28,12 @@ module.exports = function (allHousingData){
       type: 'bar'
     },
     axis: {
+        // x: {
+        //   label: {
+        //     text: 'Your X Axis',
+        //     position: 'inner-middle',
+        //   }
+        // },
         y : {
           tick: {
             format: d3.format("$,")
@@ -36,5 +44,5 @@ module.exports = function (allHousingData){
     		height: 400
   		},
    });
-
+  };
 };

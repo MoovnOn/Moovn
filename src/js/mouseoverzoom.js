@@ -1,6 +1,7 @@
 var $ = require('jQuery');
 var mouseout = require('./mouseout');
 var neighborhoodRequests = require('./neighborhood-requests')
+var c3 = require('c3')
 
 module.exports = function (d, path, g, height, width, zoomout, state, city){
 
@@ -8,6 +9,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
     zoomout();
+
 
   } else {
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
