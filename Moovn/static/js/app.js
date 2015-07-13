@@ -25434,7 +25434,7 @@ var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
 var mouseOverZoom = require('../mouseoverzoom')
-var mouseout = require('../mouseout')
+//var mouseout = require('../mouseout')
 var googleMap = require('../google-maps');
 
 
@@ -25516,12 +25516,12 @@ Promise.all([
     ]).then(function(results){
         zoom(cityjson, boundaryjson, g, path, height, width);
 
-        var mouseOutZoom = function (d) { return zoom(cityjson, boundaryjson, g, path, height, width);};
-        var mouseZoom = function(d) { return mouseOverZoom(d, path, g, height, width);};
+        var mouseOutZoom = function () { return zoom(cityjson, boundaryjson, g, path, height, width);};
+        var mouseZoom = function(d) { return mouseOverZoom(d, path, g, height, width, mouseOutZoom);};
 
-        d3.selectAll(".feature-neighborhood").on("mouseenter", mouseZoom);
-        d3.selectAll(".neighborhoods").on("mouseleave", mouseOutZoom);
-        d3.selectAll(".feature-neighborhood").on("mouseleave", mouseout)
+        d3.selectAll(".feature-neighborhood").on("click", mouseZoom);
+        //d3.selectAll(".neighborhoods").on("mouseleave", mouseOutZoom);
+        //d3.selectAll(".feature-neighborhood clicked").on("click", mouseout)
     });
 
   });
@@ -25553,7 +25553,7 @@ Promise.all([
 
 });
 
-},{"../google-maps":18,"../mouseout":30,"../mouseoverzoom":31,"../neighMap":32,"../places-api":33,"../router":34,"../search":35,"../show":36,"../topojson":38,"../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
+},{"../google-maps":18,"../mouseoverzoom":31,"../neighMap":32,"../places-api":33,"../router":34,"../search":35,"../show":36,"../topojson":38,"../zoom":39,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],8:[function(require,module,exports){
 var $ = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -26580,64 +26580,75 @@ module.exports = function (d){
 }
 
 },{"jQuery":1}],31:[function(require,module,exports){
-var $ = require('jQuery')
-module.exports = function (d, path, g, height, width){
+var $ = require('jQuery');
+var mouseout = require('./mouseout');
+
+
+module.exports = function (d, path, g, height, width, zoomout){
+
 
   var bounds = path.bounds(d);
-  d3.select($("#" + d.properties['GEOID10'])[0]).style("fill", "orange")
+  if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
+    mouseout(d);
+    zoomout();
+  } else {
+    d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
+    d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
+    .style("fill", "orange")
 
 
-  var x = d3.scale.linear()
-      .domain([0, width])
-      .range([0, width]);
+    var x = d3.scale.linear()
+        .domain([0, width])
+        .range([0, width]);
 
-  var y = d3.scale.linear()
-      .domain([0, height])
-      .range([0, height]);
+    var y = d3.scale.linear()
+        .domain([0, height])
+        .range([0, height]);
 
-  var zoomMap = d3.behavior.zoom()
-      .x(x)
-      .y(y)
-      .size([width, height])
-      .on("zoom", zoomed);
+    var zoomMap = d3.behavior.zoom()
+        .x(x)
+        .y(y)
+        .size([width, height])
+        .on("zoom", zoomed);
 
-var clicked = function (){
+  var clicked = function (){
 
-    var dx = function (bound) {
-      return bound[1][0] - bound[0][0];
-    }
-    var dy = function (bound){
-      return bound[1][1] - bound[0][1];
-    }
-    var center_x = function (bound) {
-      return (bound[0][0] + bound[1][0])/2;
-    }
-    var center_y = function (bound) {
-      return (bound[0][1] + bound[1][1])/2;
-    }
+      var dx = function (bound) {
+        return bound[1][0] - bound[0][0];
+      }
+      var dy = function (bound){
+        return bound[1][1] - bound[0][1];
+      }
+      var center_x = function (bound) {
+        return (bound[0][0] + bound[1][0])/2;
+      }
+      var center_y = function (bound) {
+        return (bound[0][1] + bound[1][1])/2;
+      }
 
 
-    var scale = .5 / Math.max( dx(bounds) / width, dy(bounds) / height);
-    var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
+      var scale = .5 / Math.max( dx(bounds) / width, dy(bounds) / height);
+      var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
 
-    g.transition()
-     .duration(250)
-     .call(zoomMap.translate(translate).scale(scale).event);
+      g.transition()
+       .duration(250)
+       .call(zoomMap.translate(translate).scale(scale).event);
+
+  }
+
+    function zoomed(translate, scale){
+
+      g.style("stroke-width", 1.5 / d3.event.scale + "px");
+      g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+
+    };
+
+    clicked();
+  }
 
 }
 
-  function zoomed(translate, scale){
-
-    g.style("stroke-width", 1.5 / d3.event.scale + "px");
-    g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-
-  };
-
-  clicked();
-
-}
-
-},{"jQuery":1}],32:[function(require,module,exports){
+},{"./mouseout":30,"jQuery":1}],32:[function(require,module,exports){
 var topojson = require('topojson')
 
 module.exports = function (json, g, path, color, type) {

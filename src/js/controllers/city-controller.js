@@ -13,7 +13,7 @@ var zoom = require('../zoom');
 var searchFunction = require('../search');
 var views = require('views');
 var mouseOverZoom = require('../mouseoverzoom')
-var mouseout = require('../mouseout')
+//var mouseout = require('../mouseout')
 var googleMap = require('../google-maps');
 
 
@@ -95,12 +95,12 @@ Promise.all([
     ]).then(function(results){
         zoom(cityjson, boundaryjson, g, path, height, width);
 
-        var mouseOutZoom = function (d) { return zoom(cityjson, boundaryjson, g, path, height, width);};
-        var mouseZoom = function(d) { return mouseOverZoom(d, path, g, height, width);};
+        var mouseOutZoom = function () { return zoom(cityjson, boundaryjson, g, path, height, width);};
+        var mouseZoom = function(d) { return mouseOverZoom(d, path, g, height, width, mouseOutZoom);};
 
-        d3.selectAll(".feature-neighborhood").on("mouseenter", mouseZoom);
-        d3.selectAll(".neighborhoods").on("mouseleave", mouseOutZoom);
-        d3.selectAll(".feature-neighborhood").on("mouseleave", mouseout)
+        d3.selectAll(".feature-neighborhood").on("click", mouseZoom);
+        //d3.selectAll(".neighborhoods").on("mouseleave", mouseOutZoom);
+        //d3.selectAll(".feature-neighborhood clicked").on("click", mouseout)
     });
 
   });
