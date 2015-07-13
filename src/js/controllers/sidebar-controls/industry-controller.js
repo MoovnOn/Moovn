@@ -12,7 +12,6 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var industryGraph = require('../../graphs/industry');
 var incomeCity = require ('../../graphs/income-city-wide')
 
 
@@ -25,10 +24,6 @@ router.route('search/:cityName/industry', function (cityName){
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
-  
-  industryGraph(state, city).done(function(data) {
-  	console.log(data)
-  })
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {

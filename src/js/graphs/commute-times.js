@@ -13,7 +13,6 @@ module.exports = function(state, city) {
   
   function parseHousing(allHousingData){
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
-    console.log(housingResponse);
     
     var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;    
     var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;

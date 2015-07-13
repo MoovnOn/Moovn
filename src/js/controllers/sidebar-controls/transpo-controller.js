@@ -12,9 +12,14 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var commuteTime = require('../../graphs/commute-times')
+var commuteTime = require('../../graphs/commute-times');
+var googleMap = require('../../google-maps');
 
 router.route('search/:cityName/transportation', function (cityName){
+
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
@@ -24,6 +29,10 @@ router.route('search/:cityName/transportation', function (cityName){
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
+
+  // hacky way to make height change. should be refactored
+  $('#google-map').attr('style','height: 400px');
+  googleMap(state, city);
   
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
