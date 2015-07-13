@@ -17087,8 +17087,6 @@ $.ajaxSetup({
 var topojson = require('topojson')
 
 module.exports = function (json, g, path, color, type) {
-  //console.log(json)
-  //console.log(json.objects[Object.keys(json.objects)[0]])
 
   var data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]])
 
@@ -17102,10 +17100,10 @@ module.exports = function (json, g, path, color, type) {
   }else if (type === "city"){
     fill = "brown";
     stroke = "none";
-    opacity = .4
+    opacity = .4;
   }else{
     fill = "grey";
-    stroke = "none"
+    stroke = "none";
   }
 
   g.selectAll("path")
