@@ -1344,9 +1344,6 @@ header {
   text-align: left;
   padding: 0.3em; }
 
-.header-home {
-  display: none; }
-
 .moovnon-logo-container {
   text-decoration: none; }
 
@@ -1449,7 +1446,13 @@ header {
 
 @media only screen and (max-width: 480px) {
   .pure-form input:not([type]) {
-    display: inline-block; } }
+    display: inline-block; }
+  .header-home {
+    text-align: left; }
+  .sub-title {
+    display: none; }
+  .sub-title-container {
+    margin-top: 1em; } }
 
 .quad-1, .quad-2 {
   margin-top: 3.5em; }
