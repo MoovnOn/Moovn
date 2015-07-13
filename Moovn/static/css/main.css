@@ -1318,6 +1318,11 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   background: #2F3948;
   border-left: 3px solid white; }
 
+.side-nav-item-active {
+  color: white;
+  background: #2F3948;
+  border-left: 3px solid white; }
+
 .side-nav-item-container:hover .side-icon {
   color: white; }
 

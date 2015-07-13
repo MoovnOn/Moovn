@@ -15873,6 +15873,10 @@ router.route('search/:cityName/housing', function (cityName){
     $( ".side-nav-container" ).toggle( "slide" );
   });
   
+  $('.side-nav-item').click(function(){
+   this.addclass("side-nav-item-active");
+  })
+  
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -15888,8 +15892,9 @@ router.route('search/:cityName/housing', function (cityName){
   });
 
 //google places
-  places(cityName, "Realty", ".tab-data1", ".tab-title1");
-  places(cityName, "banks", ".tab-data2", ".tab-title2");
+  places(cityName, "apartments", ".tab-data1", ".tab-title1");
+  places(cityName, "realty", ".tab-data2", ".tab-title2");
+  places(cityName, "banks", ".tab-data3", ".tab-title3");
 });
 },{"../../drawMap":16,"../../graphs/housing":20,"../../neighMap":29,"../../places-api":30,"../../router":31,"../../search":32,"../../show":33,"../../zoom":35,"d3":"d3","jquery":"jquery","responsive-tabs":2,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
 var $ = require('jquery');

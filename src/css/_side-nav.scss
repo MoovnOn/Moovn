@@ -38,6 +38,13 @@
   background: $dark-primary-color;
   border-left:3px solid white;
 }
+
+.side-nav-item-active{
+  color:white;
+  background: $dark-primary-color;
+  border-left:3px solid white;
+}
+
 .side-nav-item-container:hover .side-icon{
   color:white;
 }
