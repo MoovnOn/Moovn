@@ -16189,7 +16189,6 @@ module.exports = function (json, g, path, color) {
 var $ = require('jquery');
 
 module.exports = function(state, city) {
-	
 
 	var geocoder =  new google.maps.Geocoder();
     geocoder.geocode( { 'address': city + ',' + state}, function(results) {
@@ -16197,7 +16196,7 @@ module.exports = function(state, city) {
      	var lon = results[0].geometry.location.lng();
 
 	  var mapOptions = {
-			zoom: 12,
+			zoom: 10,
 			center: new google.maps.LatLng(lat, lon),
 			panControl: false,
 			panControlOptions: {
@@ -16215,8 +16214,43 @@ module.exports = function(state, city) {
 		map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
 
 
-  });
+		var request = {
+	    query: "airports " + city
+		};
+		service = new google.maps.places.PlacesService(map);
+		
+			var infowindow = new google.maps.InfoWindow({
+      		content: 'hello'
+  			});
 
+		service.textSearch(request, function(results) {
+		  for (var i = 0; i < results.length; i++) {
+	    	var place = results[i];
+	    	placeLat = place.geometry.location['A'];
+	    	placeLon = place.geometry.location['F'];
+		  	var myLatlng = new google.maps.LatLng(placeLat, placeLon);
+
+			 	var marker = new google.maps.Marker({
+		      position: myLatlng,
+		      map: map,
+		      title: 'Hello World!',
+  		 	});
+
+			 	var infoWindow = new google.maps.InfoWindow({
+					content: place.name
+			});
+ 
+			google.maps.event.addListener(marker, 'click', function(pointer, bubble) {
+				return function() {
+					bubble.open(map, pointer);
+				};
+			}(marker, infoWindow));	
+ 
+	  	};
+
+		});
+
+  });
 
 };
 },{"jquery":"jquery"}],18:[function(require,module,exports){
