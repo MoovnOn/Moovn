@@ -1,4 +1,5 @@
 var $ = require('jquery')
+var housing = require('./graphs/neigh-housing')
 
 module.exports = function(state, city, id, coords){
 
@@ -6,17 +7,14 @@ module.exports = function(state, city, id, coords){
   $.ajax({
     method: "GET",
     url: "api/neighborhooddata/" + state + "/" + city + "/" + id + "/",
-  }).done(function(data){console.log(data);});
-
-  // $.ajax({
-  //   method: "GET",
-  //   url: "api/nearbyschools/" + state + "/?" + "lat=" + coords[1] + "&lon=" + coords[0]
-  // }).done(function(data){console.log(data);});
+  }).then(function(data){
+    housing(data);
+  });
 
   $.ajax({
     method: "GET",
     url: "api/cityschools/" + state + "/" + city + "/",
-  }).done(function(data){console.log(data);});
+  }).then(function(data){console.log(data);});
 
 
 }

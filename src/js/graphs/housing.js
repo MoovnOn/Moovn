@@ -10,13 +10,13 @@ module.exports = function(state, city) {
   })
   .then(parseHousing);
 
-  
+
   function parseHousing(allHousingData){
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
     var housingAfford= allHousingData["Demographics:demographics"].response.pages.page[0].tables.table.data.attribute;
     var housingRealEstate= allHousingData["Demographics:demographics"].response.pages.page[1].tables.table;
     var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;
-    
+
     var housingAffordCondo = housingAfford[2].values.city.value["#text"];
     var housingAfford2Bed = housingAfford[3].values.city.value["#text"];
     var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
@@ -24,7 +24,7 @@ module.exports = function(state, city) {
 
 
       var chart = c3.generate({
-        bindto: 'body .quad-1',
+        bindto: 'body .quad-3',
         data: {
           columns: [
               ['Condo', housingAffordCondo],
@@ -45,7 +45,6 @@ module.exports = function(state, city) {
         		height: 400
       		},
        });
-            
+
   }
 };
-
