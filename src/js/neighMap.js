@@ -19,7 +19,7 @@ module.exports = function (json, g, path, color, type) {
     opacity = .4
   }else{
     fill = "grey";
-    stroke = "none";
+    stroke = "white";
     mo = true;
   }
 
@@ -49,6 +49,7 @@ module.exports = function (json, g, path, color, type) {
         .style("fill", fill)
         .style("fill-opacity", opacity)
         .style("stroke", stroke)
+        .style("stroke-opacity", 0.1)
         .attr("id", function(d){return d.properties.GEOID10;});
 
   }

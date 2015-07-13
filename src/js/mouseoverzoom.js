@@ -1,6 +1,12 @@
+var $ = require('jQuery')
 module.exports = function (d, path, g, height, width){
 
-  bounds = path.bounds(d)
+  var bounds = path.bounds(d);
+  //console.log(d);
+  //item = $.("#" + d.properties['GEOID10'])
+  console.log(d3.select($("#" + d.properties['GEOID10'])))
+  d3.select($("#" + d.properties['GEOID10'])[0]).style("fill", "orange")
+
 
   var x = d3.scale.linear()
       .domain([0, width])
@@ -32,7 +38,7 @@ var clicked = function (){
     }
 
 
-    var scale = .95 / Math.max( dx(bounds) / width, dy(bounds) / height);
+    var scale = .5 / Math.max( dx(bounds) / width, dy(bounds) / height);
     var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
 
     g.transition()
