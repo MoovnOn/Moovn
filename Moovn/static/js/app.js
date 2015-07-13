@@ -25644,12 +25644,14 @@ router.route('search/:cityName/housing', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
+
         zoom(cityjson, boundaryjson, g, path, height, width);
 
         var mouseOutZoom = function () {
           $("#neighborhood-title").text("Select A Neighborhood");
           return zoom(cityjson, boundaryjson, g, path, height, width);
         };
+        
         var mouseZoom = function(d) {
           $("#neighborhood-title").text(d.properties.NAME);
           return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
@@ -26517,11 +26519,11 @@ module.exports = function(state, city) {
   })
   .then(parseHousing);
 
-  
+
   function parseHousing(allHousingData){
-    
-    
-    var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;    
+
+
+    var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;
     var housingDivFemale = housingPeople[4].data.attribute[0].value['#text'];
     var housingDivMale = housingPeople[4].data.attribute[1].value['#text'];
     var housingMarriedFemale = housingPeople[4].data.attribute[2].value['#text'];
@@ -26531,13 +26533,13 @@ module.exports = function(state, city) {
     var housingWidowedFemale = housingPeople[4].data.attribute[6].value['#text'];
     var housingWidowedMale = housingPeople[4].data.attribute[7].value['#text'];
 
-    
+
       c3.generate({
           bindto: 'body .quad-3',
           data: {
               columns: [
-                  ['Divorsed Female', housingDivFemale],
-                  ['Divorsed Male', housingDivMale],
+                  ['Divorced Female', housingDivFemale],
+                  ['Divorced Male', housingDivMale],
                   ['Married Female', housingMarriedFemale],
                   ['Married Male', housingMarriedMale],
                   ['Single Female', housingSingleFemale],
@@ -26557,10 +26559,9 @@ module.exports = function(state, city) {
       		height: 400
       		},
       });
-             
+
   }
 };
-
 
 },{"c3":"c3","d3":"d3","jquery":"jquery"}],29:[function(require,module,exports){
 'use strict';

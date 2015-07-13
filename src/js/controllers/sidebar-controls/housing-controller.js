@@ -92,12 +92,14 @@ router.route('search/:cityName/housing', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
+
         zoom(cityjson, boundaryjson, g, path, height, width);
 
         var mouseOutZoom = function () {
           $("#neighborhood-title").text("Select A Neighborhood");
           return zoom(cityjson, boundaryjson, g, path, height, width);
         };
+        
         var mouseZoom = function(d) {
           $("#neighborhood-title").text(d.properties.NAME);
           return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
