@@ -1,5 +1,6 @@
-var d3 = require('d3')
-module.exports = function (cityjson, boundaryjson, g, path, height, width){
+module.exports = function (d, path, g, height, width){
+
+  bounds = path.bounds(d)
 
   var x = d3.scale.linear()
       .domain([0, width])
@@ -17,33 +18,26 @@ module.exports = function (cityjson, boundaryjson, g, path, height, width){
 
 var clicked = function (){
 
-    var bounds1 = path.bounds(cityjson);
-    var bounds2 = path.bounds(boundaryjson);
-
     var dx = function (bound) {
       return bound[1][0] - bound[0][0];
     }
     var dy = function (bound){
       return bound[1][1] - bound[0][1];
     }
-
-    if(dx(bounds1) * dy(bounds1) >= dx(bounds2) * dy(bounds2)){
-      var bounds = bounds1;
-    }else{
-      var bounds = bounds2;
+    var center_x = function (bound) {
+      return (bound[0][0] + bound[1][0])/2;
+    }
+    var center_y = function (bound) {
+      return (bound[0][1] + bound[1][1])/2;
     }
 
-      var x = (bounds[0][0] + bounds[1][0])/2;
-      var y = (bounds[0][1] + bounds[1][1])/2;
-      var scale = .85 / Math.max( dx(bounds) / width, dy(bounds) / height);
-      var translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+    var scale = .95 / Math.max( dx(bounds) / width, dy(bounds) / height);
+    var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
 
     g.transition()
      .duration(250)
-     //.style("stroke-width", 1.5/ scale + "px")
      .call(zoomMap.translate(translate).scale(scale).event);
-
-    //zoomed(translate, scale);
 
 }
 
