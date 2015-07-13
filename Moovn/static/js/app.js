@@ -16774,29 +16774,34 @@ module.exports = function(state, city) {
   
   function parseHousing(allHousingData){
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
-    var liveshere0 = housingResponse[2].segmentation.liveshere[0].description;
-    var liveshere0name = housingResponse[2].segmentation.liveshere[0].name;
-    var liveshere1 = housingResponse[2].segmentation.liveshere[1].description;
-    var liveshere1name = housingResponse[2].segmentation.liveshere[1].name;
-    var liveshere2 = housingResponse[2].segmentation.liveshere[2].description;
-    var liveshere2name = housingResponse[2].segmentation.liveshere[2].name;
-    var liveshere3 = housingResponse[2].segmentation.liveshere[3].description;
-    var liveshere3name = housingResponse[2].segmentation.liveshere[3].name;
-    var liveshere4 = housingResponse[2].segmentation.liveshere[4].description;
-    var liveshere4name = housingResponse[2].segmentation.liveshere[4].name;
+    var housingLiveshere = allHousingData["Demographics:demographics"].response.pages.page[2].segmentation.liveshere;
+
+console.log(housingResponse);
+
+    var descArr =[];     
+      for (var index = 0; index < housingLiveshere.length; index++) {
+          descArr.push(allHousingData["Demographics:demographics"]
+            .response.pages.page[2].segmentation
+            .liveshere[index].description
+          );
+      }
+    
+    var nameArr =[];     
+      for (var index = 0; index < housingLiveshere.length; index++) {
+          nameArr.push(allHousingData["Demographics:demographics"]
+            .response.pages.page[2].segmentation
+            .liveshere[index].name
+          );
+      }
     
 
+  $(".tab-title1").html('<a href="#tab-1" class="r-tabs-anchor">People Who Live Here</a>');   
+    
+    descArr.forEach(function(e, i) {
+      $(".tab-data1").append("<b>" + nameArr[i] + "</b>" + "<br>");
+      $(".tab-data1").append(descArr[i] + "<br><br>");
+    });
 
-
-  $(".tab-title1").html('<a href="#tab-1" class="r-tabs-anchor">People Who Live Here</a>');
-  $(".tab-data1").append(
-    liveshere0name + "<br><p>" + liveshere0 + "</p><br>" +
-    liveshere1name + "<br><p>" + liveshere1 + "</p><br>" +
-    liveshere2name + "<br><p>" + liveshere2 + "</p><br>" +
-    liveshere3name + "<br><p>" + liveshere3 + "</p><br>" +
-    liveshere4name + "<br><p>" + liveshere4 + "</p><br>"
-    );
-            
   }
 };
 
