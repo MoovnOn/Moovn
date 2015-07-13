@@ -11,6 +11,7 @@ var drawMap = require('../../drawMap');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var getDetails = require('../../place-details')
 var views = require('views');
 
 
@@ -42,4 +43,14 @@ router.route('search/:cityName/leisure', function (cityName){
   places(cityName, "Restaurants", ".tab-data3", ".tab-title3");
   places(cityName, "Shopping", ".tab-data4", ".tab-title4");
   places(cityName, "Coffee & Tea", ".tab-data5", ".tab-title5");
+
+
+  $('.city-all-container').on('click', '.clickSpan', function (){
+    var id = this.id;
+    getDetails(id);
+  });
+
+
+
+
 });

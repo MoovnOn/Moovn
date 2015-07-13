@@ -60,6 +60,15 @@
     }
 }
 
+// css for places details 
+
+.clickSpan {
+  cursor: pointer;
+}
+
+.clickSpan:hover {
+  text-decoration: underline;
+}
 
 
 //styles for Jquery UI tabs
