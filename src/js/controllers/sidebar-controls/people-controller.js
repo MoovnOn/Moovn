@@ -16,6 +16,7 @@ var peopleAge = require('../../graphs/people-age');
 var peopleHousehold = require('../../graphs/people-household');
 var peopleRelationships = require('../../graphs/people-relationships');
 var liveshere = require('../../list-data/liveshere');
+var activeSelection = require('../active-selection');
 
 
 router.route('search/:cityName/people', function (cityName){
@@ -23,7 +24,7 @@ router.route('search/:cityName/people', function (cityName){
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
   show('city-template-4', '.main-content' , {city: cityName});
-
+  activeSelection();
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {

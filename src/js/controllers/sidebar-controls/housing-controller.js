@@ -13,21 +13,20 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var housingGraphGeneral = require('../../graphs/housing');
+var activeSelection = require('../active-selection');
 
 router.route('search/:cityName/housing', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
   show('city-template-4', '.main-content', {city: cityName} );
-  
+  activeSelection();
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
-  
-  $('.side-nav-item').click(function(){
-   this.addclass("side-nav-item-active");
-  })
+
+    
   
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
@@ -47,4 +46,6 @@ router.route('search/:cityName/housing', function (cityName){
   places(cityName, "apartments", ".tab-data1", ".tab-title1");
   places(cityName, "realty", ".tab-data2", ".tab-title2");
   places(cityName, "banks", ".tab-data3", ".tab-title3");
+  
+  
 });

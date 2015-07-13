@@ -15,13 +15,15 @@ var views = require('views');
 var parseCell = require('../../graphs/parse-cell');
 var downloadGraph = require('../../graphs/cell-download');
 var reliabilityGraph = require('../../graphs/cell-reliability');
+var activeSelection = require('../active-selection');
 
 router.route('search/:cityName/internet', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
   show('city-template-2', '.main-content', {city: cityName});
-
+  activeSelection();
+    
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];

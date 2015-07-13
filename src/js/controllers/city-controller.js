@@ -1,4 +1,4 @@
- var $ = require('jquery');
+var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
 var views = require('views');
@@ -42,57 +42,51 @@ $('.bar-menu-icon').click(function() {
   var cityjson = [];
   var boundaryjson = [];
 
-// Promise.all([$.ajax({
+Promise.all([$.ajax({
 
-//     method: 'GET',
-//     url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
+    method: 'GET',
+    url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
 
-// }).done(function (json){
+}).done(function (json){
 
-//     cityjson = json;
-//     drawMap(json, g, path, "black");
+    cityjson = json;
+    drawMap(json, g, path, "black");
 
-// })]).then(function(results){
+})]).then(function(results){
 
-// Promise.all(
-//   [
-//     $.ajax({
+Promise.all(
+  [
+    $.ajax({
 
-//     	method: 'GET',
-//     	url: '/api/boundary/' + state + '/' + city + '/'
+    	method: 'GET',
+    	url: '/api/boundary/' + state + '/' + city + '/'
 
-//     }).done(function (json){
+    }).done(function (json){
 
-//       cityjson = json;
-//     	drawMap(json, g, path, "brown");
+      cityjson = json;
+    	drawMap(json, g, path, "brown");
 
-//     }),
-//     $.ajax({
+    }),
+    $.ajax({
 
-//       method: 'GET',
-//       url: '/api/neighborhoods/' + state + '/' + city + '/'
+      method: 'GET',
+      url: '/api/neighborhoods/' + state + '/' + city + '/'
 
-//     }).done(function (json){
+    }).done(function (json){
 
-//       boundaryjson = json;
-//       drawNeigh(json, g, path);
+      boundaryjson = json;
+      drawNeigh(json, g, path);
 
-//     })
-//   ]
-// ).then(
-//   function(results){
+    })
+  ]
+).then(
+  function(results){
 
-//     zoom(results[0], results[1], g, path, height, width);
+    zoom(results[0], results[1], g, path, height, width);
 
-//   })
-// })
+  })
+})
   
-  // 
-  
-  
-  // hacky way to make height change. should be refactored
-  $('#google-map').attr('style','height: 400px');
-  googleMap(state, city);
 
 
 //gets the lists displaying as tabs and can change to accordian
