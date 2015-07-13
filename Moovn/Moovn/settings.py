@@ -45,7 +45,9 @@ INSTALLED_APPS = (
     'api',
     'django_extensions',
     'rest_framework',
-    'requests'
+    'requests',
+    'ipware.ip',
+    'django_user_agents'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -57,6 +59,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 )
 
 ROOT_URLCONF = 'Moovn.urls'
@@ -112,3 +115,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': '127.0.0.1.11211'
+#     }
+# }
