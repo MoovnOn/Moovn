@@ -19,7 +19,6 @@ import xmltodict
 import json
 
 requests_cache.install_cache('cache', expire_after=18000)
-# with open('geo/bls_industry.csv') as file:
 
 try:
     with open('geo/all_bls_codes.csv') as file:
@@ -161,10 +160,9 @@ def industry_view(request, state, name):
                 round(
                     ((float(datadict[val]) / float(datadict["Total Nonfarm"])) * 100), ndigits=1)
     datadict['Gov'] = str(round((float(datadict["Total Nonfarm"]) - float(datadict["Total Private"])), ndigits=1))
-    response = JsonResponse(datadict)
-    # response = HttpResponse(ind_data)
 
-    return response
+    return JsonResponse(datadict)
+
 
 
 jcdata = "1,2,3,4,5,6,7,8,9,10," \
