@@ -49,7 +49,18 @@ module.exports = function (json, g, path, color, type) {
         .style("stroke-opacity", 0.1)
         .attr("id", function(d){return d.properties.GEOID10;});
 
-  }
+    neighG.selectAll("text")
+      .data(data.features)
+    .enter().append("text")
+      .attr("opacity", 0)
+      .attr("unselectable", "true")
+      .attr("transform", function(d){ return "translate(" + path.centroid(d) + ")"})
+      .attr("id", function(d){ return d.properties["NAME"];})
+      //.attr("dy", ".35em")
+      .text(function(d){ return d.properties["NAME"];});
+
+}
+
 
   return data;
 

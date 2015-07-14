@@ -111,7 +111,6 @@ router.route('search/:cityName/education', function (cityName){
 
       }
 
-
     });
 
   });

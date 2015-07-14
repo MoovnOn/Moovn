@@ -6,7 +6,7 @@ var router = require('../../router');
 var show = require('../../show');
 var places = require('../../places-api');
 var tab = require('responsive-tabs');
-var d3 = require('d3');
+var c3 = require('c3');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
@@ -40,6 +40,9 @@ router.route('search/:cityName/housing', function (cityName){
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
+
+  //currenty bound to quad-2
+  var housingdata = housingGraphGeneral(state, city);
   var cityjson = [];
   var boundaryjson = [];
   var id = 0;
@@ -98,6 +101,8 @@ router.route('search/:cityName/housing', function (cityName){
 
         var mouseOutZoom = function () {
           $("#neighborhood-title").text("Select A Neighborhood");
+          //c3.generate(housingdata);
+          housingGraphGeneral(state, city);
           return zoom(cityjson, boundaryjson, g, path, height, width);
         };
 
@@ -128,13 +133,6 @@ router.route('search/:cityName/housing', function (cityName){
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
-
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
-  //currenty bound to quad-3
-  housingGraphGeneral(state, city);
 
 
   show('content/tabs-lists', '.quad-4')

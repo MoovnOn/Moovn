@@ -10,12 +10,12 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     mouseout(d);
     zoomout();
 
-
   } else {
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
 
+    d3.select($("#text" + d.properties['GEOID10']))
 
     var x = d3.scale.linear()
         .domain([0, width])
@@ -61,6 +61,8 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
       g.style("stroke-width", 1.5 / d3.event.scale + "px");
       g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 
+      g.selectAll("text")
+      .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     };
 
     clicked();

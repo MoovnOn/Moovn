@@ -25663,7 +25663,6 @@ router.route('search/:cityName/education', function (cityName){
 
       }
 
-
     });
 
   });
@@ -25689,7 +25688,7 @@ var router = require('../../router');
 var show = require('../../show');
 var places = require('../../places-api');
 var tab = require('responsive-tabs');
-var d3 = require('d3');
+var c3 = require('c3');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
@@ -25723,6 +25722,9 @@ router.route('search/:cityName/housing', function (cityName){
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
+
+  //currenty bound to quad-2
+  var housingdata = housingGraphGeneral(state, city);
   var cityjson = [];
   var boundaryjson = [];
   var id = 0;
@@ -25781,6 +25783,8 @@ router.route('search/:cityName/housing', function (cityName){
 
         var mouseOutZoom = function () {
           $("#neighborhood-title").text("Select A Neighborhood");
+          //c3.generate(housingdata);
+          housingGraphGeneral(state, city);
           return zoom(cityjson, boundaryjson, g, path, height, width);
         };
 
@@ -25812,13 +25816,6 @@ router.route('search/:cityName/housing', function (cityName){
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
-  //currenty bound to quad-3
-  housingGraphGeneral(state, city);
-
 
   show('content/tabs-lists', '.quad-4')
 
@@ -25835,7 +25832,7 @@ router.route('search/:cityName/housing', function (cityName){
 
 });
 
-},{"../../graphs/housing":25,"../../mouseoverzoom":35,"../../neighMap":36,"../../places-api":38,"../../router":39,"../../search":40,"../../show":41,"../../topojson":43,"../../zoom":44,"../active-selection":6,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
+},{"../../graphs/housing":25,"../../mouseoverzoom":35,"../../neighMap":36,"../../places-api":38,"../../router":39,"../../search":40,"../../show":41,"../../topojson":43,"../../zoom":44,"../active-selection":6,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -26458,13 +26455,21 @@ var d3 = require('d3');
 var $ = require('jquery');
 
 module.exports = function(state, city) {
+  //var data;
 
-  $.ajax({
-    method: 'GET',
-    url: '/api/homeprices/' + state + '/' + city + '/'
-  })
-  .then(parseHousing);
+  //Promise.all([
 
+    $.ajax({
+      method: 'GET',
+      url: '/api/homeprices/' + state + '/' + city + '/'
+    })
+    .then(function(d){parseHousing(d);})
+
+//  ]).then(
+
+  //  function (results) { data = results;}
+
+  //);
 
   function parseHousing(allHousingData){
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
@@ -26477,9 +26482,8 @@ module.exports = function(state, city) {
     var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
-
-      var chart = c3.generate({
-        bindto: 'body .quad-3',
+      var data = {
+        bindto: 'body .quad-2',
         data: {
           columns: [
               ['Condo', housingAffordCondo],
@@ -26499,9 +26503,13 @@ module.exports = function(state, city) {
           size: {
         		height: 400
       		},
-       });
+       }
 
-  }
+      var chart = c3.generate(data);
+      return data;
+  };
+
+  //return data;
 };
 
 },{"c3":"c3","d3":"d3","jquery":"jquery"}],26:[function(require,module,exports){
@@ -26890,7 +26898,7 @@ var $ = require('jQuery')
 module.exports = function (d){
 
   d3.select($("#" + d.properties['GEOID10'])[0]).style("fill", "grey")
-
+  
 }
 
 },{"jQuery":1}],35:[function(require,module,exports){
@@ -26906,12 +26914,12 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     mouseout(d);
     zoomout();
 
-
   } else {
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
 
+    d3.select($("#text" + d.properties['GEOID10']))
 
     var x = d3.scale.linear()
         .domain([0, width])
@@ -26957,6 +26965,8 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
       g.style("stroke-width", 1.5 / d3.event.scale + "px");
       g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 
+      g.selectAll("text")
+      .attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
     };
 
     clicked();
@@ -27018,7 +27028,18 @@ module.exports = function (json, g, path, color, type) {
         .style("stroke-opacity", 0.1)
         .attr("id", function(d){return d.properties.GEOID10;});
 
-  }
+    neighG.selectAll("text")
+      .data(data.features)
+    .enter().append("text")
+      .attr("opacity", 0)
+      .attr("unselectable", "true")
+      .attr("transform", function(d){ return "translate(" + path.centroid(d) + ")"})
+      .attr("id", function(d){ return d.properties["NAME"];})
+      //.attr("dy", ".35em")
+      .text(function(d){ return d.properties["NAME"];});
+
+}
+
 
   return data;
 
