@@ -6,10 +6,6 @@ class NeighborhoodBoundary(models.Model):
     data = models.TextField(null=True)
 
 
-class SchoolDistrictBoundary(models.Model):
-    pass
-
-
 class Boundary(models.Model):
     city = models.OneToOneField('City', related_name='boundary', null=True)
     data = models.TextField()

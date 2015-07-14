@@ -11,10 +11,9 @@ module.exports = function(state, city, id, coords){
     housing(data);
   });
 
-  $.ajax({
-    method: "GET",
-    url: "api/cityschools/" + state + "/" + city + "/",
-  }).then(function(data){console.log(data);});
-
+  // $.ajax({
+  //   method: "GET",
+  //   url: "api/cityschools/" + state + "/" + city + "/",
+  // }).then(function(data){console.log(data);});
 
 }

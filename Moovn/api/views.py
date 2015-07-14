@@ -4,6 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 from ipware.ip import get_ip, get_real_ip
 import requests
+import requests_cache
 import geojson
 import json
 #pandas as pd
@@ -17,7 +18,7 @@ from geo.models import City, Boundary, Name, NeighborhoodBoundary
 import xmltodict
 import json
 
-
+requests_cache.install_cache('cache')
 # with open('geo/bls_industry.csv') as file:
 
 try:
@@ -109,6 +110,15 @@ def school_districts_view(request, state, name):
     "?key=" + apis("greatschools"))
 
     return JsonResponse(xmltodict.parse(districts.text))
+
+
+def school_view(request, state, gsid):
+    data = requests.get("http://api.greatschools.org/schools/" + state \
+                        + "/" + gsid
+                        + "?key=" + apis('greatschools'))
+
+    return JsonResponse(xmltodict.parse(data.text))
+
 
 def nearby_schools_view(request, state):
     lat = request.GET.get('lat')
