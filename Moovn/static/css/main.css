@@ -1521,10 +1521,7 @@ header {
 
 .clickSpan {
   cursor: pointer;
-<<<<<<< HEAD
-=======
   text-decoration: none;
->>>>>>> 98f345cfc6262c1f50c415baa80fa0da508ea084
   color: #0046B2;
   line-height: 1.2; }
 
