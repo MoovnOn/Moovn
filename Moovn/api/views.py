@@ -231,7 +231,7 @@ def salary_view(request, state, name, job):
                        "registrationKey": apis("blskey"),
                        })
     ocp_data = requests.post('http://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
-    # ndata = json.loads(ocp_data.text)
+    ndata = json.loads(ocp_data.text)
     # datadict = {}
     # if len(ndata["Results"]["series"]) == 0:
     #     response = HttpResponse(print("no data"))
@@ -242,7 +242,7 @@ def salary_view(request, state, name, job):
     #             if occupations[name] == line["seriesID"][17:-2] and len(line["data"]) > 0:
     #                 datadict[name] = line["data"][0]["value"]
 
-    # response = JsonResponse(datadict)
-    response = HttpResponse(ocp_data)
+    response = JsonResponse(ndata)
+    # response = HttpResponse(ocp_data)
 
     return response
