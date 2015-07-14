@@ -28,6 +28,7 @@ router.route('search/:cityName/education', function (cityName){
   show('city-template-2', '.main-content', {city: cityName} );
 
   activeSelection();
+  $("#neighborhood-title").text("Select a Neighborhood")
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {

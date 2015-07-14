@@ -12,13 +12,10 @@ local_settings.py
 CityBoundaries
 Moovn/geo/states
 Moovn/geo/neighborhoods
-<<<<<<< HEAD
 Moovn/Moovn/moovn_apis.py
-=======
 Moovn/geo/roads
 Moovn/geo/schools
-
->>>>>>> back
+cache.sqlite
 
 # Created by https://www.gitignore.io
 

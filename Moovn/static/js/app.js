@@ -25044,6 +25044,7 @@ router.route('search/:cityName/education', function (cityName){
   show('city-template-2', '.main-content', {city: cityName} );
 
   activeSelection();
+  $("#neighborhood-title").text("Select a Neighborhood")
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -25173,7 +25174,8 @@ router.route('search/:cityName/housing', function (cityName){
   show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
   show('city-template-4-map', '.main-content', {city: cityName} );
-
+  
+  $("#neighborhood-title").text("Select a Neighborhood")
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
