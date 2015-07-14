@@ -7,12 +7,17 @@
 @import 'side-nav';
 @import 'search';
 @import 'city';
+@import 'modal';
 @import 'c3';
 @import 'alert';
 
 
 body{
   font-family: Century Gothic, sans-serif;
+}
+p {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  line-height: 1.2;
 }
 .ui-autocomplete{
   border: 1px solid grey;
