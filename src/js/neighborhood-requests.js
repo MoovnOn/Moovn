@@ -16,5 +16,4 @@ module.exports = function(state, city, id, coords){
   //   url: "api/cityschools/" + state + "/" + city + "/",
   // }).then(function(data){console.log(data);});
 
-
 }

@@ -12,7 +12,7 @@ module.exports = function (json, g, path, color, type) {
     fill = "none";
     stroke = "black";
   }else if (type === "city"){
-    fill = "brown";
+    fill = "darkgreen";
     stroke = "none";
     opacity = .4;
   }else{

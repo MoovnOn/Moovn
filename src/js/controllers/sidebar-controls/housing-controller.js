@@ -14,6 +14,7 @@ var views = require('views');
 var housingGraphGeneral = require('../../graphs/housing');
 var activeSelection = require('../active-selection');
 
+// for the map
 var d3 = require('d3');
 var topojson = require('../../topojson');
 var neighMap = require('../../neighMap');
@@ -66,7 +67,6 @@ router.route('search/:cityName/housing', function (cityName){
         url: '/api/boundary/' + state + '/' + city + '/'
 
       }).done(function (json){
-
 
         cityjson = neighMap(json, g, path, "brown", "city");
 
