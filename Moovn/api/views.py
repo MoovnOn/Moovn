@@ -237,7 +237,7 @@ def salary_view(request, state, name, job):
     ndata = json.loads(ocp_data.text)
     datadict = {}
     typecodes = {"11": "10th", "12": "25th", "13": "50th", "14": "75th", "15": "90th"}
-    if not ndata["Results"]["series"]:
+    if not ndata["Results"] or not ndata["Results"]["series"]:
         response = HttpResponse("no data")
         return response
     else:
