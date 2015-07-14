@@ -20,7 +20,7 @@ var activeSelection = require('../active-selection');
 
 router.route('search/:cityName/people', function (cityName){
 
-  show('side-bar-city-search', '.side-bar-content', cityName);
+  show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
   show('city-template-4', '.main-content' , {city: cityName});
   activeSelection();

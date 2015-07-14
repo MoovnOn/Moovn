@@ -23,7 +23,7 @@ var mouseOverZoom = require('../../mouseoverzoom');
 
 router.route('search/:cityName/housing', function (cityName){
 
-  show('side-bar-city-search', '.side-bar-content', cityName );
+  show('side-bar-city-search', '.side-bar-content', {city: cityName} );
   searchFunction();
   show('city-template-4-map', '.main-content', {city: cityName} );
 

@@ -16,7 +16,7 @@ var activeSelection = require('../active-selection');
 
 router.route('search/:cityName/jobs', function (cityName){
 
-  show('side-bar-city-search', '.side-bar-content', cityName);
+  show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
 
   show('test', '.main-content', {city: cityName});
