@@ -2,11 +2,10 @@ from Moovn.moovn_apis import apis
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
-from ipware.ip import get_ip, get_real_ip
 import requests
 import geojson
 import json
-#pandas as pd
+# pandas as pd
 
 from rest_framework import permissions
 from rest_framework.response import Response
@@ -21,6 +20,9 @@ with open('geo/all_bls_codes.csv') as file:
     industry = {
         line.split(',')[1][:-1]: line.split(',')[0] for line in file
         }
+
+with open('geo/oe_ocup.csv') as file:
+    occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].rstrip('\n') for line in file}
 
 
 # @api_view(['GET',])
@@ -141,29 +143,64 @@ def jobs_view(request, state, name):
     browser = request.META.get("HTTP_USER_AGENT")
     headers = {"user-agent": browser}
     if ip is not None:
-        # # name = get_object_or_404(Name, name=name, state=state)
-        # data = json.dumps({"v": "1.1",
-        #                    "format": "json",
-        #                    "t.p": apis("glass_tp"),
-        #                    "t.k": apis("glass_tk"),
-        #                    "userip": ip,
-        #                    "useragent": browser,
-        #                    "action": "jobs-stats",
-        #                    # "l": "city",
-        #                    # "city": name.name,
-        #                    # "city": "Denver",
-        #                    # "state": name.state,
-        #                    # "state": "CO",
-        #                    # "fromAge": "30",
-        #                    # "radius": "25",
-        #                    # "jc": jcdata,
-        #                    # "returnJobTitles": True,
-        #                    "returnStates": True,
-        #                    "admLevelRequested": "1"
-        #                    })
-        # gldata = requests.get('http://api.glassdoor.com/api/api.htm', data=data, headers=headers)
-        # response = HttpResponse(gldata)
-        # return response
-        return HttpResponse("IP: {}, User-Agent: {}".format(ip, browser))
+        name = get_object_or_404(Name, name=name, state=state)
+        data = {"v": "1",
+                "format": "json",
+                "t.p": apis("glass_tp"),
+                "t.k": apis("glass_tk"),
+                "userip": ip,
+                "useragent": browser,
+                "action": "jobs-stats",
+                # # "l": "city",
+                "city": name.name,
+                "state": name.state,
+                # "fromAge": "30",
+                # "radius": "25",
+                # "jc": jcdata,
+                "returnJobTitles": True,
+                "returnCities": True,
+                "jobTitle": "Software Engineer",
+                "admLevelRequested": "1"
+                # "countryID": "1",
+                }
+        gldata = requests.get('http://api.glassdoor.com/api/api.htm', params=data, headers=headers)
+        response = HttpResponse(gldata)
+        return response
+        # return HttpResponse("IP: {}, User-Agent: {}".format(ip, browser))
     else:
         return HttpResponse("No ip didn't work")
+
+
+def salary_view(request, state, name, job):
+    name = get_object_or_404(Name, name=name, state=state)
+    jobtitle = job.title()
+    locids = name.city.ocp_id.split(',')
+    seriesids = []
+    for series in locids:
+        for line in occupations:
+            if all(word in occupations[line] for word in jobtitle):
+                seriesids.append(series + line + "04")
+                seriesids.append(series + line + "01")
+                seriesids.append(series + line + "12")
+
+    headers = {'Content-type': 'application/json'}
+    data = json.dumps({"seriesid": seriesids,
+                       "startyear": "2013", "endyear": "2015",
+                       "registrationKey": apis("blskey"),
+                       })
+    ocp_data = requests.post('http://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
+    # ndata = json.loads(ocp_data.text)
+    # datadict = {}
+    # if len(ndata["Results"]["series"]) == 0:
+    #     response = HttpResponse(print("no data"))
+    #     return response
+    # else:
+    #     for line in ndata["Results"]["series"]:
+    #         for name in occupations:
+    #             if occupations[name] == line["seriesID"][17:-2] and len(line["data"]) > 0:
+    #                 datadict[name] = line["data"][0]["value"]
+
+    # response = JsonResponse(datadict)
+    response = HttpResponse(ocp_data)
+
+    return response

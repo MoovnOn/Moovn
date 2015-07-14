@@ -32,3 +32,4 @@ class Schools(models.Model):
 class City(models.Model):
     geo_id = models.IntegerField()
     ind_id = models.TextField(default="0")
+    ocp_id = models.TextField(default="0")
