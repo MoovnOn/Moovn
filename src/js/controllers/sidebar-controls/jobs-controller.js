@@ -11,36 +11,20 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var incomeCity = require ('../../graphs/income-city-wide')
 var activeSelection = require('../active-selection');
 
 
-router.route('search/:cityName/industry', function (cityName){
+router.route('search/:cityName/jobs', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
 
-  show('city-template-3', '.main-content', {city: cityName});
+  show('test', '.main-content', {city: cityName});
   activeSelection();
-  
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
-  // $.ajax({
-  //   method: 'GET',
-  //   url: ''
-  // })
-
+    
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
-
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
-  incomeCity(state, city);
 
 });
