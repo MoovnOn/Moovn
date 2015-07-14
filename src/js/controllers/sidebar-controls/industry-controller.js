@@ -13,7 +13,9 @@ var searchFunction = require('../../search');
 var views = require('views');
 var incomeCity = require ('../../graphs/income-city-wide')
 var activeSelection = require('../active-selection');
-var jobSearch = require('../../job-search')
+var jobSearch = require('../../job-search');
+var autocomplete = require('jquery-ui');
+var jobtitles = require('../../job-titles');
 
 
 router.route('search/:cityName/industry', function (cityName){
@@ -43,5 +45,13 @@ router.route('search/:cityName/industry', function (cityName){
   var state = citySplit[1];
 
   incomeCity(state, city);
+
+  $("#job-input").autocomplete({
+    source: jobtitles,
+    messages: {
+      noResults: '',
+      results: function() {}
+      }  
+    });
 
 });

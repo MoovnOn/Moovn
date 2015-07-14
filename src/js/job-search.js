@@ -10,14 +10,5 @@ module.exports = function(state, city){
   }).done(function(data){
   	console.log(data);
   });
-
-  $("#job-input").autocomplete({
-    source: availableTags,
-    messages: {
-      noResults: '',
-      results: function() {}
-      },  
-    });
-
 	
 };
