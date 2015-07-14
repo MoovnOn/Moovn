@@ -26611,19 +26611,6 @@ module.exports = function(city, searchTerm, tabContainer, tabtitle) {
     	$(tabContainer).append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
 		}
 	});
-	
-	// setTimeout(function() {
-		// placeArr.forEach(function(i) {
-		// 	console.log(i)
-		// 	console.log(placeArr)
-		// 	var place = placeArr[i];
-		// 	var placeId = place.place_id;
-		// 	service.getDetails(placeId, function(result, status) {
-  //     	console.log(result)
-		// })
-		// }, 2000)
-	// });	
-// $(tabContainer).append('<p>' + place.name + '</p>')
 };
 },{"jquery":"jquery"}],38:[function(require,module,exports){
 'use strict';
