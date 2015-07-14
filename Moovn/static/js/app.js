@@ -25436,8 +25436,8 @@ router.route('search/:cityName/leisure', function (cityName){
   
   $(".duo-2-vert").html("<h1 class= 'select-details'><i class='fa fa-arrow-circle-o-left'></i> Select for details</h1>");
   setTimeout(function(){
-    $(".select-details").fadeOut()
-    }, 4000);
+    $(".select-details").fadeOut("slow")
+    }, 3500);
 
   $('.city-all-container').on('click', '.clickSpan', function (){
     var id = this.id;
