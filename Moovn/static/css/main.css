@@ -1529,6 +1529,10 @@ header {
 .clickSpan-selected {
   color: #B27700; }
 
+.select-details {
+  padding-top: 7em;
+  color: #B27700; }
+
 .c3 svg {
   font: 10px sans-serif; }
 
