@@ -20,7 +20,7 @@ router.route('search/:cityName/industry', function (cityName){
   show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
 
-  show('city-template-4', '.main-content', {city: cityName});
+  show('city-template-3', '.main-content', {city: cityName});
   activeSelection();
   
   var citySplit = cityName.split(', ');

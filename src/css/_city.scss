@@ -1,7 +1,9 @@
 .quad-1, .quad-2{
   margin-top:1.5em;
 }
-
+.tri-1 {
+  margin-top: 3.4em;
+}
 // .quad-3, .quad-4{
 //   margin-top: 1em
 // }
@@ -49,6 +51,7 @@
 
 .clickSpan {
   cursor: pointer;
+  text-decoration: none;
   color:#0046B2;
   line-height: 1.2;
 }

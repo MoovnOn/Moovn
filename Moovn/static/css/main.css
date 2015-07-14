@@ -1483,6 +1483,9 @@ header {
 .quad-1, .quad-2 {
   margin-top: 1.5em; }
 
+.tri-1 {
+  margin-top: 3.4em; }
+
 .duo-1, .duo-1-vert, .duo-2-vert {
   margin-top: 1.5em; }
 
@@ -1518,6 +1521,10 @@ header {
 
 .clickSpan {
   cursor: pointer;
+<<<<<<< HEAD
+=======
+  text-decoration: none;
+>>>>>>> 98f345cfc6262c1f50c415baa80fa0da508ea084
   color: #0046B2;
   line-height: 1.2; }
 
