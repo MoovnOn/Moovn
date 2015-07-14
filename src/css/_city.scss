@@ -73,12 +73,13 @@
 
 .clickSpan {
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration: none;
   color:#0046B2;
   line-height: 1.2;
 }
 .clickSpan:hover {
   color: #B27700;
+  text-decoration: underline;
 }
 .clickSpan-selected {
   color: #B27700;
