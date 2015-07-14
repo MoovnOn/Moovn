@@ -25564,13 +25564,28 @@ router.route('search/:cityName/taxes', function (cityName){
               url:'https://taxrates.api.avalara.com:443/postal?country=usa&postal=' + zip + '&apikey=' + taxAPIKey 
             }).done(function (result){
               console.log(result);
-              var countyName = result.rates[0].name;
-              var countyTaxRate = result.rates[0].rate;
-              var stateName = result.rates[1].name;
-              var stateTaxRate = result.rates[1].rate;
+              
+              var nameArr = [];
+              for (var index = 0; index < result.rates.length; index++) {
+                nameArr.push(result.rates[index].name)
+              }
+              
+              var rateArr = [];
+              for (var index = 0; index < result.rates.length; index++) {
+                rateArr.push(result.rates[index].rate)
+              }
               
               $(".tab-title1").html('<a href="#tab-1" class="r-tabs-anchor">County & State Tax Rates</a>');   
-              $(".tab-data1").append(countyName + " COUNTY " + countyTaxRate + "%<br><br>" + stateName + " " + stateTaxRate + "%");
+              
+               nameArr.forEach(function(e, i) {
+                $(".tab-data1").append(nameArr[i] + " ");
+                $(".tab-data1").append(rateArr[i] + "%<br><br>");
+               });
+               
+               $(".tab-data1").append("<b>Total Tax Rate = " + result.totalRate + "%<br></b>");
+              
+              
+              // $(".tab-data1").append(countyName + " " + countyTaxRate + "%<br><br>" + stateName + " " + stateTaxRate + "%");
                
             })          
           
