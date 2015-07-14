@@ -20,8 +20,9 @@ router.route('search/:cityName/leisure', function (cityName){
   show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
 
+
   show('city-template-vertical', '.main-content', {city: cityName} );
-  
+
   activeSelection();
 
   //slides the side-nav
@@ -46,7 +47,7 @@ router.route('search/:cityName/leisure', function (cityName){
   places(cityName, "Restaurants", ".tab-data3", ".tab-title3");
   places(cityName, "Shopping", ".tab-data4", ".tab-title4");
   places(cityName, "Coffee & Tea", ".tab-data5", ".tab-title5");
-  
+
   $(".duo-2-vert").html("<h1 class= 'select-details'><i class='fa fa-arrow-circle-o-left'></i> Select for details</h1>");
   setTimeout(function(){
     $(".select-details").fadeOut("slow")
@@ -63,4 +64,3 @@ router.route('search/:cityName/leisure', function (cityName){
 
 
 });
-

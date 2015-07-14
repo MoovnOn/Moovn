@@ -20,6 +20,9 @@ var googleMap = require('../google-maps');
 
 router.route('search/:cityName', function (cityName){
 
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
@@ -31,68 +34,13 @@ $('.bar-menu-icon').click(function() {
 });
 
 
+//for the jquery UI tabs
+  // $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+  // $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+//   })
+// })
 
-  var svg = d3.select("#d3-graphs");
-  var height = 400;
-  var width = 400;
-  svg.attr("width", width).attr("height", height);
-  var g = svg.append("g");
-
-  var projection = d3.geo.albers().scale(200).translate([150,140]);
-  var path = d3.geo.path().projection(projection);
-
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-  var cityjson = [];
-  var boundaryjson = [];
-
-Promise.all([$.ajax({
-
-    method: 'GET',
-    url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
-
-}).done(function (json){
-
-    cityjson = json;
-    drawMap(json, g, path, "black");
-
-})]).then(function(results){
-
-Promise.all(
-  [
-    $.ajax({
-
-    	method: 'GET',
-    	url: '/api/boundary/' + state + '/' + city + '/'
-
-    }).done(function (json){
-
-      cityjson = json;
-    	drawMap(json, g, path, "brown");
-
-    }),
-    $.ajax({
-
-      method: 'GET',
-      url: '/api/neighborhoods/' + state + '/' + city + '/'
-
-    }).done(function (json){
-
-      boundaryjson = json;
-      drawNeigh(json, g, path);
-
-    })
-  ]
-).then(
-  function(results){
-
-    zoom(results[0], results[1], g, path, height, width);
-
-  })
-})
-  
-
+  //
 
 
   // hacky way to make height change. should be refactored

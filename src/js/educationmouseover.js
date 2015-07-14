@@ -1,6 +1,6 @@
 var $ = require('jQuery');
 var mouseout = require('./mouseout');
-var neighborhoodRequests = require('./neighborhood-requests')
+var educationRequests = require('./education-requests')
 var c3 = require('c3')
 
 module.exports = function (d, path, g, height, width, zoomout, state, city){
@@ -65,7 +65,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
     clicked();
     var ident = d3.geo.path().projection({stream: function(d){return d;}})
-    neighborhoodRequests(state, city, d.properties['GEOID10'], ident.centroid(d));
+    educationRequests(state, city, d.properties['GEOID10'], ident.centroid(d));
   }
 
 }
