@@ -38,6 +38,33 @@
   background: $dark-primary-color;
   border-left:3px solid white;
 }
+
+.side-nav-item-active{
+  color:white;
+  background: $dark-primary-color;
+  border-left:3px solid white;
+}
+
 .side-nav-item-container:hover .side-icon{
   color:white;
+}
+.side-icon-active{
+  color:white;
+}
+.bar-menu-icon{
+  display: none;
+}
+
+@media screen and (max-width: 670px) {
+    .side-nav-container{
+      z-index: 100;
+      display: none;
+    }
+    .bar-menu-icon{
+      display: inline-block;
+      margin: 1em;
+      font-size: 1.2em;
+      border:none;
+      background:white;
+    }
 }

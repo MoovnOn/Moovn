@@ -2,9 +2,6 @@ header{
   text-align: left;
   padding: 0.3em;
 }
-.header-home{
-  display: none;  
-}
 .moovnon-logo-container{
   text-decoration: none;
 }
@@ -19,7 +16,6 @@ header{
    margin-bottom: 2em; 
    display: none;
 }
-
 .title-container{
   display: inline-block;
   font-family: Century Gothic, sans-serif;
@@ -44,7 +40,7 @@ header{
 }
 .search-form-searchView {
   text-align: center;
-  padding: 1em;
+  padding: 0.3em;
 }
 .search-city-searchView{
   min-width: 20em;
@@ -72,22 +68,55 @@ header{
   overflow-y: auto; 
   overflow-x: auto;
 }
-.flow-container{
-  margin-top: 2em;
-}
 .flow{
   text-align: center;
+  margin-top:0.5em;
 }
 .flow-icon{
-  margin: 1.5em auto;
-  height:2em;
+  margin: auto;
+  height: 1.5em;
   width: auto;
   display:block;
+  font-size: 2em;
 }
+.fa-compass{
+  color: darkred;
+}
+.fa-bar-chart{
+  color: darkblue
+}
+.fa-globe{
+  color: darkgreen;
+}
+.powered-by-container{
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+}
+.glass-door{
+  display: inline-block;
+  max-width: 100px;
+  margin-left:1em;
+}
+.powered-by a{
+  text-decoration: none;
+  color:black;
+  font-size:0.7em;
+}
+
 //overwrites pure changing inputs to display block
 @media only screen and (max-width: 480px){
   .pure-form input:not([type]){
   display: inline-block;
-  }  
+  }
+  .header-home{
+    text-align: left;
+  }
+  .sub-title{
+    display:none;
+  }
+  .sub-title-container{
+    margin-top:1em;
+  }
 }
 

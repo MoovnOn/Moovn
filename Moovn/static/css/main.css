@@ -1318,15 +1318,34 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   background: #2F3948;
   border-left: 3px solid white; }
 
+.side-nav-item-active {
+  color: white;
+  background: #2F3948;
+  border-left: 3px solid white; }
+
 .side-nav-item-container:hover .side-icon {
   color: white; }
+
+.side-icon-active {
+  color: white; }
+
+.bar-menu-icon {
+  display: none; }
+
+@media screen and (max-width: 670px) {
+  .side-nav-container {
+    z-index: 100;
+    display: none; }
+  .bar-menu-icon {
+    display: inline-block;
+    margin: 1em;
+    font-size: 1.2em;
+    border: none;
+    background: white; } }
 
 header {
   text-align: left;
   padding: 0.3em; }
-
-.header-home {
-  display: none; }
 
 .moovnon-logo-container {
   text-decoration: none; }
@@ -1365,7 +1384,7 @@ header {
 
 .search-form-searchView {
   text-align: center;
-  padding: 1em; }
+  padding: 0.3em; }
 
 .search-city-searchView {
   min-width: 20em; }
@@ -1393,21 +1412,63 @@ header {
   overflow-y: auto;
   overflow-x: auto; }
 
-.flow-container {
-  margin-top: 2em; }
-
 .flow {
-  text-align: center; }
+  text-align: center;
+  margin-top: 0.5em; }
 
 .flow-icon {
-  margin: 1.5em auto;
-  height: 2em;
+  margin: auto;
+  height: 1.5em;
   width: auto;
-  display: block; }
+  display: block;
+  font-size: 2em; }
+
+.fa-compass {
+  color: darkred; }
+
+.fa-bar-chart {
+  color: darkblue; }
+
+.fa-globe {
+  color: darkgreen; }
+
+.powered-by-container {
+  position: relative;
+  text-align: center;
+  vertical-align: middle; }
+
+.glass-door {
+  display: inline-block;
+  max-width: 100px;
+  margin-left: 1em; }
+
+.powered-by a {
+  text-decoration: none;
+  color: black;
+  font-size: 0.7em; }
 
 @media only screen and (max-width: 480px) {
   .pure-form input:not([type]) {
-    display: inline-block; } }
+    display: inline-block; }
+  .header-home {
+    text-align: left; }
+  .sub-title {
+    display: none; }
+  .sub-title-container {
+    margin-top: 1em; } }
+
+.quad-1, .quad-2 {
+  margin-top: 3.5em; }
+
+.duo-1 {
+  margin-top: 3.5em; }
+
+.duo-2 {
+  margin-top: 1em; }
+
+.refresh {
+  font-size: 3em;
+  text-align: center; }
 
 #accordion h3 {
   background-color: lightgray; }
@@ -1415,32 +1476,19 @@ header {
 .city-all-container {
   margin-right: 2em;
   margin-bottom: 2em;
-  margin-left: 12em; }
+  margin-left: 14em; }
 
 .city-title {
+  display: inline-block;
   padding: 0.8em;
   font-size: 1.8em;
-  text-align: right; }
-
-#chartType {
+  text-align: right;
   position: absolute;
   top: 0;
-  right: 0;
-  margin-top: 35%; }
+  right: 0; }
 
 .graph {
   width: 50%; }
-
-.city-map-container {
-  text-align: center;
-  margin-top: 3em; }
-
-.city-chart-container {
-  margin-top: 3em; }
-
-.tab-list-container {
-  width: 50%;
-  margin: 1em; }
 
 .search-form-city-view {
   color: black;
@@ -1449,11 +1497,17 @@ header {
 .search-city-view {
   border-radius: 0.2em;
   border: none;
-  padding: 0.3em; }
+  padding: 0.3em;
+  width: 95%; }
 
 .submit-city-view {
   background-color: #A5B6C3;
-  border: none; }
+  border: none;
+  width: 100%; }
+
+@media screen and (max-width: 670px) {
+  .city-all-container {
+    margin-left: 2em; } }
 
 .c3 svg {
   font: 10px sans-serif; }

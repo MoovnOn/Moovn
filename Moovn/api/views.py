@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, JsonResponse
 from django.views.generic import View
 import requests
+import requests_cache
 import geojson
 import json
 # pandas as pd
@@ -12,24 +13,37 @@ from rest_framework.response import Response
 
 from rest_framework.decorators import api_view, permission_classes
 
-from geo.models import City, Boundary, Name
+from geo.models import City, Boundary, Name, NeighborhoodBoundary
 import xmltodict
 import json
 
-with open('geo/all_bls_codes.csv') as file:
-    industry = {
-        line.split(',')[1][:-1]: line.split(',')[0] for line in file
-        }
+requests_cache.install_cache('cache')
+# with open('geo/bls_industry.csv') as file:
 
-with open('geo/oe_ocup.csv') as file:
-    occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].rstrip('\n') for line in file}
-
+try:
+    with open('geo/all_bls_codes.csv') as file:
+        industry = {
+            line.split(',')[1][:-1]: line.split(',')[0] for line in file
+            }
+except:
+    with open('Moovn/geo/all_bls_codes.csv') as file:
+        industry = {
+            line.split(',')[1][:-1]: line.split(',')[0] for line in file
+            }
+try:
+    with open('geo/oe_ocup.csv') as file:
+        occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].rstrip('\n') for line in file}
+except:
+    with open('Moovn/geo/oe_ocup.csv') as file:
+        occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].rstrip('\n') for line in file}
 
 # @api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
 def city_boundary_view(request, state, name):
-    name = get_object_or_404(Name, name=name, state=state)
-    return JsonResponse(geojson.loads(name.city.boundary.data))
+    name_obj = get_object_or_404(Name, name=name, state=state)
+    if name == 'US':
+        return JsonResponse(json.loads(name_obj.city.boundary.data))
+    return JsonResponse(geojson.loads(name_obj.city.boundary.data))
 
 
 class HomeView(View):
@@ -63,14 +77,15 @@ def cell_view(request, state, name):
 
 def neighborhood_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
-    boundaryset = list(name.city.neighborhoodboundary_set.all())
 
-    collection = []
-    for x in boundaryset:
-        collection.extend(geojson.loads(x.data).features)
+    if NeighborhoodBoundary.objects.filter(city=name.city).exists():
+        boundaries = json.loads(name.city.neighborhood.data)
+        return JsonResponse(boundaries)
 
-    collection = geojson.FeatureCollection(collection)
-    return JsonResponse(collection)
+    else:
+        response = HttpResponse()
+        response.status_code = 404
+        return HttpResponse()
 
 
 def neighborhooddata_view(request, state, name, region_id=None):
@@ -89,13 +104,40 @@ def neighborhooddata_view(request, state, name, region_id=None):
     return JsonResponse(xmltodict.parse(request.text))
 
 
-def school_view(request, state, name):
+def school_districts_view(request, state, name):
+    city = name.replace('-', '_')
+    city = city.replace(' ', '-')
+
     districts = requests.get(
-        "http://api.education.com/service/service.php?f=districtSearch&key=" \
-        + moovn_apis('education.com') + "&sn=sf&v=4" \
-        + "&State=" + state \
-        + "&City=" + name \
-        + "&Resf=" + "json")
+        "http://api.greatschools.org/districts/" +
+        state + '/' +
+        city + '/' +
+        "?key=" + apis("greatschools"))
+
+    return JsonResponse(xmltodict.parse(districts.text))
+
+
+def school_view(request, state, gsid):
+    data = requests.get("http://api.greatschools.org/schools/" + state \
+                        + "/" + gsid
+                        + "?key=" + apis('greatschools'))
+
+    return JsonResponse(xmltodict.parse(data.text))
+
+
+def nearby_schools_view(request, state):
+    lat = request.GET.get('lat')
+    lon = request.GET.get('lon')
+
+    data = requests.get("http://api.greatschools.org/schools/nearby?key=" +
+                        apis('greatschools') + "&state=" + state +
+                        "&lat=" + lat + "&lon=" + lon)
+
+    returndata = xmltodict.parse(data.text)
+    returndata['lat'] = lat
+    returndata['lon'] = lon
+
+    return JsonResponse(returndata)  # xmltodict.parse(data.text))
 
 
 def industry_view(request, state, name):
