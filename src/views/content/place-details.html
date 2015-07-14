@@ -1,0 +1,9 @@
+<h1><%- m.detail.name %></h1>
+<p><%- m.detail.formatted_address %></p>
+<p><%- m.detail.formatted_phone_number %></p>
+<p><%- m.detail.website %></p>
+<br>
+
+<% m.detail.reviews.forEach(function(i) { %>
+	<p><%- i.text %></p><br>
+<% }); %>

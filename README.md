@@ -34,3 +34,6 @@ heroku config:set DJANGO_SETTINGS_MODULE=Moovn.heroku_settings
 heroku config:set PYTHONPATH=Moovn
 heroku config:set SECRET_KEY=$(date | md5 | base64)
 ```
+if you get the gulpshell error or manage.py runserver fail then..
+"pip3 install -r dev_requirements.txt"
+in ~/dev2/moovnon/moovn

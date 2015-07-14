@@ -10,6 +10,7 @@ var d3 = require('d3');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
+var getDetails = require('../../place-details')
 var views = require('views');
 var activeSelection = require('../active-selection');
 
@@ -19,10 +20,11 @@ router.route('search/:cityName/leisure', function (cityName){
   show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
 
-  show('city-template-2', '.main-content', {city: cityName} );
+
+  show('city-template-vertical', '.main-content', {city: cityName} );
 
   activeSelection();
-  
+
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
@@ -32,7 +34,7 @@ router.route('search/:cityName/leisure', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  show('content/tabs-lists', '.duo-1')
+  show('content/tabs-lists', '.duo-1-vert')
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
@@ -45,4 +47,20 @@ router.route('search/:cityName/leisure', function (cityName){
   places(cityName, "Restaurants", ".tab-data3", ".tab-title3");
   places(cityName, "Shopping", ".tab-data4", ".tab-title4");
   places(cityName, "Coffee & Tea", ".tab-data5", ".tab-title5");
+
+  $(".duo-2-vert").html("<h1 class= 'select-details'><i class='fa fa-arrow-circle-o-left'></i> Select for details</h1>");
+  setTimeout(function(){
+    $(".select-details").fadeOut()
+    }, 4000);
+
+  $('.city-all-container').on('click', '.clickSpan', function (){
+    var id = this.id;
+    getDetails(id);
+    $(".clickSpan").removeClass("clickSpan-selected");
+    $(this).addClass("clickSpan-selected");
+  });
+
+
+
+
 });
