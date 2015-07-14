@@ -20,7 +20,7 @@ router.route('search/:cityName/leisure', function (cityName){
   show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
 
-  show('city-template-2', '.main-content', {city: cityName} );
+  show('city-template-vertical', '.main-content', {city: cityName} );
 
   activeSelection();
 
@@ -33,7 +33,7 @@ router.route('search/:cityName/leisure', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  show('content/tabs-lists', '.duo-1')
+  show('content/tabs-lists', '.duo-1-vert')
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
@@ -51,6 +51,8 @@ router.route('search/:cityName/leisure', function (cityName){
   $('.city-all-container').on('click', '.clickSpan', function (){
     var id = this.id;
     getDetails(id);
+    $(".clickSpan").removeClass("clickSpan-selected");
+    $(this).addClass("clickSpan-selected");
   });
 
 

@@ -61,7 +61,6 @@ router.route('search/:cityName/taxes', function (cityName){
               method: 'GET',  
               url:'https://taxrates.api.avalara.com:443/postal?country=usa&postal=' + zip + '&apikey=' + taxAPIKey 
             }).done(function (result){
-              console.log(result);
               
               var nameArr = [];
               for (var index = 0; index < result.rates.length; index++) {

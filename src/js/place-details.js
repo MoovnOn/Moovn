@@ -17,7 +17,8 @@ module.exports = function(id){
     var phone = result.formatted_phone_number;
     var website = result.website
 
-		show('content/place-details', '.duo-2', {detail: result} ); 
+		show('content/place-details', '.duo-2-vert', {detail: result} );
+     
 	});
 
 };
