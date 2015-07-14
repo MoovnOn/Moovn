@@ -22,7 +22,7 @@ var mouseOverZoom = require('../../educationmouseover');
 
 router.route('search/:cityName/education', function (cityName){
 
-  show('side-bar-city-search', '.side-bar-content', cityName );
+  show('side-bar-city-search', '.side-bar-content', {city: cityName} );
   searchFunction();
 
   show('city-template-2', '.main-content', {city: cityName} );

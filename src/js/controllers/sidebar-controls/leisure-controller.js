@@ -17,11 +17,11 @@ var activeSelection = require('../active-selection');
 
 router.route('search/:cityName/leisure', function (cityName){
 
-  show('side-bar-city-search', '.side-bar-content', cityName );
+  show('side-bar-city-search', '.side-bar-content', {city: cityName} );
   searchFunction();
 
 
-  show('city-template-vertical', '.main-content', {city: cityName} );
+  show('city-template-2', '.main-content', {city: cityName} );
 
   activeSelection();
 
@@ -34,7 +34,7 @@ router.route('search/:cityName/leisure', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  show('content/tabs-lists', '.duo-1-vert')
+  show('content/tabs-lists', '.duo-1')
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
@@ -48,10 +48,10 @@ router.route('search/:cityName/leisure', function (cityName){
   places(cityName, "Shopping", ".tab-data4", ".tab-title4");
   places(cityName, "Coffee & Tea", ".tab-data5", ".tab-title5");
 
-  $(".duo-2-vert").html("<h1 class= 'select-details'><i class='fa fa-arrow-circle-o-left'></i> Select for details</h1>");
-  setTimeout(function(){
-    $(".select-details").fadeOut()
-    }, 4000);
+  // $(".duo-2").html("<h1 class= 'select-details'><i class='fa fa-arrow-circle-o-left'></i> Select for details</h1>");
+  // setTimeout(function(){
+  //   $(".select-details").fadeOut("slow")
+  //   }, 3500);
 
   $('.city-all-container').on('click', '.clickSpan', function (){
     var id = this.id;

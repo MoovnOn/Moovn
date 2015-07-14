@@ -13,11 +13,12 @@ var searchFunction = require('../../search');
 var views = require('views');
 var incomeCity = require ('../../graphs/income-city-wide')
 var activeSelection = require('../active-selection');
+var jobSearch = require('../../job-search')
 
 
 router.route('search/:cityName/industry', function (cityName){
 
-  show('side-bar-city-search', '.side-bar-content', cityName);
+  show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
 
   show('city-template-3', '.main-content', {city: cityName});
@@ -27,11 +28,11 @@ router.route('search/:cityName/industry', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  // $.ajax({
-  //   method: 'GET',
-  //   url: ''
-  // })
-
+  $('.main-content').on('submit', '.industry-form', function(e) {
+    e.preventDefault();
+    jobSearch(state, city);
+  }); 
+ 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );

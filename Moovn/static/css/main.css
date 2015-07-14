@@ -1280,15 +1280,21 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
     width: 100%; } }
 
 .logo-container {
-  max-width: 200px;
   display: inline-block;
-  margin-bottom: 1em;
-  padding: 0.3em; }
+  padding: 0.5em;
+  padding-bottom: 1em;
+  border-bottom: 4px solid #2F3948; }
 
 .side-nav-container {
-  max-width: 200px;
+  max-width: 206px;
   float: left;
-  position: fixed; }
+  position: fixed;
+  background-color: #354052;
+  color: white; }
+
+.city-title {
+  text-align: center;
+  font-size: 1.2em; }
 
 .side-nav-list {
   background-color: #354052;
@@ -1315,12 +1321,12 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 .side-nav-item-container:hover .side-nav-item {
   color: white;
   background: #2F3948;
-  border-left: 3px solid white; }
+  border-left: 3px solid #B27700; }
 
 .side-nav-item-active {
   color: white;
   background: #2F3948;
-  border-left: 3px solid white; }
+  border-left: 3px solid #B27700; }
 
 .side-nav-item-container:hover .side-icon {
   color: white; }
@@ -1330,6 +1336,23 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 
 .bar-menu-icon {
   display: none; }
+
+.search-form-city-view {
+  color: black;
+  padding: 1em;
+  margin-top: 1em;
+  border-top: 4px solid #2F3948; }
+
+.search-city-view {
+  border-radius: 0.2em;
+  border: none;
+  padding: 0.3em;
+  width: 75%; }
+
+#side-bar-button {
+  background-color: #A5B6C3;
+  padding: 0.4em;
+  border: none; }
 
 @media screen and (max-width: 670px) {
   .side-nav-container {
@@ -1458,16 +1481,16 @@ header {
     margin-top: 1em; } }
 
 .quad-1, .quad-2 {
-  margin-top: 3.5em; }
+  margin-top: 1.5em; }
 
 .tri-1 {
   margin-top: 3.4em; }
 
 .duo-1, .duo-1-vert, .duo-2-vert {
-  margin-top: 4em; }
+  margin-top: 1.5em; }
 
 .duo-2 {
-  margin-top: 1em; }
+  margin-top: 1.5em; }
 
 .duo-1-vert, .duo-2-vert {
   padding-right: 0.7em;
@@ -1489,32 +1512,8 @@ header {
   margin-bottom: 2em;
   margin-left: 14em; }
 
-.city-title {
-  display: inline-block;
-  padding: 0.8em;
-  font-size: 1.8em;
-  text-align: right;
-  position: absolute;
-  top: 0;
-  right: 0; }
-
 .graph {
   width: 50%; }
-
-.search-form-city-view {
-  color: black;
-  padding: 1em; }
-
-.search-city-view {
-  border-radius: 0.2em;
-  border: none;
-  padding: 0.3em;
-  width: 95%; }
-
-.submit-city-view {
-  background-color: #A5B6C3;
-  border: none;
-  width: 100%; }
 
 @media screen and (max-width: 670px) {
   .city-all-container {
