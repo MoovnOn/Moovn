@@ -24225,7 +24225,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require("jquery");
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -25520,13 +25520,61 @@ router.route('search/:cityName/taxes', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', cityName);
   searchFunction();
-  show('test', '.main-content', {city: cityName});
+  show('city-template-2', '.main-content', {city: cityName});
   activeSelection();
-  
+
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
+  
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+  
+  show('content/tabs-lists', '.duo-1')
+
+  //gets the lists displaying as tabs and can change to accordian
+  $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+  });
+  
+ 
+  // var zipAPIKey = "2fXDrXTNbfJ0BvCbMv5FBUugjRrfj34lj1YKZSyb7hbINOUzjZfVUJcdBDsUHxf1"
+  //   $.ajax({
+  //     method: 'GET',  
+  //     url:'https://www.zipcodeapi.com/rest/'+ zipAPIKey + '/city-zips.json/'+ city +'/'+ state 
+  //   }).done(function (zipResult){
+  //       // var zip = zipResult[0];
+  //       var zip = 27701;
+  //       console.log(zip);
+   
+  var zipRegex = /\b\d{5}\b/g;
+   
+   var client = new XMLHttpRequest();
+      client.open("GET", "http://api.zippopotam.us/us/" + state + "/" + city, true);
+      client.onreadystatechange = function () {
+        if(client.readyState == 4) {
+      		var response = client.responseText;
+          var zipArr = response.match(zipRegex);
+        
+        var zip = zipArr[0];
+        var taxAPIKey = "mZ%2B6%2Bz8d%2B%2FlemJE9aFq4nKKnllHyjnV6dxQubPKpTX2X0dGNDGa6OrsVBIKAKyQDWPd%2FC7HqWhEC%2F2Aq41Ybew%3D%3D"
+          $.ajax({
+            method: 'GET',  
+            url:'https://taxrates.api.avalara.com:443/postal?country=usa&postal=' + zip + '&apikey=' + taxAPIKey 
+          }).done(function (result){
+            console.log(result);
+          })          
+          
+      	};
+      };
+      client.send();
+      
+      
+
+
+   
 
 });
 
@@ -26156,7 +26204,7 @@ var $ = require("jquery");
 var router = require('./router');
 
 // Require all of our controllers
-({"controllers":({"active-selection":require("./controllers/active-selection.js"),"city-comp-controller":require("./controllers/city-comp-controller.js"),"city-controller":require("./controllers/city-controller.js"),"search-controller":require("./controllers/search-controller.js"),"sidebar-controls":({"education-controller":require("./controllers/sidebar-controls/education-controller.js"),"housing-controller":require("./controllers/sidebar-controls/housing-controller.js"),"industry-controller":require("./controllers/sidebar-controls/industry-controller.js"),"internet-controller":require("./controllers/sidebar-controls/internet-controller.js"),"jobs-controller":require("./controllers/sidebar-controls/jobs-controller.js"),"leisure-controller":require("./controllers/sidebar-controls/leisure-controller.js"),"people-controller":require("./controllers/sidebar-controls/people-controller.js"),"taxes":require("./controllers/sidebar-controls/taxes.js"),"transpo-controller":require("./controllers/sidebar-controls/transpo-controller.js")})})});
+({"controllers":({"active-selection":require("./controllers/active-selection.js"),"city-comp-controller":require("./controllers/city-comp-controller.js"),"city-controller":require("./controllers/city-controller.js"),"search-controller":require("./controllers/search-controller.js"),"sidebar-controls":({"education-controller":require("./controllers/sidebar-controls/education-controller.js"),"housing-controller":require("./controllers/sidebar-controls/housing-controller.js"),"industry-controller":require("./controllers/sidebar-controls/industry-controller.js"),"internet-controller":require("./controllers/sidebar-controls/internet-controller.js"),"jobs-controller":require("./controllers/sidebar-controls/jobs-controller.js"),"leisure-controller":require("./controllers/sidebar-controls/leisure-controller.js"),"people-controller":require("./controllers/sidebar-controls/people-controller.js"),"taxes-controller":require("./controllers/sidebar-controls/taxes-controller.js"),"transpo-controller":require("./controllers/sidebar-controls/transpo-controller.js")})})});
 
 // Start the router
 router.init();
@@ -26191,7 +26239,7 @@ $.ajaxSetup({
         }
     }
 });
-},{"./controllers/active-selection.js":5,"./controllers/city-comp-controller.js":6,"./controllers/city-controller.js":7,"./controllers/search-controller.js":8,"./controllers/sidebar-controls/education-controller.js":9,"./controllers/sidebar-controls/housing-controller.js":10,"./controllers/sidebar-controls/industry-controller.js":11,"./controllers/sidebar-controls/internet-controller.js":12,"./controllers/sidebar-controls/jobs-controller.js":13,"./controllers/sidebar-controls/leisure-controller.js":14,"./controllers/sidebar-controls/people-controller.js":15,"./controllers/sidebar-controls/taxes.js":16,"./controllers/sidebar-controls/transpo-controller.js":17,"./router":37,"jquery":"jquery"}],30:[function(require,module,exports){
+},{"./controllers/active-selection.js":5,"./controllers/city-comp-controller.js":6,"./controllers/city-controller.js":7,"./controllers/search-controller.js":8,"./controllers/sidebar-controls/education-controller.js":9,"./controllers/sidebar-controls/housing-controller.js":10,"./controllers/sidebar-controls/industry-controller.js":11,"./controllers/sidebar-controls/internet-controller.js":12,"./controllers/sidebar-controls/jobs-controller.js":13,"./controllers/sidebar-controls/leisure-controller.js":14,"./controllers/sidebar-controls/people-controller.js":15,"./controllers/sidebar-controls/taxes-controller.js":16,"./controllers/sidebar-controls/transpo-controller.js":17,"./router":37,"jquery":"jquery"}],30:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
