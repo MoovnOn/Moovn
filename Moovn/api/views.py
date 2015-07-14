@@ -17,7 +17,7 @@ from geo.models import City, Boundary, Name, NeighborhoodBoundary
 import xmltodict
 import json
 
-requests_cache.install_cache('cache')
+requests_cache.install_cache('cache', expire_after=18000)
 # with open('geo/bls_industry.csv') as file:
 
 try:
