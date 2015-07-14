@@ -26408,7 +26408,6 @@ module.exports = function(state, city){
   }).done(function(data){
   	console.log(data)
   	console.log(job)	
-
   });
 
   
@@ -26645,7 +26644,6 @@ module.exports = function(id){
     var website = result.website
 
 		show('content/place-details', '.duo-2', {detail: result} );
-     
 	});
 
 };

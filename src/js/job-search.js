@@ -11,7 +11,6 @@ module.exports = function(state, city){
   }).done(function(data){
   	console.log(data)
   	console.log(job)	
-
   });
 
   

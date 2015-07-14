@@ -3,7 +3,8 @@
 <p><%- m.detail.formatted_phone_number %></p>
 <p><%- m.detail.website %></p>
 <br>
-
+<img src='<%- m.detail.photos[0].getUrl({ 'maxWidth': 250, 'maxHeight': 250 }) %>'>
 <% m.detail.reviews.forEach(function(i) { %>
 	<p><%- i.text %></p><br>
 <% }); %>
+
