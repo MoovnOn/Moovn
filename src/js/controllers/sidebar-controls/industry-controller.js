@@ -51,7 +51,7 @@ router.route('search/:cityName/industry', function (cityName){
     messages: {
       noResults: '',
       results: function() {}
-      }  
-    });
+    }  
+  });
 
 });
