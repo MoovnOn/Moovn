@@ -30,8 +30,6 @@ router.route('search/:cityName/education', function (cityName){
   show('city-template-2', '.main-content', {city: cityName} );
 
   activeSelection();
-  $("#neighborhood-title").text("Select a Neighborhood")
-
 
   nTitle = d3.select(".city-all-container");
   nTitle.selectAll("span");
