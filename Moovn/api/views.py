@@ -170,45 +170,45 @@ def industry_view(request, state, name):
     return JsonResponse(datadict)
 
 
-jcdata = "1,2,3,4,5,6,7,8,9,10," \
-         "11,12,13,14,15,16,17,18,19,20," \
-         "21,22,23,24,25,26,27,28,29,30," \
-         "31,32"
+# jcdata = "1,2,3,4,5,6,7,8,9,10," \
+#          "11,12,13,14,15,16,17,18,19,20," \
+#          "21,22,23,24,25,26,27,28,29,30," \
+#          "31,32"
 
 
-def jobs_view(request, state, name):
+# def jobs_view(request, state, name):
     # ip = get_real_ip(request)
-    ip = request.META.get("REMOTE_ADDR")
-    # browser = request.user_agent.browser
-    browser = request.META.get("HTTP_USER_AGENT")
-    headers = {"user-agent": browser}
-    if ip is not None:
-        name = get_object_or_404(Name, name=name, state=state)
-        data = {"v": "1",
-                "format": "json",
-                "t.p": apis("glass_tp"),
-                "t.k": apis("glass_tk"),
-                "userip": ip,
-                "useragent": browser,
-                "action": "jobs-stats",
-                # # "l": "city",
-                "city": name.name,
-                "state": name.state,
-                # "fromAge": "30",
-                # "radius": "25",
-                # "jc": jcdata,
-                "returnJobTitles": True,
-                "returnCities": True,
-                "jobTitle": "Software Engineer",
-                "admLevelRequested": "1"
-                # "countryID": "1",
-                }
-        gldata = requests.get('http://api.glassdoor.com/api/api.htm', params=data, headers=headers)
-        response = HttpResponse(gldata)
-        return response
-        # return HttpResponse("IP: {}, User-Agent: {}".format(ip, browser))
-    else:
-        return HttpResponse("No ip didn't work")
+    # ip = request.META.get("REMOTE_ADDR")
+    # # browser = request.user_agent.browser
+    # browser = request.META.get("HTTP_USER_AGENT")
+    # headers = {"user-agent": browser}
+    # if ip is not None:
+    #     name = get_object_or_404(Name, name=name, state=state)
+    #     data = {"v": "1",
+    #             "format": "json",
+    #             "t.p": apis("glass_tp"),
+    #             "t.k": apis("glass_tk"),
+    #             "userip": ip,
+    #             "useragent": browser,
+    #             "action": "jobs-stats",
+    #             # # "l": "city",
+    #             "city": name.name,
+    #             "state": name.state,
+    #             # "fromAge": "30",
+    #             # "radius": "25",
+    #             # "jc": jcdata,
+    #             "returnJobTitles": True,
+    #             "returnCities": True,
+    #             "jobTitle": "Software Engineer",
+    #             "admLevelRequested": "1"
+    #             # "countryID": "1",
+    #             }
+    #     gldata = requests.get('http://api.glassdoor.com/api/api.htm', params=data, headers=headers)
+    #     response = HttpResponse(gldata)
+    #     return response
+    #     # return HttpResponse("IP: {}, User-Agent: {}".format(ip, browser))
+    # else:
+    #     return HttpResponse("No ip didn't work")
 
 
 def salary_view(request, state, name, job):
@@ -280,6 +280,4 @@ def industry_size_view(request, state, name):
     for ind in datadict:
         datadict[ind] = round((((float(datadict[ind])) / (float(allind))) * 100), 2)
 
-    response = JsonResponse(datadict)
-
-    return response
+    return JsonResponse(datadict)
