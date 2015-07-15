@@ -25250,15 +25250,14 @@ var mouseOverZoom = require('../../mouseoverzoom');
 
 router.route('search/:cityName/housing', function (cityName){
 
-<<<<<<< HEAD
+
   show('side-bar-city-search', '.side-bar-content', {city: cityName} );
-=======
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
 
-  show('side-bar-city-search', '.side-bar-content', cityName );
->>>>>>> origin
+
   searchFunction();
   show('city-template-4-map', '.main-content', {city: cityName} );
 
@@ -25399,11 +25398,7 @@ router.route('search/:cityName/housing', function (cityName){
 
 });
 
-<<<<<<< HEAD
-},{"../../graphs/housing":24,"../../mouseoverzoom":39,"../../neighMap":40,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../topojson":48,"../../zoom":49,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
-=======
-},{"../../graphs/housing":24,"../../mouseoverzoom":34,"../../neighMap":35,"../../places-api":38,"../../router":39,"../../search":40,"../../show":41,"../../topojson":43,"../../zoom":44,"../active-selection":5,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
->>>>>>> origin
+},{"../../graphs/housing":24,"../../mouseoverzoom":39,"../../neighMap":40,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../topojson":48,"../../zoom":49,"../active-selection":5,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
