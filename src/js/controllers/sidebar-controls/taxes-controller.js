@@ -37,8 +37,6 @@ router.route('search/:cityName/taxes', function (cityName){
       // startCollapsed: 'accordion'
   });
   
-    places(cityName, "banks", ".tab-data2", ".tab-title2");
-    places(cityName, "Credit Union", ".tab-data3", ".tab-title3");
  
   // var zipAPIKey = "2fXDrXTNbfJ0BvCbMv5FBUugjRrfj34lj1YKZSyb7hbINOUzjZfVUJcdBDsUHxf1"
   //   $.ajax({
@@ -74,7 +72,7 @@ router.route('search/:cityName/taxes', function (cityName){
                 rateArr.push(result.rates[index].rate)
               }
               
-              $(".tab-title1").html('<a href="#tab-1" class="r-tabs-anchor">Sales Tax Rates</a>');   
+              $(".tab-title1").children("a").text("Sales Tax Rates");
               
                nameArr.forEach(function(e, i) {
                 $(".tab-data1").append(nameArr[i] + " ");
@@ -91,7 +89,8 @@ router.route('search/:cityName/taxes', function (cityName){
       
 
 
-
+    places(cityName, "banks", ".tab-data2", ".tab-title2");
+    places(cityName, "Credit Union", ".tab-data3", ".tab-title3");
    
 
 });

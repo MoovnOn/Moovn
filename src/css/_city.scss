@@ -43,7 +43,18 @@
 
 @media screen and (max-width: 670px) {
     .city-all-container{
-      margin-left: 2em;
+      margin: 0.1em;
+    }
+    .bar-menu-icon{
+      margin-top:0.7em;
+      margin-left:0.7em;
+      margin-bottom: 0em;
+    }
+    .duo-1{
+      margin-top: 1em;
+    }
+    .r-tabs .r-tabs-panel {
+    padding-left: 30px;
     }
 }
 
@@ -53,7 +64,7 @@
   cursor: pointer;
   text-decoration: none;
   color:#0046B2;
-  line-height: 1.2;
+  line-height: 1.5;
 }
 .clickSpan:hover {
   color: $comp-color;

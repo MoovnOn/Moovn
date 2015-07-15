@@ -25574,8 +25574,6 @@ router.route('search/:cityName/taxes', function (cityName){
       // startCollapsed: 'accordion'
   });
   
-    places(cityName, "banks", ".tab-data2", ".tab-title2");
-    places(cityName, "Credit Union", ".tab-data3", ".tab-title3");
  
   // var zipAPIKey = "2fXDrXTNbfJ0BvCbMv5FBUugjRrfj34lj1YKZSyb7hbINOUzjZfVUJcdBDsUHxf1"
   //   $.ajax({
@@ -25611,7 +25609,7 @@ router.route('search/:cityName/taxes', function (cityName){
                 rateArr.push(result.rates[index].rate)
               }
               
-              $(".tab-title1").html('<a href="#tab-1" class="r-tabs-anchor">Sales Tax Rates</a>');   
+              $(".tab-title1").children("a").text("Sales Tax Rates");
               
                nameArr.forEach(function(e, i) {
                 $(".tab-data1").append(nameArr[i] + " ");
@@ -25628,7 +25626,8 @@ router.route('search/:cityName/taxes', function (cityName){
       
 
 
-
+    places(cityName, "banks", ".tab-data2", ".tab-title2");
+    places(cityName, "Credit Union", ".tab-data3", ".tab-title3");
    
 
 });
@@ -26650,11 +26649,11 @@ module.exports = function(id){
 
 	service.getDetails(request, function(result, status) {
   
-		show('content/place-details', '.modal-details', {detail: result} );
-     	$(".modal-details").fadeIn();
+		show('content/place-details', '.details-right', {detail: result} );
+     	$(".details-right").fadeIn();
 
     $(".close-button").click(function(){
-       $(".modal-details").fadeOut();
+       $(".details-right").fadeOut();
      });
 	});
 };
@@ -26676,7 +26675,8 @@ module.exports = function(city, searchTerm, tabContainer, tabtitle) {
 	service.textSearch(request, function(results) {
 	  for (var i = 0; i < results.length; i++) {
     	var place = results[i];
-    	$(tabContainer).append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
+    	$(tabContainer).children('.list-left').append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
+      // $(tabContainer).append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
 		}
 	});
 };
