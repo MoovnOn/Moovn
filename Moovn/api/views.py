@@ -221,7 +221,7 @@ def salary_view(request, state, name, job):
     seriesids = []
     for series in locids:
         for line in occupations:
-            if all(word in occupations[line] for word in jobtitle):
+            if jobtitle in [occupations[line].rstrip(',')]:
                 seriesids.append(series + line + "11")
                 seriesids.append(series + line + "12")
                 seriesids.append(series + line + "13")
@@ -234,20 +234,53 @@ def salary_view(request, state, name, job):
                        "registrationKey": apis("blskey"),
                        })
     ocp_data = requests.post('http://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
+    # ndata = json.loads(ocp_data.text)
+    # datadict = {}
+    # typecodes = {"11": "10th", "12": "25th", "13": "50th", "14": "75th", "15": "90th"}
+    # if not ndata["Results"] or not ndata["Results"]["series"]:
+    #     response = HttpResponse("no data")
+    #     return response
+    # else:
+    #     for line in ndata["Results"]["series"]:
+    #         for job in occupations:
+    #             if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
+    #                 datadict[occupations[job]
+    #                          + typecodes[str(line['seriesID'][-2:])]] = line["data"][0]["value"]
+    #
+    # response = JsonResponse(datadict)
+    response = HttpResponse(ocp_data)
+
+    return response
+
+
+main_ind = [str(num) for num in range(110000, 530000, 20000)]
+
+
+def industry_size_view(request, state, name):
+    name = get_object_or_404(Name, name=name, state=state)
+    locid = name.city.ocp_id.split(',')[0][4:11]
+    seriesids = [("OEUM" + locid + "000000" + ocup + "01") for ocup in main_ind]
+    seriesids += [("OEUM" + locid + "000000" + "000000" + "01")]
+    headers = {'Content-type': 'application/json'}
+    data = json.dumps({"seriesid": seriesids,
+                       "startyear": "2014", "endyear": "2014",
+                       "registrationKey": apis("blskey"),
+                       })
+    ocp_data = requests.post('http://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
     ndata = json.loads(ocp_data.text)
     datadict = {}
-    typecodes = {"11": "10th", "12": "25th", "13": "50th", "14": "75th", "15": "90th"}
-    if not ndata["Results"]["series"]:
+    if not ndata["Results"] or not ndata["Results"]["series"]:
         response = HttpResponse("no data")
         return response
     else:
         for line in ndata["Results"]["series"]:
             for job in occupations:
                 if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
-                    datadict[occupations[job]
-                             + typecodes[str(line['seriesID'][-2:])]] = line["data"][0]["value"]
+                    datadict[occupations[job]] = line["data"][0]["value"]
+    allind = datadict["All Occupations"]
+    for ind in datadict:
+        datadict[ind] = round((((float(datadict[ind]))/(float(allind))) * 100), 2)
 
     response = JsonResponse(datadict)
-    # response = HttpResponse(ocp_data)
 
     return response
