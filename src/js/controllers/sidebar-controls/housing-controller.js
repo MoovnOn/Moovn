@@ -27,7 +27,8 @@ router.route('search/:cityName/housing', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  show('side-bar-city-search', '.side-bar-content', cityName );
+  show('side-bar-city-search', '.side-bar-content', {city: cityName} );
+
   searchFunction();
   show('city-template-4-map', '.main-content', {city: cityName} );
 

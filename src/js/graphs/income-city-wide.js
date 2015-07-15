@@ -21,7 +21,7 @@ module.exports = function(state, city) {
        
        
        c3.generate({
-        bindto: 'body .quad-1',
+        bindto: 'body .tri-3',
         data: {
           columns: [
               ['Median-City-Income', housingPeopleIncome],

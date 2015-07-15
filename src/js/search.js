@@ -42,21 +42,21 @@ module.exports = function(){
 
   });
 
-      $("#tags").autocomplete({
-        source: availableTags,
-        messages: {
-          noResults: '',
-          results: function() {}
-          },
-         
-      });
-       $("#tags2").autocomplete({
-        source: availableTags,
-        messages: {
-          noResults: '',
-          results: function() {}
-          }
-      });
+  $("#tags").autocomplete({
+    source: availableTags,
+    messages: {
+      noResults: '',
+      results: function() {}
+      },
+     
+  });
+   $("#tags2").autocomplete({
+    source: availableTags,
+    messages: {
+      noResults: '',
+      results: function() {}
+      }
+  });
 
 
 }
