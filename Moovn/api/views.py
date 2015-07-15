@@ -31,11 +31,11 @@ except:
             }
 try:
     with open('geo/oe_ocup.csv') as file:
-        occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].rstrip('\n').replace('"', '') for line
+        occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].strip().replace('"', '') for line
                        in file}
 except:
     with open('Moovn/geo/oe_ocup.csv') as file:
-        occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].rstrip('\n').replace('"', '') for line
+        occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].strip().replace('"', '') for line
                        in file}
 
 
