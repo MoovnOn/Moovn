@@ -2,20 +2,19 @@ var $ = require('jQuery');
 var mouseout = require('./mouseout');
 var neighborhoodRequests = require('./neighborhood-requests')
 var c3 = require('c3')
-
+//var d3 = require('d3')
 module.exports = function (d, path, g, height, width, zoomout, state, city){
 
   var bounds = path.bounds(d);
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
-    zoomout();
-
+    zoomout(d);
 
   } else {
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
-
+    
 
     var x = d3.scale.linear()
         .domain([0, width])
@@ -56,10 +55,11 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
     }
 
-    function zoomed(translate, scale){
+    function zoomed(){
 
       g.style("stroke-width", 1.5 / d3.event.scale + "px");
       g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+
 
     };
 
@@ -68,4 +68,5 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     neighborhoodRequests(state, city, d.properties['GEOID10'], ident.centroid(d));
   }
 
+  //d3.event.stopPropogation();
 }

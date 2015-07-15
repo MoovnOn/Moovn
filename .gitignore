@@ -87,3 +87,5 @@ Moovn/Moovn/moovn_apis.py
 # Front End
 node_modules/
 bower.json
+Moovn/geo/.ipynb_checkpoints/
+Moovn/api/.ipynb_checkpoints/

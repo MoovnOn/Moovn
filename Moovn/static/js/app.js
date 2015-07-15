@@ -25128,7 +25128,6 @@ router.route('search/:cityName/education', function (cityName){
 
       }
 
-
     });
 
   });
@@ -25154,7 +25153,7 @@ var router = require('../../router');
 var show = require('../../show');
 var places = require('../../places-api');
 var tab = require('responsive-tabs');
-var d3 = require('d3');
+var c3 = require('c3');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
@@ -25171,42 +25170,62 @@ var mouseOverZoom = require('../../mouseoverzoom');
 
 router.route('search/:cityName/housing', function (cityName){
 
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
+
   show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
   show('city-template-4-map', '.main-content', {city: cityName} );
-  
-  $("#neighborhood-title").text("Select a Neighborhood")
+
+  nTitle = d3.select(".city-all-container");
+  nTitle.selectAll("span");
+  nTitle.insert("span", ".pure-g").text("Select a ");
+  nTitle.insert("span", ".pure-g").style({"color": "grey", "font-weight": "bold"})
+    .text("neighborhood");
+  nTitle.insert("span", ".pure-g").text(" of ");
+  nTitle.insert("span", ".pure-g").style({"color": "darkgreen", "font-weight": "bold"})
+    .text(city);
+
+  //$("#neighborhood-title").text("Select a Neighborhood");
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
   var width = 400;
   svg.attr("width", width).attr("height", height);
+
+  // svg.append("text")
+  //   .attr("x", 200)
+  //   .attr("y", 20)
+  //   .attr("id", "map-title")
+  //   .attr("text-anchor", "middle")
+  //   .text("");
+
   var g = svg.append("g");
 
   var projection = d3.geo.albers().scale(200).translate([150,140]);
   var path = d3.geo.path().projection(projection);
 
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
+  //currenty bound to quad-2
+  var housingdata = housingGraphGeneral(state, city);
   var cityjson = [];
   var boundaryjson = [];
   var id = 0;
 
-  Promise.all([
-
-  $.ajax({
-
-    method: 'GET',
-    url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
-
-  }).done(function (json){
-
-    neighMap(json, g, path, "black", "US");
-
-  })
-
-  ]).then(function(results){
+  // Promise.all([
+  //
+  // $.ajax({
+  //
+  //   method: 'GET',
+  //   url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
+  //
+  // }).done(function (json){
+  //
+  //   neighMap(json, g, path, "black", "US");
+  //
+  // })
+  //
+  // ]).then(function(results){
 
   Promise.all([
 
@@ -25217,7 +25236,7 @@ router.route('search/:cityName/housing', function (cityName){
 
       }).done(function (json){
 
-        cityjson = neighMap(json, g, path, "brown", "city");
+        cityjson = neighMap(json, g, path, "brown", "city", height, width);
 
       }),
 
@@ -25232,7 +25251,7 @@ router.route('search/:cityName/housing', function (cityName){
 
       }).done(function (json){
         if (json){
-          boundaryjson = neighMap(json, g, path, "grey", "neighborhood");
+          boundaryjson = neighMap(json, g, path, "grey", "neighborhood", height, width);
         } else {
           boundaryjson = false
         }
@@ -25242,16 +25261,23 @@ router.route('search/:cityName/housing', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
-
+        $("#map-title").text(city)
         zoom(cityjson, boundaryjson, g, path, height, width);
 
-        var mouseOutZoom = function () {
-          $("#neighborhood-title").text("Select A Neighborhood");
+        var mouseOutZoom = function (d) {
+          $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
+
+          d3.selectAll("path")
+            .classed("active", false)
+          //c3.generate(housingdata);
+          housingGraphGeneral(state, city);
           return zoom(cityjson, boundaryjson, g, path, height, width);
         };
 
         var mouseZoom = function(d) {
           $("#neighborhood-title").text(d.properties.NAME);
+          $(".maptext").attr("opacity", 0);
+          $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
           return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
         };
 
@@ -25263,13 +25289,11 @@ router.route('search/:cityName/housing', function (cityName){
 
       }
 
-
     });
 
   });
-
-  })
-
+  //
+  // })
 
   activeSelection();
 
@@ -25277,14 +25301,6 @@ router.route('search/:cityName/housing', function (cityName){
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
-
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
-
-  //currenty bound to quad-3
-  housingGraphGeneral(state, city);
-
 
   show('content/tabs-lists', '.quad-4')
 
@@ -25294,7 +25310,6 @@ router.route('search/:cityName/housing', function (cityName){
   });
 
 //google places
-
   places(cityName, "apartments", ".tab-data1", ".tab-title1");
   places(cityName, "realty", ".tab-data2", ".tab-title2");
   places(cityName, "banks", ".tab-data3", ".tab-title3");
@@ -25302,7 +25317,7 @@ router.route('search/:cityName/housing', function (cityName){
 
 });
 
-},{"../../graphs/housing":24,"../../mouseoverzoom":34,"../../neighMap":35,"../../places-api":38,"../../router":39,"../../search":40,"../../show":41,"../../topojson":43,"../../zoom":44,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
+},{"../../graphs/housing":24,"../../mouseoverzoom":34,"../../neighMap":35,"../../places-api":38,"../../router":39,"../../search":40,"../../show":41,"../../topojson":43,"../../zoom":44,"../active-selection":5,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -26012,13 +26027,21 @@ var d3 = require('d3');
 var $ = require('jquery');
 
 module.exports = function(state, city) {
+  //var data;
 
-  $.ajax({
-    method: 'GET',
-    url: '/api/homeprices/' + state + '/' + city + '/'
-  })
-  .then(parseHousing);
+  //Promise.all([
 
+    $.ajax({
+      method: 'GET',
+      url: '/api/homeprices/' + state + '/' + city + '/'
+    })
+    .then(function(d){parseHousing(d);})
+
+//  ]).then(
+
+  //  function (results) { data = results;}
+
+  //);
 
   function parseHousing(allHousingData){
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
@@ -26031,9 +26054,8 @@ module.exports = function(state, city) {
     var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
-
-      var chart = c3.generate({
-        bindto: 'body .quad-3',
+      var data = {
+        bindto: 'body .quad-2',
         data: {
           columns: [
               ['Condo', housingAffordCondo],
@@ -26053,9 +26075,13 @@ module.exports = function(state, city) {
           size: {
         		height: 400
       		},
-       });
+       }
 
-  }
+      var chart = c3.generate(data);
+      return data;
+  };
+
+  //return data;
 };
 
 },{"c3":"c3","d3":"d3","jquery":"jquery"}],25:[function(require,module,exports){
@@ -26443,7 +26469,7 @@ console.log(housingResponse);
 var $ = require('jQuery')
 module.exports = function (d){
 
-  d3.select($("#" + d.properties['GEOID10'])[0]).style("fill", "grey")
+  d3.select($("#" + d.properties.GEOID10)[0]).style("fill", "grey")
 
 }
 
@@ -26452,20 +26478,19 @@ var $ = require('jQuery');
 var mouseout = require('./mouseout');
 var neighborhoodRequests = require('./neighborhood-requests')
 var c3 = require('c3')
-
+//var d3 = require('d3')
 module.exports = function (d, path, g, height, width, zoomout, state, city){
 
   var bounds = path.bounds(d);
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
-    zoomout();
-
+    zoomout(d);
 
   } else {
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
-
+    
 
     var x = d3.scale.linear()
         .domain([0, width])
@@ -26506,10 +26531,11 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
     }
 
-    function zoomed(translate, scale){
+    function zoomed(){
 
       g.style("stroke-width", 1.5 / d3.event.scale + "px");
       g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+
 
     };
 
@@ -26518,14 +26544,15 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     neighborhoodRequests(state, city, d.properties['GEOID10'], ident.centroid(d));
   }
 
+  //d3.event.stopPropogation();
 }
 
 },{"./mouseout":33,"./neighborhood-requests":36,"c3":"c3","jQuery":1}],35:[function(require,module,exports){
 var topojson = require('./topojson')
 
-module.exports = function (json, g, path, color, type) {
+module.exports = function (json, g, path, color, type, height, width) {
 
-  var data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]])
+  var data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]]);
 
   var fill;
   var stroke;
@@ -26571,6 +26598,24 @@ module.exports = function (json, g, path, color, type) {
         .style("stroke", stroke)
         .style("stroke-opacity", 0.1)
         .attr("id", function(d){return d.properties.GEOID10;});
+
+    var text = neighG.append("g")
+
+    var scale = function (b) {
+      return Math.min(width / (b[1][0] - b[0][0]), height / (b[1][1] - b[0][1]));
+    };
+
+    text.selectAll("text")
+      .data(data.features)
+    .enter().append("text")
+      .attr("transform", function(d){ return "translate(" + path.centroid(d) +
+            ")scale(" + 3 / (scale(path.bounds(d))) +")";})
+      .attr("id", function(d){return d.properties.GEOID10 + "T";})
+      .attr("opacity", 0)
+      .attr("class", "maptext")
+      .attr("text-anchor", "middle")
+      .text(function(d){ return d.properties.NAME;});
+
 
   }
 

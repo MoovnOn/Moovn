@@ -1,8 +1,8 @@
 var topojson = require('./topojson')
 
-module.exports = function (json, g, path, color, type) {
+module.exports = function (json, g, path, color, type, height, width) {
 
-  var data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]])
+  var data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]]);
 
   var fill;
   var stroke;
@@ -48,6 +48,24 @@ module.exports = function (json, g, path, color, type) {
         .style("stroke", stroke)
         .style("stroke-opacity", 0.1)
         .attr("id", function(d){return d.properties.GEOID10;});
+
+    var text = neighG.append("g")
+
+    var scale = function (b) {
+      return Math.min(width / (b[1][0] - b[0][0]), height / (b[1][1] - b[0][1]));
+    };
+
+    text.selectAll("text")
+      .data(data.features)
+    .enter().append("text")
+      .attr("transform", function(d){ return "translate(" + path.centroid(d) +
+            ")scale(" + 3 / (scale(path.bounds(d))) +")";})
+      .attr("id", function(d){return d.properties.GEOID10 + "T";})
+      .attr("opacity", 0)
+      .attr("class", "maptext")
+      .attr("text-anchor", "middle")
+      .text(function(d){ return d.properties.NAME;});
+
 
   }
 

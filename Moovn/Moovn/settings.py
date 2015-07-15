@@ -46,8 +46,7 @@ INSTALLED_APPS = (
     'django_extensions',
     'rest_framework',
     'requests',
-    'ipware.ip',
-    'django_user_agents'
+    'django_user_agents',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -116,9 +115,3 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-#         'LOCATION': '127.0.0.1.11211'
-#     }
-# }
