@@ -139,7 +139,6 @@ table {
 .r-tabs .r-tabs-accordion-title.r-tabs-state-disabled {
   opacity: 0.5; }
 
-/* Buttons */
 /* Info bar */
 .info {
   display: inline-block;
@@ -1536,6 +1535,33 @@ header {
   padding-top: 7em;
   color: #B27700; }
 
+.modal-details {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 5em;
+  margin-top: 4em;
+  padding: 1em;
+  color: black;
+  max-width: 375px;
+  max-height: 350px;
+  overflow: auto;
+  border-radius: 4px;
+  background: white;
+  border: 1px solid #354052; }
+
+.detail-title {
+  margin-top: 0em; }
+
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 5em;
+  background: white;
+  border: 1px solid black; }
+
 .c3 svg {
   font: 10px sans-serif; }
 
@@ -1742,6 +1768,10 @@ header {
 
 body {
   font-family: Century Gothic, sans-serif; }
+
+p {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  line-height: 1.2; }
 
 .ui-autocomplete {
   border: 1px solid grey;

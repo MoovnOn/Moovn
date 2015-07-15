@@ -56,13 +56,13 @@
   line-height: 1.2;
 }
 .clickSpan:hover {
-  color: #B27700;
+  color: $comp-color;
   text-decoration: underline;
 }
 .clickSpan-selected {
-  color: #B27700;
+  color: $comp-color;
 }
 .select-details{
   padding-top:7em;
-  color: #B27700;
+  color: $comp-color;
 }
