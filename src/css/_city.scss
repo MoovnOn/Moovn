@@ -40,6 +40,45 @@
   width:50%;
 }
 
+//adjusts tabs in certain views to go fullscreen
+.full-screen-container{
+  margin-top: 0em;
+  margin-right:0em;
+  margin-left: 12.9em;
+}
+.full-screen-duo1{
+  margin-top:0em;
+}
+.full-screen-tab-container{
+  border-radius: 0px;
+  border-bottom: none;
+}
+
+// css for places details 
+.clickSpan {
+  cursor: pointer;
+  text-decoration: none;
+  color:#0046B2;
+  line-height: 1.5;
+  margin-left: 0.8em;
+}
+.clickSpan:hover {
+  color: $comp-color;
+  text-decoration: underline;
+}
+.clickSpan-selected {
+  color: $comp-color;
+}
+.select-details{
+  padding-top:7em;
+  color: $comp-color;
+}
+.full-screen-details-right{
+  max-height: 80vh;
+}
+
+
+//media queries for mobile
 
 @media screen and (max-width: 670px) {
     .city-all-container{
@@ -58,22 +97,3 @@
     }
 }
 
-// css for places details 
-
-.clickSpan {
-  cursor: pointer;
-  text-decoration: none;
-  color:#0046B2;
-  line-height: 1.5;
-}
-.clickSpan:hover {
-  color: $comp-color;
-  text-decoration: underline;
-}
-.clickSpan-selected {
-  color: $comp-color;
-}
-.select-details{
-  padding-top:7em;
-  color: $comp-color;
-}

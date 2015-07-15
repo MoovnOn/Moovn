@@ -25479,9 +25479,11 @@ router.route('search/:cityName/leisure', function (cityName){
     $(this).addClass("clickSpan-selected");
   });
 
-
-
-
+  //changes tab view so that it is fullscreen only on this view
+  $(".city-all-container").addClass("full-screen-container");
+  $(".duo-1").addClass("full-screen-duo1");
+  $(".tab-list-container").addClass("full-screen-tab-container");
+  $(".details-right").addClass("full-screen-details-right");
 });
 
 },{"../../neighMap":38,"../../place-details":40,"../../places-api":41,"../../router":42,"../../search":43,"../../show":44,"../../zoom":47,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){

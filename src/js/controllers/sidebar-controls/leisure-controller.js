@@ -72,7 +72,9 @@ router.route('search/:cityName/leisure', function (cityName){
     $(this).addClass("clickSpan-selected");
   });
 
-
-
-
+  //changes tab view so that it is fullscreen only on this view
+  $(".city-all-container").addClass("full-screen-container");
+  $(".duo-1").addClass("full-screen-duo1");
+  $(".tab-list-container").addClass("full-screen-tab-container");
+  $(".details-right").addClass("full-screen-details-right");
 });
