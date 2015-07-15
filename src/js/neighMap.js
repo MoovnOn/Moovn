@@ -63,8 +63,20 @@ module.exports = function (json, g, path, color, type, height, width) {
       .attr("id", function(d){return d.properties.GEOID10 + "T";})
       .attr("opacity", 0)
       .attr("class", "maptext")
+      .style("user-select", "none")
       .attr("text-anchor", "middle")
       .text(function(d){ return d.properties.NAME;});
+
+    var neighT = neighG.append("g")
+    neighT.selectAll("path")
+        .data(data.features)
+      .enter().append("path")
+        .attr("d", path)
+        .attr("class", "feature-" + type + "TP")
+        .style("fill", "white")
+        .style("fill-opacity", 0)
+        .style("stroke", "none")
+        .attr("id", function(d){return d.properties.GEOID10 + "TP";});
 
 
   }

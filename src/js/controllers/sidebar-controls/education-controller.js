@@ -30,16 +30,14 @@ router.route('search/:cityName/education', function (cityName){
   show('city-template-2', '.main-content', {city: cityName} );
 
   activeSelection();
-  $("#neighborhood-title").text("Select a Neighborhood")
 
-
-  nTitle = d3.select(".city-all-container");
+  nTitle = d3.select(".neighborhood-select");
   nTitle.selectAll("span");
-  nTitle.insert("span", ".pure-g").text("Select a ");
-  nTitle.insert("span", ".pure-g").style({"color": "grey", "font-weight": "bold"})
+  nTitle.append("span").text("Select a ");
+  nTitle.append("span").style({"color": "grey", "font-weight": "bold"})
     .text("neighborhood");
-  nTitle.insert("span", ".pure-g").text(" of ");
-  nTitle.insert("span", ".pure-g").style({"color": "darkgreen", "font-weight": "bold"})
+  nTitle.append("span").text(" of ");
+  nTitle.append("span").style({"color": "darkgreen", "font-weight": "bold"})
     .text(city);
 
 
@@ -116,7 +114,7 @@ router.route('search/:cityName/education', function (cityName){
           return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
         };
 
-        d3.selectAll(".feature-neighborhood").on("click", mouseZoom);
+        d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
 
       } else {
 

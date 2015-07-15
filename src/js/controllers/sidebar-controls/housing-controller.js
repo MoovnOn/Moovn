@@ -30,17 +30,16 @@ router.route('search/:cityName/housing', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-
   searchFunction();
   show('city-template-4-map', '.main-content', {city: cityName} );
 
-  nTitle = d3.select(".city-all-container");
+  nTitle = d3.select(".neighborhood-select");
   nTitle.selectAll("span");
-  nTitle.insert("span", ".pure-g").text("Select a ");
-  nTitle.insert("span", ".pure-g").style({"color": "grey", "font-weight": "bold"})
+  nTitle.append("span").text("Select a ");
+  nTitle.append("span").style({"color": "grey", "font-weight": "bold"})
     .text("neighborhood");
-  nTitle.insert("span", ".pure-g").text(" of ");
-  nTitle.insert("span", ".pure-g").style({"color": "darkgreen", "font-weight": "bold"})
+  nTitle.append("span").text(" of ");
+  nTitle.append("span").style({"color": "darkgreen", "font-weight": "bold"})
     .text(city);
 
   //$("#neighborhood-title").text("Select a Neighborhood");
@@ -135,7 +134,7 @@ router.route('search/:cityName/housing', function (cityName){
           return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
         };
 
-        d3.selectAll(".feature-neighborhood").on("click", mouseZoom);
+        d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
 
       } else {
 

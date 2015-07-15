@@ -26,16 +26,21 @@ router.route('search/:cityName/industry', function (cityName){
 
   show('city-template-3', '.main-content', {city: cityName});
   activeSelection();
-  
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
 
+  d3.select(".tri-2").append("svg")
+    .attr("height", 700)
+    .attr("width", 700)
+    .call(bubbleChart, state, city)
+
   $('.main-content').on('submit', '.industry-form', function(e) {
     e.preventDefault();
     jobSearch(state, city);
-  }); 
- 
+  });
+
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
@@ -52,9 +57,9 @@ router.route('search/:cityName/industry', function (cityName){
     messages: {
       noResults: '',
       results: function() {}
-    }  
+    }
   });
 
-  bubbleChart(state, city);
+  //bubbleChart(state, city);
 
 });
