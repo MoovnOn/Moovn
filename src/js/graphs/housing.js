@@ -3,13 +3,21 @@ var d3 = require('d3');
 var $ = require('jquery');
 
 module.exports = function(state, city) {
+  //var data;
 
-  $.ajax({
-    method: 'GET',
-    url: '/api/homeprices/' + state + '/' + city + '/'
-  })
-  .then(parseHousing);
+  //Promise.all([
 
+    $.ajax({
+      method: 'GET',
+      url: '/api/homeprices/' + state + '/' + city + '/'
+    })
+    .then(function(d){parseHousing(d);})
+
+//  ]).then(
+
+  //  function (results) { data = results;}
+
+  //);
 
   function parseHousing(allHousingData){
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
@@ -22,9 +30,8 @@ module.exports = function(state, city) {
     var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
-
-      var chart = c3.generate({
-        bindto: 'body .quad-3',
+      var data = {
+        bindto: 'body .quad-2',
         data: {
           columns: [
               ['Condo', housingAffordCondo],
@@ -44,7 +51,11 @@ module.exports = function(state, city) {
           size: {
         		height: 400
       		},
-       });
+       }
 
-  }
+      var chart = c3.generate(data);
+      return data;
+  };
+
+  //return data;
 };

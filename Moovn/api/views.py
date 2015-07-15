@@ -17,8 +17,7 @@ from geo.models import City, Boundary, Name, NeighborhoodBoundary
 import xmltodict
 import json
 
-requests_cache.install_cache('cache')
-# with open('geo/bls_industry.csv') as file:
+requests_cache.install_cache('cache', expire_after=18000)
 
 try:
     with open('geo/all_bls_codes.csv') as file:
@@ -167,10 +166,8 @@ def industry_view(request, state, name):
                 round(
                     ((float(datadict[val]) / float(datadict["Total Nonfarm"])) * 100), ndigits=1)
     datadict['Gov'] = str(round((float(datadict["Total Nonfarm"]) - float(datadict["Total Private"])), ndigits=1))
-    response = JsonResponse(datadict)
-    # response = HttpResponse(ind_data)
 
-    return response
+    return JsonResponse(datadict)
 
 
 jcdata = "1,2,3,4,5,6,7,8,9,10," \
@@ -219,6 +216,7 @@ def salary_view(request, state, name, job):
     jobtitle = job.title()
     locids = name.city.ocp_id.split(',')
     seriesids = []
+    
     for series in locids:
         for line in occupations:
             if jobtitle in [occupations[line].rstrip(',')]:
@@ -269,6 +267,7 @@ def industry_size_view(request, state, name):
     ocp_data = requests.post('http://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
     ndata = json.loads(ocp_data.text)
     datadict = {}
+
     if not ndata["Results"] or not ndata["Results"]["series"]:
         response = HttpResponse("no data")
         return response
@@ -279,7 +278,7 @@ def industry_size_view(request, state, name):
                     datadict[occupations[job]] = line["data"][0]["value"]
     allind = datadict["All Occupations"]
     for ind in datadict:
-        datadict[ind] = round((((float(datadict[ind]))/(float(allind))) * 100), 2)
+        datadict[ind] = round((((float(datadict[ind])) / (float(allind))) * 100), 2)
 
     response = JsonResponse(datadict)
 
