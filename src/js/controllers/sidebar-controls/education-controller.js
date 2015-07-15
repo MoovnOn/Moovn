@@ -114,7 +114,7 @@ router.route('search/:cityName/education', function (cityName){
           return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
         };
 
-        d3.selectAll(".feature-neighborhood").on("click", mouseZoom);
+        d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
 
       } else {
 
