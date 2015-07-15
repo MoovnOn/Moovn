@@ -25037,24 +25037,32 @@ var zoom = require('../../zoom');
 var mouseOverZoom = require('../../educationmouseover');
 
 router.route('search/:cityName/education', function (cityName){
+  var citySplit = cityName.split(', ');
+  var city = citySplit[0];
+  var state = citySplit[1];
 
   show('side-bar-city-search', '.side-bar-content', cityName );
   searchFunction();
-
   show('city-template-2', '.main-content', {city: cityName} );
 
   activeSelection();
   $("#neighborhood-title").text("Select a Neighborhood")
 
+
+  nTitle = d3.select(".city-all-container");
+  nTitle.selectAll("span");
+  nTitle.insert("span", ".pure-g").text("Select a ");
+  nTitle.insert("span", ".pure-g").style({"color": "grey", "font-weight": "bold"})
+    .text("neighborhood");
+  nTitle.insert("span", ".pure-g").text(" of ");
+  nTitle.insert("span", ".pure-g").style({"color": "darkgreen", "font-weight": "bold"})
+    .text(city);
+
+
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
-
-
-  var citySplit = cityName.split(', ');
-  var city = citySplit[0];
-  var state = citySplit[1];
 
   show('content/tabs-lists', '.duo-2')
 
@@ -25082,7 +25090,7 @@ router.route('search/:cityName/education', function (cityName){
       }).done(function (json){
 
 
-        cityjson = neighMap(json, g, path, "brown", "city");
+        cityjson = neighMap(json, g, path, "brown", "city", height, width);
 
       }),
 
@@ -25097,7 +25105,7 @@ router.route('search/:cityName/education', function (cityName){
 
       }).done(function (json){
         if (json){
-          boundaryjson = neighMap(json, g, path, "grey", "neighborhood");
+          boundaryjson = neighMap(json, g, path, "grey", "neighborhood", height, width);
         } else {
           boundaryjson = false
         }
@@ -25107,16 +25115,20 @@ router.route('search/:cityName/education', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
-
         zoom(cityjson, boundaryjson, g, path, height, width);
 
-        var mouseOutZoom = function () {
-          $("#neighborhood-title").text("Select A Neighborhood");
+        var mouseOutZoom = function (d) {
+          $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
+
+          d3.selectAll("path")
+            .classed("active", false)
+
           return zoom(cityjson, boundaryjson, g, path, height, width);
         };
 
         var mouseZoom = function(d) {
-          $("#neighborhood-title").text(d.properties.NAME);
+          $(".maptext").attr("opacity", 0);
+          $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
           return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
         };
 
@@ -25261,7 +25273,6 @@ router.route('search/:cityName/housing', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
-        $("#map-title").text(city)
         zoom(cityjson, boundaryjson, g, path, height, width);
 
         var mouseOutZoom = function (d) {
@@ -25275,7 +25286,6 @@ router.route('search/:cityName/housing', function (cityName){
         };
 
         var mouseZoom = function(d) {
-          $("#neighborhood-title").text(d.properties.NAME);
           $(".maptext").attr("opacity", 0);
           $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
           return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
@@ -25724,7 +25734,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
   var bounds = path.bounds(d);
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
-    zoomout();
+    zoomout(d);
 
 
   } else {

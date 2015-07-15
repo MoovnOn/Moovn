@@ -114,7 +114,6 @@ router.route('search/:cityName/housing', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
-        $("#map-title").text(city)
         zoom(cityjson, boundaryjson, g, path, height, width);
 
         var mouseOutZoom = function (d) {
@@ -128,7 +127,6 @@ router.route('search/:cityName/housing', function (cityName){
         };
 
         var mouseZoom = function(d) {
-          $("#neighborhood-title").text(d.properties.NAME);
           $(".maptext").attr("opacity", 0);
           $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
           return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
