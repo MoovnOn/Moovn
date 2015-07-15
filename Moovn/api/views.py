@@ -219,7 +219,7 @@ def salary_view(request, state, name, job):
 
     for series in locids:
         for line in occupations:
-            if jobtitle in occupations[line]:
+            if jobtitle == occupations[line]:
                 seriesids.append(series + line + "11")
                 seriesids.append(series + line + "12")
                 seriesids.append(series + line + "13")
