@@ -4,8 +4,10 @@
 <p><%- m.detail.formatted_phone_number %></p>
 <p><a href ="<%- m.detail.website %>" target="_blank"><%- m.detail.website %></a></p>
 <br>
+<img src='<%- m.detail.photos[0].getUrl({ 'maxWidth': 200, 'maxHeight': 150 }) %>'>
 <p><b>Reviews</b><p>
 <br>
 <% m.detail.reviews.forEach(function(i) { %>
 	<p><%- i.text %></p><br><hr>
 <% }); %>
+

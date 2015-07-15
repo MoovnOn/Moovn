@@ -14,7 +14,6 @@ var getDetails = require('../../place-details')
 var views = require('views');
 var activeSelection = require('../active-selection');
 
-
 router.route('search/:cityName/leisure', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', {city: cityName} );
@@ -34,7 +33,21 @@ router.route('search/:cityName/leisure', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  show('content/tabs-lists', '.duo-1')
+  show('content/tabs-lists', '.duo-1');
+
+  // Sets up search in the sixth tab
+  $('.tab-title6').children('a').text('Search');
+  $('.tab-data6').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
+
+  $('.main-content').on('submit', '.tab-search-form' , function(e){
+    e.preventDefault();
+
+    var searchVal = $('.search-tab-input').val();
+    $('.tab-data6').html('');
+    $('.tab-data6').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
+    places(cityName, searchVal, ".tab-data6", "Search");
+  });
+
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
@@ -47,7 +60,6 @@ router.route('search/:cityName/leisure', function (cityName){
   places(cityName, "Restaurants", ".tab-data3", ".tab-title3");
   places(cityName, "Shopping", ".tab-data4", ".tab-title4");
   places(cityName, "Coffee & Tea", ".tab-data5", ".tab-title5");
-
   // $(".duo-2").html("<h1 class= 'select-details'><i class='fa fa-arrow-circle-o-left'></i> Select for details</h1>");
   // setTimeout(function(){
   //   $(".select-details").fadeOut("slow")

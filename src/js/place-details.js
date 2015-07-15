@@ -12,17 +12,12 @@ module.exports = function(id){
 	};
 
 	service.getDetails(request, function(result, status) {
-    var reviewsArr = result.reviews;
-    var address = result.formatted_address;
-    var phone = result.formatted_phone_number;
-    var website = result.website
-    
+  
 		show('content/place-details', '.modal-details', {detail: result} );
-     $(".modal-details").fadeIn();
-    
+     	$(".modal-details").fadeIn();
+
     $(".close-button").click(function(){
        $(".modal-details").fadeOut();
      });
 	});
-
 };
