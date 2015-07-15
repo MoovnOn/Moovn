@@ -279,6 +279,7 @@ def industry_size_view(request, state, name):
                 if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
                     datadict[occupations[job]] = line["data"][0]["value"]
     allind = datadict["All Occupations"]
+    datadict["All Occupations"].pop
     for ind in datadict:
         datadict[ind] = round((((float(datadict[ind])) / (float(allind))) * 100), 2)
 
