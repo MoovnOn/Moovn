@@ -51,7 +51,7 @@ router.route('search/:cityName/leisure', function (cityName){
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
+      // startCollapsed: 'accordion'
   });
 
 //google places
