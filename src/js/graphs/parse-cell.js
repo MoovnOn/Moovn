@@ -5,7 +5,7 @@ module.exports = function (state, city) {
 
   return $.ajax({
   	method: 'GET',
-  	url: 'api/celldata/NC/Durham/'
+  	url: 'api/celldata/' + state + '/' + city + '/'
   }).then(function (data){	
 
   	var array = data.networkRank;
@@ -24,11 +24,8 @@ module.exports = function (state, city) {
   		if (prov.networkName === "T-Mobile") {
   			newArray[3] = prov
   		}
-  		if (prov.networkName === "Cellular One") {
-  			newArray[4] = prov
-  		}
   	})
     return newArray
   });
 
-}
+};
