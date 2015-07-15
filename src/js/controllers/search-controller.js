@@ -16,5 +16,4 @@ router.route('', 'search', function (){
   
   searchFunction();
   
-
 });

@@ -24922,11 +24922,24 @@ var views = require('views');
 var router = require('../router');
 var show = require('../show');
 
-// router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
-  
-//   show('city-comp', {city1: cityName1, city2: cityName2});
+router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
+ 
+ 	show('city-comp', '.main-content')
 
-// });
+ 	var citySplit1 = cityName1.split(', ');
+  var city1 = citySplit1[0];
+  var state1 = citySplit1[1];
+
+  var citySplit2 = cityName2.split(', ');
+  var city2 = citySplit2[0];
+  var state2 = citySplit2[1];
+
+  console.log(city1);
+  console.log(city2);
+
+  console.log(state1);
+  console.log(state2);
+});
 },{"../router":42,"../show":44,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
@@ -25010,7 +25023,6 @@ router.route('', 'search', function (){
   
   searchFunction();
   
-
 });
 
 },{"../city-list":4,"../router":42,"../search":43,"../show":44,"jquery":"jquery","jquery-ui":2,"underscore":"underscore","views":"views"}],9:[function(require,module,exports){
