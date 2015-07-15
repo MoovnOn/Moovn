@@ -8,7 +8,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
   var bounds = path.bounds(d);
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
-    zoomout();
+    zoomout(d);
 
 
   } else {
