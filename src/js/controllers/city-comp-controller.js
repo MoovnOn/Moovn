@@ -47,8 +47,5 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-
-
-
   
 });

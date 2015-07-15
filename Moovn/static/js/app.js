@@ -24225,7 +24225,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
- var jQuery = require("jquery");
+var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -24965,9 +24965,6 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-
-
-
   
 });
 },{"../graphs/cell-download":21,"../graphs/parse-cell":29,"../graphs/parse-cell-2":28,"../router":44,"../search":45,"../show":46,"./active-selection":5,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
@@ -25566,6 +25563,7 @@ router.route('search/:cityName/leisure', function (cityName){
       // startCollapsed: 'accordion'
   });
 
+
 //google places
   places(cityName, "Attractions", ".tab-data1", ".tab-title1");
   places(cityName, "Bars", ".tab-data2", ".tab-title2");
@@ -25576,9 +25574,12 @@ router.route('search/:cityName/leisure', function (cityName){
   // setTimeout(function(){
   //   $(".select-details").fadeOut("slow")
   //   }, 3500);
+
+
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
   });
+
 
 
   $('.city-all-container').on('click', '.clickSpan', function (){
@@ -25588,6 +25589,11 @@ router.route('search/:cityName/leisure', function (cityName){
     $(this).addClass("clickSpan-selected");
   });
 
+  setTimeout(function() {
+    var id = $('.clickSpan').first().attr('id')
+    getDetails(id)
+  }, 1000);
+  
   //changes tab view so that it is fullscreen only on this view
   $(".city-all-container").addClass("full-screen-container");
   $(".duo-1").addClass("full-screen-duo1");
@@ -26908,10 +26914,11 @@ module.exports = function(id){
 var map;
 var service;
 var infowindow;
-var $ = require('jquery') 
+var $ = require('jquery');
 
 module.exports = function(city, searchTerm, tabContainer, tabtitle) {
 	$(tabtitle).children('a').text(searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1));
+
 
 	var key = 'AIzaSyB6Gp2tJP3mWdIFot6fZNfarDoopGurZSs';
 	var request = {
@@ -26923,7 +26930,6 @@ module.exports = function(city, searchTerm, tabContainer, tabtitle) {
 	  for (var i = 0; i < results.length; i++) {
     	var place = results[i];
     	$(tabContainer).children('.list-left').append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
-      // $(tabContainer).append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
 		}
 	});
 };
