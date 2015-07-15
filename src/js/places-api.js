@@ -15,7 +15,8 @@ module.exports = function(city, searchTerm, tabContainer, tabtitle) {
 	service.textSearch(request, function(results) {
 	  for (var i = 0; i < results.length; i++) {
     	var place = results[i];
-    	$(tabContainer).append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
+    	$(tabContainer).children('.list-left').append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
+      // $(tabContainer).append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
 		}
 	});
 };

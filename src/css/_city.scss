@@ -40,20 +40,27 @@
   width:50%;
 }
 
-
-@media screen and (max-width: 670px) {
-    .city-all-container{
-      margin-left: 2em;
-    }
+//adjusts tabs in certain views to go fullscreen
+.full-screen-container{
+  margin-top: 0em;
+  margin-right:0em;
+  margin-left: 12.9em;
+}
+.full-screen-duo1{
+  margin-top:0em;
+}
+.full-screen-tab-container{
+  border-radius: 0px;
+  border-bottom: none;
 }
 
 // css for places details 
-
 .clickSpan {
   cursor: pointer;
   text-decoration: none;
   color:#0046B2;
-  line-height: 1.2;
+  line-height: 1.5;
+  margin-left: 0.8em;
 }
 .clickSpan:hover {
   color: $comp-color;
@@ -66,3 +73,27 @@
   padding-top:7em;
   color: $comp-color;
 }
+.full-screen-details-right{
+  max-height: 80vh;
+}
+
+
+//media queries for mobile
+
+@media screen and (max-width: 670px) {
+    .city-all-container{
+      margin: 0.1em;
+    }
+    .bar-menu-icon{
+      margin-top:0.7em;
+      margin-left:0.7em;
+      margin-bottom: 0em;
+    }
+    .duo-1{
+      margin-top: 1em;
+    }
+    .r-tabs .r-tabs-panel {
+    padding-left: 30px;
+    }
+}
+

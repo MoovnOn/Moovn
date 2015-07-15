@@ -25,7 +25,6 @@ router.route('search/:cityName/transportation', function (cityName){
   searchFunction();
 
   show('city-template-2', '.main-content', {city: cityName});
-
   activeSelection();
 
   //slides the side-nav

@@ -23,11 +23,12 @@ var mouseOverZoom = require('../../mouseoverzoom');
 
 router.route('search/:cityName/housing', function (cityName){
 
+
+  show('side-bar-city-search', '.side-bar-content', {city: cityName} );
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
-
-  show('side-bar-city-search', '.side-bar-content', {city: cityName} );
 
   searchFunction();
   show('city-template-4-map', '.main-content', {city: cityName} );
@@ -164,7 +165,7 @@ router.route('search/:cityName/housing', function (cityName){
 //google places
   places(cityName, "apartments", ".tab-data1", ".tab-title1");
   places(cityName, "realty", ".tab-data2", ".tab-title2");
-  places(cityName, "banks", ".tab-data3", ".tab-title3");
+
 
 
 });

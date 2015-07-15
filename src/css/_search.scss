@@ -11,8 +11,6 @@ header{
 }
 
 .search-page-container{
-   margin-right: 2em;
-   margin-left: 2em;
    margin-bottom: 2em; 
    display: none;
 }
@@ -47,11 +45,12 @@ header{
 }
 .map-container{
   text-align: center;
-  max-width: 50em;
   margin: auto;
+  position: fixed;
+  bottom: 0;
 }
 .map-image {
-  max-width: 80%;
+  max-width: 100%;
   max-height: auto; 
 }
 .submit, .compare {
@@ -67,6 +66,9 @@ header{
   max-height: 350px; 
   overflow-y: auto; 
   overflow-x: auto;
+}
+.flow-container{
+  margin-top:3em;
 }
 .flow{
   text-align: center;
@@ -89,9 +91,12 @@ header{
   color: darkgreen;
 }
 .powered-by-container{
-  position: relative;
+  position: fixed;
   text-align: center;
   vertical-align: middle;
+  bottom:0;
+  right:0;
+  display: none;
 }
 .glass-door{
   display: inline-block;

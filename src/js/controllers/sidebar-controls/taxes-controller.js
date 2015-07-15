@@ -34,7 +34,7 @@ router.route('search/:cityName/taxes', function (cityName){
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
+      // startCollapsed: 'accordion'
   });
   
  
@@ -72,17 +72,14 @@ router.route('search/:cityName/taxes', function (cityName){
                 rateArr.push(result.rates[index].rate)
               }
               
-              $(".tab-title1").html('<a href="#tab-1" class="r-tabs-anchor">County & State Tax Rates</a>');   
+              $(".tab-title1").children("a").text("Sales Tax Rates");
               
                nameArr.forEach(function(e, i) {
                 $(".tab-data1").append(nameArr[i] + " ");
                 $(".tab-data1").append(rateArr[i] + "%<br><br>");
                });
                
-               $(".tab-data1").append("<b>Total Tax Rate = " + result.totalRate + "%<br></b>");
-              
-              
-              // $(".tab-data1").append(countyName + " " + countyTaxRate + "%<br><br>" + stateName + " " + stateTaxRate + "%");
+               $(".tab-data1").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
                
             })          
           
@@ -90,9 +87,10 @@ router.route('search/:cityName/taxes', function (cityName){
       };
       client.send();
       
-      
 
 
+    places(cityName, "banks", ".tab-data2", ".tab-title2");
+    places(cityName, "Credit Union", ".tab-data3", ".tab-title3");
    
 
 });

@@ -38,6 +38,7 @@ router.route('search/:cityName/industry', function (cityName){
 
   $('.main-content').on('submit', '.industry-form', function(e) {
     e.preventDefault();
+    e.stopPropagation();
     jobSearch(state, city);
   });
 

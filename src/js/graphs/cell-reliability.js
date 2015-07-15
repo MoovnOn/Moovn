@@ -1,7 +1,7 @@
 var $ = require('jquery');
 var c3 = require('c3');
 
-module.exports = function(data) {
+module.exports = function(data, bindTo) {
 
 		var aTRel3 = Math.round(data[0].type3G.reliability);
   	var vRel3 = Math.round(data[1].type3G.reliability);
@@ -13,7 +13,7 @@ module.exports = function(data) {
 		var tmRel4 = Math.round(data[3].type4G.reliability);
 
 		var chart = c3.generate({
-    bindto: '.duo-2',
+    bindto: bindTo,
     data: {
         columns: [
             ['AT&T', aTRel3, aTRel4],
