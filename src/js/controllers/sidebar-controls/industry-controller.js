@@ -16,6 +16,7 @@ var activeSelection = require('../active-selection');
 var jobSearch = require('../../job-search');
 var autocomplete = require('jquery-ui');
 var jobtitles = require('../../job-titles');
+var bubbleChart = require('../../graphs/industry-bubble');
 
 
 router.route('search/:cityName/industry', function (cityName){
@@ -53,5 +54,7 @@ router.route('search/:cityName/industry', function (cityName){
       results: function() {}
     }  
   });
+
+  bubbleChart(state, city);
 
 });
