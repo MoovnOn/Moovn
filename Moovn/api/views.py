@@ -228,7 +228,7 @@ def salary_view(request, state, name, job):
 
     headers = {'Content-type': 'application/json'}
     data = json.dumps({"seriesid": seriesids,
-                       "startyear": "2013", "endyear": "2015",
+                       "startyear": "2014", "endyear": "2014",
                        "registrationKey": apis("blskey"),
                        })
     ocp_data = requests.post('http://api.bls.gov/publicAPI/v2/timeseries/data/', data=data, headers=headers)
