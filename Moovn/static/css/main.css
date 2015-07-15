@@ -65,12 +65,6 @@ table {
   display: block; }
 
 /* Accordion responsive breakpoint */
-@media only screen and (max-width: 768px) {
-  .r-tabs .r-tabs-nav {
-    display: none; }
-  .r-tabs .r-tabs-accordion-title {
-    display: block; } }
-
 /* Tabs container */
 .r-tabs {
   position: relative;
@@ -1549,7 +1543,7 @@ header {
   overflow: auto;
   border-radius: 4px;
   background: white;
-  border: 1px solid #354052; }
+  box-shadow: 0px 0px 15px 0px black; }
 
 .detail-title {
   margin-top: 0em; }
@@ -1561,6 +1555,11 @@ header {
   border-radius: 5em;
   background: white;
   border: 1px solid black; }
+
+.close-button:hover {
+  background-color: #354052;
+  color: white;
+  border-color: white; }
 
 .c3 svg {
   font: 10px sans-serif; }
