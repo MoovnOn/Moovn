@@ -25355,16 +25355,21 @@ router.route('search/:cityName/industry', function (cityName){
 
   show('city-template-3', '.main-content', {city: cityName});
   activeSelection();
-  
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
 
+  d3.select(".tri-2").append("svg")
+    .attr("height", 400)
+    .attr("width", 400)
+    .call(bubbleChart, state, city)
+
   $('.main-content').on('submit', '.industry-form', function(e) {
     e.preventDefault();
     jobSearch(state, city);
-  }); 
- 
+  });
+
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
@@ -25381,10 +25386,10 @@ router.route('search/:cityName/industry', function (cityName){
     messages: {
       noResults: '',
       results: function() {}
-    }  
+    }
   });
 
-  bubbleChart(state, city);
+  //bubbleChart(state, city);
 
 });
 
@@ -26141,9 +26146,9 @@ module.exports = function(state, city) {
 
 },{"c3":"c3","d3":"d3","jquery":"jquery"}],25:[function(require,module,exports){
 d3 = require('d3');
+$ = require('jquery');
 
-module.exports = function(state, city) {
-
+module.exports = function(svg, state, city) {
 	/**
 	input
 	data structure
@@ -26163,9 +26168,69 @@ module.exports = function(state, city) {
 
 	**/
 
+  //d3.json("/api/industrysize/" + state + "/" + city + "/", bubbleChart)
+
+	$.ajax({
+		url: "/api/industrysize/" + state + "/" + city + "/"
+	}).done(function(d){
+		//console.log(d);
+		bubbleChart(d);
+	});
+
+	var bubbleChart = function (data) {
+		//console.log("data");
+		//console.log(data);
+
+		var data_list = {"children":[]};
+
+		var cb = function (item, data) {
+			obj = {
+				"name": item,
+				"value": data[item]
+			}
+			data_list.children.push(obj)
+		};
+
+		for (key in data) {
+			cb(key, data);
+		}
+
+		var diameter = 200;
+		var color = d3.scale.category20b();
+
+		var bubble = d3.layout.pack()
+					.sort(null)
+					.size([diameter, diameter])
+					.padding(.5);
+
+		console.log(bubble.nodes(data_list))
+		g = svg.append("g")
+		var node = g.selectAll(".node")
+									.data(bubble.nodes(data_list))
+								.enter().append("g")
+									.attr("class", "node")
+									.attr("transform", function (d) { return "translate(" + d.x + "," +
+												d.y + ")";});
+
+		node.append("circle")
+				.attr("r", function(d){ return d.r;})
+				.attr("fill", function(d){ return color(d.name);});
+
+
+		var text = node.append("g")
+									 .append("text")
+		  					 	 .style("text-anchor", "middle")
+		  					   .text(function(d){ return d.name;});
+
+		text.attr("transform", function(d){ return "scale(" + 1 / d.r  + ")";})
+
+		g.attr("transform", "scale(" + 2 + ")")
+
+	};
+
 };
 
-},{"d3":"d3"}],26:[function(require,module,exports){
+},{"d3":"d3","jquery":"jquery"}],26:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
