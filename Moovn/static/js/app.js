@@ -26143,10 +26143,28 @@ module.exports = function(state, city) {
 d3 = require('d3');
 
 module.exports = function(state, city) {
-	
-		
+
+	/**
+	input
+	data structure
+	{
+		"name": "name",
+		"children":[
+			{
+				"name": "name",
+				"size": "size"
+			},
+			{
+				"name": "name",
+				"size": "size"
+			}
+		]
+	}
+
+	**/
 
 };
+
 },{"d3":"d3"}],26:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
