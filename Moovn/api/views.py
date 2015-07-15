@@ -31,10 +31,12 @@ except:
             }
 try:
     with open('geo/oe_ocup.csv') as file:
-        occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].rstrip('\n') for line in file}
+        occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].rstrip('\n').replace('"', '') for line
+                       in file}
 except:
     with open('Moovn/geo/oe_ocup.csv') as file:
-        occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].rstrip('\n') for line in file}
+        occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].rstrip('\n').replace('"', '') for line
+                       in file}
 
 
 # @api_view(['GET',])
@@ -177,38 +179,38 @@ def industry_view(request, state, name):
 
 
 # def jobs_view(request, state, name):
-    # ip = get_real_ip(request)
-    # ip = request.META.get("REMOTE_ADDR")
-    # # browser = request.user_agent.browser
-    # browser = request.META.get("HTTP_USER_AGENT")
-    # headers = {"user-agent": browser}
-    # if ip is not None:
-    #     name = get_object_or_404(Name, name=name, state=state)
-    #     data = {"v": "1",
-    #             "format": "json",
-    #             "t.p": apis("glass_tp"),
-    #             "t.k": apis("glass_tk"),
-    #             "userip": ip,
-    #             "useragent": browser,
-    #             "action": "jobs-stats",
-    #             # # "l": "city",
-    #             "city": name.name,
-    #             "state": name.state,
-    #             # "fromAge": "30",
-    #             # "radius": "25",
-    #             # "jc": jcdata,
-    #             "returnJobTitles": True,
-    #             "returnCities": True,
-    #             "jobTitle": "Software Engineer",
-    #             "admLevelRequested": "1"
-    #             # "countryID": "1",
-    #             }
-    #     gldata = requests.get('http://api.glassdoor.com/api/api.htm', params=data, headers=headers)
-    #     response = HttpResponse(gldata)
-    #     return response
-    #     # return HttpResponse("IP: {}, User-Agent: {}".format(ip, browser))
-    # else:
-    #     return HttpResponse("No ip didn't work")
+# ip = get_real_ip(request)
+# ip = request.META.get("REMOTE_ADDR")
+# # browser = request.user_agent.browser
+# browser = request.META.get("HTTP_USER_AGENT")
+# headers = {"user-agent": browser}
+# if ip is not None:
+#     name = get_object_or_404(Name, name=name, state=state)
+#     data = {"v": "1",
+#             "format": "json",
+#             "t.p": apis("glass_tp"),
+#             "t.k": apis("glass_tk"),
+#             "userip": ip,
+#             "useragent": browser,
+#             "action": "jobs-stats",
+#             # # "l": "city",
+#             "city": name.name,
+#             "state": name.state,
+#             # "fromAge": "30",
+#             # "radius": "25",
+#             # "jc": jcdata,
+#             "returnJobTitles": True,
+#             "returnCities": True,
+#             "jobTitle": "Software Engineer",
+#             "admLevelRequested": "1"
+#             # "countryID": "1",
+#             }
+#     gldata = requests.get('http://api.glassdoor.com/api/api.htm', params=data, headers=headers)
+#     response = HttpResponse(gldata)
+#     return response
+#     # return HttpResponse("IP: {}, User-Agent: {}".format(ip, browser))
+# else:
+#     return HttpResponse("No ip didn't work")
 
 
 def salary_view(request, state, name, job):
