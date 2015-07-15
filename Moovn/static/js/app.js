@@ -25093,6 +25093,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var activeSelection = require('../active-selection');
+var getDetails = require('../../place-details')
 
 // for the map
 var d3 = require('d3');
@@ -25217,9 +25218,34 @@ router.route('search/:cityName/education', function (cityName){
 //google places
   places(cityName, "colleges", ".tab-data1", ".tab-title1");
   places(cityName, "community college", ".tab-data2", ".tab-title2");
+
+  $('.main-content').on('click', '.r-tabs-anchor', function(){
+    $('.details-right').html('');
+  });
+
+  $('.city-all-container').on('click', '.clickSpan', function (){
+    var id = this.id;
+    getDetails(id);
+    $(".clickSpan").removeClass("clickSpan-selected");
+    $(this).addClass("clickSpan-selected");
+  });
+
+  setTimeout(function() {
+    var id = $('.clickSpan').eq(3).attr('id')
+    getDetails(id)
+  }, 1200);
+
+
 });
 
-},{"../../educationmouseover":19,"../../neighMap":40,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../topojson":48,"../../zoom":49,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
+
+
+
+
+
+
+
+},{"../../educationmouseover":19,"../../neighMap":40,"../../place-details":42,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../topojson":48,"../../zoom":49,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25579,8 +25605,6 @@ router.route('search/:cityName/leisure', function (cityName){
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
   });
-
-
 
   $('.city-all-container').on('click', '.clickSpan', function (){
     var id = this.id;

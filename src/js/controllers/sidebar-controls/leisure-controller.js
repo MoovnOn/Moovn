@@ -71,8 +71,6 @@ router.route('search/:cityName/leisure', function (cityName){
     $('.details-right').html('');
   });
 
-
-
   $('.city-all-container').on('click', '.clickSpan', function (){
     var id = this.id;
     getDetails(id);
