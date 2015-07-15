@@ -148,7 +148,7 @@ router.route('search/:cityName/housing', function (cityName){
 
   places(cityName, "apartments", ".tab-data1", ".tab-title1");
   places(cityName, "realty", ".tab-data2", ".tab-title2");
-  places(cityName, "banks", ".tab-data3", ".tab-title3");
+
 
 
 });

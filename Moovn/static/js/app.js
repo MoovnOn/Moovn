@@ -25363,7 +25363,7 @@ router.route('search/:cityName/housing', function (cityName){
 
   places(cityName, "apartments", ".tab-data1", ".tab-title1");
   places(cityName, "realty", ".tab-data2", ".tab-title2");
-  places(cityName, "banks", ".tab-data3", ".tab-title3");
+
 
 
 });
@@ -25516,14 +25516,14 @@ router.route('search/:cityName/leisure', function (cityName){
 
   // Sets up search in the sixth tab
   $('.tab-title6').children('a').text('Search');
-  $('.tab-data6').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
+  $('.tab-data6').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
 
   $('.main-content').on('submit', '.tab-search-form' , function(e){
     e.preventDefault();
 
-    var searchVal = $('.search-tab-input').val();
-    $('.tab-data6').html('');
-    $('.tab-data6').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
+  var searchVal = $('.search-tab-input').val();
+    $('.tab-data6').children('.list-left').html('');
+    $('.tab-data6').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
     places(cityName, searchVal, ".tab-data6", "Search");
   });
 
@@ -25543,6 +25543,10 @@ router.route('search/:cityName/leisure', function (cityName){
   // setTimeout(function(){
   //   $(".select-details").fadeOut("slow")
   //   }, 3500);
+  $('.main-content').on('click', '.r-tabs-anchor', function(){
+    $('.details-right').html('');
+  });
+
 
   $('.city-all-container').on('click', '.clickSpan', function (){
     var id = this.id;
@@ -25551,9 +25555,11 @@ router.route('search/:cityName/leisure', function (cityName){
     $(this).addClass("clickSpan-selected");
   });
 
-
-
-
+  //changes tab view so that it is fullscreen only on this view
+  $(".city-all-container").addClass("full-screen-container");
+  $(".duo-1").addClass("full-screen-duo1");
+  $(".tab-list-container").addClass("full-screen-tab-container");
+  $(".details-right").addClass("full-screen-details-right");
 });
 
 },{"../../neighMap":40,"../../place-details":42,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../zoom":49,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],15:[function(require,module,exports){
@@ -25646,7 +25652,7 @@ router.route('search/:cityName/taxes', function (cityName){
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
+      // startCollapsed: 'accordion'
   });
   
  
@@ -25684,17 +25690,14 @@ router.route('search/:cityName/taxes', function (cityName){
                 rateArr.push(result.rates[index].rate)
               }
               
-              $(".tab-title1").html('<a href="#tab-1" class="r-tabs-anchor">County & State Tax Rates</a>');   
+              $(".tab-title1").children("a").text("Sales Tax Rates");
               
                nameArr.forEach(function(e, i) {
                 $(".tab-data1").append(nameArr[i] + " ");
                 $(".tab-data1").append(rateArr[i] + "%<br><br>");
                });
                
-               $(".tab-data1").append("<b>Total Tax Rate = " + result.totalRate + "%<br></b>");
-              
-              
-              // $(".tab-data1").append(countyName + " " + countyTaxRate + "%<br><br>" + stateName + " " + stateTaxRate + "%");
+               $(".tab-data1").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
                
             })          
           
@@ -25702,9 +25705,10 @@ router.route('search/:cityName/taxes', function (cityName){
       };
       client.send();
       
-      
 
 
+    places(cityName, "banks", ".tab-data2", ".tab-title2");
+    places(cityName, "Credit Union", ".tab-data3", ".tab-title3");
    
 
 });
@@ -26757,11 +26761,11 @@ module.exports = function(id){
 
 	service.getDetails(request, function(result, status) {
   
-		show('content/place-details', '.modal-details', {detail: result} );
-     	$(".modal-details").fadeIn();
+		show('content/place-details', '.details-right', {detail: result} );
+     	$(".details-right").fadeIn();
 
     $(".close-button").click(function(){
-       $(".modal-details").fadeOut();
+       $(".details-right").fadeOut();
      });
 	});
 };
@@ -26783,7 +26787,8 @@ module.exports = function(city, searchTerm, tabContainer, tabtitle) {
 	service.textSearch(request, function(results) {
 	  for (var i = 0; i < results.length; i++) {
     	var place = results[i];
-    	$(tabContainer).append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
+    	$(tabContainer).children('.list-left').append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
+      // $(tabContainer).append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
 		}
 	});
 };

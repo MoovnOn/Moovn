@@ -37,14 +37,14 @@ router.route('search/:cityName/leisure', function (cityName){
 
   // Sets up search in the sixth tab
   $('.tab-title6').children('a').text('Search');
-  $('.tab-data6').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
+  $('.tab-data6').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
 
   $('.main-content').on('submit', '.tab-search-form' , function(e){
     e.preventDefault();
 
-    var searchVal = $('.search-tab-input').val();
-    $('.tab-data6').html('');
-    $('.tab-data6').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
+  var searchVal = $('.search-tab-input').val();
+    $('.tab-data6').children('.list-left').html('');
+    $('.tab-data6').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
     places(cityName, searchVal, ".tab-data6", "Search");
   });
 
@@ -64,6 +64,10 @@ router.route('search/:cityName/leisure', function (cityName){
   // setTimeout(function(){
   //   $(".select-details").fadeOut("slow")
   //   }, 3500);
+  $('.main-content').on('click', '.r-tabs-anchor', function(){
+    $('.details-right').html('');
+  });
+
 
   $('.city-all-container').on('click', '.clickSpan', function (){
     var id = this.id;
@@ -72,7 +76,9 @@ router.route('search/:cityName/leisure', function (cityName){
     $(this).addClass("clickSpan-selected");
   });
 
-
-
-
+  //changes tab view so that it is fullscreen only on this view
+  $(".city-all-container").addClass("full-screen-container");
+  $(".duo-1").addClass("full-screen-duo1");
+  $(".tab-list-container").addClass("full-screen-tab-container");
+  $(".details-right").addClass("full-screen-details-right");
 });

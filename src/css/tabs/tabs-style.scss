@@ -7,7 +7,7 @@
 	border-top: 1px solid $light-primary-color;;
 	border-right: 1px solid $light-primary-color;;
 	border-left: 1px solid $light-primary-color;;
-	border-bottom: 4px solid $light-primary-color;;
+	border-bottom: 1px solid $light-primary-color;;
 	border-radius: 4px;
 
 }
@@ -39,9 +39,7 @@
 .r-tabs .r-tabs-nav .r-tabs-state-active .r-tabs-anchor {
 	color: $dark-primary-color;
 	text-shadow: none;
-
 	background-color: white;
-
 	border-top-right-radius: 4px;
 	border-top-left-radius: 4px;
 }

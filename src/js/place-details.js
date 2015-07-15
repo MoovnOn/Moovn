@@ -13,11 +13,11 @@ module.exports = function(id){
 
 	service.getDetails(request, function(result, status) {
   
-		show('content/place-details', '.modal-details', {detail: result} );
-     	$(".modal-details").fadeIn();
+		show('content/place-details', '.details-right', {detail: result} );
+     	$(".details-right").fadeIn();
 
     $(".close-button").click(function(){
-       $(".modal-details").fadeOut();
+       $(".details-right").fadeOut();
      });
 	});
 };
