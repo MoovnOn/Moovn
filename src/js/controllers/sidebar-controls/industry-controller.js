@@ -31,10 +31,21 @@ router.route('search/:cityName/industry', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  d3.select(".tri-2").append("svg")
-    .attr("height", 700)
-    .attr("width", 700)
-    .call(bubbleChart, state, city)
+  var width = $(".tri-2").width(),
+      aspect = 1;
+
+  var svg = d3.select(".tri-2").append("svg")
+              .attr("preserveAspectRatio", "xMidYMid")
+              .attr("viewBox", "0 0 900 900")
+              .attr("width", width)
+              .attr("height", width * aspect)
+              .call(bubbleChart, state, city);
+
+  $(window).resize(function(){
+    var width = $(".tri-2").width();
+    svg.attr("width", width);
+    svg.attr("height", width * aspect);
+  });
 
   $('.main-content').on('submit', '.industry-form', function(e) {
     e.preventDefault();
