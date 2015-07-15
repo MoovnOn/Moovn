@@ -2,26 +2,6 @@ d3 = require('d3');
 $ = require('jquery');
 
 module.exports = function(svg, state, city) {
-	/**
-	input
-	data structure
-	{
-		"name": "name",
-		"children":[
-			{
-				"name": "name",
-				"size": "size"
-			},
-			{
-				"name": "name",
-				"size": "size"
-			}
-		]
-	}
-
-	**/
-
-  //d3.json("/api/industrysize/" + state + "/" + city + "/", bubbleChart)
 
 	$.ajax({
 		url: "/api/industrysize/" + state + "/" + city + "/"
@@ -48,7 +28,9 @@ module.exports = function(svg, state, city) {
 			cb(key, data);
 		}
 
-		var diameter = 200;
+		console.log(svg)
+		var diameter = Math.min(svg.attr("height"),svg.attr("width")) / 2;
+		console.log(diameter)
 		var color = d3.scale.category20b();
 
 		var bubble = d3.layout.pack()
@@ -75,7 +57,7 @@ module.exports = function(svg, state, city) {
 		  					 	 .style("text-anchor", "middle")
 		  					   .text(function(d){ return d.name;});
 
-		text.attr("transform", function(d){ return "scale(" + 1 / d.r  + ")";})
+		text.attr("transform", function(d){ return "scale(" + 1/2  + ")";})
 
 		g.attr("transform", "scale(" + 2 + ")")
 

@@ -32,8 +32,8 @@ router.route('search/:cityName/industry', function (cityName){
   var state = citySplit[1];
 
   d3.select(".tri-2").append("svg")
-    .attr("height", 400)
-    .attr("width", 400)
+    .attr("height", 700)
+    .attr("width", 700)
     .call(bubbleChart, state, city)
 
   $('.main-content').on('submit', '.industry-form', function(e) {
