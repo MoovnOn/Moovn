@@ -23,14 +23,14 @@ module.exports = function (json, g, path, color, type, height, width) {
   if (type !== "neighborhood"){
 
     g.selectAll("path")
-        .data(data.features, function(d){return d.properties.GEOID10;})
+        .data(data.features, function (d) { return d.properties.GEOID10;})
       .enter().append("path")
         .attr("d", path)
         .attr("class", "feature-" + type)
         .style("fill", fill)
         .style("fill-opacity", opacity)
         .style("stroke", stroke)
-        .attr("id", function(d){return d.properties.GEOID10;});
+        .attr("id", function (d) { return d.properties.GEOID10;});
 
   }else{
 
@@ -39,7 +39,7 @@ module.exports = function (json, g, path, color, type, height, width) {
     neighG.attr("class", "neighborhoods");
 
     neighG.selectAll("path")
-        .data(data.features, function(d){return d.properties.GEOID10;})
+        .data(data.features, function (d) { return d.properties.GEOID10;})
       .enter().append("path")
         .attr("d", path)
         .attr("class", "feature-" + type)
@@ -47,7 +47,7 @@ module.exports = function (json, g, path, color, type, height, width) {
         .style("fill-opacity", opacity)
         .style("stroke", stroke)
         .style("stroke-opacity", 0.1)
-        .attr("id", function(d){return d.properties.GEOID10;});
+        .attr("id", function (d) { return d.properties.GEOID10;});
 
     var text = neighG.append("g")
 
@@ -58,14 +58,14 @@ module.exports = function (json, g, path, color, type, height, width) {
     text.selectAll("text")
       .data(data.features)
     .enter().append("text")
-      .attr("transform", function(d){ return "translate(" + path.centroid(d) +
+      .attr("transform", function (d) { return "translate(" + path.centroid(d) +
             ")scale(" + 3 / (scale(path.bounds(d))) +")";})
-      .attr("id", function(d){return d.properties.GEOID10 + "T";})
+      .attr("id", function (d) { return d.properties.GEOID10 + "T";})
       .attr("opacity", 0)
       .attr("class", "maptext")
       .style("user-select", "none")
       .attr("text-anchor", "middle")
-      .text(function(d){ return d.properties.NAME;});
+      .text(function (d) { return d.properties.NAME;});
 
     var neighT = neighG.append("g")
     neighT.selectAll("path")
@@ -76,7 +76,7 @@ module.exports = function (json, g, path, color, type, height, width) {
         .style("fill", "white")
         .style("fill-opacity", 0)
         .style("stroke", "none")
-        .attr("id", function(d){return d.properties.GEOID10 + "TP";});
+        .attr("id", function (d) { return d.properties.GEOID10 + "TP";});
 
 
   }
