@@ -1,0 +1,29 @@
+.school-info {
+	overflow: auto;
+	height: 400px;
+}
+.school-title{
+	color: #0046B2;
+	line-height: 1.5;
+}
+.school-title:hover {
+	cursor: pointer;
+	text-decoration: underline;
+}
+.school-modal {
+	overflow: auto;
+	height: 400px;
+	width: 100%;
+	display: none;
+}
+.school-modal-x {
+	margin: 0.6em;
+	display: block;
+}
+.school-details {
+  line-height: 1.5;
+}
+.details-titles {
+  line-height: 1.5;
+  font-weight: 900;
+}
