@@ -25136,13 +25136,11 @@ router.route('search/:cityName/education', function (cityName){
       aspect = 1;
 
   var svg = d3.select("#d3-graphs").append("svg")
-              .attr("preserveAspectRatio", "xMidYMid")
+              .attr("preserveAspectRatio", "xMinYMin")
               .attr("viewBox", "0 0 700 700")
               .attr("width", width)
               .attr("height", width * aspect)
               .attr("class", "map");
-
-  // svg.attr("width", width).attr("height", height);
 
   $(window).resize(function(){
     var width = $(".duo-1").width();
@@ -25287,7 +25285,7 @@ router.route('search/:cityName/housing', function (cityName){
       aspect = 1;
 
   var svg = d3.select("#d3-graphs").append("svg")
-              .attr("preserveAspectRatio", "xMidYMid")
+              .attr("preserveAspectRatio", "xMinYMin")
               .attr("viewBox", "0 0 700 700")
               .attr("width", width)
               .attr("height", width * aspect)
