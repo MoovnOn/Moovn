@@ -74,8 +74,8 @@ router.route('search/:cityName/industry', function (cityName){
       results: function() {}
     }
   });
-  
 
+  peopleAge(state, city, '.quad-1');
   
 
 
