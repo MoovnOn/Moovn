@@ -78,7 +78,6 @@ module.exports = function (json, g, path, color, type, height, width) {
         .style("stroke", "none")
         .attr("id", function (d) { return d.properties.GEOID10 + "TP";});
 
-
   }
 
   return data;
