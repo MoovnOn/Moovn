@@ -41,8 +41,6 @@ router.route('search/:cityName/taxes', function (cityName){
       
 
 
-    places(cityName, "banks", ".tab-data2", ".tab-title2");
-    places(cityName, "Credit Union", ".tab-data3", ".tab-title3");
    
 
 });
