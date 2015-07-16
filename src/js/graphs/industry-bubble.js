@@ -85,6 +85,7 @@ module.exports = function(svg, state, city) {
 
 
 ]).then(function(results) {
+	
 		var circles = d3.selectAll(".circle").on("mouseenter", showText);
 		circles.on("touch", showText);
 
