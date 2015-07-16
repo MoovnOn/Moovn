@@ -25616,7 +25616,16 @@ router.route('search/:cityName/leisure', function (cityName){
   setTimeout(function() {
     var id = $('.clickSpan').first().attr('id')
     getDetails(id)
-  }, 1000);
+  }, 200);
+
+//code to get each tab opening the first item in the list  
+  // $(".r-tabs-anchor").click(function(){
+  //    setTimeout(function() {
+  //     console.log();
+  //     var id = $('.clickSpan').first().attr('id')
+  //     getDetails(id)
+  //    }, 500);
+  // })
   
   //changes tab view so that it is fullscreen only on this view
   $(".city-all-container").addClass("full-screen-container");
