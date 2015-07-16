@@ -2,7 +2,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, element) {
   //var data;
 
   //Promise.all([
@@ -31,7 +31,7 @@ module.exports = function(state, city) {
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
       var data = {
-        bindto: 'body .quad-2',
+        bindto: element,
         data: {
           columns: [
               ['Condo', housingAffordCondo],

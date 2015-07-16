@@ -19,7 +19,7 @@ module.exports = function(state, city) {
     var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
 
       c3.generate({
-        bindto: '.quad-2',
+        bindto: '.overview-graph1',
         data: {
           columns: [
               ['Minutes Spent Commuting', housingPeopleCommute, housingPeopleCommuteNation],

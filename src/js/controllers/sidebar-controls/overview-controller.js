@@ -8,6 +8,8 @@ var places = require('../../places-api');
 var searchFunction = require('../../search');
 var activeSelection = require('../active-selection');
 var commuteTime = require('../../graphs/commute-times');
+var housingGraphGeneral = require('../../graphs/housing');
+var incomeCity = require ('../../graphs/income-city-wide')
 
 router.route('search/:cityName/overview', function (cityName){
 
@@ -24,11 +26,17 @@ router.route('search/:cityName/overview', function (cityName){
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
+
+//income graph
+incomeCity(state, city, '.overview-graph3');
+
+//housing city-wide
+housingGraphGeneral(state, city, '.overview-graph2')
+
+//commuting
+commuteTime(state, city);
   
-    commuteTime(state, city);
-  
-  //taxes
-  
+//taxes
   var zipRegex = /\b\d{5}\b/g;
    
    var client = new XMLHttpRequest();

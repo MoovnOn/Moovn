@@ -2,7 +2,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, element) {
 
   $.ajax({
     method: 'GET',
@@ -21,7 +21,7 @@ module.exports = function(state, city) {
        
        
        c3.generate({
-        bindto: 'body .tri-3',
+        bindto: element,
         data: {
           columns: [
               ['Median-City-Income', housingPeopleIncome],

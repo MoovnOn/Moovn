@@ -10,7 +10,7 @@ $.ajax({
 }).then(function(data){
 		var school = data.schools.school;
 		console.log(school);
-		$('.school-info-title').css('display', 'none');
+		$('.school-info-title').classå('display', 'none');
 		$('.school-info').append('<h1>Local Schools</h1>');
 		school.forEach(function(school, i) {
 		$('.school-info').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
