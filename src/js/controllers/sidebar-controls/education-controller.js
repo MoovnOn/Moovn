@@ -146,11 +146,7 @@ router.route('search/:cityName/education', function (cityName){
     $(this).addClass("clickSpan-selected");
   });
 
-  // $('.main-content').on('click', '.school-title' , function(){
-  //   $('.school-modal').fadeIn();
-  // });
-
-  
+  // code handling schools modal in  education-requests file
 
   setTimeout(function() {
     var id = $('.clickSpan').eq(0).attr('id')
