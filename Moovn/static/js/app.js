@@ -25322,7 +25322,7 @@ router.route('search/:cityName/housing', function (cityName){
   var path = d3.geo.path().projection(projection);
 
   //currenty bound to quad-2
-  var housingdata = housingGraphGeneral(state, city);
+  var housingdata = housingGraphGeneral(state, city, '.quad-2');
   var cityjson = [];
   var boundaryjson = [];
   var id = 0;
@@ -25331,7 +25331,7 @@ router.route('search/:cityName/housing', function (cityName){
     $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
     d3.selectAll("path")
       .classed("active", false);
-    housingGraphGeneral(state, city);
+    housingGraphGeneral(state, city, '.quad-2');
     return zoom(cityjson, boundaryjson, g, path, aspect * width, width);
   };
 
@@ -25479,7 +25479,7 @@ router.route('search/:cityName/industry', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  incomeCity(state, city);
+  incomeCity(state, city, '.tri-3');
 
   $("#job-input").autocomplete({
     source: jobtitles,
@@ -25554,6 +25554,8 @@ var places = require('../../places-api');
 var searchFunction = require('../../search');
 var activeSelection = require('../active-selection');
 var commuteTime = require('../../graphs/commute-times');
+var housingGraphGeneral = require('../../graphs/housing');
+var incomeCity = require ('../../graphs/income-city-wide')
 
 router.route('search/:cityName/overview', function (cityName){
 
@@ -25570,11 +25572,17 @@ router.route('search/:cityName/overview', function (cityName){
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
+
+//income graph
+incomeCity(state, city, '.overview-graph3');
+
+//housing city-wide
+housingGraphGeneral(state, city, '.overview-graph2')
+
+//commuting
+commuteTime(state, city);
   
-    commuteTime(state, city);
-  
-  //taxes
-  
+//taxes
   var zipRegex = /\b\d{5}\b/g;
    
    var client = new XMLHttpRequest();
@@ -25614,7 +25622,7 @@ router.route('search/:cityName/overview', function (cityName){
       client.send();
   
 });
-},{"../../graphs/commute-times":24,"../../places-api":44,"../../router":45,"../../search":46,"../../show":47,"../active-selection":5,"jquery":"jquery","underscore":"underscore","views":"views"}],15:[function(require,module,exports){
+},{"../../graphs/commute-times":24,"../../graphs/housing":25,"../../graphs/income-city-wide":26,"../../places-api":44,"../../router":45,"../../search":46,"../../show":47,"../active-selection":5,"jquery":"jquery","underscore":"underscore","views":"views"}],15:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -26178,7 +26186,7 @@ module.exports = function(state, city) {
     var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
 
       c3.generate({
-        bindto: '.quad-2',
+        bindto: '.overview-graph1',
         data: {
           columns: [
               ['Minutes Spent Commuting', housingPeopleCommute, housingPeopleCommuteNation],
@@ -26213,7 +26221,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, element) {
   //var data;
 
   //Promise.all([
@@ -26242,7 +26250,7 @@ module.exports = function(state, city) {
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
       var data = {
-        bindto: 'body .quad-2',
+        bindto: element,
         data: {
           columns: [
               ['Condo', housingAffordCondo],
@@ -26276,7 +26284,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, element) {
 
   $.ajax({
     method: 'GET',
@@ -26295,7 +26303,7 @@ module.exports = function(state, city) {
        
        
        c3.generate({
-        bindto: 'body .tri-3',
+        bindto: element,
         data: {
           columns: [
               ['Median-City-Income', housingPeopleIncome],

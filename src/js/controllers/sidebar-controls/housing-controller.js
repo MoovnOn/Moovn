@@ -69,7 +69,7 @@ router.route('search/:cityName/housing', function (cityName){
   var path = d3.geo.path().projection(projection);
 
   //currenty bound to quad-2
-  var housingdata = housingGraphGeneral(state, city);
+  var housingdata = housingGraphGeneral(state, city, '.quad-2');
   var cityjson = [];
   var boundaryjson = [];
   var id = 0;
@@ -78,7 +78,7 @@ router.route('search/:cityName/housing', function (cityName){
     $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
     d3.selectAll("path")
       .classed("active", false);
-    housingGraphGeneral(state, city);
+    housingGraphGeneral(state, city, '.quad-2');
     return zoom(cityjson, boundaryjson, g, path, aspect * width, width);
   };
 
