@@ -47,8 +47,8 @@ router.route('search/:cityName/housing', function (cityName){
       aspect = 1;
 
   var svg = d3.select("#d3-graphs").append("svg")
-              .attr("preserveAspectRatio", "xMidYMid")
-              .attr("viewBox", "100 100 700 700")
+              .attr("preserveAspectRatio", "xMinYMin")
+              .attr("viewBox", "0 0 700 700")
               .attr("width", width)
               .attr("height", width * aspect)
               .attr("class", "map");
@@ -56,7 +56,7 @@ router.route('search/:cityName/housing', function (cityName){
   // svg.attr("width", width).attr("height", height);
 
   $(window).resize(function(){
-    var width = Math.max($(".quad-1").width(), 200);
+    var width = $(".quad-1").width();
     svg.attr("width", width);
     svg.attr("height", width * aspect);
   });

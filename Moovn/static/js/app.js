@@ -24219,13 +24219,13 @@ $.widget( "ui.tooltip", {
 
 },{"jquery":"jquery"}],3:[function(require,module,exports){
 /*
- *  Project: jquery.responsiveTabs.js
+ *  Project: jQuery.responsiveTabs.js
  *  Description: A plugin that creates responsive tabs, optimized for all devices
  *  Author: Jelle Kralt (jelle@jellekralt.nl)
  *  Version: 1.4.5
  *  License: MIT
  */
- var jQuery = require("jquery");
+var jQuery = require('jquery');
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -24350,7 +24350,7 @@ $.widget( "ui.tooltip", {
         // Trigger loaded event
         this.$element.trigger('tabs-load');
     };
-    
+
     //
     // PRIVATE FUNCTIONS
     //
@@ -24482,7 +24482,7 @@ $.widget( "ui.tooltip", {
     ResponsiveTabs.prototype._getStartTab = function() {
         var tabRef = this._getTabRefBySelector(window.location.hash);
         var startTab;
-        
+
         // Check if the page has a hash set that is linked to a tab
         if(tabRef >= 0 && !this._getTab(tabRef).disabled) {
             // If so, set the current tab to the linked tab
@@ -24561,7 +24561,7 @@ $.widget( "ui.tooltip", {
         _this._doTransition(oTab.panel, _this.options.animation, 'open', function() {
             // When finished, set active class to the panel
             oTab.panel.removeClass(_this.options.classes.stateDefault).addClass(_this.options.classes.stateActive);
-          
+
            // And if enabled and state is accordion, scroll to the accordion tab
             if(_this.getState() === 'accordion' && _this.options.scrollToAccordion && (!_this._isInView(oTab.accordionTab) || _this.options.animation !== 'default')) {
                 // Check if the animation option is enabled, and if the duration isn't 0
@@ -24742,7 +24742,7 @@ $.widget( "ui.tooltip", {
 
     //
     // HELPER FUNCTIONS
-    // 
+    //
 
     ResponsiveTabs.prototype._isInView = function($element) {
         var docViewTop = $(window).scrollTop(),
@@ -25126,10 +25126,23 @@ router.route('search/:cityName/education', function (cityName){
 
   show('content/tabs-lists', '.duo-2')
 
-  var svg = d3.select("#d3-graphs");
-  var height = 400;
-  var width = 400;
-  svg.attr("width", width).attr("height", height);
+  var width = Math.max($("#d3-graphs").width(), 200),
+      aspect = 1;
+
+  var svg = d3.select("#d3-graphs").append("svg")
+              .attr("preserveAspectRatio", "xMinYMin")
+              .attr("viewBox", "0 0 700 700")
+              .attr("width", width)
+              .attr("height", width * aspect)
+              .attr("class", "map");
+
+  $(window).resize(function(){
+    var width = $(".duo-1").width();
+    svg.attr("width", width);
+    svg.attr("height", width * aspect);
+  });
+
+
   var g = svg.append("g");
 
   var projection = d3.geo.albers().scale(200).translate([150,140]);
@@ -25150,7 +25163,7 @@ router.route('search/:cityName/education', function (cityName){
       }).done(function (json){
 
 
-        cityjson = neighMap(json, g, path, "brown", "city", height, width);
+        cityjson = neighMap(json, g, path, "brown", "city", width * aspect, width);
 
       }),
 
@@ -25165,7 +25178,7 @@ router.route('search/:cityName/education', function (cityName){
 
       }).done(function (json){
         if (json){
-          boundaryjson = neighMap(json, g, path, "grey", "neighborhood", height, width);
+          boundaryjson = neighMap(json, g, path, "grey", "neighborhood", width * aspect, width);
         } else {
           boundaryjson = false
         }
@@ -25175,7 +25188,7 @@ router.route('search/:cityName/education', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
-        zoom(cityjson, boundaryjson, g, path, height, width);
+        zoom(cityjson, boundaryjson, g, path, width * aspect, width);
 
         var mouseOutZoom = function (d) {
           $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
@@ -25183,20 +25196,20 @@ router.route('search/:cityName/education', function (cityName){
           d3.selectAll("path")
             .classed("active", false)
 
-          return zoom(cityjson, boundaryjson, g, path, height, width);
+          return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
         };
 
         var mouseZoom = function(d) {
           $(".maptext").attr("opacity", 0);
           $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
-          return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
+          return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
         };
 
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
 
       } else {
 
-        zoom(cityjson, cityjson, g, path, height, width);
+        zoom(cityjson, cityjson, g, path, width * aspect, width);
 
       }
 
@@ -25291,8 +25304,8 @@ router.route('search/:cityName/housing', function (cityName){
       aspect = 1;
 
   var svg = d3.select("#d3-graphs").append("svg")
-              .attr("preserveAspectRatio", "xMidYMid")
-              .attr("viewBox", "100 100 700 700")
+              .attr("preserveAspectRatio", "xMinYMin")
+              .attr("viewBox", "0 0 700 700")
               .attr("width", width)
               .attr("height", width * aspect)
               .attr("class", "map");
@@ -25300,7 +25313,7 @@ router.route('search/:cityName/housing', function (cityName){
   // svg.attr("width", width).attr("height", height);
 
   $(window).resize(function(){
-    var width = Math.max($(".quad-1").width(), 200);
+    var width = $(".quad-1").width();
     svg.attr("width", width);
     svg.attr("height", width * aspect);
   });
@@ -26265,25 +26278,34 @@ d3 = require('d3');
 $ = require('jquery');
 
 module.exports = function(svg, state, city) {
+	var counter = function (){
+		var k = 0;
+		var m = function () {
+			k = k + 1;
+			return k;
+		};
+
+		return m;
+	};
 
 	var showText = function (d) {
-		console.log(this)
-		d3.select("#text" + this.id).attr("opacity", 1);
-	};
 
-	var hideText = function () {
+		if (!this.active) {
+			d3.selectAll("circle").attr("active", false);
 
+			d3.select(this).attr("active", true);
 
-	};
-
-	var toggleText = function () {
-
+			d3.select(".bubble-title").select("span")
+				.style("color", this.getAttribute("fill"))
+				.text(d.name);
+		};
 
 	};
 
 	var bubbleChart = function (data) {
 
-		var data_list = {"children":[]};
+		var data_list = {"name": "Jobs by Industry",
+			"children":[]};
 
 		var cb = function (item, data) {
 			obj = {
@@ -26308,16 +26330,6 @@ module.exports = function(svg, state, city) {
 		//console.log(bubble.nodes(data_list))
 		g = svg.append("g")
 
-		var counter = function (){
-			var k = 0;
-			var m = function () {
-				k = k + 1;
-				return k;
-			};
-
-			return m;
-		};
-
 		var count = counter();
 		var count2 = counter();
 
@@ -26325,37 +26337,34 @@ module.exports = function(svg, state, city) {
 									.data(bubble.nodes(data_list))
 								.enter().append("g")
 									.attr("class", "node")
-									.attr("transform", function (d) { return "translate(" + d.x + "," +
-												d.y + ")";});
+									.attr("transform", function (d) { return "translate(" + d.x +
+												"," + d.y + ")";});
 
 		node.append("circle")
 				.attr("r", function(d){ return d.r;})
 				.attr("class", "circle")
-				.attr("id", function(d){
-					return count();})
+				.attr("active", false)
 				.attr("fill", function(d){ return color(d.name);});
 
-		var text = node.append("g")
-									 .append("text")
-		  					 	 .style("text-anchor", "middle")
-									 .attr("opacity", 0)
-									 .attr("id", function(d){return "text" + count2();})
-		  					   .text(function(d){ return d.name;});
+		g.attr("transform", "scale(" + 2 + ")");
 
-		text.attr("transform", function(d){ return "scale(" + 1 / 2 + ")";})
-
-		g.attr("transform", "scale(" + 2 + ")")
 
 	};
+
+	Promise.all([
 
 	$.ajax({
 		url: "/api/industrysize/" + state + "/" + city + "/"
 	}).done(function(d){
 		bubbleChart(d);
-	}).done(function() {
-		var circles = d3.selectAll(".circle").on("click", showText);
-		// circles.on("mouseenter", showText);
-		// circles.on("mouseout", hideText);
+	}),
+
+
+]).then(function(results) {
+	
+		var circles = d3.selectAll(".circle").on("mouseenter", showText);
+		circles.on("touch", showText);
+
 	});
 
 };
@@ -27069,7 +27078,6 @@ module.exports = function (json, g, path, color, type, height, width) {
         .style("fill-opacity", 0)
         .style("stroke", "none")
         .attr("id", function (d) { return d.properties.GEOID10 + "TP";});
-
 
   }
 
