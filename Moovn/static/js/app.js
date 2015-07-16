@@ -26244,8 +26244,7 @@ module.exports = function(svg, state, city) {
 
 		if (!this.active) {
 			d3.selectAll("circle").attr("active", false);
-			console.log(this)
-			console.log(this.getAttribute("fill"))
+
 			d3.select(this).attr("active", true);
 
 			d3.select(".bubble-title").select("span")
@@ -26354,6 +26353,7 @@ module.exports = function(svg, state, city) {
 
 ]).then(function(results) {
 		var circles = d3.selectAll(".circle").on("mouseenter", showText);
+		circles.on("touch", showText)
 		// circles.on("mouseenter", showText);
 		// circles.on("mouseout", hideText);
 	});

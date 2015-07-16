@@ -13,13 +13,6 @@ module.exports = function(svg, state, city) {
 	};
 
 	var showText = function (d) {
-		// var item = d3.select("#text" + this.id);
-		//
-		// if (item.attr("opacity") == 0){
-		// 	item.attr("opacity", 1);
-		// } else {
-		// 	item.attr("opacity", 0);
-		// }
 
 		if (!this.active) {
 			d3.selectAll("circle").attr("active", false);
@@ -32,16 +25,6 @@ module.exports = function(svg, state, city) {
 		};
 
 	};
-
-	// var hideText = function () {
-	//
-	//
-	// };
-	//
-	// var toggleText = function () {
-	//
-	//
-	// };
 
 	var bubbleChart = function (data) {
 
@@ -85,21 +68,10 @@ module.exports = function(svg, state, city) {
 				.attr("r", function(d){ return d.r;})
 				.attr("class", "circle")
 				.attr("active", false)
-				//.attr("id", function(d){
-				//	return count();})
 				.attr("fill", function(d){ return color(d.name);});
 
-		// var text = node.append("g")
-		// 							 .append("text")
-		//   					 	 .style("text-anchor", "middle")
-		// 							 .attr("opacity", 0)
-		// 							 .attr("id", function(d){return "text" + count2();})
-		//   					   .text(function(d){ return d.name;});
-
-		// text.attr("transform", function(d){ return "scale(" + 1 / 2 + ")";});
-
 		g.attr("transform", "scale(" + 2 + ")");
-		// return bubble.nodes(data_list);
+
 
 	};
 
@@ -110,30 +82,12 @@ module.exports = function(svg, state, city) {
 	}).done(function(d){
 		bubbleChart(d);
 	}),
-		// var data = bubbleChart(d);
-		// var count = counter();
-		// var g = svg.append("g")
-		//
-		// var node = g.selectAll(".node").data(data)
-		// 					 .enter().append("g")
-		// 						 .attr("r", function(d){ return d.r;})
-		// 						 .attr("class", "node-top")
-		// 						 //.attr("id", function(d){return count();})
-		// 						 .attr("transform", function (d) { return "translate(" + d.x +
-		// 									 "," + d.y + ")";});
-		//
-		// 	  node.append("circle")
-	 // 			 	 .attr("r", function(d){ return d.r;})
-	 // 				 .attr("class", "circle-top")
-	 // 				 .attr("id", function(d){return count();})
-	 // 				 .attr("opacity", 0);
-		//
-		// g.attr("transform", "scale(" + 2 + ")");
+
 
 ]).then(function(results) {
 		var circles = d3.selectAll(".circle").on("mouseenter", showText);
-		// circles.on("mouseenter", showText);
-		// circles.on("mouseout", hideText);
+		circles.on("touch", showText);
+
 	});
 
 };
