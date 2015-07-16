@@ -1817,6 +1817,17 @@ header {
   100% {
     top: 0; } }
 
+.school-info {
+  overflow: auto;
+  height: 400px; }
+
+.school-modal {
+  overflow: auto;
+  height: 400px;
+  width: 100%;
+  background-color: red;
+  display: none; }
+
 body {
   font-family: Century Gothic, sans-serif; }
 

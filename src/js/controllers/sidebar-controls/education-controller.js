@@ -12,7 +12,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var activeSelection = require('../active-selection');
-var getDetails = require('../../place-details')
+var getDetails = require('../../place-details');
 
 // for the map
 var d3 = require('d3');
@@ -28,7 +28,7 @@ router.route('search/:cityName/education', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', {city: cityName} );
   searchFunction();
-  show('city-template-2', '.main-content', {city: cityName} );
+  show('education-template', '.main-content', {city: cityName} );
 
   activeSelection();
 
@@ -41,13 +41,12 @@ router.route('search/:cityName/education', function (cityName){
   nTitle.append("span").style({"color": "darkgreen", "font-weight": "bold"})
     .text(city);
 
-
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-  show('content/tabs-lists', '.duo-2')
+  show('content/tabs-lists', '.tri-3-edu')
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
@@ -146,6 +145,12 @@ router.route('search/:cityName/education', function (cityName){
     $(".clickSpan").removeClass("clickSpan-selected");
     $(this).addClass("clickSpan-selected");
   });
+
+  // $('.main-content').on('click', '.school-title' , function(){
+  //   $('.school-modal').fadeIn();
+  // });
+
+  
 
   setTimeout(function() {
     var id = $('.clickSpan').eq(0).attr('id')

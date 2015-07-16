@@ -25089,7 +25089,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var activeSelection = require('../active-selection');
-var getDetails = require('../../place-details')
+var getDetails = require('../../place-details');
 
 // for the map
 var d3 = require('d3');
@@ -25105,7 +25105,7 @@ router.route('search/:cityName/education', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', {city: cityName} );
   searchFunction();
-  show('city-template-2', '.main-content', {city: cityName} );
+  show('education-template', '.main-content', {city: cityName} );
 
   activeSelection();
 
@@ -25118,13 +25118,12 @@ router.route('search/:cityName/education', function (cityName){
   nTitle.append("span").style({"color": "darkgreen", "font-weight": "bold"})
     .text(city);
 
-
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-  show('content/tabs-lists', '.duo-2')
+  show('content/tabs-lists', '.tri-3-edu')
 
   var svg = d3.select("#d3-graphs");
   var height = 400;
@@ -25223,6 +25222,12 @@ router.route('search/:cityName/education', function (cityName){
     $(".clickSpan").removeClass("clickSpan-selected");
     $(this).addClass("clickSpan-selected");
   });
+
+  // $('.main-content').on('click', '.school-title' , function(){
+  //   $('.school-modal').fadeIn();
+  // });
+
+  
 
   setTimeout(function() {
     var id = $('.clickSpan').eq(0).attr('id')
@@ -25824,8 +25829,8 @@ router.route('search/:cityName/transportation', function (cityName){
 });
 
 },{"../../google-maps":20,"../../graphs/commute-times":23,"../../neighMap":40,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../zoom":49,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],18:[function(require,module,exports){
-var $ = require('jquery')
-var housing = require('./graphs/neigh-housing')
+var $ = require('jquery');
+var housing = require('./graphs/neigh-housing');
 
 module.exports = function(state, city, id, coords){
 
@@ -25833,9 +25838,28 @@ $.ajax({
   method: "GET",
   url: "api/nearbyschools/" + state + "/" + city + "/?lat=" + coords[1] +
   "&lon=" + coords[0] //+ "&radius=" + 2, // min might be 5 miles
-}).then(function(data){console.log(data);});
+}).then(function(data){
+	var school = data.schools.school;
+	console.log(school);
+	school.forEach(function(school, i) {
+		$('.school-info').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
+	});
+	$('.school-title').on('click', function(){
+			var id = $(this).data("id");
+			var currentSchool = school[id];
 
-}
+			$('.school-modal-content').text('');	
+			$('.school-modal').fadeIn();
+			$('.school-modal-content').append(currentSchool.name);
+		});
+	$('.main-content').on('click', '.school-modal-x' , function(){
+    		$('.school-modal').fadeOut();
+  });
+
+});
+
+};
+
 
 },{"./graphs/neigh-housing":27,"jquery":"jquery"}],19:[function(require,module,exports){
 var $ = require('jQuery');
@@ -25849,8 +25873,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
     zoomout(d);
-
-
+    
   } else {
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
