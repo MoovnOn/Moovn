@@ -25136,7 +25136,7 @@ router.route('search/:cityName/education', function (cityName){
               .attr("class", "map");
 
   $(window).resize(function(){
-    var width = $(".duo-1").width();
+    var width = $(".tri-1-edu").width();
     svg.attr("width", width);
     svg.attr("height", width * aspect);
   });
