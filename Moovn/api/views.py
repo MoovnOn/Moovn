@@ -56,8 +56,6 @@ class HomeView(View):
         return JsonResponse(housing_data)
 
 
-@api_view(['GET', ])
-# @permission_classes((permissions.AllowAny,))
 def cell_view(request, state, name):
     query = state + '+' + name
     places = requests.get("http://api.tiles.mapbox.com/v4/geocode/mapbox.places/" \
@@ -247,10 +245,8 @@ def salary_view(request, state, name, job):
                     datadict[occupations[job]
                              + typecodes[str(line['seriesID'][-2:])]] = line["data"][0]["value"]
 
-    response = JsonResponse(datadict)
-    # response = HttpResponse(ocp_data)
+    return JsonResponse(datadict)
 
-    return response
 
 
 main_ind = [str(num) for num in range(110000, 530000, 20000)]

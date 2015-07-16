@@ -24219,13 +24219,13 @@ $.widget( "ui.tooltip", {
 
 },{"jquery":"jquery"}],3:[function(require,module,exports){
 /*
- *  Project: jquery.responsiveTabs.js
+ *  Project: jQuery.responsiveTabs.js
  *  Description: A plugin that creates responsive tabs, optimized for all devices
  *  Author: Jelle Kralt (jelle@jellekralt.nl)
  *  Version: 1.4.5
  *  License: MIT
  */
- var jQuery = require("jquery");
+var jQuery = require('jquery');
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -24350,7 +24350,7 @@ $.widget( "ui.tooltip", {
         // Trigger loaded event
         this.$element.trigger('tabs-load');
     };
-    
+
     //
     // PRIVATE FUNCTIONS
     //
@@ -24482,7 +24482,7 @@ $.widget( "ui.tooltip", {
     ResponsiveTabs.prototype._getStartTab = function() {
         var tabRef = this._getTabRefBySelector(window.location.hash);
         var startTab;
-        
+
         // Check if the page has a hash set that is linked to a tab
         if(tabRef >= 0 && !this._getTab(tabRef).disabled) {
             // If so, set the current tab to the linked tab
@@ -24561,7 +24561,7 @@ $.widget( "ui.tooltip", {
         _this._doTransition(oTab.panel, _this.options.animation, 'open', function() {
             // When finished, set active class to the panel
             oTab.panel.removeClass(_this.options.classes.stateDefault).addClass(_this.options.classes.stateActive);
-          
+
            // And if enabled and state is accordion, scroll to the accordion tab
             if(_this.getState() === 'accordion' && _this.options.scrollToAccordion && (!_this._isInView(oTab.accordionTab) || _this.options.animation !== 'default')) {
                 // Check if the animation option is enabled, and if the duration isn't 0
@@ -24742,7 +24742,7 @@ $.widget( "ui.tooltip", {
 
     //
     // HELPER FUNCTIONS
-    // 
+    //
 
     ResponsiveTabs.prototype._isInView = function($element) {
         var docViewTop = $(window).scrollTop(),
@@ -25290,19 +25290,26 @@ router.route('search/:cityName/housing', function (cityName){
   nTitle.append("span").style({"color": "darkgreen", "font-weight": "bold"})
     .text(city);
 
-  //$("#neighborhood-title").text("Select a Neighborhood");
 
-  var svg = d3.select("#d3-graphs");
-  var height = 400;
-  var width = 400;
-  svg.attr("width", width).attr("height", height);
+  var width = Math.max($("#d3-graphs").width(), 200),
+      aspect = 1;
 
-  // svg.append("text")
-  //   .attr("x", 200)
-  //   .attr("y", 20)
-  //   .attr("id", "map-title")
-  //   .attr("text-anchor", "middle")
-  //   .text("");
+  var svg = d3.select("#d3-graphs").append("svg")
+              .attr("preserveAspectRatio", "xMidYMid")
+              .attr("viewBox", "100 100 700 700")
+              .attr("width", width)
+              .attr("height", width * aspect)
+              .attr("class", "map");
+
+  // svg.attr("width", width).attr("height", height);
+
+  $(window).resize(function(){
+    var width = Math.max($(".quad-1").width(), 200);
+    svg.attr("width", width);
+    svg.attr("height", width * aspect);
+  });
+
+  //$(".map").on("resize", mouseOutZoom);
 
   var g = svg.append("g");
 
@@ -25315,20 +25322,19 @@ router.route('search/:cityName/housing', function (cityName){
   var boundaryjson = [];
   var id = 0;
 
-  // Promise.all([
-  //
-  // $.ajax({
-  //
-  //   method: 'GET',
-  //   url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
-  //
-  // }).done(function (json){
-  //
-  //   neighMap(json, g, path, "black", "US");
-  //
-  // })
-  //
-  // ]).then(function(results){
+  var mouseOutZoom = function (d) {
+    $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
+    d3.selectAll("path")
+      .classed("active", false);
+    housingGraphGeneral(state, city);
+    return zoom(cityjson, boundaryjson, g, path, aspect * width, width);
+  };
+
+  var mouseZoom = function(d) {
+    $(".maptext").attr("opacity", 0);
+    $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+    return mouseOverZoom(d, path, g, aspect * width, width, mouseOutZoom, state, city);
+  };
 
   Promise.all([
 
@@ -25339,7 +25345,7 @@ router.route('search/:cityName/housing', function (cityName){
 
       }).done(function (json){
 
-        cityjson = neighMap(json, g, path, "brown", "city", height, width);
+        cityjson = neighMap(json, g, path, "brown", "city", aspect * width, width);
 
       }),
 
@@ -25354,7 +25360,7 @@ router.route('search/:cityName/housing', function (cityName){
 
       }).done(function (json){
         if (json){
-          boundaryjson = neighMap(json, g, path, "grey", "neighborhood", height, width);
+          boundaryjson = neighMap(json, g, path, "grey", "neighborhood", aspect * width, width);
         } else {
           boundaryjson = false
         }
@@ -25364,37 +25370,19 @@ router.route('search/:cityName/housing', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
-        zoom(cityjson, boundaryjson, g, path, height, width);
-
-        var mouseOutZoom = function (d) {
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
-
-          d3.selectAll("path")
-            .classed("active", false)
-          //c3.generate(housingdata);
-          housingGraphGeneral(state, city);
-          return zoom(cityjson, boundaryjson, g, path, height, width);
-        };
-
-        var mouseZoom = function(d) {
-          $(".maptext").attr("opacity", 0);
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
-          return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
-        };
-
+        zoom(cityjson, boundaryjson, g, path, aspect * width, width);
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
 
       } else {
 
-        zoom(cityjson, cityjson, g, path, height, width);
+        zoom(cityjson, cityjson, g, path, aspect * width, width);
 
       }
 
     });
 
   });
-  //
-  // })
+
 
   activeSelection();
 
@@ -25452,10 +25440,21 @@ router.route('search/:cityName/industry', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  d3.select(".tri-2").append("svg")
-    .attr("height", 700)
-    .attr("width", 700)
-    .call(bubbleChart, state, city)
+  var width = $(".tri-2").width(),
+      aspect = 1;
+
+  var svg = d3.select(".tri-2").append("svg")
+              .attr("preserveAspectRatio", "xMidYMid")
+              .attr("viewBox", "0 0 900 900")
+              .attr("width", width)
+              .attr("height", width * aspect)
+              .call(bubbleChart, state, city);
+
+  $(window).resize(function(){
+    var width = $(".tri-2").width();
+    svg.attr("width", width);
+    svg.attr("height", width * aspect);
+  });
 
   $('.main-content').on('submit', '.industry-form', function(e) {
     e.preventDefault();
@@ -26264,16 +26263,22 @@ $ = require('jquery');
 
 module.exports = function(svg, state, city) {
 
-	$.ajax({
-		url: "/api/industrysize/" + state + "/" + city + "/"
-	}).done(function(d){
-		//console.log(d);
-		bubbleChart(d);
-	});
+	var showText = function (d) {
+		console.log(this)
+		d3.select("#text" + this.id).attr("opacity", 1);
+	};
+
+	var hideText = function () {
+
+
+	};
+
+	var toggleText = function () {
+
+
+	};
 
 	var bubbleChart = function (data) {
-		//console.log("data");
-		//console.log(data);
 
 		var data_list = {"children":[]};
 
@@ -26289,9 +26294,7 @@ module.exports = function(svg, state, city) {
 			cb(key, data);
 		}
 
-		console.log(svg)
-		var diameter = Math.min(svg.attr("height"),svg.attr("width")) / 2;
-		console.log(diameter)
+		var diameter = 200;
 		var color = d3.scale.category20b();
 
 		var bubble = d3.layout.pack()
@@ -26299,8 +26302,22 @@ module.exports = function(svg, state, city) {
 					.size([diameter, diameter])
 					.padding(.5);
 
-		console.log(bubble.nodes(data_list))
+		//console.log(bubble.nodes(data_list))
 		g = svg.append("g")
+
+		var counter = function (){
+			var k = 0;
+			var m = function () {
+				k = k + 1;
+				return k;
+			};
+
+			return m;
+		};
+
+		var count = counter();
+		var count2 = counter();
+
 		var node = g.selectAll(".node")
 									.data(bubble.nodes(data_list))
 								.enter().append("g")
@@ -26310,19 +26327,33 @@ module.exports = function(svg, state, city) {
 
 		node.append("circle")
 				.attr("r", function(d){ return d.r;})
+				.attr("class", "circle")
+				.attr("id", function(d){
+					return count();})
 				.attr("fill", function(d){ return color(d.name);});
-
 
 		var text = node.append("g")
 									 .append("text")
 		  					 	 .style("text-anchor", "middle")
+									 .attr("opacity", 0)
+									 .attr("id", function(d){return "text" + count2();})
 		  					   .text(function(d){ return d.name;});
 
-		text.attr("transform", function(d){ return "scale(" + 1/2  + ")";})
+		text.attr("transform", function(d){ return "scale(" + 1 / 2 + ")";})
 
 		g.attr("transform", "scale(" + 2 + ")")
 
 	};
+
+	$.ajax({
+		url: "/api/industrysize/" + state + "/" + city + "/"
+	}).done(function(d){
+		bubbleChart(d);
+	}).done(function() {
+		var circles = d3.selectAll(".circle").on("click", showText);
+		// circles.on("mouseenter", showText);
+		// circles.on("mouseout", hideText);
+	});
 
 };
 
@@ -26836,14 +26867,14 @@ module.exports = function (json, g, path, color, type, height, width) {
   if (type !== "neighborhood"){
 
     g.selectAll("path")
-        .data(data.features, function(d){return d.properties.GEOID10;})
+        .data(data.features, function (d) { return d.properties.GEOID10;})
       .enter().append("path")
         .attr("d", path)
         .attr("class", "feature-" + type)
         .style("fill", fill)
         .style("fill-opacity", opacity)
         .style("stroke", stroke)
-        .attr("id", function(d){return d.properties.GEOID10;});
+        .attr("id", function (d) { return d.properties.GEOID10;});
 
   }else{
 
@@ -26852,7 +26883,7 @@ module.exports = function (json, g, path, color, type, height, width) {
     neighG.attr("class", "neighborhoods");
 
     neighG.selectAll("path")
-        .data(data.features, function(d){return d.properties.GEOID10;})
+        .data(data.features, function (d) { return d.properties.GEOID10;})
       .enter().append("path")
         .attr("d", path)
         .attr("class", "feature-" + type)
@@ -26860,7 +26891,7 @@ module.exports = function (json, g, path, color, type, height, width) {
         .style("fill-opacity", opacity)
         .style("stroke", stroke)
         .style("stroke-opacity", 0.1)
-        .attr("id", function(d){return d.properties.GEOID10;});
+        .attr("id", function (d) { return d.properties.GEOID10;});
 
     var text = neighG.append("g")
 
@@ -26871,14 +26902,14 @@ module.exports = function (json, g, path, color, type, height, width) {
     text.selectAll("text")
       .data(data.features)
     .enter().append("text")
-      .attr("transform", function(d){ return "translate(" + path.centroid(d) +
+      .attr("transform", function (d) { return "translate(" + path.centroid(d) +
             ")scale(" + 3 / (scale(path.bounds(d))) +")";})
-      .attr("id", function(d){return d.properties.GEOID10 + "T";})
+      .attr("id", function (d) { return d.properties.GEOID10 + "T";})
       .attr("opacity", 0)
       .attr("class", "maptext")
       .style("user-select", "none")
       .attr("text-anchor", "middle")
-      .text(function(d){ return d.properties.NAME;});
+      .text(function (d) { return d.properties.NAME;});
 
     var neighT = neighG.append("g")
     neighT.selectAll("path")
@@ -26889,7 +26920,7 @@ module.exports = function (json, g, path, color, type, height, width) {
         .style("fill", "white")
         .style("fill-opacity", 0)
         .style("stroke", "none")
-        .attr("id", function(d){return d.properties.GEOID10 + "TP";});
+        .attr("id", function (d) { return d.properties.GEOID10 + "TP";});
 
 
   }
@@ -27140,15 +27171,12 @@ var clicked = function (){
       var translate = [width / 2 - scale * x, height / 2 - scale * y];
 
     g.transition()
-     .duration(250)
-     //.style("stroke-width", 1.5/ scale + "px")
+     .duration(750)
      .call(zoomMap.translate(translate).scale(scale).event);
-
-    //zoomed(translate, scale);
 
 }
 
-  function zoomed(translate, scale){
+  function zoomed(d){
 
     g.style("stroke-width", 1.5 / d3.event.scale + "px");
     g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
