@@ -12,6 +12,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var activeSelection = require('../active-selection');
+var getDetails = require('../../place-details')
 
 // for the map
 var d3 = require('d3');
@@ -149,4 +150,29 @@ router.route('search/:cityName/education', function (cityName){
 //google places
   places(cityName, "colleges", ".tab-data1", ".tab-title1");
   places(cityName, "community college", ".tab-data2", ".tab-title2");
+
+  $('.main-content').on('click', '.r-tabs-anchor', function(){
+    $('.details-right').html('');
+  });
+
+  $('.city-all-container').on('click', '.clickSpan', function (){
+    var id = this.id;
+    getDetails(id);
+    $(".clickSpan").removeClass("clickSpan-selected");
+    $(this).addClass("clickSpan-selected");
+  });
+
+  setTimeout(function() {
+    var id = $('.clickSpan').eq(3).attr('id')
+    getDetails(id)
+  }, 1200);
+
+  
 });
+
+
+
+
+
+
+
