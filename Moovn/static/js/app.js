@@ -25204,8 +25204,6 @@ router.route('search/:cityName/education', function (cityName){
 
   });
 
-
-
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
@@ -25227,14 +25225,11 @@ router.route('search/:cityName/education', function (cityName){
   });
 
   setTimeout(function() {
-    var id = $('.clickSpan').eq(3).attr('id')
+    var id = $('.clickSpan').eq(0).attr('id')
     getDetails(id)
-  }, 1200);
+  },1000);
 
-  
 });
-
-
 
 
 
@@ -25617,7 +25612,7 @@ router.route('search/:cityName/leisure', function (cityName){
   setTimeout(function() {
     var id = $('.clickSpan').first().attr('id')
     getDetails(id)
-  }, 200);
+  }, 800);
 
 //code to get each tab opening the first item in the list  
   // $(".r-tabs-anchor").click(function(){
