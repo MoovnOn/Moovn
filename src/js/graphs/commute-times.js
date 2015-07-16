@@ -17,10 +17,9 @@ module.exports = function(state, city) {
     var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;    
     var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;
     var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
-       
 
       c3.generate({
-        bindto: 'body .duo-1',
+        bindto: '.quad-2',
         data: {
           columns: [
               ['Minutes Spent Commuting', housingPeopleCommute, housingPeopleCommuteNation],

@@ -2,25 +2,34 @@ d3 = require('d3');
 $ = require('jquery');
 
 module.exports = function(svg, state, city) {
+	var counter = function (){
+		var k = 0;
+		var m = function () {
+			k = k + 1;
+			return k;
+		};
+
+		return m;
+	};
 
 	var showText = function (d) {
-		console.log(this)
-		d3.select("#text" + this.id).attr("opacity", 1);
-	};
 
-	var hideText = function () {
+		if (!this.active) {
+			d3.selectAll("circle").attr("active", false);
 
+			d3.select(this).attr("active", true);
 
-	};
-
-	var toggleText = function () {
-
+			d3.select(".bubble-title").select("span")
+				.style("color", this.getAttribute("fill"))
+				.text(d.name);
+		};
 
 	};
 
 	var bubbleChart = function (data) {
 
-		var data_list = {"children":[]};
+		var data_list = {"name": "Jobs by Industry",
+			"children":[]};
 
 		var cb = function (item, data) {
 			obj = {
@@ -45,16 +54,6 @@ module.exports = function(svg, state, city) {
 		//console.log(bubble.nodes(data_list))
 		g = svg.append("g")
 
-		var counter = function (){
-			var k = 0;
-			var m = function () {
-				k = k + 1;
-				return k;
-			};
-
-			return m;
-		};
-
 		var count = counter();
 		var count2 = counter();
 
@@ -62,37 +61,34 @@ module.exports = function(svg, state, city) {
 									.data(bubble.nodes(data_list))
 								.enter().append("g")
 									.attr("class", "node")
-									.attr("transform", function (d) { return "translate(" + d.x + "," +
-												d.y + ")";});
+									.attr("transform", function (d) { return "translate(" + d.x +
+												"," + d.y + ")";});
 
 		node.append("circle")
 				.attr("r", function(d){ return d.r;})
 				.attr("class", "circle")
-				.attr("id", function(d){
-					return count();})
+				.attr("active", false)
 				.attr("fill", function(d){ return color(d.name);});
 
-		var text = node.append("g")
-									 .append("text")
-		  					 	 .style("text-anchor", "middle")
-									 .attr("opacity", 0)
-									 .attr("id", function(d){return "text" + count2();})
-		  					   .text(function(d){ return d.name;});
+		g.attr("transform", "scale(" + 2 + ")");
 
-		text.attr("transform", function(d){ return "scale(" + 1 / 2 + ")";})
-
-		g.attr("transform", "scale(" + 2 + ")")
 
 	};
+
+	Promise.all([
 
 	$.ajax({
 		url: "/api/industrysize/" + state + "/" + city + "/"
 	}).done(function(d){
 		bubbleChart(d);
-	}).done(function() {
-		var circles = d3.selectAll(".circle").on("click", showText);
-		// circles.on("mouseenter", showText);
-		// circles.on("mouseout", hideText);
+	}),
+
+
+]).then(function(results) {
+	
+		var circles = d3.selectAll(".circle").on("mouseenter", showText);
+		circles.on("touch", showText);
+
 	});
 
 };
