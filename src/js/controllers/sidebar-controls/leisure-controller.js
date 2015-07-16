@@ -54,6 +54,7 @@ router.route('search/:cityName/leisure', function (cityName){
       // startCollapsed: 'accordion'
   });
 
+
 //google places
   places(cityName, "Attractions", ".tab-data1", ".tab-title1");
   places(cityName, "Bars", ".tab-data2", ".tab-title2");
@@ -64,10 +65,11 @@ router.route('search/:cityName/leisure', function (cityName){
   // setTimeout(function(){
   //   $(".select-details").fadeOut("slow")
   //   }, 3500);
+
+
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
   });
-
 
   $('.city-all-container').on('click', '.clickSpan', function (){
     var id = this.id;
@@ -76,6 +78,20 @@ router.route('search/:cityName/leisure', function (cityName){
     $(this).addClass("clickSpan-selected");
   });
 
+  setTimeout(function() {
+    var id = $('.clickSpan').first().attr('id')
+    getDetails(id)
+  }, 200);
+
+//code to get each tab opening the first item in the list  
+  // $(".r-tabs-anchor").click(function(){
+  //    setTimeout(function() {
+  //     console.log();
+  //     var id = $('.clickSpan').first().attr('id')
+  //     getDetails(id)
+  //    }, 500);
+  // })
+  
   //changes tab view so that it is fullscreen only on this view
   $(".city-all-container").addClass("full-screen-container");
   $(".duo-1").addClass("full-screen-duo1");

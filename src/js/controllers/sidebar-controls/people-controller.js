@@ -35,7 +35,7 @@ router.route('search/:cityName/people', function (cityName){
   var state = citySplit[1];
 
 
-  peopleAge(state, city);
+  peopleAge(state, city, '.quad-1');
   peopleHousehold(state, city);
   peopleRelationships(state, city);
 

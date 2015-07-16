@@ -2,7 +2,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, bindTo ) {
 
   $.ajax({
     method: 'GET',
@@ -25,7 +25,7 @@ module.exports = function(state, city) {
     var housingPeople70 = housingPeople[1].data.attribute[0].value['#text'];
     
       c3.generate({
-          bindto: 'body .quad-1',
+          bindto: bindTo,
           data: {
               columns: [
                   ['0-9', housingPeople0],
