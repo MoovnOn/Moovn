@@ -17,6 +17,7 @@ var jobSearch = require('../../job-search');
 var autocomplete = require('jquery-ui');
 var jobtitles = require('../../job-titles');
 var bubbleChart = require('../../graphs/industry-bubble');
+var salaryPer = require('../../graphs/salary-percentile');
 
 
 router.route('search/:cityName/industry', function (cityName){
@@ -50,7 +51,8 @@ router.route('search/:cityName/industry', function (cityName){
   $('.main-content').on('submit', '.industry-form', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    jobSearch(state, city);
+    var job = $('.job-input').val();
+    salaryPer(state, city, job);
   });
 
   //slides the side-nav
@@ -71,6 +73,10 @@ router.route('search/:cityName/industry', function (cityName){
       results: function() {}
     }
   });
+  
+
+  
+
 
   //bubbleChart(state, city);
 
