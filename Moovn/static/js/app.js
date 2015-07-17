@@ -25607,6 +25607,15 @@ router.route('search/:cityName/overview', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
+//cost of living
+    $.ajax({
+      method: 'GET',
+      url: '/api/parity/' + state + '/' + city + '/'
+    })
+    .then(function(data){
+      $('.text-right').append('<p>' + data + '</p>');
+    });
+
 //income graph
 incomeCity(state, city, '.overview-graph3');
 
@@ -26238,7 +26247,12 @@ module.exports = function(state, city, bindTo) {
               ['City Commute', housingPeopleCommute],
               ['National Commute', housingPeopleCommuteNation]
           ],
-          type: 'bar'
+          type: 'bar',
+          colors: {
+            'City Commute': '#3D5E99',
+            'National Commute': '#CC2E14',
+          },
+          
         },
         axis: {
             x: {
@@ -26311,8 +26325,8 @@ module.exports = function(state, city, element) {
           colors: {
             'Condo': '#3D5E99',
             '2-Bed': '#CC2E14',
-            '3-Bed': '#00E2FF',
-            '4-Bed': '#707D94',
+            '3-Bed': '#707D94',
+            '4-Bed': '#FF7640',
           },
         },
         axis: {
@@ -26369,10 +26383,14 @@ module.exports = function(state, city, element) {
         bindto: element,
         data: {
           columns: [
-              ['Median-City-Income', housingPeopleIncome],
-              ['Median-Nation-Income', housingPeopleIncomeNation],
+              ['City Income', housingPeopleIncome],
+              ['National Income', housingPeopleIncomeNation],
           ],
-          type: 'bar'
+          type: 'bar',
+          colors: {
+            'City Income': '#3D5E99',
+            'National Income': '#CC2E14',           
+          },
         },
         axis: {
           x: {
@@ -26518,11 +26536,17 @@ module.exports = function (allHousingData){
     data: {
       columns: [
           ['Condo', housingAffordData[0]],
-          ['2-Bed-Home', housingAffordData[1]],
-          ['3-Bed-Home', housingAffordData[2]],
-          ['4-Bed-Home', housingAffordData[3]],
+          ['2-Bed', housingAffordData[1]],
+          ['3-Bed', housingAffordData[2]],
+          ['4-Bed', housingAffordData[3]],
       ],
-      type: 'bar'
+      type: 'bar',
+      colors: {
+            'Condo': '#3D5E99',
+            '2-Bed': '#CC2E14',
+            '3-Bed': '#707D94',
+            '4-Bed': '#FF7640',
+          },
     },
     axis: {
 

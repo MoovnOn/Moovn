@@ -45,8 +45,8 @@ module.exports = function(state, city, element) {
           colors: {
             'Condo': '#3D5E99',
             '2-Bed': '#CC2E14',
-            '3-Bed': '#00E2FF',
-            '4-Bed': '#707D94',
+            '3-Bed': '#707D94',
+            '4-Bed': '#FF7640',
           },
         },
         axis: {

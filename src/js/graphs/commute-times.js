@@ -31,7 +31,12 @@ module.exports = function(state, city, bindTo) {
               ['City Commute', housingPeopleCommute],
               ['National Commute', housingPeopleCommuteNation]
           ],
-          type: 'bar'
+          type: 'bar',
+          colors: {
+            'City Commute': '#3D5E99',
+            'National Commute': '#CC2E14',
+          },
+          
         },
         axis: {
             x: {
