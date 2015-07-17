@@ -14,7 +14,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
-    
+
 
     var x = d3.scale.linear()
         .domain([0, width])
@@ -45,8 +45,8 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
     var clicked = function (){
 
-        var scale = .5 / Math.max( dx(bounds) / width, dy(bounds) / height);
-        var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
+        var scale = .65 / Math.max( dx(bounds) / width, dy(bounds) / height);
+        var translate = [Math.floor(width / 2) - Math.floor(scale * center_x(bounds)), Math.ceil(height / 2) - Math.ceil(scale * center_y(bounds))];
 
         g.transition()
          .duration(250)
@@ -57,7 +57,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
     function zoomed(){
 
-      g.style("stroke-width", 1.5 / d3.event.scale + "px");
+      g.style("stroke-width", 3 / d3.event.scale + "px");
       g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 
 

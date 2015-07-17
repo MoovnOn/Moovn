@@ -25144,7 +25144,7 @@ router.route('search/:cityName/education', function (cityName){
       aspect = 1;
 
   var svg = d3.select("#d3-graphs").append("svg")
-              .attr("preserveAspectRatio", "xMinYMin")
+              .attr("preserveAspectRatio", "xMidYMid")
               .attr("viewBox", "0 0 700 700")
               .attr("width", width)
               .attr("height", width * aspect)
@@ -25259,11 +25259,6 @@ router.route('search/:cityName/education', function (cityName){
   },1000);
 
 });
-
-
-
-
-
 
 },{"../../educationmouseover":20,"../../neighMap":41,"../../place-details":43,"../../places-api":44,"../../router":45,"../../search":46,"../../show":47,"../../topojson":49,"../../zoom":50,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
@@ -25483,25 +25478,36 @@ router.route('search/:cityName/industry', function (cityName){
   var width = $(".tri-2").width(),
       aspect = 1;
 
+  var width2 = $(".tri-1").width();
+
   var svg = d3.select(".tri-2").append("svg")
               .attr("preserveAspectRatio", "xMidYMid")
-              .attr("viewBox", "0 0 900 900")
+              .attr("viewBox", "0 0 1000 1000")
               .attr("width", width)
               .attr("height", width * aspect)
-              .call(bubbleChart, state, city);
+              .call(bubbleChart, state, city, aspect * width, width);
+
+  var svg2 = d3.select("#boxplot")
+    .attr("preserveAspectRatio", "xMidYMid")
+    .attr("viewBox", "0 0 1000 1000")
+    .attr("width", width2)
+    .attr("height", width2 * aspect);
 
   $(window).resize(function(){
     var width = $(".tri-2").width();
+    var width2 = $(".tri-1").width();
     svg.attr("width", width);
     svg.attr("height", width * aspect);
+    svg2.attr("width", width2);
+    svg2.attr("height", width2 * aspect);
   });
 
   $('.main-content').on('submit', '.industry-form', function(e) {
     e.preventDefault();
     e.stopPropagation();
     var job = $('.job-input').val();
-    salaryPer(state, city, job);
-    $('.gauge-title').fadeIn("slow");
+    salaryPer(state, city, job, aspect * width, width);
+
   });
 
   //slides the side-nav
@@ -25522,12 +25528,6 @@ router.route('search/:cityName/industry', function (cityName){
       results: function() {}
     }
   });
-
-  peopleAge(state, city, '.quad-1');
-  
-
-
-  //bubbleChart(state, city);
 
 });
 
@@ -25917,18 +25917,18 @@ $.ajax({
 }).then(function(data){
 		var school = data.schools.school;
 		console.log(school);
-		
-		$('.school-info-title').css('display', 'none');
-		$('.school-info').append('<h1>Local Schools</h1>');
+		$('.school-info').append('<div class="school-info-container"></div>');
+		$('.school-info-title').text("Local Schools");
 		school.forEach(function(school, i) {
-		$('.school-info').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
+		$('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
 	});
+
 	$('.school-title').on('click', function(){
 			var id = $(this).data("id");
 			var currentSchool = school[id];
 			var modal = $('.school-modal-content');
-			
-			modal.text('');	
+
+			modal.text('');
 			$('.school-modal').fadeIn();
 			modal.append('<h1>' + currentSchool.name + '</h1>');
 			modal.append('<span class="school-details">' + currentSchool.address + '</p>');
@@ -25940,7 +25940,7 @@ $.ajax({
 			modal.append('<span class="details-titles">Parent Rating: </span><span class="school-details">' + currentSchool.parentRating + '</span><br>');
 			modal.append('<span class="details-titles">GS Rating: </span><span class="school-details">' + currentSchool.gsRating + '</span><br>');
 		});
-	
+
 	$('.main-content').on('click', '.school-modal-x' , function(){
     		$('.school-modal').fadeOut();
   });
@@ -25948,7 +25948,6 @@ $.ajax({
 });
 
 };
-
 
 },{"./graphs/neigh-housing":28,"jquery":"jquery"}],20:[function(require,module,exports){
 var $ = require('jQuery');
@@ -25962,8 +25961,11 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
     zoomout(d);
-    
+    $(".school-info-container").empty();
+    $(".school-info-title").text("Select a Neighborhood to see it's schools");
+
   } else {
+    $(".school-info-container").empty();
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
@@ -26396,7 +26398,7 @@ module.exports = function(state, city, element) {
 d3 = require('d3');
 $ = require('jquery');
 
-module.exports = function(svg, state, city) {
+module.exports = function(svg, state, city, height, width) {
 	var counter = function (){
 		var k = 0;
 		var m = function () {
@@ -26438,7 +26440,7 @@ module.exports = function(svg, state, city) {
 			cb(key, data);
 		}
 
-		var diameter = 200;
+		var diameter = Math.min(height, width) / 2;
 		var color = d3.scale.category20b();
 
 		var bubble = d3.layout.pack()
@@ -26480,7 +26482,7 @@ module.exports = function(svg, state, city) {
 
 
 ]).then(function(results) {
-	
+
 		var circles = d3.selectAll(".circle").on("mouseenter", showText);
 		circles.on("touch", showText);
 
@@ -26757,190 +26759,121 @@ module.exports = function(state, city) {
 };
 
 },{"c3":"c3","d3":"d3","jquery":"jquery"}],34:[function(require,module,exports){
-var c3 = require('c3');
+var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city, job) {
+module.exports = function(state, city, job, height, width) {
+	$("#boxplot").empty();
 
 	$.ajax({
     method: 'GET',
     url: 'api/salary/' + state + '/' + city + '/' + job
-    }).done(function(data){
-      console.log(data);
-     
-     var value10 = data[job+"10th"];
-     var value25 = data[job+"25th"];
-     var value50 = data[job+"50th"];
-     var value75 = data[job+"75th"]; 
-     var value90 = data[job+"90th"];
-     var max = ((parseInt(value90) / 9) + parseInt(value90));
-     console.log(max);
-     
-     c3.generate({
-      bindto: '.gauge25',
-      data: {
-           columns: [
-              ['25th Percentile', data[job+"25th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-              pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
+  }).done(function(data){
+		if (data !== "no data") {
 
-    c3.generate({
-      bindto: '.gauge50',
-      data: {
-           columns: [
-              ['50th Percentile', data[job+"50th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-               pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
-
-    c3.generate({
-      bindto: '.gauge75',
-      data: {
-           columns: [
-              ['75th Percentile', data[job+"75th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-             pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
-
-    c3.generate({
-      bindto: '.gauge90',
-      data: {
-           columns: [
-              ['90th Percentile', data[job+"90th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-               pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
+	  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
+										data[job+"75th"], data[job+"90th"]];
 
 
+			var svg = d3.select("#boxplot");
 
-});
-    
-  //   c3.generate({
-  //      bindto: '.tri-1',
-  //       data: {
-  //           x: 'x',
-  //           columns: [
-  //               ['x', '25', '50', '75', '90'],
-  //               ['25th', data[job+"25th"]], 
-  //               ['50th', data[job+"50th"]], 
-  //               ['75th', data[job+"75th"]],
-  //               ['90th', data[job+"90th"]]
-  //           ],
-  //              type: 'bar'
-  //        }
-  //   });
-  // });
-}
-},{"c3":"c3","jquery":"jquery"}],35:[function(require,module,exports){
+			var bp = svg;//.append("g")
+			//	.attr("height", svg.attr("height") + "px")
+			//	.attr("width", svg.attr("width") + "px");
+
+			//var x = d3.scale.linear()
+				//.domain([values[0], values[4]])
+				//.range([.05 * bp.attr("width"), .95 * bp.attr("width")]);
+			console.log(data)
+			console.log(bp.attr("width"))
+
+			var x = function(val) {
+				return .05 * bp.attr("width") + .9 * bp.attr("width") *
+							 (val - values[0]) / (values[4] - values[0]);
+			};
+
+			console.log(x(values[0]))
+			console.log(x(values[4]))
+
+				bp.append("line")
+					.attr("x1", x(values[0]))
+					.attr("x2", x(values[4]))
+					.attr("y1", height / 2)
+					.attr("y2", height / 2)
+					.style({"stroke-width": 2, "stroke": "black"});
+
+				bp.append("line")
+					.attr("x1", x(values[0]))
+					.attr("x2", x(values[0]))
+					.attr("y1", .9 * height / 2)
+					.attr("y2", 1.1 * height / 2)
+					.style({"stroke-width": 2, "stroke": "black"});
+
+				bp.append("line")
+					.attr("x1", x(values[4]))
+					.attr("x2", x(values[4]))
+					.attr("y1", .9 * height / 2)
+					.attr("y2", 1.1 * height / 2)
+					.style({"stroke-width": 2, "stroke": "black"});
+
+				bp.append("rect")
+					.attr("x", x(values[1]))
+					.attr("y", .425 * height)
+					.attr("height", .15 * height)
+					.attr("width", x(values[2]) - x(values[1]))
+					.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
+
+					bp.append("rect")
+						.attr("x", x(values[2]))
+						.attr("y", .425 * height)
+						.attr("height", .15 * height)
+						.attr("width", x(values[3]) - x(values[2]))
+						.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
+
+
+					//var g = bp.append("g");
+
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[0]))
+						.attr("y", .3 * height)
+						//.attr("lengthAdjust", "spacingAndGlyphs")
+						.attr("length", 50)
+						.text(values[0]);
+
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[1]))
+						.attr("y", .75 * height)
+						.text(values[1]);
+
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[2]))
+						.attr("y", .3 * height)
+						.text(values[2]);
+
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[3]))
+						.attr("y", .75 * height)
+						.text(values[3]);
+
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[4]))
+						.attr("y", .3 * height)
+						.text(values[4]);
+
+		} else{
+			console.log(data)
+		}
+
+  });
+
+};
+
+},{"d3":"d3","jquery":"jquery"}],35:[function(require,module,exports){
 'use strict';
 var jQuery = require("jquery");
 var $ = require("jquery");
@@ -27060,7 +26993,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
-    
+
 
     var x = d3.scale.linear()
         .domain([0, width])
@@ -27091,8 +27024,8 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
     var clicked = function (){
 
-        var scale = .5 / Math.max( dx(bounds) / width, dy(bounds) / height);
-        var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
+        var scale = .65 / Math.max( dx(bounds) / width, dy(bounds) / height);
+        var translate = [Math.floor(width / 2) - Math.floor(scale * center_x(bounds)), Math.ceil(height / 2) - Math.ceil(scale * center_y(bounds))];
 
         g.transition()
          .duration(250)
@@ -27103,7 +27036,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
     function zoomed(){
 
-      g.style("stroke-width", 1.5 / d3.event.scale + "px");
+      g.style("stroke-width", 3 / d3.event.scale + "px");
       g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 
 
@@ -27442,8 +27375,8 @@ var clicked = function (){
 
       var x = (bounds[0][0] + bounds[1][0])/2;
       var y = (bounds[0][1] + bounds[1][1])/2;
-      var scale = .85 / Math.max( dx(bounds) / width, dy(bounds) / height);
-      var translate = [width / 2 - scale * x, height / 2 - scale * y];
+      var scale = .95 / Math.min( dx(bounds) / width, dy(bounds) / height);
+      var translate = [Math.ceil(width / 2) - Math.floor(scale * x) + 5, (Math.ceil(height / 2) - Math.floor(scale * y)) * .998066];
 
     g.transition()
      .duration(750)
@@ -27453,7 +27386,7 @@ var clicked = function (){
 
   function zoomed(d){
 
-    g.style("stroke-width", 1.5 / d3.event.scale + "px");
+    g.style("stroke-width", 2 / d3.event.scale + "px");
     g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 
   };

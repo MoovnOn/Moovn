@@ -1,0 +1,280 @@
+1,1,'Princeton University',"Princeton, NJ",$41820
+2,2,'Harvard University',"Cambridge, MA",$43938
+3,3,'Yale University',"New Haven, CT",$45800
+4,4,'Columbia University',"New York, NY",$51008
+5,4,'Stanford University',"Stanford, CA",$44757
+6,4,'University of Chicago',"Chicago, IL",$48253
+7,7,'Massachusetts Institute of Technology',"Cambridge, MA",$45016
+8,8,'Duke University',"Durham, NC",$47488
+9,8,'University of Pennsylvania',"Philadelphia, PA",$47668
+10,10,'California Institute of Technology',"Pasadena, CA",$43362
+11,11,'Dartmouth College',"Hanover, NH",$48108
+12,12,'Johns Hopkins University',"Baltimore, MD",$47060
+13,13,'Northwestern University',"Evanston, IL",$47251
+14,14,'Washington University in St. Louis',"St. Louis, MO",$46467
+15,15,'Cornell University',"Ithaca, NY",$47286
+16,16,'Brown University',"Providence, RI",$47434
+17,16,'University of Notre Dame',"Notre Dame, IN",$46237
+18,16,'Vanderbilt University',"Nashville, TN",$43838
+19,19,'Rice University',"Houston, TX",$40566
+20,20,'University of California--Berkeley',"Berkeley, CA",in-state: $13844 out-of-state: $25064
+21,21,'Emory University',"Atlanta, GA",$45008
+22,21,'Georgetown University',"Washington, DC",$46744
+23,23,'University of California--Los Angeles',"Los Angeles, CA",in-state: $12702 out-of-state: $35580
+24,23,'University of Virginia',"Charlottesville, VA",in-state: $12998 out-of-state: $42184
+25,25,'Carnegie Mellon University',"Pittsburgh, PA",$48786
+26,25,'University of Southern California',"Los Angeles, CA",$48280
+27,27,'Tufts University',"Medford, MA",$48643
+28,27,'Wake Forest University',"Winston-Salem, NC",$46200
+29,29,'University of Michigan--Ann Arbor',"Ann Arbor, MI",in-state: $13977 out-of-state: $41811
+30,30,'University of North Carolina--Chapel Hill',"Chapel Hill, NC",in-state: $8374 out-of-state: $33624
+31,31,'Boston College',"Chestnut Hill, MA",$47436
+32,32,'New York University',"New York, NY",$46170
+33,33,'College of William and Mary',"Williamsburg, VA",in-state: $17656 out-of-state: $39360
+34,33,'University of Rochester',"Rochester, NY",$46960
+35,35,'Brandeis University',"Waltham, MA",$47833
+36,35,'Georgia Institute of Technology',"Atlanta, GA",in-state: $11394 out-of-state: $30698
+37,37,'University of California--San Diego',"La Jolla, CA",in-state: $13302 out-of-state: $36180
+38,38,'Case Western Reserve University',"Cleveland, OH",$43158
+39,38,'University of California--Davis',"Davis, CA",in-state: $13896 out-of-state: $36774
+40,40,'Lehigh University',"Bethlehem, PA",$44890
+41,40,'University of California--Santa Barbara',"Santa Barbara, CA",in-state: $13746 out-of-state: $36624
+42,42,'Boston University',"Boston, MA",$46664
+43,42,'Northeastern University',"Boston, MA",$43440
+44,42,'Rensselaer Polytechnic Institute',"Troy, NY",$47908
+45,42,'University of California--Irvine',"Irvine, CA",in-state: $14757 out-of-state: $37635
+46,42,'University of Illinois--Urbana-\xe2\x80\x8bChampaign',"Champaign, IL",in-state: $15602 out-of-state: $30228
+47,47,'University of Wisconsin--Madison',"Madison, WI",in-state: $10410 out-of-state: $26660
+48,48,'Pennsylvania State University--University Park',"University Park, PA",in-state: $17502 out-of-state: $30452
+49,48,'University of Florida',"Gainesville, FL",in-state: $6313 out-of-state: $28591
+50,48,'University of Miami',"Coral Gables, FL",$44350
+51,48,'University of Washington',"Seattle, WA",in-state: $12394 out-of-state: $33513
+52,48,'Yeshiva University',"New York, NY",$38730
+53,53,'University of Texas--Austin',"Austin, TX",in-state: $9798 out-of-state: $34722
+54,54,'George Washington University',"Washington, DC",$48760
+55,54,'Ohio State University--Columbus',"Columbus, OH",in-state: $10037 out-of-state: $26537
+56,54,'Pepperdine University',"Malibu, CA",$46692
+57,54,'Tulane University',"New Orleans, LA",$48305
+58,58,'Fordham University',"New York, NY",$43577
+59,58,'Southern Methodist University',"Dallas, TX",$45940
+60,58,'Syracuse University',"Syracuse, NY",$41886
+61,58,'University of Connecticut',"Storrs, CT",in-state: $12700 out-of-state: $32880
+62,62,'Brigham Young University--Provo',"Provo, UT",$5000
+63,62,'Clemson University',"Clemson, SC",in-state: $13382 out-of-state: $30816
+64,62,'Purdue University--West Lafayette',"West Lafayette, IN",in-state: $10002 out-of-state: $28804
+65,62,'University of Georgia',"Athens, GA",in-state: $10836 out-of-state: $29046
+66,62,'University of Maryland--College Park',"College Park, MD",in-state: $9427 out-of-state: $29720
+67,62,'University of Pittsburgh',"Pittsburgh, PA",in-state: $17772 out-of-state: $28168
+68,68,'Texas A&M University--College Station',"College Station, TX",in-state: $9180 out-of-state: $26356
+69,68,'Worcester Polytechnic Institute',"Worcester, MA",$42778
+70,70,"b'Rutgers, The State University of New Jersey--New Brunswick'","Piscataway, NJ",in-state: $13813 out-of-state: $28591
+71,71,'American University',"Washington, DC",$41833
+72,71,'Baylor University',"Waco, TX",$38290
+73,71,'University of Iowa',"Iowa City, IA",in-state: $8079 out-of-state: $27409
+74,71,'University of Minnesota--Twin Cities',"Minneapolis, MN",in-state: $13626 out-of-state: $20876
+75,71,'Virginia Tech',"Blacksburg, VA",in-state: $12017 out-of-state: $27444
+76,76,'Clark University',"Worcester, MA",$40730
+77,76,'Indiana University--Bloomington',"Bloomington, IN",in-state: $10388 out-of-state: $33241
+78,76,'Marquette University',"Milwaukee, WI",$35930
+79,76,'Miami University--Oxford',"Oxford, OH",in-state: $13799 out-of-state: $29589
+80,76,'Stevens Institute of Technology',"Hoboken, NJ",$44490
+81,76,'SUNY College of Environmental Science and Forestry',"Syracuse, NY",in-state: $7303 out-of-state: $16953
+82,76,'Texas Christian University',"Fort Worth, TX",$38600
+83,76,'University of Delaware',"Newark, DE",in-state: $12342 out-of-state: $30692
+84,76,'University of Massachusetts--Amherst',"Amherst, MA",in-state: $13258 out-of-state: $28813
+85,85,'Michigan State University',"East Lansing, MI",in-state: $13200 out-of-state: $34980
+86,85,'University of California--Santa Cruz',"Santa Cruz, CA",in-state: $13398 out-of-state: $36276
+87,85,'University of Vermont',"Burlington, VT",in-state: $16226 out-of-state: $37874
+88,88,'Binghamton University--SUNY',"Binghamton, NY",in-state: $8619 out-of-state: $20259
+89,88,'Colorado School of Mines',"Golden, CO",in-state: $16918 out-of-state: $33598
+90,88,'Stony Brook University--SUNY',"Stony Brook, NY",in-state: $8430 out-of-state: $21850
+91,88,'University of Alabama',"Tuscaloosa, AL",in-state: $9826 out-of-state: $24950
+92,88,'University of Colorado--Boulder',"Boulder, CO",in-state: $10789 out-of-state: $33151
+93,88,'University of Denver',"Denver, CO",$42090
+94,88,'University of Tulsa',"Tulsa, OK",$34704
+95,95,'Drexel University',"Philadelphia, PA",$47051
+96,95,'Florida State University',"Tallahassee, FL",in-state: $6507 out-of-state: $21673
+97,95,'North Carolina State University--Raleigh',"Raleigh, NC",in-state: $8296 out-of-state: $23551
+98,95,'University of San Diego',"San Diego, CA",$42908
+99,99,'Saint Louis University',"St. Louis, MO",$37966
+100,99,'University of Missouri',"Columbia, MO",in-state: $9433 out-of-state: $24460
+101,99,'University of Nebraska--Lincoln',"Lincoln, NE",in-state: $8060 out-of-state: $21388
+102,99,'University of New Hampshire',"Durham, NH",in-state: $16552 out-of-state: $29532
+103,103,'Auburn University',"Auburn, AL",in-state: $10200 out-of-state: $27384
+104,103,'University at Buffalo--SUNY',"Buffalo, NY",in-state: $8426 out-of-state: $20366
+105,103,'University of Dayton',"Dayton, OH",$37230
+106,106,'Iowa State University',"Ames, IA",in-state: $7731 out-of-state: $20617
+107,106,'Loyola University Chicago',"Chicago, IL",$37412
+108,106,'University of Kansas',"Lawrence, KS",in-state: $10448 out-of-state: $25731
+109,106,'University of Oklahoma',"Norman, OK",in-state: $7695 out-of-state: $20469
+110,106,'University of Oregon',"Eugene, OR",in-state: $9918 out-of-state: $30888
+111,106,'University of San Francisco',"San Francisco, CA",$41450
+112,106,'University of Tennessee',"Knoxville, TN",in-state: $11246 out-of-state: $29696
+113,113,'University of California--Riverside',"Riverside, CA",in-state: $13408 out-of-state: $36286
+114,113,'University of South Carolina',"Columbia, SC",in-state: $11158 out-of-state: $29440
+115,113,'University of St. Thomas',"St. Paul, MN",$34442
+116,116,'The Catholic University of America',"Washington, DC",$39726
+117,116,'Duquesne University',"Pittsburgh, PA",$32636
+118,116,'Illinois Institute of Technology',"Chicago, IL",$41335
+119,116,'Michigan Technological University',"Houghton, MI",in-state: $14040 out-of-state: $29520
+120,116,'University of the Pacific',"Stockton, CA",$41342
+121,121,'Clarkson University',"Potsdam, NY",$42530
+122,121,'Colorado State University',"Fort Collins, CO",in-state: $9897 out-of-state: $26077
+123,121,'DePaul University',"Chicago, IL",$35071
+124,121,'Temple University',"Philadelphia, PA",in-state: $14770 out-of-state: $25450
+125,121,'University of Arizona',"Tucson, AZ",in-state: $10581 out-of-state: $28379
+126,126,"b'Rutgers, The State University of New Jersey--Newark'","Newark, NJ",in-state: $13297 out-of-state: $28075
+127,126,'Seton Hall University',"South Orange, NJ",$36926
+128,126,'University at Albany--SUNY',"Albany, NY",in-state: $8527 out-of-state: $20167
+129,129,'Arizona State University--Tempe',"Tempe, AZ",in-state: $9811 out-of-state: $23312
+130,129,'Louisiana State University--Baton Rouge',"Baton Rouge, LA",in-state: $8750 out-of-state: $26467
+131,129,'Ohio University',"Athens, OH",in-state: $10536 out-of-state: $19500
+132,129,'University of Cincinnati',"Cincinnati, OH",in-state: $11000 out-of-state: $26334
+133,129,'University of Kentucky',"Lexington, KY",in-state: $10616 out-of-state: $22888
+134,129,'University of Utah',"Salt Lake City, UT",in-state: $7935 out-of-state: $25267
+135,135,'Hofstra University',"Hempstead, NY",$38900
+136,135,'New School',"New York, NY",$41836
+137,135,'University of Arkansas',"Fayetteville, AR",in-state: $8210 out-of-state: $20300
+138,138,'George Mason University',"Fairfax, VA",in-state: $10382 out-of-state: $29960
+139,138,'Missouri University of Science & Technology',"Rolla, MO",in-state: $9537 out-of-state: $25404
+140,138,'Oregon State University',"Corvallis, OR",in-state: $8276 out-of-state: $23540
+141,138,'Washington State University',"Pullman, WA",in-state: $12428 out-of-state: $25510
+142,142,'Illinois State University',"Normal, IL",in-state: $12830 out-of-state: $20420
+143,142,'Kansas State University',"Manhattan, KS",in-state: $9034 out-of-state: $22624
+144,142,'St. John Fisher College',"Rochester, NY",$29550
+145,145,'Howard University',"Washington, DC",$23970
+146,145,'Oklahoma State University',"Stillwater, OK",in-state: $7442 out-of-state: $20027
+147,145,"b""St. John's University""","Queens, NY",$38680
+148,145,'University of Texas--Dallas',"Richardson, TX",in-state: $11806 out-of-state: $30378
+149,149,'Adelphi University',"Garden City, NY",$32340
+150,149,'New Jersey Institute of Technology',"Newark, NJ",in-state: $15602 out-of-state: $28274
+151,149,'San Diego State University',"San Diego, CA",in-state: $6866 out-of-state: $18026
+152,149,'University of Alabama--Birmingham',"Birmingham, AL",in-state: $9280 out-of-state: $21220
+153,149,'University of Illinois--Chicago',"Chicago, IL",in-state: $13640 out-of-state: $26030
+154,149,'University of Maryland--Baltimore County',"Baltimore, MD",in-state: $10068 out-of-state: $21642
+155,149,'University of Mississippi',"University, MS",in-state: $7096 out-of-state: $19144
+156,156,'Maryville University of St. Louis',"St Louis, MO",$25884
+157,156,'Mississippi State University',"Mississippi State, MS",in-state: $6772 out-of-state: $16960
+158,156,'Texas Tech University',"Lubbock, TX",in-state: $9308 out-of-state: $20168
+159,156,'University of Massachusetts--Lowell',"Lowell, MA",in-state: $12447 out-of-state: $19560
+160,156,'Virginia Commonwealth University',"Richmond, VA",in-state: $12398 out-of-state: $29847
+161,161,'Biola University',"La Mirada, CA",$33322
+162,161,'University of Louisville',"Louisville, KY",in-state: $10432 out-of-state: $24320
+163,161,'University of Rhode Island',"Kingston, RI",in-state: $12506 out-of-state: $28072
+164,161,'University of South Florida',"Tampa, FL",in-state: $6410 out-of-state: $17325
+165,161,'University of Wyoming',"Laramie, WY",in-state: $4646 out-of-state: $14876
+166,166,'University of Idaho',"Moscow, ID",in-state: $6784 out-of-state: $20314
+167,166,'University of La Verne',"La Verne, CA",$36744
+168,168,'Andrews University',"Berrien Springs, MI",$26262
+169,168,'University of Hawaii--Manoa',"Honolulu, HI",in-state: $10620 out-of-state: $29412
+170,168,'University of North Dakota',"Grand Forks, ND",in-state: $7508 out-of-state: $17794
+171,168,'University of South Dakota',"Vermillion, SD",in-state: $8022 out-of-state: $10104
+172,168,'West Virginia University',"Morgantown, WV",in-state: $6960 out-of-state: $20424
+173,173,'Azusa Pacific University',"Azusa, CA",$33096
+174,173,'Ball State University',"Muncie, IN",in-state: $9344 out-of-state: $24610
+175,173,'Bowling Green State University',"Bowling Green, OH",in-state: $10726 out-of-state: $18034
+176,173,'Florida Institute of Technology',"Melbourne, FL",$37990
+177,173,'Pace University',"New York, NY",$39747
+178,173,'University of Central Florida',"Orlando, FL",in-state: $6368 out-of-state: $22467
+179,173,'University of Maine',"Orono, ME",in-state: $10604 out-of-state: $28484
+180,173,'Western Michigan University',"Kalamazoo, MI",in-state: $10685 out-of-state: $24917
+181,181,'Edgewood College',"Madison, WI",$25590
+182,181,'Immaculata University',"Immaculata, PA",$30740
+183,181,'North Dakota State University',"Fargo, ND",in-state: $7660 out-of-state: $18242
+184,181,'South Dakota State University',"Brookings, SD",in-state: $7713 out-of-state: $9795
+185,181,'Spalding University',"Louisville, KY",$22425
+186,181,"b""St. Mary's University of Minnesota""","Winona, MN",$30315
+187,181,'University of Alabama--Huntsville',"Huntsville, AL",in-state: $9158 out-of-state: $21232
+188,181,'University of North Carolina--Greensboro',"Greensboro, NC",in-state: $6442 out-of-state: $21304
+189,189,'Southern Illinois University--Carbondale',"Carbondale, IL",in-state: $12251 out-of-state: $24874
+190,189,'University of Houston',"Houston, TX",in-state: $10518 out-of-state: $24378
+191,189,'University of Missouri--Kansas City',"Kansas City, MO",in-state: $9582 out-of-state: $22641
+192,189,'University of New Mexico',"Albuquerque, NM",in-state: $6846 out-of-state: $20688
+193,189,'Widener University',"Chester, PA",$39830
+194,194,'Central Michigan University',"Mount Pleasant, MI",in-state: $11550 out-of-state: $23670
+195,194,'Indiana University-\xe2\x80\x8bPurdue University--Indianapolis',"Indianapolis, IN",in-state: $8909 out-of-state: $30089
+196,194,'Kent State University',"Kent, OH",in-state: $10012 out-of-state: $17972
+197,194,'Northern Illinois University',"DeKalb, IL",in-state: $13636 out-of-state: $22914
+198,194,'University of Montana',"Missoula, MT",in-state: $6330 out-of-state: $23146
+199,194,'University of Nevada--Reno',"Reno, NV",in-state: $6415 out-of-state: $20325
+200,194,'Utah State University',"Logan, UT",in-state: $6384 out-of-state: $18491
+201,201,'Louisiana Tech University',"Ruston, LA",in-state: $8052 out-of-state: $22635
+202,201,'University of North Carolina--Charlotte',"Charlotte, NC",in-state: $6179 out-of-state: $18708
+203,203,'Ashland University',"Ashland, OH",$19852
+204,204,'Barry University',"Miami Shores, FL",$28160
+205,205,'Benedictine University',"Lisle, IL",$26950
+206,206,'Bowie State University',"Bowie, MD",in-state: $6971 out-of-state: $17538
+207,207,'Cardinal Stritch University',"Milwaukee, WI",$26570
+208,208,'Clark Atlanta University',"Atlanta, GA",$21334
+209,209,'Cleveland State University',"Cleveland, OH",in-state: $9473 out-of-state: $12653
+210,210,'East Carolina University',"Greenville, NC",in-state: $6143 out-of-state: $21340
+211,211,'East Tennessee State University',"Johnson City, TN",in-state: $7985 out-of-state: $17917
+212,212,'Florida A&M University',"Tallahassee, FL",in-state: $5785 out-of-state: $17725
+213,213,'Florida Atlantic University',"Boca Raton, FL",in-state: $6039 out-of-state: $21575
+214,214,'Florida International University',"Miami, FL",in-state: $6496 out-of-state: $18895
+215,215,'Georgia Southern University',"Statesboro, GA",in-state: $7190 out-of-state: $20086
+216,216,'Georgia State University',"Atlanta, GA",in-state: $10240 out-of-state: $28450
+217,217,'Indiana State University',"Terre Haute, IN",in-state: $8416 out-of-state: $18346
+218,218,'Indiana University of Pennsylvania',"Indiana, PA",in-state: $9470 out-of-state: $19700
+219,219,'Jackson State University',"Jackson, MS",in-state: $6348 out-of-state: $15552
+220,220,'Lamar University',"Beaumont, TX",in-state: $9361 out-of-state: $19681
+221,221,'Lynn University',"Boca Raton, FL",$34550
+222,222,'Middle Tennessee State University',"Murfreesboro, TN",in-state: $7370 out-of-state: $24434
+223,223,'Montana State University',"Bozeman, MT",in-state: $6894 out-of-state: $21296
+224,224,'Morgan State University',"Baltimore, MD",in-state: $7378 out-of-state: $16862
+225,225,'National-\xe2\x80\x8bLouis University',"Chicago, IL",$15915
+226,226,'New Mexico State University',"Las Cruces, NM",in-state: $6573 out-of-state: $20658
+227,227,'North Carolina A&T State University',"Greensboro, NC",in-state: $5422 out-of-state: $16503
+228,228,'Northern Arizona University',"Flagstaff, AZ",in-state: $9990 out-of-state: $22510
+229,229,'Nova Southeastern University',"Ft. Lauderdale, FL",$26700
+230,230,'Oakland University',"Rochester, MI",in-state: $11460 out-of-state: $24735
+231,231,'Old Dominion University',"Norfolk, VA",in-state: $9280 out-of-state: $25030
+232,232,'Our Lady of the Lake University',"San Antonio, TX",$24596
+233,233,'Portland State University',"Portland, OR",in-state: $7878 out-of-state: $23088
+234,234,'Regent University',"Virginia Beach, VA",$16638
+235,235,'Sam Houston State University',"Huntsville, TX",in-state: $8932 out-of-state: $19792
+236,236,'South Carolina State University',"Orangeburg, SC",in-state: $9776 out-of-state: $18910
+237,237,'Tennessee State University',"Nashville, TN",in-state: $6776 out-of-state: $20132
+238,238,'Texas A&M University--Commerce',"Commerce, TX",in-state: $7096 out-of-state: $17956
+239,239,'Texas A&M University--Corpus Christi',"Corpus Christi, TX",in-state: $7778 out-of-state: $18398
+240,240,'Texas A&M University--Kingsville',"Kingsville, TX",in-state: $7434 out-of-state: $18294
+241,241,'Texas Southern University',"Houston, TX",in-state: $7946 out-of-state: $18566
+242,242,"b""Texas Woman's University""","Denton, TX",in-state: $7560 out-of-state: $18420
+243,243,'Trevecca Nazarene University',"Nashville, TN",$23126
+244,244,'Trinity International University',"Deerfield, IL",$27360
+245,245,'University of Akron',"Akron, OH",in-state: $10320 out-of-state: $18851
+246,246,'University of Alaska--Fairbanks',"Fairbanks, AK",in-state: $6752 out-of-state: $20072
+247,247,'University of Arkansas--Little Rock',"Little Rock, AR",in-state: $7909 out-of-state: $18979
+248,248,'University of Colorado--Denver',"Denver, CO",in-state: $9625 out-of-state: $26105
+249,249,'University of Louisiana--Lafayette',"Lafayette, LA",in-state: $6948 out-of-state: $19348
+250,250,'University of Massachusetts--Boston',"Boston, MA",in-state: $11966 out-of-state: $28390
+251,251,'University of Memphis',"Memphis, TN",in-state: $8619 out-of-state: $13275
+252,252,'University of Missouri--St. Louis',"St. Louis, MO",in-state: $9474 out-of-state: $24795
+253,253,'University of Nebraska--Omaha',"Omaha, NE",in-state: $6750 out-of-state: $18070
+254,254,'University of Nevada--Las Vegas',"Las Vegas, NV",in-state: $6690 out-of-state: $20600
+255,255,'University of New Orleans',"New Orleans, LA",in-state: $7482 out-of-state: $21092
+256,256,'University of Northern Colorado',"Greeley, CO",in-state: $7573 out-of-state: $18817
+257,257,'University of North Texas',"Denton, TX",in-state: $9706 out-of-state: $20566
+258,258,'University of South Alabama',"Mobile, AL",in-state: $6948 out-of-state: $13596
+259,259,'University of Southern Mississippi',"Hattiesburg, MS",in-state: $6744 out-of-state: $15024
+260,260,'University of Texas--Arlington',"Arlington, TX",in-state: $8878 out-of-state: $20274
+261,261,'University of Texas--El Paso',"El Paso, TX",in-state: $7018 out-of-state: $17639
+262,262,'University of Texas--San Antonio',"San Antonio, TX",in-state: $8737 out-of-state: $20050
+263,263,'University of Toledo',"Toledo, OH",in-state: $9280 out-of-state: $19158
+264,264,'University of West Florida',"Pensacola, FL",in-state: $8942 out-of-state: $21824
+265,265,'University of Wisconsin--Milwaukee',"Milwaukee, WI",in-state: $9882 out-of-state: $19610
+266,266,'Wayne State University',"Detroit, MI",in-state: $12350 out-of-state: $26592
+267,267,'Wichita State University',"Wichita, KS",in-state: $7267 out-of-state: $16697
+268,268,'Wright State University',"Dayton, OH",in-state: $8730 out-of-state: $16910
+269,269,'Alliant International University',"San Diego, CA",$19930
+270,270,'Argosy University',"Orange, CA",$13663
+271,271,'California Institute of Integral Studies',"San Francisco, CA",$25713
+272,272,'Capella University',"Minneapolis, MN",$12348
+273,273,'Colorado Technical University',"Colorado Springs, CO",$11300
+274,274,'Idaho State University',"Pocatello, ID",in-state: $6344 out-of-state: $18676
+275,275,'Northcentral University',"Prescott Valley, AZ",N/A
+276,276,'Trident University International',"Cypress, CA",$6600
+277,277,'Union Institute and University',"Cincinnati, OH",$11904
+278,278,'University of Phoenix',"Phoenix, AZ",N/A
+279,279,'Walden University',"Minneapolis, MN",$14300
+280,280,'Wilmington University',"New Castle, DE",$10190

@@ -1,0 +1,381 @@
+"Abilene, TX ",91.3
+"Akron, OH ",88.9
+"Albany, GA ",84.3
+"Albany, OR ",93.5
+"Albany Schenectady Troy, NY ",99
+"Albuquerque, NM ",97.1
+"Alexandria, LA ",88.4
+"Allentown Bethlehem Easton, PA NJ ",100
+"Altoona, PA ",90.1
+"Amarillo, TX ",93.1
+"Ames, IA ",89.5
+"Anchorage, AK ",110.4
+"Ann Arbor, MI ",102.4
+"Anniston Oxford Jacksonville, AL ",85
+"Appleton, WI ",93.2
+"Asheville, NC ",92.2
+"Athens Clarke County, GA ",91.8
+"Atlanta Sandy Springs Roswell, GA ",95.2
+"Atlantic City Hammonton, NJ ",107.7
+"Auburn Opelika, AL ",86.1
+"Augusta Richmond County, GA SC ",89.9
+"Austin Round Rock, TX ",98.7
+"Bakersfield, CA ",97.7
+"Baltimore Columbia Towson, MD ",108.8
+"Bangor, ME ",96.8
+"Barnstable Town, MA ",101.5
+"Baton Rouge, LA ",93
+"Battle Creek, MI ",91.4
+"Bay City, MI ",90.2
+"Beaumont Port Arthur, TX ",90.8
+"Beckley, WV ",78
+"Bellingham, WA ",99.7
+"Bend Redmond, OR ",96.3
+"Billings, MT ",97.4
+"Binghamton, NY ",95.1
+"Birmingham Hoover, AL ",90
+"Bismarck, ND ",93.7
+"Blacksburg Christiansburg Radford, VA ",88.3
+"Bloomington, IL ",93.8
+"Bloomington, IN ",95.6
+"Bloomsburg Berwick, PA ",92.2
+"Boise City, ID ",94.7
+"Boston Cambridge Newton, MA NH ",110.9
+"Boulder, CO ",109.4
+"Bowling Green, KY ",85.6
+"Bremerton Silverdale, WA ",104.7
+"Bridgeport Stamford Norwalk, CT ",120.8
+"Brownsville Harlingen, TX ",85.3
+"Brunswick, GA ",86.1
+"Buffalo Cheektowaga Niagara Falls, NY ",93.8
+"Burlington, NC ",90.2
+"Burlington South Burlington, VT ",102
+"California Lexington Park, MD ",97.7
+"Canton Massillon, OH ",89.4
+"Cape Coral Fort Myers, FL ",95.1
+"Cape Girardeau, MO IL ",83.7
+"Carbondale Marion, IL ",83.6
+"Carson City, NV ",97
+"Casper, WY ",98
+"Cedar Rapids, IA ",91.1
+"Chambersburg Waynesboro, PA ",94.1
+"Champaign Urbana, IL ",94.3
+"Charleston, WV ",89.3
+"Charleston North Charleston, SC ",96
+"Charlotte Concord Gastonia, NC SC ",93.4
+"Charlottesville, VA ",98.4
+"Chattanooga, TN GA ",90.6
+"Cheyenne, WY ",97.5
+"Chicago Naperville Elgin, IL IN WI ",106.6
+"Chico, CA ",100.2
+"Cincinnati, OH KY IN ",90.5
+"Clarksville, TN KY ",91.4
+"Cleveland, TN ",83.1
+"Cleveland Elyria, OH ",89.5
+"Coeur d'Alene, ID ",92.8
+"College Station Bryan, TX ",94
+"Colorado Springs, CO ",99.4
+"Columbia, MO ",92.7
+"Columbia, SC ",92.2
+"Columbus, GA AL ",89.4
+"Columbus, IN ",87.6
+"Columbus, OH ",93.5
+"Corpus Christi, TX ",93.2
+"Corvallis, OR ",97.5
+"Crestview Fort Walton Beach Destin, FL ",95.8
+"Cumberland, MD WV ",88
+"Dallas Fort Worth Arlington, TX ",100.8
+"Dalton, GA ",84.3
+"Danville, IL ",79.2
+"Daphne Fairhope Foley, AL ",92.7
+"Davenport Moline Rock Island, IA IL ",91.8
+"Dayton, OH ",91
+"Decatur, AL ",87
+"Decatur, IL ",90.6
+"Deltona Daytona Beach Ormond Beach, FL ",95.5
+"Denver Aurora Lakewood, CO ",104.8
+"Des Moines West Des Moines, IA ",94.9
+"Detroit Warren Dearborn, MI ",97.5
+"Dothan, AL ",85.3
+"Dover, DE ",93.7
+"Dubuque, IA ",93.2
+"Duluth, MN WI ",91.7
+"Durham Chapel Hill, NC ",95.3
+"East Stroudsburg, PA ",98.7
+"Eau Claire, WI ",92.3
+"El Centro, CA ",91.1
+"Elizabethtown Fort Knox, KY ",86.6
+"Elkhart Goshen, IN ",91.1
+"Elmira, NY ",94.1
+"El Paso, TX ",90.9
+"Erie, PA ",92.8
+"Eugene, OR ",98.4
+"Evansville, IN KY ",91.3
+"Fairbanks, AK ",106.7
+"Fargo, ND MN ",93.5
+"Farmington, NM ",91.6
+"Fayetteville, NC ",91.3
+"Fayetteville Springdale Rogers, AR MO ",90.2
+"Flagstaff, AZ ",98.5
+"Flint, MI ",93.2
+"Florence, SC ",86.2
+"Florence Muscle Shoals, AL ",83.8
+"Fond du Lac, WI ",86.6
+"Fort Collins, CO ",101
+"Fort Smith, AR OK ",86.1
+"Fort Wayne, IN ",90.9
+"Fresno, CA ",97.8
+"Gadsden, AL ",84.6
+"Gainesville, FL ",95.7
+"Gainesville, GA ",89.9
+"Gettysburg, PA ",96
+"Glens Falls, NY ",97.1
+"Goldsboro, NC ",87.4
+"Grand Forks, ND MN ",92.9
+"Grand Island, NE ",84.6
+"Grand Junction, CO ",94.8
+"Grand Rapids Wyoming, MI ",93.4
+"Grants Pass, OR ",93.9
+"Great Falls, MT ",94.1
+"Greeley, CO ",98.5
+"Green Bay, WI ",91.9
+"Greensboro High Point, NC ",90.2
+"Greenville, NC ",88.7
+"Greenville Anderson Mauldin, SC ",90.4
+"Gulfport Biloxi Pascagoula, MS ",90.3
+"Hagerstown Martinsburg, MD WV ",103.3
+"Hammond, LA ",85.1
+"Hanford Corcoran, CA ",94.3
+"Harrisburg Carlisle, PA ",96.3
+"Harrisonburg, VA ",92.2
+"Hartford West Hartford East Hartford, CT ",100.4
+"Hattiesburg, MS ",84.4
+"Hickory Lenoir Morganton, NC ",89.1
+"Hilton Head Island Bluffton Beaufort, SC ",94.2
+"Hinesville, GA ",90.6
+"Homosassa Springs, FL ",89.2
+"Hot Springs, AR ",85.4
+"Houma Thibodaux, LA ",93
+"Houston The Woodlands Sugar Land, TX ",100.6
+"Huntington Ashland, WV KY OH ",87.3
+"Huntsville, AL ",91.3
+"Idaho Falls, ID ",90.2
+"Indianapolis Carmel Anderson, IN ",93.6
+"Iowa City, IA ",96.2
+"Ithaca, NY ",103.8
+"Jackson, MI ",91
+"Jackson, MS ",90.8
+"Jackson, TN ",83
+"Jacksonville, FL ",96.1
+"Jacksonville, NC ",95.2
+"Janesville Beloit, WI ",92.5
+"Jefferson City, MO ",81.9
+"Johnson City, TN ",87.9
+"Johnstown, PA ",85.7
+"Jonesboro, AR ",81.7
+"Joplin, MO ",88.4
+"Kahului Wailuku Lahaina, HI ",107.3
+"Kalamazoo Portage, MI ",92.6
+"Kankakee, IL ",99.5
+"Kansas City, MO KS ",93.7
+"Kennewick Richland, WA ",97.9
+"Killeen Temple, TX ",92.5
+"Kingsport Bristol Bristol, TN VA ",87.1
+"Kingston, NY ",102.5
+"Knoxville, TN ",90.9
+"Kokomo, IN ",88.2
+"La Crosse Onalaska, WI MN ",93.1
+"Lafayette, LA ",89.1
+"Lafayette West Lafayette, IN ",94.3
+"Lake Charles, LA ",89.2
+"Lake Havasu City Kingman, AZ ",94
+"Lakeland Winter Haven, FL ",93.6
+"Lancaster, PA ",98.5
+"Lansing East Lansing, MI ",94.2
+"Laredo, TX ",89.2
+"Las Cruces, NM ",92.4
+"Las Vegas Henderson Paradise, NV ",99.2
+"Lawrence, KS ",95.4
+"Lawton, OK ",91.5
+"Lebanon, PA ",94.5
+"Lewiston, ID WA ",90.8
+"Lewiston Auburn, ME ",94.9
+"Lexington Fayette, KY ",92.2
+"Lima, OH ",89.2
+"Lincoln, NE ",92.9
+"Little Rock North Little Rock Conway, AR ",91
+"Logan, UT ID ",90.6
+"Longview, TX ",92.2
+"Longview, WA ",93.4
+"Los Angeles Long Beach Anaheim, CA ",117.7
+"Louisville/Jefferson County, KY IN ",91.3
+"Lubbock, TX ",93.4
+"Lynchburg, VA ",90.5
+"Macon, GA ",87.8
+"Madera, CA ",96.8
+"Madison, WI ",97.7
+"Manchester Nashua, NH ",108.3
+"Manhattan, KS ",92.8
+"Mankato North Mankato, MN ",87.6
+"Mansfield, OH ",88
+"McAllen Edinburg Mission, TX ",85.4
+"Medford, OR ",98.4
+"Memphis, TN MS AR ",92.1
+"Merced, CA ",95.8
+"Miami Fort Lauderdale West Palm Beach, FL ",105.2
+"Michigan City La Porte, IN ",85
+"Midland, MI ",92.5
+"Midland, TX ",98.3
+"Milwaukee Waukesha West Allis, WI ",95.2
+"Minneapolis St. Paul Bloomington, MN WI ",102.7
+"Missoula, MT ",96.2
+"Mobile, AL ",88.4
+"Modesto, CA ",99.3
+"Monroe, LA ",87.2
+"Monroe, MI ",95.5
+"Montgomery, AL ",89.9
+"Morgantown, WV ",88.2
+"Morristown, TN ",82.6
+"Mount Vernon Anacortes, WA ",98.2
+"Muncie, IN ",90.4
+"Muskegon, MI ",88.9
+"Myrtle Beach Conway North Myrtle Beach, SC NC ",92
+"Napa, CA ",117.9
+"Naples Immokalee Marco Island, FL ",99.1
+"Nashville Davidson  Murfreesboro  Franklin, TN ",93.8
+"New Bern, NC ",87.3
+"New Haven Milford, CT ",113.1
+"New Orleans Metairie, LA ",96.2
+"New York Newark Jersey City, NY NJ PA ",122.3
+"Niles Benton Harbor, MI ",89.6
+"North Port Sarasota Bradenton, FL ",98.8
+"Norwich New London, CT ",100.8
+"Ocala, FL ",91.5
+"Ocean City, NJ ",108.4
+"Odessa, TX ",95.2
+"Ogden Clearfield, UT ",95.9
+"Oklahoma City, OK ",92.5
+"Olympia Tumwater, WA ",104.5
+"Omaha Council Bluffs, NE IA ",94.3
+"Orlando Kissimmee Sanford, FL ",97.9
+"Oshkosh Neenah, WI ",92.1
+"Owensboro, KY ",87.4
+"Oxnard Thousand Oaks Ventura, CA ",114.4
+"Palm Bay Melbourne Titusville, FL ",95.1
+"Panama City, FL ",95.5
+"Parkersburg Vienna, WV ",86.4
+"Pensacola Ferry Pass Brent, FL ",94.4
+"Peoria, IL ",91.9
+"Philadelphia Camden Wilmington, PA NJ DE MD ",107.9
+"Phoenix Mesa Scottsdale, AZ ",98.6
+"Pine Bluff, AR ",84.6
+"Pittsburgh, PA ",94.2
+"Pittsfield, MA ",96.2
+"Pocatello, ID ",90.1
+"Portland South Portland, ME ",100.7
+"Portland Vancouver Hillsboro, OR WA ",100.7
+"Port St. Lucie, FL ",95.8
+"Prescott, AZ ",95.6
+"Providence Warwick, RI MA ",99.3
+"Provo Orem, UT ",97.3
+"Pueblo, CO ",92.8
+"Punta Gorda, FL ",94.8
+"Racine, WI ",93.5
+"Raleigh, NC ",95.6
+"Rapid City, SD ",92.3
+"Reading, PA ",96
+"Redding, CA ",98.4
+"Reno, NV ",99.4
+"Richmond, VA ",96.2
+"Riverside San Bernardino Ontario, CA ",106
+"Roanoke, VA ",90.9
+"Rochester, MN ",93
+"Rochester, NY ",97.2
+"Rockford, IL ",91.9
+"Rocky Mount, NC ",86.9
+"Rome, GA ",81.3
+"Sacramento  Roseville  Arden Arcade, CA ",102.6
+"Saginaw, MI ",89.7
+"St. Cloud, MN ",93.7
+"St. George, UT ",94.3
+"St. Joseph, MO KS ",89.2
+"St. Louis, MO IL ",89.7
+"Salem, OR ",96
+"Salinas, CA ",107.9
+"Salisbury, MD DE ",89.8
+"Salt Lake City, UT ",99.7
+"San Angelo, TX ",92.5
+"San Antonio New Braunfels, TX ",94.1
+"San Diego Carlsbad, CA ",117.6
+"San Francisco Oakland Hayward, CA ",120.3
+"San Jose Sunnyvale Santa Clara, CA ",121.3
+"San Luis Obispo Paso Robles Arroyo Grande, CA ",107.1
+"Santa Cruz Watsonville, CA ",120.5
+"Santa Fe, NM ",99.7
+"Santa Maria Santa Barbara, CA ",108.5
+"Santa Rosa, CA ",117.1
+"Savannah, GA ",94.9
+"Scranton  Wilkes Barre  Hazleton, PA ",91.9
+"Seattle Tacoma Bellevue, WA ",107.1
+"Sebastian Vero Beach, FL ",90.3
+"Sebring, FL ",84.7
+"Sheboygan, WI ",91.6
+"Sherman Denison, TX ",90.8
+"Shreveport Bossier City, LA ",90.6
+"Sierra Vista Douglas, AZ ",92.1
+"Sioux City, IA NE SD ",89.3
+"Sioux Falls, SD ",92.8
+"South Bend Mishawaka, IN MI ",90.7
+"Spartanburg, SC ",88
+"Spokane Spokane Valley, WA ",95.7
+"Springfield, IL ",92.2
+"Springfield, MA ",96.5
+"Springfield, MO ",89
+"Springfield, OH ",89.4
+"State College, PA ",102.1
+"Staunton Waynesboro, VA ",88.4
+"Stockton Lodi, CA ",100.7
+"Sumter, SC ",88.8
+"Syracuse, NY ",95.4
+"Tallahassee, FL ",95
+"Tampa St. Petersburg Clearwater, FL ",99.5
+"Terre Haute, IN ",88.1
+"Texarkana, TX AR ",88.2
+"The Villages, FL ",89.4
+"Toledo, OH ",90
+"Topeka, KS ",89.8
+"Trenton, NJ ",112.2
+"Tucson, AZ ",97.3
+"Tulsa, OK ",91.1
+"Tuscaloosa, AL ",88
+"Tyler, TX ",94.7
+"Urban Honolulu, HI ",122.5
+"Utica Rome, NY ",92.7
+"Valdosta, GA ",81.8
+"Vallejo Fairfield, CA ",115
+"Victoria, TX ",92.9
+"Vineland Bridgeton, NJ ",103.6
+"Virginia Beach Norfolk Newport News, VA NC ",98.8
+"Visalia Porterville, CA ",95.6
+"Waco, TX ",91.2
+"Walla Walla, WA ",93.2
+"Warner Robins, GA ",90
+"Washington Arlington Alexandria, DC VA MD WV ",119.8
+"Waterloo Cedar Falls, IA ",91.3
+"Watertown Fort Drum, NY ",98.5
+"Wausau, WI ",92.2
+"Weirton Steubenville, WV OH ",87.5
+"Wenatchee, WA ",96
+"Wheeling, WV OH ",86.3
+"Wichita, KS ",91.3
+"Wichita Falls, TX ",91
+"Williamsport, PA ",93.7
+"Wilmington, NC ",94.7
+"Winchester, VA WV ",92.1
+"Winston Salem, NC ",90.3
+"Worcester, MA CT ",104.1
+"Yakima, WA ",95.4
+"York Hanover, PA ",95.8
+"Youngstown Warren Boardman, OH PA ",88.7
+"Yuba City, CA ",98.9
+"Yuma, AZ ",93.1
