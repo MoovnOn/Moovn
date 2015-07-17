@@ -35,7 +35,7 @@ var clicked = function (){
 
       var x = (bounds[0][0] + bounds[1][0])/2;
       var y = (bounds[0][1] + bounds[1][1])/2;
-      var scale = .95 / Math.max( dx(bounds) / width, dy(bounds) / height);
+      var scale = 1.40 / Math.max( dx(bounds) / width, dy(bounds) / height);
       var translate = [width / 2 - scale * x + 30, height / 2 - scale * y + 100];
 
     g.transition()
