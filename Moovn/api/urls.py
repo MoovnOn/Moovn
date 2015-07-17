@@ -20,6 +20,8 @@ urlpatterns = [
     url(r'^nearbyschools/(?P<state>[\w]+)/', views.nearby_schools_view),
     url(r'^schoolprofile/(?P<state>[\w]+)/(?P<gsid>[0-9]+)/', views.school_view),
     url(r'^industrysize/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.industry_size_view),
+    url(r'^college/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.college_view),
+
 
     # url(r'^cityneighborhoods/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.city_neighborhoods_view),
 ]
