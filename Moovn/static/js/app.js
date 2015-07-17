@@ -25965,6 +25965,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     $(".school-info-title").text("Select a Neighborhood to see it's schools");
 
   } else {
+    $(".school-info-container").empty();
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
