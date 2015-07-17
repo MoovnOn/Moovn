@@ -26500,7 +26500,7 @@ module.exports = function(svg, state, city, height, width) {
 				.attr("active", false)
 				.attr("fill", function(d){ return color(d.name);});
 
-		g.attr("transform", "scale(" + 2.2 + ")");
+		g.attr("transform", "scale(" + 2 + ")");
 
 
 	};
