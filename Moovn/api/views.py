@@ -53,6 +53,19 @@ except:
                                          "state": line.split(',')[4].strip()
                                          } for line in file}
 
+try:
+    parity = {}
+    with open("geo/price_parity.csv") as file:
+        for line in file:
+            parity[line.split(',')[0].strip('"')] = {"state": line.split(',')[1].strip('"').strip(),
+                                                     "score": line.split(',')[2].strip('\n')}
+except:
+    parity = {}
+    with open("Moovn/geo/price_parity.csv") as file:
+        for line in file:
+            parity[line.split(',')[0].strip('"')] = {"state": line.split(',')[1].strip('"').strip(),
+                                                     "score": line.split(',')[2].strip('\n')}
+
 
 # @api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
@@ -259,6 +272,10 @@ def salary_view(request, state, name, job):
                 if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
                     datadict[occupations[job]
                              + typecodes[str(line['seriesID'][-2:])]] = line["data"][0]["value"]
+    for value in datadict:
+        if any(datadict[value]) == '-':
+            response = HttpResponse("no data")
+            return response
 
     return JsonResponse(datadict)
 
@@ -306,3 +323,14 @@ def college_view(request, state, name):
     selected["colleges"] = college_list
 
     return JsonResponse(selected)
+
+
+def parity_view(request, state, name):
+    name = get_object_or_404(Name, name=name, state=state)
+    data = "no data"
+
+    for city in parity:
+        if name.name in city and name.state in parity[city]["state"]:
+            data = parity[city]["score"]
+
+    return HttpResponse(data)
