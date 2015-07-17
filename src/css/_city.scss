@@ -1,3 +1,4 @@
+//alignment of template elements
 .quad-1, .quad-2{
   margin-top:1.5em;
 }
@@ -11,24 +12,20 @@
   padding-right:0.7em;
   padding-left:0.7em;
 }
+.city-all-container{
+  margin-right: 2em;
+  margin-bottom: 2em;
+  margin-left: 14em;
+}
 //fixes alignment on places details
 .duo-2-vert h1 {
   margin-top: 0;
   font-family: Century Gothic, sans-serif; 
 }
-
+//Graph and Chart adjustments
 .refresh{
   font-size: 3em;
   text-align: center;
-}
-
-#accordion h3{
-  background-color: lightgray;
-}
-.city-all-container{
-  margin-right: 2em;
-  margin-bottom: 2em;
-  margin-left: 14em;
 }
 .graph{
   width:50%;
@@ -43,14 +40,15 @@
 .gauge-graph{
   padding-top:3em;
 }
-
-//C3 chart adjustments
 .c3-axis-x{
   font-size:12px;
 }
 .graph-title{
   text-align: center;
   color: $comp-color;
+}
+.no-data-message{
+  padding-top:2em;
 }
 
 //adjusts tabs in certain views to go fullscreen
