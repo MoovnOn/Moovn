@@ -13,6 +13,7 @@ var searchFunction = require('../../search');
 var views = require('views');
 var housingGraphGeneral = require('../../graphs/housing');
 var activeSelection = require('../active-selection');
+var getDetails = require('../../place-details');
 
 // for the map
 var d3 = require('d3');
@@ -31,7 +32,7 @@ router.route('search/:cityName/housing', function (cityName){
   var state = citySplit[1];
 
   searchFunction();
-  show('city-template-4-map', '.main-content', {city: cityName} );
+  show('housing-template-3', '.main-content', {city: cityName} );
 
   nTitle = d3.select(".neighborhood-select");
   nTitle.selectAll("span");
@@ -69,7 +70,7 @@ router.route('search/:cityName/housing', function (cityName){
   var path = d3.geo.path().projection(projection);
 
   //currenty bound to quad-2
-  var housingdata = housingGraphGeneral(state, city);
+  var housingdata = housingGraphGeneral(state, city, '.quad-2');
   var cityjson = [];
   var boundaryjson = [];
   var id = 0;
@@ -78,7 +79,7 @@ router.route('search/:cityName/housing', function (cityName){
     $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
     d3.selectAll("path")
       .classed("active", false);
-    housingGraphGeneral(state, city);
+    housingGraphGeneral(state, city, '.quad-2');
     return zoom(cityjson, boundaryjson, g, path, aspect * width, width);
   };
 
@@ -143,7 +144,7 @@ router.route('search/:cityName/housing', function (cityName){
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-  show('content/tabs-lists', '.quad-4')
+  show('content/tabs-lists', '.quad-3')
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
@@ -153,6 +154,24 @@ router.route('search/:cityName/housing', function (cityName){
 //google places
   places(cityName, "apartments", ".tab-data1", ".tab-title1");
   places(cityName, "realty", ".tab-data2", ".tab-title2");
+
+    $('.main-content').on('click', '.r-tabs-anchor', function(){
+    $('.details-right').html('');
+  });
+
+  $('.city-all-container').on('click', '.clickSpan', function (){
+    var id = this.id;
+    getDetails(id);
+    $(".clickSpan").removeClass("clickSpan-selected");
+    $(this).addClass("clickSpan-selected");
+  });
+
+  // code handling schools modal in  education-requests file
+
+  setTimeout(function() {
+    var id = $('.clickSpan').eq(0).attr('id')
+    getDetails(id)
+  },1000);
 
 
 

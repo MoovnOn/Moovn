@@ -37,60 +37,10 @@ router.route('search/:cityName/taxes', function (cityName){
       // startCollapsed: 'accordion'
   });
   
- 
-  // var zipAPIKey = "2fXDrXTNbfJ0BvCbMv5FBUugjRrfj34lj1YKZSyb7hbINOUzjZfVUJcdBDsUHxf1"
-  //   $.ajax({
-  //     method: 'GET',  
-  //     url:'https://www.zipcodeapi.com/rest/'+ zipAPIKey + '/city-zips.json/'+ city +'/'+ state 
-  //   }).done(function (zipResult){
-  //       // var zip = zipResult[0];
-  //       var zip = 27701;
-  //       console.log(zip);
    
-  var zipRegex = /\b\d{5}\b/g;
-   
-   var client = new XMLHttpRequest();
-      client.open("GET", "http://api.zippopotam.us/us/" + state + "/" + city, true);
-      client.onreadystatechange = function () {
-        if(client.readyState == 4) {
-      		var response = client.responseText;
-          var zipArr = response.match(zipRegex);
-          var zip = zipArr[0];
-          var taxAPIKey = "mZ%2B6%2Bz8d%2B%2FlemJE9aFq4nKKnllHyjnV6dxQubPKpTX2X0dGNDGa6OrsVBIKAKyQDWPd%2FC7HqWhEC%2F2Aq41Ybew%3D%3D"
-            $.ajax({
-              method: 'GET',  
-              url:'https://taxrates.api.avalara.com:443/postal?country=usa&postal=' + zip + '&apikey=' + taxAPIKey 
-            }).done(function (result){
-              
-              var nameArr = [];
-              for (var index = 0; index < result.rates.length; index++) {
-                nameArr.push(result.rates[index].name)
-              }
-              
-              var rateArr = [];
-              for (var index = 0; index < result.rates.length; index++) {
-                rateArr.push(result.rates[index].rate)
-              }
-              
-              $(".tab-title1").children("a").text("Sales Tax Rates");
-              
-               nameArr.forEach(function(e, i) {
-                $(".tab-data1").append(nameArr[i] + " ");
-                $(".tab-data1").append(rateArr[i] + "%<br><br>");
-               });
-               
-               $(".tab-data1").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
-               
-            })          
-          
-      	};
-      };
-      client.send();
       
 
 
-    places(cityName, "banks", ".tab-data2", ".tab-title2");
-    places(cityName, "Credit Union", ".tab-data3", ".tab-title3");
    
 
 });

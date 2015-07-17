@@ -14,7 +14,7 @@ var getDetails = require('../../place-details')
 var views = require('views');
 var activeSelection = require('../active-selection');
 
-router.route('search/:cityName/leisure', function (cityName){
+router.route('search/:cityName/places', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', {city: cityName} );
   searchFunction();
@@ -36,16 +36,16 @@ router.route('search/:cityName/leisure', function (cityName){
   show('content/tabs-lists', '.duo-1');
 
   // Sets up search in the sixth tab
-  $('.tab-title6').children('a').text('Search');
-  $('.tab-data6').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
+  $('.tab-title8').children('a').text('Search');
+  $('.tab-data8').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
 
   $('.main-content').on('submit', '.tab-search-form' , function(e){
     e.preventDefault();
 
   var searchVal = $('.search-tab-input').val();
-    $('.tab-data6').children('.list-left').html('');
-    $('.tab-data6').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
-    places(cityName, searchVal, ".tab-data6", "Search");
+    $('.tab-data8').children('.list-left').html('');
+    $('.tab-data8').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
+    places(cityName, searchVal, ".tab-data8", "Search");
   });
 
 
@@ -61,6 +61,9 @@ router.route('search/:cityName/leisure', function (cityName){
   places(cityName, "Restaurants", ".tab-data3", ".tab-title3");
   places(cityName, "Shopping", ".tab-data4", ".tab-title4");
   places(cityName, "Coffee & Tea", ".tab-data5", ".tab-title5");
+  places(cityName, "Banks", ".tab-data6", ".tab-title6");
+  places(cityName, "Credit Union", ".tab-data7", ".tab-title7");
+   
   // $(".duo-2").html("<h1 class= 'select-details'><i class='fa fa-arrow-circle-o-left'></i> Select for details</h1>");
   // setTimeout(function(){
   //   $(".select-details").fadeOut("slow")
@@ -81,7 +84,7 @@ router.route('search/:cityName/leisure', function (cityName){
   setTimeout(function() {
     var id = $('.clickSpan').first().attr('id')
     getDetails(id)
-  }, 200);
+  }, 800);
 
 //code to get each tab opening the first item in the list  
   // $(".r-tabs-anchor").click(function(){

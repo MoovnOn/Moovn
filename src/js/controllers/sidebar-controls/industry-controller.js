@@ -76,7 +76,7 @@ router.route('search/:cityName/industry', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  incomeCity(state, city);
+  incomeCity(state, city, '.tri-3');
 
   $("#job-input").autocomplete({
     source: jobtitles,

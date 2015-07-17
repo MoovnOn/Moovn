@@ -12,7 +12,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var activeSelection = require('../active-selection');
-var getDetails = require('../../place-details')
+var getDetails = require('../../place-details');
 
 // for the map
 var d3 = require('d3');
@@ -28,7 +28,7 @@ router.route('search/:cityName/education', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', {city: cityName} );
   searchFunction();
-  show('city-template-2', '.main-content', {city: cityName} );
+  show('education-template', '.main-content', {city: cityName} );
 
   activeSelection();
 
@@ -41,13 +41,12 @@ router.route('search/:cityName/education', function (cityName){
   nTitle.append("span").style({"color": "darkgreen", "font-weight": "bold"})
     .text(city);
 
-
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-  show('content/tabs-lists', '.duo-2')
+  show('content/tabs-lists', '.tri-3-edu')
 
   var width = Math.max($("#d3-graphs").width(), 200),
       aspect = 1;
@@ -60,7 +59,7 @@ router.route('search/:cityName/education', function (cityName){
               .attr("class", "map");
 
   $(window).resize(function(){
-    var width = $(".duo-1").width();
+    var width = $(".tri-1-edu").width();
     svg.attr("width", width);
     svg.attr("height", width * aspect);
   });
@@ -140,8 +139,6 @@ router.route('search/:cityName/education', function (cityName){
 
   });
 
-
-
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
@@ -162,15 +159,14 @@ router.route('search/:cityName/education', function (cityName){
     $(this).addClass("clickSpan-selected");
   });
 
+  // code handling schools modal in  education-requests file
+
   setTimeout(function() {
-    var id = $('.clickSpan').eq(3).attr('id')
+    var id = $('.clickSpan').eq(0).attr('id')
     getDetails(id)
-  }, 1200);
+  },1000);
 
-  
 });
-
-
 
 
 
