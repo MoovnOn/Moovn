@@ -273,11 +273,13 @@ def salary_view(request, state, name, job):
                     datadict[occupations[job]
                              + typecodes[str(line['seriesID'][-2:])]] = line["data"][0]["value"]
     for value in datadict:
-        if not any(datadict[value]):
+        if datadict[value] == "-":
             response = HttpResponse("no data")
             return response
 
     return JsonResponse(datadict)
+    # return HttpResponse(ocp_data)
+
 
 
 main_ind = [str(num) for num in range(110000, 530000, 20000)]
