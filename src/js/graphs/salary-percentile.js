@@ -1,178 +1,146 @@
-var c3 = require('c3');
+var d3 = require('d3');
 var $ = require('jquery');
+var box = require('../box');
 
-module.exports = function(state, city, job) {
+module.exports = function(state, city, job, height, width) {
 
 	$.ajax({
     method: 'GET',
     url: 'api/salary/' + state + '/' + city + '/' + job
-    }).done(function(data){
-      console.log(data);
-     
-     var value10 = data[job+"10th"];
-     var value25 = data[job+"25th"];
-     var value50 = data[job+"50th"];
-     var value75 = data[job+"75th"]; 
-     var value90 = data[job+"90th"];
-     var max = ((parseInt(value90) / 9) + parseInt(value90));
-     console.log(max);
-     
-     c3.generate({
-      bindto: '.gauge25',
-      data: {
-           columns: [
-              ['25th Percentile', data[job+"25th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-              pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
+  }).done(function(data){
 
-    c3.generate({
-      bindto: '.gauge50',
-      data: {
-           columns: [
-              ['50th Percentile', data[job+"50th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-               pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
+  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
+									data[job+"75th"], data[job+"90th"]];
 
-    c3.generate({
-      bindto: '.gauge75',
-      data: {
-           columns: [
-              ['75th Percentile', data[job+"75th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-             pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
+		var x = d3.scale.linear()
+			.domain([values[0], values[4]])
+			.range([.1 * width, .9 * width]);
 
-    c3.generate({
-      bindto: '.gauge90',
-      data: {
-           columns: [
-              ['90th Percentile', data[job+"90th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-               pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
+		var bp = d3.select("#boxplot");
+
+			bp.append("line")
+				.attr("x1", x(values[0]))
+				.attr("x2", x(values[4]))
+				.attr("y1", height / 2)
+				.attr("y2", height / 2)
+				.style({"stroke-width": 2, "stroke": "black"});
+
+			bp.append("line")
+				.attr("x1", x(values[0]))
+				.attr("x2", x(values[0]))
+				.attr("y1", .9 * height / 2)
+				.attr("y2", 1.1 * height / 2)
+				.style({"stroke-width": 2, "stroke": "black"});
+
+			bp.append("line")
+				.attr("x1", x(values[4]))
+				.attr("x2", x(values[4]))
+				.attr("y1", .9 * height / 2)
+				.attr("y2", 1.1 * height / 2)
+				.style({"stroke-width": 2, "stroke": "black"});
+
+			bp.append("rect")
+				.attr("x", x(values[1]))
+				.attr("y", .4 * height)
+				.attr("height", .2 * height)
+				.attr("width", x(values[2]) - x(values[1]))
+				.style({"stroke-width": 2, "stroke": "black", "fill": "white"});
+
+				bp.append("rect")
+					.attr("x", x(values[2]))
+					.attr("y", .4 * height)
+					.attr("height", .2 * height)
+					.attr("width", x(values[3]) - x(values[2]))
+					.style({"stroke-width": 2, "stroke": "black", "fill": "white"});
 
 
+				var g = bp.append("g");
 
-});
-    
+				g.append("text")
+					.attr("text-anchor", "middle")
+					.attr("x", x(values[0]))
+					.attr("y", .3 * height)
+					.text(values[0]);
+
+				g.append("text")
+					.attr("text-anchor", "middle")
+					.attr("x", x(values[1]))
+					.attr("y", .3 * height)
+					.text(values[1]);
+
+				g.append("text")
+					.attr("text-anchor", "middle")
+					.attr("x", x(values[2]))
+					.attr("y", .3 * height)
+					.text(values[2]);
+
+				g.append("text")
+					.attr("text-anchor", "middle")
+					.attr("x", x(values[3]))
+					.attr("y", .3 * height)
+					.text(values[3]);
+
+				g.append("text")
+					.attr("text-anchor", "middle")
+					.attr("x", x(values[4]))
+					.attr("y", .3 * height)
+					.text(values[4]);
+
+				//g.attr("transform", "transform(" +  + ")scale(" + 2 + ")")
+
+		/**
+		find m = [A, B, C, D, E, F, G] (so find A, G) such that
+
+		sum(m) = 7*D
+
+			A*10 = 7*D
+
+		G*10 = 7*D
+
+		(A + B)*4 = 7*D
+
+		(A + B + C)*2 = 7*D
+
+		(A + B + C + D)
+
+		**/
+		// function generate(nums) {
+		// 	var rand = [];
+		// 	rand.push(nums[2]*7/10)
+		// 	nums.forEach(function(d){ rand.push(d);});
+		// 	rand.push(nums[2]*7/10)
+		//
+		// 		return rand;
+		// };
+		//
+		//
+		// chartData = generate(values);
+
+		// var chart = d3.box()
+		// 			.whiskers([values[0], values[4]])
+		// 			.height(height)
+		// 			.width(width);
+		//
+		// var svg = d3.select("#boxplot")
+		// 						.data(chartData)
+		// 						.enter().append("g")
+		// 						.attr("class", "box")
+		// 						.attr("width", width)
+		// 						.attr("height", height)
+		// 						.call(chart);
+
+  });
+
+};
+
   //   c3.generate({
   //      bindto: '.tri-1',
   //       data: {
   //           x: 'x',
   //           columns: [
   //               ['x', '25', '50', '75', '90'],
-  //               ['25th', data[job+"25th"]], 
-  //               ['50th', data[job+"50th"]], 
+  //               ['25th', data[job+"25th"]],
+  //               ['50th', data[job+"50th"]],
   //               ['75th', data[job+"75th"]],
   //               ['90th', data[job+"90th"]]
   //           ],
@@ -180,4 +148,4 @@ module.exports = function(state, city, job) {
   //        }
   //   });
   // });
-}
+//}

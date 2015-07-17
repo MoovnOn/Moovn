@@ -35,25 +35,36 @@ router.route('search/:cityName/industry', function (cityName){
   var width = $(".tri-2").width(),
       aspect = 1;
 
+  var width2 = $(".tri-1").width();
+
   var svg = d3.select(".tri-2").append("svg")
               .attr("preserveAspectRatio", "xMidYMid")
-              .attr("viewBox", "0 0 900 900")
+              .attr("viewBox", "0 0 1000 1000")
               .attr("width", width)
               .attr("height", width * aspect)
-              .call(bubbleChart, state, city);
+              .call(bubbleChart, state, city, aspect * width, width);
+
+  var svg2 = d3.select("#boxplot")
+    .attr("presevreAspectRatio", "xMidYMid")
+    .attr("viewBox", "0 0 1000 1000")
+    .attr("width", width2)
+    .attr("height", width2 * aspect);
 
   $(window).resize(function(){
     var width = $(".tri-2").width();
+    var width2 = $(".tri-1").width();
     svg.attr("width", width);
     svg.attr("height", width * aspect);
+    svg2.attr("width", width2);
+    svg2.attr("height", width2 * aspect);
   });
 
   $('.main-content').on('submit', '.industry-form', function(e) {
     e.preventDefault();
     e.stopPropagation();
     var job = $('.job-input').val();
-    salaryPer(state, city, job);
-    $('.gauge-title').fadeIn("slow");
+    salaryPer(state, city, job, aspect * width, width);
+
   });
 
   //slides the side-nav
@@ -74,11 +85,5 @@ router.route('search/:cityName/industry', function (cityName){
       results: function() {}
     }
   });
-
-  peopleAge(state, city, '.quad-1');
-  
-
-
-  //bubbleChart(state, city);
 
 });
