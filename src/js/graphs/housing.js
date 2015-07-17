@@ -35,13 +35,17 @@ module.exports = function(state, city, element) {
         data: {
           columns: [
               ['Condo', housingAffordCondo],
-              ['2-Bed-Home', housingAfford2Bed],
-              ['3-Bed-Home', housingAfford3Bed],
-              ['4-Bed-Home', housingAfford4Bed],
+              ['2-Bed', housingAfford2Bed],
+              ['3-Bed', housingAfford3Bed],
+              ['4-Bed', housingAfford4Bed],
           ],
           type: 'bar'
         },
         axis: {
+          x: {
+            type: 'category',
+            categories: ['Median Housing Prices']
+        	},
             y : {
               tick: {
                 format: d3.format("$,")

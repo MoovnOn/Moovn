@@ -30,6 +30,10 @@ module.exports = function(state, city, element) {
           type: 'bar'
         },
         axis: {
+          x: {
+            type: 'category',
+            categories: ['Median Income of City vs. Nation']
+        	},
             y : {
               tick: {
                 format: d3.format("$,")

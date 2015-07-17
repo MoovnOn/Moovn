@@ -43,6 +43,12 @@
 .gauge-graph{
   padding-top:3em;
 }
+
+//C3 chart adjustments
+.c3-axis-x{
+  font-size:14px;
+}
+
 //adjusts tabs in certain views to go fullscreen
 .full-screen-container{
   margin-top: 0em;
@@ -80,6 +86,33 @@
   max-height: 80vh;
 }
 
+//overview page
+.overview-city-title{
+  font-size: 1.5em;
+  text-align: center;
+    color:$comp-color;
+}
+.overview-title{
+  text-align: center;
+  color:$comp-color;
+  font-size: 1.2em;
+}
+.text-left, .text-right, .text-middle{
+  padding-left: 1em;
+  padding-bottom: 3em;
+  padding-top: 1em;
+}
+.text-left{
+  padding-left: 2em;
+}
+.text-middle{
+  position:relative;
+}
+.overview-img{
+  max-width:300px;
+  position:absolute;
+  bottom:0;
+}
 
 //media queries for mobile
 
