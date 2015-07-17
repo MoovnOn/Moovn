@@ -24225,7 +24225,11 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
+<<<<<<< HEAD
  var jQuery = require("jquery");
+=======
+var jQuery = require('jquery');
+>>>>>>> 2d2774d3557477564621cb991b4bce092667f729
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -25317,7 +25321,6 @@ router.route('search/:cityName/housing', function (cityName){
               .attr("height", width * aspect)
               .attr("class", "map");
 
-  // svg.attr("width", width).attr("height", height);
 
   $(window).resize(function(){
     var width = $(".quad-1").width();
@@ -26427,6 +26430,16 @@ module.exports = function(svg, state, city, height, width) {
 		return m;
 	};
 
+	var div = d3.select("body").insert("div", ".side-bar-content")
+	.attr("class", "tooltip")
+	.style({"opacity": 1e-6,
+	"width": "100px",
+	"height": "12px",
+	"text-align": "center",
+	"padding": "8px",
+	"pointer-events": "none"
+	});
+
 	var showText = function (d) {
 
 		if (!this.active) {
@@ -26434,9 +26447,16 @@ module.exports = function(svg, state, city, height, width) {
 
 			d3.select(this).attr("active", true);
 
-			d3.select(".bubble-title").select("span")
-				.style("color", this.getAttribute("fill"))
-				.text(d.name);
+			d3.select(".tooltip")
+			.style({"left": d3.event.pageX + "px",
+			"top": d3.event.pageY + "px",
+			"opacity": 1})
+			.text(d.name);
+
+
+			// d3.select(".bubble-title").select("span")
+			// 	.style("color", this.getAttribute("fill"))
+			// 	.text(d.name);
 		};
 
 	};
@@ -27049,7 +27069,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     var clicked = function (){
 
         var scale = .65 / Math.max( dx(bounds) / width, dy(bounds) / height);
-        var translate = [Math.floor(width / 2) - Math.floor(scale * center_x(bounds)), Math.ceil(height / 2) - Math.ceil(scale * center_y(bounds))];
+        var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
 
         g.transition()
          .duration(250)
@@ -27399,8 +27419,8 @@ var clicked = function (){
 
       var x = (bounds[0][0] + bounds[1][0])/2;
       var y = (bounds[0][1] + bounds[1][1])/2;
-      var scale = .95 / Math.min( dx(bounds) / width, dy(bounds) / height);
-      var translate = [Math.ceil(width / 2) - Math.floor(scale * x) + 5, (Math.ceil(height / 2) - Math.floor(scale * y)) * .998066];
+      var scale = 1.40 / Math.max( dx(bounds) / width, dy(bounds) / height);
+      var translate = [width / 2 - scale * x + 30, height / 2 - scale * y + 100];
 
     g.transition()
      .duration(750)
