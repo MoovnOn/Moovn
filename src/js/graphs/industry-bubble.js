@@ -12,6 +12,16 @@ module.exports = function(svg, state, city, height, width) {
 		return m;
 	};
 
+	var div = d3.select("body").insert("div", ".side-bar-content")
+	.attr("class", "tooltip")
+	.style({"opacity": 1e-6,
+	"width": "100px",
+	"height": "12px",
+	"text-align": "center",
+	"padding": "8px",
+	"pointer-events": "none"
+	});
+
 	var showText = function (d) {
 
 		if (!this.active) {
@@ -19,9 +29,16 @@ module.exports = function(svg, state, city, height, width) {
 
 			d3.select(this).attr("active", true);
 
-			d3.select(".bubble-title").select("span")
-				.style("color", this.getAttribute("fill"))
-				.text(d.name);
+			d3.select(".tooltip")
+			.style({"left": d3.event.pageX + "px",
+			"top": d3.event.pageY + "px",
+			"opacity": 1})
+			.text(d.name);
+
+
+			// d3.select(".bubble-title").select("span")
+			// 	.style("color", this.getAttribute("fill"))
+			// 	.text(d.name);
 		};
 
 	};
