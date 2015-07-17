@@ -1904,6 +1904,9 @@ header {
 .tri-2 svg {
   margin-left: 8%; }
 
+.tri-1 {
+  margin: auto; }
+
 body {
   font-family: Century Gothic, sans-serif; }
 
