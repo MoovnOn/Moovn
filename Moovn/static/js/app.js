@@ -25144,7 +25144,7 @@ router.route('search/:cityName/education', function (cityName){
       aspect = 1;
 
   var svg = d3.select("#d3-graphs").append("svg")
-              .attr("preserveAspectRatio", "xMinYMin")
+              .attr("preserveAspectRatio", "xMidYMid")
               .attr("viewBox", "0 0 700 700")
               .attr("width", width)
               .attr("height", width * aspect)
@@ -25259,11 +25259,6 @@ router.route('search/:cityName/education', function (cityName){
   },1000);
 
 });
-
-
-
-
-
 
 },{"../../educationmouseover":20,"../../neighMap":41,"../../place-details":43,"../../places-api":44,"../../router":45,"../../search":46,"../../show":47,"../../topojson":49,"../../zoom":50,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
@@ -25922,18 +25917,18 @@ $.ajax({
 }).then(function(data){
 		var school = data.schools.school;
 		console.log(school);
-		
-		$('.school-info-title').css('display', 'none');
-		$('.school-info').append('<h1>Local Schools</h1>');
+		$('.school-info').append('<div class="school-info-container"></div>');
+		$('.school-info-title').text("Local Schools");
 		school.forEach(function(school, i) {
-		$('.school-info').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
+		$('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
 	});
+
 	$('.school-title').on('click', function(){
 			var id = $(this).data("id");
 			var currentSchool = school[id];
 			var modal = $('.school-modal-content');
-			
-			modal.text('');	
+
+			modal.text('');
 			$('.school-modal').fadeIn();
 			modal.append('<h1>' + currentSchool.name + '</h1>');
 			modal.append('<span class="school-details">' + currentSchool.address + '</p>');
@@ -25945,7 +25940,7 @@ $.ajax({
 			modal.append('<span class="details-titles">Parent Rating: </span><span class="school-details">' + currentSchool.parentRating + '</span><br>');
 			modal.append('<span class="details-titles">GS Rating: </span><span class="school-details">' + currentSchool.gsRating + '</span><br>');
 		});
-	
+
 	$('.main-content').on('click', '.school-modal-x' , function(){
     		$('.school-modal').fadeOut();
   });
@@ -25953,7 +25948,6 @@ $.ajax({
 });
 
 };
-
 
 },{"./graphs/neigh-housing":28,"jquery":"jquery"}],20:[function(require,module,exports){
 var $ = require('jQuery');
@@ -25967,7 +25961,9 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
     zoomout(d);
-    
+    $(".school-info-container").empty();
+    $(".school-info-title").text("Select a Neighborhood to see it's schools");
+
   } else {
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
