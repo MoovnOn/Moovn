@@ -24937,8 +24937,8 @@ var commuteTime = require('../graphs/commute-times')
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
  
- 	show('side-bar-city-search', '.side-bar-content', {city1: cityName1});
- 	searchFunction();
+ 	// show('side-bar-city-search', '.side-bar-content', {city1: cityName1});
+ 	// searchFunction();
  	show('city-template-vertical', '.main-content', {city1: cityName1, city2: cityName2})
  	activeSelection();
  	
@@ -26142,7 +26142,7 @@ module.exports = function (data, bindTo) {
   	 		axis: {
        		x: {
             type: 'category',
-            categories: ['3G Download Speed', '3G Upload Speed' , '4G Download Speed', '4G Upload Speed']
+            categories: ['3G Download', '3G Upload' , '4G Download', '4G Upload']
         	},
           y: {
             label: "Megabits Per Second"
