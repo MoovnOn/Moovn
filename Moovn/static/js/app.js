@@ -25317,7 +25317,6 @@ router.route('search/:cityName/housing', function (cityName){
               .attr("height", width * aspect)
               .attr("class", "map");
 
-  // svg.attr("width", width).attr("height", height);
 
   $(window).resize(function(){
     var width = $(".quad-1").width();
@@ -27009,7 +27008,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     var clicked = function (){
 
         var scale = .65 / Math.max( dx(bounds) / width, dy(bounds) / height);
-        var translate = [Math.floor(width / 2) - Math.floor(scale * center_x(bounds)), Math.ceil(height / 2) - Math.ceil(scale * center_y(bounds))];
+        var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
 
         g.transition()
          .duration(250)
@@ -27359,8 +27358,8 @@ var clicked = function (){
 
       var x = (bounds[0][0] + bounds[1][0])/2;
       var y = (bounds[0][1] + bounds[1][1])/2;
-      var scale = .95 / Math.min( dx(bounds) / width, dy(bounds) / height);
-      var translate = [Math.ceil(width / 2) - Math.floor(scale * x) + 5, (Math.ceil(height / 2) - Math.floor(scale * y)) * .998066];
+      var scale = .95 / Math.max( dx(bounds) / width, dy(bounds) / height);
+      var translate = [width / 2 - scale * x + 30, height / 2 - scale * y + 100];
 
     g.transition()
      .duration(750)

@@ -46,7 +46,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     var clicked = function (){
 
         var scale = .65 / Math.max( dx(bounds) / width, dy(bounds) / height);
-        var translate = [Math.floor(width / 2) - Math.floor(scale * center_x(bounds)), Math.ceil(height / 2) - Math.ceil(scale * center_y(bounds))];
+        var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
 
         g.transition()
          .duration(250)
