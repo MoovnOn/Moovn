@@ -197,48 +197,6 @@ def industry_view(request, state, name):
 
     return JsonResponse(datadict)
 
-
-# jcdata = "1,2,3,4,5,6,7,8,9,10," \
-#          "11,12,13,14,15,16,17,18,19,20," \
-#          "21,22,23,24,25,26,27,28,29,30," \
-#          "31,32"
-
-
-# def jobs_view(request, state, name):
-# ip = get_real_ip(request)
-# ip = request.META.get("REMOTE_ADDR")
-# # browser = request.user_agent.browser
-# browser = request.META.get("HTTP_USER_AGENT")
-# headers = {"user-agent": browser}
-# if ip is not None:
-#     name = get_object_or_404(Name, name=name, state=state)
-#     data = {"v": "1",
-#             "format": "json",
-#             "t.p": apis("glass_tp"),
-#             "t.k": apis("glass_tk"),
-#             "userip": ip,
-#             "useragent": browser,
-#             "action": "jobs-stats",
-#             # # "l": "city",
-#             "city": name.name,
-#             "state": name.state,
-#             # "fromAge": "30",
-#             # "radius": "25",
-#             # "jc": jcdata,
-#             "returnJobTitles": True,
-#             "returnCities": True,
-#             "jobTitle": "Software Engineer",
-#             "admLevelRequested": "1"
-#             # "countryID": "1",
-#             }
-#     gldata = requests.get('http://api.glassdoor.com/api/api.htm', params=data, headers=headers)
-#     response = HttpResponse(gldata)
-#     return response
-#     # return HttpResponse("IP: {}, User-Agent: {}".format(ip, browser))
-# else:
-#     return HttpResponse("No ip didn't work")
-
-
 def salary_view(request, state, name, job):
     name = get_object_or_404(Name, name=name, state=state)
     jobtitle = job.title()
@@ -335,4 +293,11 @@ def parity_view(request, state, name):
         if name.name in city and name.state in parity[city]["state"]:
             data = parity[city]["score"]
 
-    return HttpResponse(data)
+    if float(data) <= 100:
+        new_data = round((100 - float(data)), 1)
+        string = "Cost of living in {} is {}% lower than the national average.".format(name.name, new_data)
+        return HttpResponse(string)
+    else:
+        new_data = round((float(data) - 100))
+        string = "Cost of living in {} is {}% higher than the national average.".format(name.name, new_data)
+        return HttpResponse(string)
