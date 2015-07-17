@@ -1,34 +1,45 @@
-<button class="fa fa-bars bar-menu-icon"></button>
-<div class="city-all-container">
-  <div class="pure-g">
-  	<h2 class="pure-u-1-2"><%- m.city1 %></h2>
-  	<h2 class="pure-u-1-2"><%- m.city2 %></h2>	
-    <div class="pure-u-1-2 duo-1-vert">
-    		
-     <!--  <div class="refresh">
-        <i class="fa fa-refresh fa-spin"></i>
-      </div> -->
-      <div>
-	      <div class="comp-chart-cont comp-chart1-1"></div>
-	      <div class="comp-chart-cont comp-chart1-2"></div>
-        <div class="comp-chart-cont comp-chart1-3"></div>
-        <div class="comp-chart-cont comp-chart1-4"></div>
-      </div>
-    </div>
-    
-    <div class="pure-u-1-2 duo-2-vert" id="google-map">
-
-
-    	<div>
-	    	<div class="comp-chart-cont comp-chart2-1"></div>
-	      <div class="comp-chart-cont comp-chart2-2"></div>
-        <div class="comp-chart-cont comp-chart2-3"></div>
-        <div class="comp-chart-cont comp-chart2-4"></div>
-      </div>
-
-    </div>
-  
-  </div>
+<div class="comp-header">
+  <div class="comp-logo-container">
+      <a class="moovnon-logo-container" href="#search"><img class = "moovnon-logo comp-logo" src="static/img/logo-large-cow.png" alt="MoovnOn logo">
+      </a> 
+<!--        <div class="title-container">
+        <h1 class="title">Moovn On</h1>
+        <p class = "title-motto title-city">Find Greener Pastures</p>
+       </div> -->
 </div>
-<!-- div for google places -->
-<div id="map"></div>
+
+
+
+  <div class="comp-city-title"><%- m.city1%></div>
+  <div class="comp-city-title"><%- m.city2%></div>
+</div>
+
+<div class="pure-g comp-grid">
+
+  <div class="pure-u-1-1 comp-graph-title">Cell Connectivity</div>
+  <div class="pure-u-1-1 duo-1-vert">
+  	<div class="comp-chart-cont comp-chart1-1"></div>
+    <div class="comp-chart-cont comp-chart2-1"></div>	  
+  </div>
+
+  <div class="pure-u-1-1 comp-graph-title">Age Demographics</div>
+  <div class="pure-u-1-1 duo-1-vert">
+    <div class="comp-chart-cont comp-chart1-2"></div>
+    <div class="comp-chart-cont comp-chart2-2"></div> 
+  </div>
+
+  <div class="pure-u-1-1 comp-graph-title">Housing Prices</div>
+  <div class="pure-u-1-1 duo-1-vert">
+    <div class="comp-chart-cont comp-chart1-3"></div>
+    <div class="comp-chart-cont comp-chart2-3"></div> 
+  </div>
+
+  <div class="pure-u-1-1 comp-graph-title">Commute Times</div>  
+  <div class="pure-u-1-1 duo-1-vert">
+    <div class="comp-chart-cont comp-chart1-4"></div>
+    <div class="comp-chart-cont comp-chart2-4"></div> 
+  </div>
+      
+
+
+</div>
