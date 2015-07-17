@@ -25277,6 +25277,7 @@ var searchFunction = require('../../search');
 var views = require('views');
 var housingGraphGeneral = require('../../graphs/housing');
 var activeSelection = require('../active-selection');
+var getDetails = require('../../place-details');
 
 // for the map
 var d3 = require('d3');
@@ -25295,7 +25296,7 @@ router.route('search/:cityName/housing', function (cityName){
   var state = citySplit[1];
 
   searchFunction();
-  show('city-template-4-map', '.main-content', {city: cityName} );
+  show('housing-template-3', '.main-content', {city: cityName} );
 
   nTitle = d3.select(".neighborhood-select");
   nTitle.selectAll("span");
@@ -25407,7 +25408,7 @@ router.route('search/:cityName/housing', function (cityName){
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-  show('content/tabs-lists', '.quad-4')
+  show('content/tabs-lists', '.quad-3')
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
@@ -25418,11 +25419,29 @@ router.route('search/:cityName/housing', function (cityName){
   places(cityName, "apartments", ".tab-data1", ".tab-title1");
   places(cityName, "realty", ".tab-data2", ".tab-title2");
 
+    $('.main-content').on('click', '.r-tabs-anchor', function(){
+    $('.details-right').html('');
+  });
+
+  $('.city-all-container').on('click', '.clickSpan', function (){
+    var id = this.id;
+    getDetails(id);
+    $(".clickSpan").removeClass("clickSpan-selected");
+    $(this).addClass("clickSpan-selected");
+  });
+
+  // code handling schools modal in  education-requests file
+
+  setTimeout(function() {
+    var id = $('.clickSpan').eq(0).attr('id')
+    getDetails(id)
+  },1000);
+
 
 
 });
 
-},{"../../graphs/housing":25,"../../mouseoverzoom":40,"../../neighMap":41,"../../places-api":44,"../../router":45,"../../search":46,"../../show":47,"../../topojson":49,"../../zoom":50,"../active-selection":5,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
+},{"../../graphs/housing":25,"../../mouseoverzoom":40,"../../neighMap":41,"../../place-details":43,"../../places-api":44,"../../router":45,"../../search":46,"../../show":47,"../../topojson":49,"../../zoom":50,"../active-selection":5,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],12:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25894,7 +25913,8 @@ $.ajax({
 }).then(function(data){
 		var school = data.schools.school;
 		console.log(school);
-		$('.school-info-title').classå('display', 'none');
+		
+		$('.school-info-title').css('display', 'none');
 		$('.school-info').append('<h1>Local Schools</h1>');
 		school.forEach(function(school, i) {
 		$('.school-info').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
@@ -25903,6 +25923,7 @@ $.ajax({
 			var id = $(this).data("id");
 			var currentSchool = school[id];
 			var modal = $('.school-modal-content');
+			
 			modal.text('');	
 			$('.school-modal').fadeIn();
 			modal.append('<h1>' + currentSchool.name + '</h1>');
@@ -25915,6 +25936,7 @@ $.ajax({
 			modal.append('<span class="details-titles">Parent Rating: </span><span class="school-details">' + currentSchool.parentRating + '</span><br>');
 			modal.append('<span class="details-titles">GS Rating: </span><span class="school-details">' + currentSchool.gsRating + '</span><br>');
 		});
+	
 	$('.main-content').on('click', '.school-modal-x' , function(){
     		$('.school-modal').fadeOut();
   });
@@ -26242,7 +26264,9 @@ module.exports = function(state, city, element) {
       method: 'GET',
       url: '/api/homeprices/' + state + '/' + city + '/'
     })
-    .then(function(d){parseHousing(d);})
+    .then(function(d){
+      parseHousing(d);
+    });
 
 //  ]).then(
 
