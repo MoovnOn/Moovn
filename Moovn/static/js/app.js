@@ -24926,6 +24926,7 @@ var parseCell2 = require('../graphs/parse-cell-2');
 var downloadGraph = require('../graphs/cell-download');
 var activeSelection = require('./active-selection');
 var searchFunction = require('../search');
+var peopleAge = require('../graphs/people-age');
 
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
@@ -24944,33 +24945,25 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   var city2 = citySplit2[0];
   var state2 = citySplit2[1];
 
-  console.log(city1)
-  console.log(city2)
-  console.log(state1)
-  console.log(state2)
-
   parseCell(state1, city1).then(function (data) {
       var data2 = parseCell2(data);
-
-      downloadGraph(data2, '.duo-1-vert' )
+      downloadGraph(data2, '.comp-chart1-1' )
   });
 
   parseCell(state2, city2).then(function (data) {
       var data2 = parseCell2(data);  
-
-      downloadGraph(data2, '.duo-2-vert' )
+      downloadGraph(data2, '.comp-chart2-1' )
   });
 
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-
-
-
+  peopleAge(state1, city1, '.comp-chart1-2');
+  peopleAge(state2, city2, '.comp-chart2-2');
   
 });
-},{"../graphs/cell-download":21,"../graphs/parse-cell":29,"../graphs/parse-cell-2":28,"../router":44,"../search":45,"../show":46,"./active-selection":5,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+},{"../graphs/cell-download":21,"../graphs/parse-cell":29,"../graphs/parse-cell-2":28,"../graphs/people-age":30,"../router":44,"../search":45,"../show":46,"./active-selection":5,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25096,6 +25089,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var activeSelection = require('../active-selection');
+var getDetails = require('../../place-details')
 
 // for the map
 var d3 = require('d3');
@@ -25132,10 +25126,23 @@ router.route('search/:cityName/education', function (cityName){
 
   show('content/tabs-lists', '.duo-2')
 
-  var svg = d3.select("#d3-graphs");
-  var height = 400;
-  var width = 400;
-  svg.attr("width", width).attr("height", height);
+  var width = Math.max($("#d3-graphs").width(), 200),
+      aspect = 1;
+
+  var svg = d3.select("#d3-graphs").append("svg")
+              .attr("preserveAspectRatio", "xMinYMin")
+              .attr("viewBox", "0 0 700 700")
+              .attr("width", width)
+              .attr("height", width * aspect)
+              .attr("class", "map");
+
+  $(window).resize(function(){
+    var width = $(".duo-1").width();
+    svg.attr("width", width);
+    svg.attr("height", width * aspect);
+  });
+
+
   var g = svg.append("g");
 
   var projection = d3.geo.albers().scale(200).translate([150,140]);
@@ -25156,7 +25163,7 @@ router.route('search/:cityName/education', function (cityName){
       }).done(function (json){
 
 
-        cityjson = neighMap(json, g, path, "brown", "city", height, width);
+        cityjson = neighMap(json, g, path, "brown", "city", width * aspect, width);
 
       }),
 
@@ -25171,7 +25178,7 @@ router.route('search/:cityName/education', function (cityName){
 
       }).done(function (json){
         if (json){
-          boundaryjson = neighMap(json, g, path, "grey", "neighborhood", height, width);
+          boundaryjson = neighMap(json, g, path, "grey", "neighborhood", width * aspect, width);
         } else {
           boundaryjson = false
         }
@@ -25181,7 +25188,7 @@ router.route('search/:cityName/education', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
-        zoom(cityjson, boundaryjson, g, path, height, width);
+        zoom(cityjson, boundaryjson, g, path, width * aspect, width);
 
         var mouseOutZoom = function (d) {
           $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
@@ -25189,20 +25196,20 @@ router.route('search/:cityName/education', function (cityName){
           d3.selectAll("path")
             .classed("active", false)
 
-          return zoom(cityjson, boundaryjson, g, path, height, width);
+          return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
         };
 
         var mouseZoom = function(d) {
           $(".maptext").attr("opacity", 0);
           $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
-          return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
+          return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
         };
 
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
 
       } else {
 
-        zoom(cityjson, cityjson, g, path, height, width);
+        zoom(cityjson, cityjson, g, path, width * aspect, width);
 
       }
 
@@ -25220,9 +25227,34 @@ router.route('search/:cityName/education', function (cityName){
 //google places
   places(cityName, "colleges", ".tab-data1", ".tab-title1");
   places(cityName, "community college", ".tab-data2", ".tab-title2");
+
+  $('.main-content').on('click', '.r-tabs-anchor', function(){
+    $('.details-right').html('');
+  });
+
+  $('.city-all-container').on('click', '.clickSpan', function (){
+    var id = this.id;
+    getDetails(id);
+    $(".clickSpan").removeClass("clickSpan-selected");
+    $(this).addClass("clickSpan-selected");
+  });
+
+  setTimeout(function() {
+    var id = $('.clickSpan').eq(3).attr('id')
+    getDetails(id)
+  }, 1200);
+
+  
 });
 
-},{"../../educationmouseover":19,"../../neighMap":40,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../topojson":48,"../../zoom":49,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
+
+
+
+
+
+
+
+},{"../../educationmouseover":19,"../../neighMap":40,"../../place-details":42,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../topojson":48,"../../zoom":49,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25267,19 +25299,26 @@ router.route('search/:cityName/housing', function (cityName){
   nTitle.append("span").style({"color": "darkgreen", "font-weight": "bold"})
     .text(city);
 
-  //$("#neighborhood-title").text("Select a Neighborhood");
 
-  var svg = d3.select("#d3-graphs");
-  var height = 400;
-  var width = 400;
-  svg.attr("width", width).attr("height", height);
+  var width = Math.max($("#d3-graphs").width(), 200),
+      aspect = 1;
 
-  // svg.append("text")
-  //   .attr("x", 200)
-  //   .attr("y", 20)
-  //   .attr("id", "map-title")
-  //   .attr("text-anchor", "middle")
-  //   .text("");
+  var svg = d3.select("#d3-graphs").append("svg")
+              .attr("preserveAspectRatio", "xMinYMin")
+              .attr("viewBox", "0 0 700 700")
+              .attr("width", width)
+              .attr("height", width * aspect)
+              .attr("class", "map");
+
+  // svg.attr("width", width).attr("height", height);
+
+  $(window).resize(function(){
+    var width = $(".quad-1").width();
+    svg.attr("width", width);
+    svg.attr("height", width * aspect);
+  });
+
+  //$(".map").on("resize", mouseOutZoom);
 
   var g = svg.append("g");
 
@@ -25292,20 +25331,19 @@ router.route('search/:cityName/housing', function (cityName){
   var boundaryjson = [];
   var id = 0;
 
-  // Promise.all([
-  //
-  // $.ajax({
-  //
-  //   method: 'GET',
-  //   url: '/api/boundary/' + 'US' + '/' + 'US' + '/'
-  //
-  // }).done(function (json){
-  //
-  //   neighMap(json, g, path, "black", "US");
-  //
-  // })
-  //
-  // ]).then(function(results){
+  var mouseOutZoom = function (d) {
+    $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
+    d3.selectAll("path")
+      .classed("active", false);
+    housingGraphGeneral(state, city);
+    return zoom(cityjson, boundaryjson, g, path, aspect * width, width);
+  };
+
+  var mouseZoom = function(d) {
+    $(".maptext").attr("opacity", 0);
+    $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+    return mouseOverZoom(d, path, g, aspect * width, width, mouseOutZoom, state, city);
+  };
 
   Promise.all([
 
@@ -25316,7 +25354,7 @@ router.route('search/:cityName/housing', function (cityName){
 
       }).done(function (json){
 
-        cityjson = neighMap(json, g, path, "brown", "city", height, width);
+        cityjson = neighMap(json, g, path, "brown", "city", aspect * width, width);
 
       }),
 
@@ -25331,7 +25369,7 @@ router.route('search/:cityName/housing', function (cityName){
 
       }).done(function (json){
         if (json){
-          boundaryjson = neighMap(json, g, path, "grey", "neighborhood", height, width);
+          boundaryjson = neighMap(json, g, path, "grey", "neighborhood", aspect * width, width);
         } else {
           boundaryjson = false
         }
@@ -25341,37 +25379,19 @@ router.route('search/:cityName/housing', function (cityName){
     ]).then(function(results){
 
       if (boundaryjson){
-        zoom(cityjson, boundaryjson, g, path, height, width);
-
-        var mouseOutZoom = function (d) {
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
-
-          d3.selectAll("path")
-            .classed("active", false)
-          //c3.generate(housingdata);
-          housingGraphGeneral(state, city);
-          return zoom(cityjson, boundaryjson, g, path, height, width);
-        };
-
-        var mouseZoom = function(d) {
-          $(".maptext").attr("opacity", 0);
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
-          return mouseOverZoom(d, path, g, height, width, mouseOutZoom, state, city);
-        };
-
+        zoom(cityjson, boundaryjson, g, path, aspect * width, width);
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
 
       } else {
 
-        zoom(cityjson, cityjson, g, path, height, width);
+        zoom(cityjson, cityjson, g, path, aspect * width, width);
 
       }
 
     });
 
   });
-  //
-  // })
+
 
   activeSelection();
 
@@ -25415,6 +25435,7 @@ var jobSearch = require('../../job-search');
 var autocomplete = require('jquery-ui');
 var jobtitles = require('../../job-titles');
 var bubbleChart = require('../../graphs/industry-bubble');
+var salaryPer = require('../../graphs/salary-percentile');
 
 
 router.route('search/:cityName/industry', function (cityName){
@@ -25448,7 +25469,9 @@ router.route('search/:cityName/industry', function (cityName){
   $('.main-content').on('submit', '.industry-form', function(e) {
     e.preventDefault();
     e.stopPropagation();
-    jobSearch(state, city);
+    var job = $('.job-input').val();
+    salaryPer(state, city, job);
+    $('.gauge-title').fadeIn("slow");
   });
 
   //slides the side-nav
@@ -25470,11 +25493,15 @@ router.route('search/:cityName/industry', function (cityName){
     }
   });
 
+  peopleAge(state, city, '.quad-1');
+  
+
+
   //bubbleChart(state, city);
 
 });
 
-},{"../../graphs/income-city-wide":25,"../../graphs/industry-bubble":26,"../../job-search":35,"../../job-titles":36,"../../neighMap":40,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../zoom":49,"../active-selection":5,"d3":"d3","jquery":"jquery","jquery-ui":2,"responsive-tabs":3,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
+},{"../../graphs/income-city-wide":25,"../../graphs/industry-bubble":26,"../../graphs/salary-percentile":33,"../../job-search":35,"../../job-titles":36,"../../neighMap":40,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../zoom":49,"../active-selection":5,"d3":"d3","jquery":"jquery","jquery-ui":2,"responsive-tabs":3,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25577,6 +25604,7 @@ router.route('search/:cityName/leisure', function (cityName){
       // startCollapsed: 'accordion'
   });
 
+
 //google places
   places(cityName, "Attractions", ".tab-data1", ".tab-title1");
   places(cityName, "Bars", ".tab-data2", ".tab-title2");
@@ -25587,10 +25615,11 @@ router.route('search/:cityName/leisure', function (cityName){
   // setTimeout(function(){
   //   $(".select-details").fadeOut("slow")
   //   }, 3500);
+
+
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
   });
-
 
   $('.city-all-container').on('click', '.clickSpan', function (){
     var id = this.id;
@@ -25599,6 +25628,20 @@ router.route('search/:cityName/leisure', function (cityName){
     $(this).addClass("clickSpan-selected");
   });
 
+  setTimeout(function() {
+    var id = $('.clickSpan').first().attr('id')
+    getDetails(id)
+  }, 200);
+
+//code to get each tab opening the first item in the list  
+  // $(".r-tabs-anchor").click(function(){
+  //    setTimeout(function() {
+  //     console.log();
+  //     var id = $('.clickSpan').first().attr('id')
+  //     getDetails(id)
+  //    }, 500);
+  // })
+  
   //changes tab view so that it is fullscreen only on this view
   $(".city-all-container").addClass("full-screen-container");
   $(".duo-1").addClass("full-screen-duo1");
@@ -25644,7 +25687,7 @@ router.route('search/:cityName/people', function (cityName){
   var state = citySplit[1];
 
 
-  peopleAge(state, city);
+  peopleAge(state, city, '.quad-1');
   peopleHousehold(state, city);
   peopleRelationships(state, city);
 
@@ -26235,19 +26278,34 @@ d3 = require('d3');
 $ = require('jquery');
 
 module.exports = function(svg, state, city) {
+	var counter = function (){
+		var k = 0;
+		var m = function () {
+			k = k + 1;
+			return k;
+		};
 
-	$.ajax({
-		url: "/api/industrysize/" + state + "/" + city + "/"
-	}).done(function(d){
-		//console.log(d);
-		bubbleChart(d);
-	});
+		return m;
+	};
+
+	var showText = function (d) {
+
+		if (!this.active) {
+			d3.selectAll("circle").attr("active", false);
+
+			d3.select(this).attr("active", true);
+
+			d3.select(".bubble-title").select("span")
+				.style("color", this.getAttribute("fill"))
+				.text(d.name);
+		};
+
+	};
 
 	var bubbleChart = function (data) {
-		//console.log("data");
-		//console.log(data);
 
-		var data_list = {"children":[]};
+		var data_list = {"name": "Jobs by Industry",
+			"children":[]};
 
 		var cb = function (item, data) {
 			obj = {
@@ -26261,9 +26319,7 @@ module.exports = function(svg, state, city) {
 			cb(key, data);
 		}
 
-		console.log(svg)
-		var diameter = Math.min(svg.attr("height"),svg.attr("width")) / 2;
-		console.log(diameter)
+		var diameter = 200;
 		var color = d3.scale.category20b();
 
 		var bubble = d3.layout.pack()
@@ -26271,30 +26327,45 @@ module.exports = function(svg, state, city) {
 					.size([diameter, diameter])
 					.padding(.5);
 
-		console.log(bubble.nodes(data_list))
+		//console.log(bubble.nodes(data_list))
 		g = svg.append("g")
+
+		var count = counter();
+		var count2 = counter();
+
 		var node = g.selectAll(".node")
 									.data(bubble.nodes(data_list))
 								.enter().append("g")
 									.attr("class", "node")
-									.attr("transform", function (d) { return "translate(" + d.x + "," +
-												d.y + ")";});
+									.attr("transform", function (d) { return "translate(" + d.x +
+												"," + d.y + ")";});
 
 		node.append("circle")
 				.attr("r", function(d){ return d.r;})
+				.attr("class", "circle")
+				.attr("active", false)
 				.attr("fill", function(d){ return color(d.name);});
 
+		g.attr("transform", "scale(" + 2 + ")");
 
-		var text = node.append("g")
-									 .append("text")
-		  					 	 .style("text-anchor", "middle")
-		  					   .text(function(d){ return d.name;});
-
-		text.attr("transform", function(d){ return "scale(" + 1/2  + ")";})
-
-		g.attr("transform", "scale(" + 2 + ")")
 
 	};
+
+	Promise.all([
+
+	$.ajax({
+		url: "/api/industrysize/" + state + "/" + city + "/"
+	}).done(function(d){
+		bubbleChart(d);
+	}),
+
+
+]).then(function(results) {
+	
+		var circles = d3.selectAll(".circle").on("mouseenter", showText);
+		circles.on("touch", showText);
+
+	});
 
 };
 
@@ -26413,7 +26484,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, bindTo ) {
 
   $.ajax({
     method: 'GET',
@@ -26436,7 +26507,7 @@ module.exports = function(state, city) {
     var housingPeople70 = housingPeople[1].data.attribute[0].value['#text'];
     
       c3.generate({
-          bindto: 'body .quad-1',
+          bindto: bindTo,
           data: {
               columns: [
                   ['0-9', housingPeople0],
@@ -26568,27 +26639,189 @@ module.exports = function(state, city) {
 
 },{"c3":"c3","d3":"d3","jquery":"jquery"}],33:[function(require,module,exports){
 var c3 = require('c3');
+var $ = require('jquery');
 
-module.exports = function(data, job) {
-console.log(data)
-console.log(job)
-	// var chart = c3.generate({
- //    bindto: '.tri-1',
- //    data: {
- //        columns: [
+module.exports = function(state, city, job) {
+
+	$.ajax({
+    method: 'GET',
+    url: 'api/salary/' + state + '/' + city + '/' + job
+    }).done(function(data){
+      console.log(data);
+     
+     var value10 = data[job+"10th"];
+     var value25 = data[job+"25th"];
+     var value50 = data[job+"50th"];
+     var value75 = data[job+"75th"]; 
+     var value90 = data[job+"90th"];
+     var max = ((parseInt(value90) / 9) + parseInt(value90));
+     console.log(max);
+     
+     c3.generate({
+      bindto: '.gauge25',
+      data: {
+           columns: [
+              ['25th Percentile', data[job+"25th"]], 
+          ],
+          type: 'gauge',
+          onclick: function (d, i) { },
+          onmouseover: function (d, i) { },
+          onmouseout: function (d, i) { }
+          },
+          gauge: {
+             label: {
+                 format: function(value, ratio) {
+                     return "$" + value;
+                 },
+                 show: false // to turn off the min/max labels.
+             },
+             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+             max: max, // 100 is default
+             units: ' %',
+             width: 39 // for adjusting arc thickness
+          },
+          color: {
+              pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+              threshold: {
+                 unit: 'value', // percentage is default
+                 max: max, // 100 is default
+                 values: [value25, value50, value75, value90]
+              }
+          },
+          size: {
+              height: 150
+          }
+      }); 
+
+    c3.generate({
+      bindto: '.gauge50',
+      data: {
+           columns: [
+              ['50th Percentile', data[job+"50th"]], 
+          ],
+          type: 'gauge',
+          onclick: function (d, i) { },
+          onmouseover: function (d, i) { },
+          onmouseout: function (d, i) { }
+          },
+          gauge: {
+             label: {
+                 format: function(value, ratio) {
+                     return "$" + value;
+                 },
+                 show: false // to turn off the min/max labels.
+             },
+             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+             max: max, // 100 is default
+             units: ' %',
+             width: 39 // for adjusting arc thickness
+          },
+          color: {
+               pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+              threshold: {
+                 unit: 'value', // percentage is default
+                 max: max, // 100 is default
+                 values: [value25, value50, value75, value90]
+              }
+          },
+          size: {
+              height: 150
+          }
+      }); 
+
+    c3.generate({
+      bindto: '.gauge75',
+      data: {
+           columns: [
+              ['75th Percentile', data[job+"75th"]], 
+          ],
+          type: 'gauge',
+          onclick: function (d, i) { },
+          onmouseover: function (d, i) { },
+          onmouseout: function (d, i) { }
+          },
+          gauge: {
+             label: {
+                 format: function(value, ratio) {
+                     return "$" + value;
+                 },
+                 show: false // to turn off the min/max labels.
+             },
+             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+             max: max, // 100 is default
+             units: ' %',
+             width: 39 // for adjusting arc thickness
+          },
+          color: {
+             pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+              threshold: {
+                 unit: 'value', // percentage is default
+                 max: max, // 100 is default
+                 values: [value25, value50, value75, value90]
+              }
+          },
+          size: {
+              height: 150
+          }
+      }); 
+
+    c3.generate({
+      bindto: '.gauge90',
+      data: {
+           columns: [
+              ['90th Percentile', data[job+"90th"]], 
+          ],
+          type: 'gauge',
+          onclick: function (d, i) { },
+          onmouseover: function (d, i) { },
+          onmouseout: function (d, i) { }
+          },
+          gauge: {
+             label: {
+                 format: function(value, ratio) {
+                     return "$" + value;
+                 },
+                 show: false // to turn off the min/max labels.
+             },
+             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
+             max: max, // 100 is default
+             units: ' %',
+             width: 39 // for adjusting arc thickness
+          },
+          color: {
+               pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
+              threshold: {
+                 unit: 'value', // percentage is default
+                 max: max, // 100 is default
+                 values: [value25, value50, value75, value90]
+              }
+          },
+          size: {
+              height: 150
+          }
+      }); 
+
+
+
+});
     
-
- //        ],
- //          type: 'bar',     			
-
-	// 	});
-// console.log(data['Web Developers25th'])
-// console.log(data['Web Developers50th'])
-// console.log(data['Web Developers75th'])
-// console.log(data['Web Developers90th'])
-
-};
-},{"c3":"c3"}],34:[function(require,module,exports){
+  //   c3.generate({
+  //      bindto: '.tri-1',
+  //       data: {
+  //           x: 'x',
+  //           columns: [
+  //               ['x', '25', '50', '75', '90'],
+  //               ['25th', data[job+"25th"]], 
+  //               ['50th', data[job+"50th"]], 
+  //               ['75th', data[job+"75th"]],
+  //               ['90th', data[job+"90th"]]
+  //           ],
+  //              type: 'bar'
+  //        }
+  //   });
+  // });
+}
+},{"c3":"c3","jquery":"jquery"}],34:[function(require,module,exports){
 'use strict';
 var jQuery = require("jquery");
 var $ = require("jquery");
@@ -26632,25 +26865,8 @@ $.ajaxSetup({
     }
 });
 },{"./controllers/active-selection.js":5,"./controllers/city-comp-controller.js":6,"./controllers/city-controller.js":7,"./controllers/parse-cell-2.js":8,"./controllers/search-controller.js":9,"./controllers/sidebar-controls/education-controller.js":10,"./controllers/sidebar-controls/housing-controller.js":11,"./controllers/sidebar-controls/industry-controller.js":12,"./controllers/sidebar-controls/internet-controller.js":13,"./controllers/sidebar-controls/leisure-controller.js":14,"./controllers/sidebar-controls/people-controller.js":15,"./controllers/sidebar-controls/taxes-controller.js":16,"./controllers/sidebar-controls/transpo-controller.js":17,"./router":44,"jquery":"jquery"}],35:[function(require,module,exports){
-var $ = require('jquery');
-var salaryGraph = require('./graphs/salary-percentile');
 
-module.exports = function(state, city){
-
-	var job = $('.job-input').val();
-
-	$.ajax({
-    method: 'GET',
-    url: 'api/salary/' + state + '/' + city + '/' + job
-  }).done(function(data){
-  	console.log(data)
-  	console.log(job)	
-  });
-
-  
-	
-};
-},{"./graphs/salary-percentile":33,"jquery":"jquery"}],36:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 module.exports = ["Cutting and Slicing Machine Setters, Operators, and Tenders","Statisticians","Nurse Anesthetists","Sales Managers","Industrial Machinery Mechanics","Audio and Video Equipment Technicians","Hosts and Hostesses, Restaurant, Lounge, and Coffee Shop","Motorcycle Mechanics","Medical and Health Services Managers","Plant and System Operators","Textile Knitting and Weaving Machine Setters, Operators, and Tenders","Family and General Practitioners","Office and Administrative Support Workers, All Other","Special Education Teachers, Middle School","Title Examiners, Abstractors, and Searchers","Conservation Scientists and Foresters","Derrick, Rotary Drill, and Service Unit Operators, Oil, Gas, and Mining","Fire Inspectors and Investigators","Chemical Engineers","Massage Therapists","Cartographers and Photogrammetrists","Compliance Officers","Food Batchmakers","Gaming Supervisors","Small Engine Mechanics","Grinding and Polishing Workers, Hand","Audio-Visual and Multimedia Collections Specialists","Traffic Technicians","Physicians and Surgeons","Tool and Die Makers","Textile, Apparel, and Furnishings Workers, All Other","Miscellaneous Teachers and Instructors","Computer, All Other","Architecture and Engineering","Installation, Maintenance, and Repair","Librarians, Curators, and Archivists","Medical Transcriptionists","Photographic Process Workers and Processing Machine Operators","Chemical Processing Machine Setters, Operators, and Tenders","Industrial Production Managers","Computer Programmers","Occupational Therapists","Education, Training, and Library","Morticians, Undertakers, and Funeral Directors","Cooks, Restaurant","Accountants and Auditors","Painting, Coating, and Decorating Workers","Postsecondary Teachers","First-Line Supervisors of Retail Sales Workers","Cutters and Trimmers, Hand","Compensation and Benefits Managers","Office Machine Operators, Except Computer","Landscape Architects","Material Moving Workers, All Other","Roof Bolters, Mining","Motorboat Operators","Ship Engineers","Cooks","Electrical and Electronics Installers and Repairers, Transportation Equipment","Financial Clerks","Aircraft Cargo Handling Supervisors","Electrical and Electronics Engineering Technicians","Miscellaneous Construction and Related Workers","Social Workers","Building Cleaning Workers, All Other","Log Graders and Scalers","First-Line Supervisors of Construction Trades and Extraction Workers","Industrial Engineers","Electrical and Electronics Repairers, Powerhouse, Substation, and Relay","Life Sciences Teachers, Postsecondary","Helpers--Brickmasons, Blockmasons, Stonemasons, and Tile and Marble Setters","Entertainment Attendants and Related Workers","Motor Vehicle Operators, All Other","Geographers","Solar Photovoltaic Installers","Counselors","Packaging and Filling Machine Operators and Tenders","Shoe Machine Operators and Tenders","Metal Workers and Plastic Workers, All Other","Agricultural and Food Science Technicians","Gaming Change Persons and Booth Cashiers","Landscaping and Groundskeeping Workers","Natural Sciences Managers","Plating and Coating Machine Setters, Operators, and Tenders, Metal and Plastic","Orderlies","Credit Counselors and Loan Officers","Data Entry Keyers","Education Administrators, Postsecondary","Agricultural Inspectors","Loading Machine Operators, Underground Mining","Heavy Vehicle and Mobile Equipment Service Technicians and Mechanics","Fabric Menders, Except Garment","Mixing and Blending Machine Setters, Operators, and Tenders","Gas Compressor and Gas Pumping Station Operators","Farmworkers, Farm, Ranch, and Aquacultural Animals","Therapists, All Other","Hazardous Materials Removal Workers","Education Administrators, All Other","Floor Sanders and Finishers","Construction Trades Workers","Archivists","Hotel, Motel, and Resort Desk Clerks","Library Technicians","Helpers, Construction Trades, All Other","Career/Technical Education Teachers, Middle School","Butchers and Meat Cutters","Personal Financial Advisors","Human Resources Assistants, Except Payroll and Timekeeping","Parking Enforcement Workers","Driver/Sales Workers and Truck Drivers","Market Research Analysts and Marketing Specialists","Slaughterers and Meat Packers","Other Sales and Related Workers","Manufactured Building and Mobile Home Installers","Home Health Aides","Agricultural Engineers","Medical and Clinical Laboratory Technologists","Executive Secretaries and Executive Administrative Assistants","Special Education Teachers, All Other","Refuse and Recyclable Material Collectors","Assemblers and Fabricators, All Other","Optometrists","Postal Service Workers","Environmental Science and Protection Technicians, Including Health","Fabric and Apparel Patternmakers","Advertising, Marketing, Promotions, Public Relations, and Sales Managers","Real Estate Brokers and Sales Agents","Engineering Teachers, Postsecondary","Medical Records and Health Information Technicians","Nuclear Technicians","Costume Attendants","Riggers","Cooks and Food Preparation Workers","Other Construction and Related Workers","Computer-Controlled Machine Tool Operators, Metal and Plastic","Bus and Truck Mechanics and Diesel Engine Specialists","Dredge Operators","Helpers--Electricians","Nursing, Psychiatric, and Home Health Aides","Recreation Workers","Other Installation, Maintenance, and Repair","Models, Demonstrators, and Product Promoters","Financial Clerks, All Other","Carpet Installers","Funeral Service Managers","Social and Human Service Assistants","Adult Basic and Secondary Education and Literacy Teachers and Instructors","Other Management","Material Moving Workers","Meeting, Convention, and Event Planners","Security Guards","Mathematical Science Teachers, Postsecondary","Miscellaneous Production Workers","Entertainers and Performers, Sports and Related Workers","Gaming Service Workers, All Other","Engineers","Miscellaneous Community and Social Service Specialists","Sales Representatives, Wholesale and Manufacturing","Religious Workers","Railroad Conductors and Yardmasters","Electrical and Electronics Drafters","Nuclear Medicine Technologists","Opticians, Dispensing","Ophthalmic Laboratory Technicians","Electromechanical Equipment Assemblers","Physical Scientists, All Other","Podiatrists","Miscellaneous Vehicle and Mobile Equipment Mechanics, Installers, and Repairers","Gas Plant Operators","Childcare Workers","Environmental Scientists and Geoscientists","Commercial Divers","Computer Network Architects","Food Scientists and Technologists","Electronic Home Entertainment Equipment Installers and Repairers","Assemblers and Fabricators","Demonstrators and Product Promoters","Education, Training, and Library Workers, All Other","Mechanical Engineers","Retail Salespersons","Pumping Station Operators","Precision Instrument and Equipment Repairers","Health Educators","Public Relations and Fundraising Managers","Exercise Physiologists","Mine Cutting and Channeling Machine Operators","Bakers","Protective Service Workers, All Other","Secretaries and Administrative Assistants, Except Legal, Medical, and Executive","Claims Adjusters, Appraisers, Examiners, and Investigators","Material Recording, Scheduling, Dispatching, and Distributing Workers","Tellers","Instructional Coordinators","Grounds Maintenance Workers","Chemical Technicians","Metal Workers and Plastic Workers","Chemists and Materials Scientists","Personal Care and Service","Motor Vehicle Operators","Multimedia Artists and Animators","Labor Relations Specialists","Dishwashers","Camera Operators, Television, Video, and Motion Picture","Computer Network Support Specialists","Physicists","Life, Physical, and Social Science Technicians, All Other","Anesthesiologists","Miscellaneous Health Technologists and Technicians","Extraction Workers, All Other","Automotive Glass Installers and Repairers","Painters and Paperhangers","Agricultural Workers","Dentists","Directors, Religious Activities and Education","Tire Repairers and Changers","Molders and Molding Machine Setters, Operators, and Tenders, Metal and Plastic","Database and Systems Administrators and Network Architects","Elementary and Middle School Teachers","Miscellaneous Mathematical Science","Respiratory Therapy Technicians","Curators","Sociologists","Career/Technical Education Teachers, Secondary School","Refractory Materials Repairers, Except Brickmasons","Sales Representatives, Services","Air Transportation Workers","Nurse Midwives","Aerospace Engineering and Operations Technicians","Light Truck or Delivery Services Drivers","Model Makers, Metal and Plastic","Separating, Filtering, Clarifying, Precipitating, and Still Machine Setters, Operators, and Te","Cargo and Freight Agents","Life Scientists","Textile, Apparel, and Furnishings Workers","Food Preparation and Serving Related Workers, All Other","Sales Representatives, Services, All Other","Bill and Account Collectors","Mining Machine Operators, All Other","Financial Analysts and Advisors","Concierges","Helpers--Installation, Maintenance, and Repair Workers","Office Clerks, General","Pipelayers, Plumbers, Pipefitters, and Steamfitters","Psychiatric Aides","Credit Analysts","Pest Control Workers","Drafters, All Other","Social Sciences Teachers, Postsecondary","Rail Yard Engineers, Dinkey Operators, and Hostlers","Counter and Rental Clerks","Eligibility Interviewers, Government Programs","First-Line Supervisors of Transportation and Material-Moving Machine and Vehicle Operators","Electrical Power-Line Installers and Repairers","Business Teachers, Postsecondary","Public Relations Specialists","Travel Agents","Food Cooking Machine Operators and Tenders","Surveyors","Foreign Language and Literature Teachers, Postsecondary","Architects, Except Naval","Other Healthcare Practitioners and Technical","Vocational Education Teachers, Postsecondary","Cooling and Freezing Equipment Operators and Tenders","Prosthodontists","First-Line Supervisors of Fire Fighting and Prevention Workers","Control and Valve Installers and Repairers","Farm Labor Contractors","Dental Laboratory Technicians","First-Line Supervisors of Mechanics, Installers, and Repairers","Engineering Technicians, Except Drafters","Education Administrators, Preschool and Childcare Center/Program","Other Teachers and Instructors","Soil and Plant Scientists","Coating, Painting, and Spraying Machine Setters, Operators, and Tenders","Counter and Rental Clerks and Parts Salespersons","Other Transportation Workers","Motion Picture Projectionists","Biological Scientists","Recreation and Fitness Workers","Geoscientists, Except Hydrologists and Geographers","Education Teachers, Postsecondary","Miscellaneous Food Processing Workers","Astronomers","Animal Care and Service Workers","Bridge and Lock Tenders","Archivists, Curators, and Museum Technicians","Mental Health and Substance Abuse Social Workers","Welding, Soldering, and Brazing Workers","Radio, Cellular, and Tower Equipment Installers and Repairers","Sales Representatives, Wholesale and Manufacturing, Except Technical and Scientific Products","Athletic Trainers","Respiratory Therapists","Bailiffs","Secretaries and Administrative Assistants","Transportation Security Screeners","Ship and Boat Captains and Operators","Maids and Housekeeping Cleaners","Medical Secretaries","Driver/Sales Workers","Helpers--Roofers","Tool Grinders, Filers, and Sharpeners","Geography Teachers, Postsecondary","Miscellaneous Electrical and Electronic Equipment Mechanics, Installers, and Repairers","Chemistry Teachers, Postsecondary","Life Scientists, All Other","Rolling Machine Setters, Operators, and Tenders, Metal and Plastic","Interior Designers","Cutting Workers","Medical Equipment Preparers","Billing and Posting Clerks","Laborers and Material Movers, Hand","Fire Fighting and Prevention Workers","Computer Support Specialists","Food Processing Workers, All Other","Marine Engineers and Naval Architects","Welders, Cutters, Solderers, and Brazers","Glaziers","Nursing Instructors and Teachers, Postsecondary","First-Line Supervisors of Correctional Officers","Vehicle and Mobile Equipment Mechanics, Installers, and Repairers","Models","Social Scientists and Related Workers, All Other","Substance Abuse and Behavioral Disorder Counselors","Electrical and Electronics Repairers, Commercial and Industrial Equipment","Dental Hygienists","Miscellaneous Life, Physical, and Social Science Technicians","Stationary Engineers and Boiler Operators","Door-to-Door Sales Workers, News and Street Vendors, and Related Workers","Embalmers","Laborers and Freight, Stock, and Material Movers, Hand","Biochemists and Biophysicists","Animal Scientists","Computer and Information Systems Managers","Office and Administrative Support","Probation Officers and Correctional Treatment Specialists","Preschool Teachers, Except Special Education","Electricians","Shipping, Receiving, and Traffic Clerks","Parts Salespersons","Rotary Drill Operators, Oil and Gas","Broadcast Technicians","Other Production","Compensation, Benefits, and Job Analysis Specialists","Securities, Commodities, and Financial Services Sales Agents","Helpers--Pipelayers, Plumbers, Pipefitters, and Steamfitters","Ambulance Drivers and Attendants, Except Emergency Medical Technicians","Floor Layers, Except Carpet, Wood, and Hard Tiles","Roustabouts, Oil and Gas","Physician Assistants","Miscellaneous Postsecondary Teachers","Social Science Research Assistants","Dietetic Technicians","Combined Food Preparation and Serving Workers, Including Fast Food","Metal-Refining Furnace Operators and Tenders","Crane and Tower Operators","Sheet Metal Workers","Graphic Designers","Postsecondary Teachers, All Other","Dentists, General","First-Line Supervisors of Office and Administrative Support Workers","Clinical Laboratory Technologists and Technicians","Drywall Installers, Ceiling Tile Installers, and Tapers","Psychiatrists","Police and Sheriff's Patrol Officers","Reinforcing Iron and Rebar Workers","Cooks, Private Household","Cooks, Institution and Cafeteria","Furniture Finishers","Control and Valve Installers and Repairers, Except Mechanical Door","Radio Operators","Cooks, Short Order","Multiple Machine Tool Setters, Operators, and Tenders, Metal and Plastic","Marriage and Family Therapists","Health Technologists and Technicians, All Other","Religious Workers, All Other","Fishers and Related Fishing Workers","Loan Officers","Model Makers and Patternmakers, Metal and Plastic","Airfield Operations Specialists","Transportation Workers, All Other","Roofers","Entertainers and Performers, Sports and Related Workers, All Other","Occupational Therapy Assistants and Aides","Business Operations Specialists","Gaming Managers","Clinical, Counseling, and School Psychologists","Industrial Engineering Technicians","Home Appliance Repairers","Logging Workers","Editors","Miscellaneous Media and Communication Workers","Mail Clerks and Mail Machine Operators, Except Postal Service","Crushing, Grinding, Polishing, Mixing, and Blending Workers","Paving, Surfacing, and Tamping Equipment Operators","Healthcare Practitioners and Technical","Mechanical Door Repairers","Prepress Technicians and Workers","Graduate Teaching Assistants","Tax Examiners, Collectors and Preparers, and Revenue Agents","Life, Physical, and Social Science Technicians","Computer Science Teachers, Postsecondary","Postal Service Clerks","Fire Inspectors","Administrative Law Judges, Adjudicators, and Hearing Officers","Construction Laborers","Team Assemblers","Helpers--Extraction Workers","Sewers, Hand","Transportation Attendants, Except Flight Attendants","Supervisors of Food Preparation and Serving Workers","Foundry Mold and Coremakers","Physics Teachers, Postsecondary","Advertising Sales Agents","News Analysts, Reporters and Correspondents","Physical Therapist Aides","Miscellaneous Legal Support Workers","Electronic Equipment Installers and Repairers, Motor Vehicles","Logging Workers, All Other","Medical and Clinical Laboratory Technicians","Insurance Sales Agents","Bookkeeping, Accounting, and Auditing Clerks","Animal Trainers","Engineering Technicians, Except Drafters, All Other","Funeral Attendants","Oral and Maxillofacial Surgeons","Drafters, Engineering Technicians, and Mapping Technicians","Construction and Building Inspectors","First-Line Supervisors of Landscaping, Lawn Service, and Groundskeeping Workers","Human Resources Workers","Retail Sales Workers","Food Preparation Workers","Special Education Teachers, Secondary School","Dancers and Choreographers","Radiologic Technologists","Health Practitioner Support Technologists and Technicians","Extruding, Forming, Pressing, and Compacting Machine Setters, Operators, and Tenders","Educational, Guidance, School, and Vocational Counselors","Historians","Recreational Vehicle Service Technicians","Mathematical Technicians","Emergency Management Directors","Logging Equipment Operators","Surveyors, Cartographers, and Photogrammetrists","Millwrights","Drafters","Business Operations Specialists, All Other","Electrical and Electronics Engineers","Broadcast News Analysts","Purchasing Agents, Except Wholesale, Retail, and Farm Products","Hearing Aid Specialists","Library Science Teachers, Postsecondary","Computer, Automated Teller, and Office Machine Repairers","Miscellaneous Sales and Related Workers","Librarians","Information and Record Clerks","Forming Machine Setters, Operators, and Tenders, Metal and Plastic","Occupational Health and Safety Specialists","Pharmacists","Power Plant Operators","Sailors and Marine Oilers","Proofreaders and Copy Markers","Sawing Machine Setters, Operators, and Tenders, Wood","Radio and Television Announcers","Medical Scientists, Except Epidemiologists","Gaming Cage Workers","File Clerks","Writers and Authors","Social Sciences Teachers, Postsecondary, All Other","Surgical Technologists","Arbitrators, Mediators, and Conciliators","Explosives Workers, Ordnance Handling Experts, and Blasters","Sales and Related Workers, All Other","Coin, Vending, and Amusement Machine Servicers and Repairers","Adhesive Bonding Machine Operators and Tenders","Meat, Poultry, and Fish Cutters and Trimmers","Insurance Appraisers, Auto Damage","Actors, Producers, and Directors","Wellhead Pumpers","Service Unit Operators, Oil, Gas, and Mining","Sociology Teachers, Postsecondary","Art and Design Workers","Funeral Service Workers","Commercial Pilots","Electro-Mechanical Technicians","Veterinarians","Painters, Construction and Maintenance","Petroleum Pump System Operators, Refinery Operators, and Gaugers","Nuclear Power Reactor Operators","Kindergarten Teachers, Except Special Education","Woodworking Machine Setters, Operators, and Tenders, Except Sawing","Tailors, Dressmakers, and Sewers","Telemarketers","Automotive and Watercraft Service Attendants","Extraction Workers","Orthodontists","Meter Readers, Utilities","Transportation and Material Moving","Chemists","Jewelers and Precious Stone and Metal Workers","Mechanical Engineering Technicians","Cashiers","Teacher Assistants","Correspondence Clerks","Residential Advisors","Dancers","Weighers, Measurers, Checkers, and Samplers, Recordkeeping","Property, Real Estate, and Community Association Managers","Stock Clerks and Order Fillers","Architects, Surveyors, and Cartographers","Environmental Engineering Technicians","Designers","Mechanical Drafters","Counselors, All Other","Textile Winding, Twisting, and Drawing Out Machine Setters, Operators, and Tenders","Communications Equipment Operators","Architecture Teachers, Postsecondary","Makeup Artists, Theatrical and Performance","Woodworking Machine Setters, Operators, and Tenders","Brickmasons and Blockmasons","Travel Guides","Therapists","Brokerage Clerks","Machine Tool Cutting Setters, Operators, and Tenders, Metal and Plastic","Camera and Photographic Equipment Repairers","Graders and Sorters, Agricultural Products","Transit and Railroad Police","Construction Equipment Operators","Postmasters and Mail Superintendents","Registered Nurses","Postal Service Mail Carriers","Law Enforcement Workers","Legal Support Workers","Precision Instrument and Equipment Repairers, All Other","Building Cleaning Workers","Music Directors and Composers","Radio and Telecommunications Equipment Installers and Repairers","Helpers, Construction Trades","Clergy","Database Administrators","Political Science Teachers, Postsecondary","Miscellaneous Installation, Maintenance, and Repair Workers","Magnetic Resonance Imaging Technologists","Extruding and Drawing Machine Setters, Operators, and Tenders, Metal and Plastic","Pediatricians, General","Pile-Driver Operators","Information Security Analysts","Petroleum Engineers","Packers and Packagers, Hand","Avionics Technicians","Operations Specialties Managers","Sound Engineering Technicians","Environmental Engineers","Audiologists","First-Line Supervisors of Law Enforcement Workers","Patternmakers, Wood","All","Supervisors of Protective Service Workers","Inspectors, Testers, Sorters, Samplers, and Weighers","Civil Engineers","Social Workers, All Other","Bartenders","Cutting, Punching, and Press Machine Setters, Operators, and Tenders, Metal and Plastic","Occupational Therapy Aides","Financial Analysts","Middle School Teachers, Except Special and Career/Technical Education","Artists and Related Workers, All Other","Special Education Teachers","Training and Development Specialists","Locker Room, Coatroom, and Dressing Room Attendants","Fence Erectors","Installation, Maintenance, and Repair Workers, All Other","Crushing, Grinding, and Polishing Machine Setters, Operators, and Tenders","Life, Physical, and Social Science","Wind Turbine Service Technicians","Electrical and Electronic Equipment Assemblers","Insurance Claims and Policy Processing Clerks","Mathematical Science","Dispatchers","Elementary School Teachers, Except Special Education","Bus Drivers, School or Special Client","Psychologists, All Other","Biological Technicians","Set and Exhibit Designers","Financial Specialists","Microbiologists","Other Education, Training, and Library","Transportation Inspectors","Earth Drillers, Except Oil and Gas","Phlebotomists","Actors","Substitute Teachers","Reporters and Correspondents","Pipelayers","Materials Engineers","Physical Scientists","Artists and Related Workers","Chemical Equipment Operators and Tenders","Aerospace Engineers","Welding, Soldering, and Brazing Machine Setters, Operators, and Tenders","Architectural and Civil Drafters","Computer Control Programmers and Operators","Parking Lot Attendants","Semiconductor Processors","Preschool and Kindergarten Teachers","Preschool, Primary, Secondary, and Special Education School Teachers","Cooks, All Other","Desktop Publishers","Plasterers and Stucco Masons","Computer Numerically Controlled Machine Tool Programmers, Metal and Plastic","Derrick Operators, Oil and Gas","Occupational Health and Safety Technicians","Computer","Forest and Conservation Technicians","Timing Device Assemblers and Adjusters","Sales Representatives, Wholesale and Manufacturing, Technical and Scientific Products","First-Line Supervisors of Helpers, Laborers, and Material Movers, Hand","First-Line Supervisors of Personal Service Workers","Maintenance and Repair Workers, General","Production","Structural Iron and Steel Workers","Speech-Language Pathologists","Physicians and Surgeons, All Other","General and Operations Managers","Fallers","Aircraft Pilots and Flight Engineers","Art, Drama, and Music Teachers, Postsecondary","Administrative Services Managers","Rail Transportation Workers","Pourers and Casters, Metal","Model Makers and Patternmakers, Wood","Rail Car Repairers","Captains, Mates, and Pilots of Water Vessels","Firefighters","Automotive Body and Related Repairers","Miscellaneous Entertainment Attendants and Related Workers","Mental Health Counselors","Health Diagnosing and Treating Practitioners","Art Directors","Emergency Medical Technicians and Paramedics","Payroll and Timekeeping Clerks","Recreational Therapists","Counselors, Social Workers, and Other Community and Social Service Specialists","Mining Machine Operators","Farmers, Ranchers, and Other Agricultural Managers","Medical Scientists","Education Administrators, Elementary and Secondary School","Health Specialties Teachers, Postsecondary","Software Developers, Systems Software","Financial Specialists, All Other","Sales Engineers","Film and Video Editors","Social Scientists and Related Workers","Civil Engineering Technicians","Manicurists and Pedicurists","Electrical, Electronics, and Electromechanical Assemblers","Drywall and Ceiling Tile Installers","Entertainment Attendants and Related Workers, All Other","Social Work Teachers, Postsecondary","Physical Sciences Teachers, Postsecondary","Coaches and Scouts","Hoist and Winch Operators","Extruding and Forming Machine Setters, Operators, and Tenders, Synthetic and Glass Fibers","Health Teachers, Postsecondary","Building Cleaning and Pest Control Workers","Bicycle Repairers","Obstetricians and Gynecologists","Network and Computer Systems Administrators","History Teachers, Postsecondary","Fiberglass Laminators and Fabricators","Layout Workers, Metal and Plastic","Heating, Air Conditioning, and Refrigeration Mechanics and Installers","Food and Tobacco Roasting, Baking, and Drying Machine Operators and Tenders","Legislators","Supervisors of Personal Care and Service Workers","Electronics Engineers, Except Computer","Miscellaneous Social Scientists and Related Workers","Mathematical Science, All Other","Diagnostic Medical Sonographers","Security and Fire Alarm Systems Installers","Occupational Therapy and Physical Therapist Assistants and Aides","Psychology Teachers, Postsecondary","Health Diagnosing and Treating Practitioners, All Other","Miscellaneous Textile, Apparel, and Furnishings Workers","Choreographers","Communications Teachers, Postsecondary","Foresters","Animal Breeders","Fashion Designers","Production, Planning, and Expediting Clerks","Photographers","Buyers and Purchasing Agents","Criminal Justice and Law Enforcement Teachers, Postsecondary","Rail Transportation Workers, All Other","Zoologists and Wildlife Biologists","Insulation Workers, Floor, Ceiling, and Wall","Bus Drivers, Transit and Intercity","Patternmakers, Metal and Plastic","Lifeguards, Ski Patrol, and Other Recreational Protective Service Workers","Gaming Services Workers","Carpenters","First-Line Supervisors of Gaming Workers","Licensed Practical and Licensed Vocational Nurses","Line Installers and Repairers","Automotive Technicians and Repairers","Animal Control Workers","Physical Therapist Assistants and Aides","Healthcare Support Workers, All Other","Upholsterers","Floral Designers","Teachers and Instructors, All Other, Except Substitute Teachers","Budget Analysts","Flight Attendants","Metal Furnace Operators, Tenders, Pourers, and Casters","Legal Secretaries","Gaming Surveillance Officers and Gaming Investigators","Lodging Managers","Excavating and Loading Machine and Dragline Operators","Political Scientists","Commercial and Industrial Designers","Terrazzo Workers and Finishers","Aircraft Mechanics and Service Technicians","Crossing Guards","Signal and Track Switch Repairers","Heavy and Tractor-Trailer Truck Drivers","Forestry and Conservation Science Teachers, Postsecondary","Painting Workers","Miscellaneous Assemblers and Fabricators","Elevator Installers and Repairers","Tax Examiners and Collectors, and Revenue Agents","Law Teachers, Postsecondary","Management","Television, Video, and Motion Picture Camera Operators and Editors","Other Protective Service Workers","Bus Drivers","Business and Financial Operations","Financial Examiners","Sales and Related","Dining Room and Cafeteria Attendants and Bartender Helpers","Pump Operators, Except Wellhead Pumpers","Police Officers","Environmental Science Teachers, Postsecondary","Tax Preparers","Psychologists","Food Servers, Nonrestaurant","Community and Social Service","Barbers, Hairdressers, Hairstylists and Cosmetologists","Textile Cutting Machine Setters, Operators, and Tenders","Gaming Dealers","Farmworkers and Laborers, Crop, Nursery, and Greenhouse","Brickmasons, Blockmasons, and Stonemasons","Pharmacy Aides","Marketing Managers","Human Resources Specialists","Legal","Cement Masons, Concrete Finishers, and Terrazzo Workers","Law, Criminal Justice, and Social Work Teachers, Postsecondary","Surveying and Mapping Technicians","Craft Artists","Highway Maintenance Workers","Power Distributors and Dispatchers","Environmental Scientists and Specialists, Including Health","Computer Operators","Tour Guides and Escorts","Special Education Teachers, Preschool","Cement Masons and Concrete Finishers","Nurse Practitioners","Lawyers, Judges, and Related Workers","Agricultural Equipment Operators","Chief Executives","Architects, Except Landscape and Naval","Fundraisers","Other Office and Administrative Support Workers","Healthcare Support","Health Technologists and Technicians","Procurement Clerks","Septic Tank Servicers and Sewer Pipe Cleaners","Production Workers, All Other","First-Line Supervisors of Non-Retail Sales Workers","Community and Social Service Specialists, All Other","Advertising and Promotions Managers","Slot Supervisors","Cost Estimators","Atmospheric, Earth, Marine, and Space Sciences Teachers, Postsecondary","Management Analysts","Model Makers, Wood","Locomotive Firers","Recreation and Fitness Studies Teachers, Postsecondary","Personal Appearance Workers","First-Line Supervisors of Food Preparation and Serving Workers","Technical Writers","Engine and Other Machine Assemblers","Communications Equipment Operators, All Other","Aircraft Structure, Surfaces, Rigging, and Systems Assemblers","Purchasing Managers","Logisticians","First-Line Supervisors of Production and Operating Workers","Cabinetmakers and Bench Carpenters","Agents and Business Managers of Artists, Performers, and Athletes","Food and Beverage Serving Workers","Actuaries","Railroad Brake, Signal, and Switch Operators","Miscellaneous Agricultural Workers","Private Detectives and Investigators","Athletes, Coaches, Umpires, and Related Workers","Human Resources Managers","Construction and Extraction","Farm and Home Management Advisors","Internists, General","Painters, Transportation Equipment","Wholesale and Retail Buyers, Except Farm Products","Computer Hardware Engineers","Electric Motor, Power Tool, and Related Repairers","Computer and Information Research Scientists","Dental Assistants","Baggage Porters, Bellhops, and Concierges","Insulation Workers, Mechanical","Miscellaneous Metal Workers and Plastic Workers","Grounds Maintenance Workers, All Other","Judicial Law Clerks","Butchers and Other Meat, Poultry, and Fish Processing Workers","Cardiovascular Technologists and Technicians","Orthotists and Prosthetists","First-Line Supervisors of Sales Workers","Fishing and Hunting Workers","First-Line Supervisors of Building and Grounds Cleaning and Maintenance Workers","Real Estate Brokers","Food Processing Workers","Home Economics Teachers, Postsecondary","Water Transportation Workers","Cleaners of Vehicles and Equipment","Merchandise Displayers and Window Trimmers","Arts, Design, Entertainment, Sports, and Media","Electrical and Electronic Equipment Mechanics, Installers, and Repairers","Tailors, Dressmakers, and Custom Sewers","Child, Family, and School Social Workers","Sewing Machine Operators","Geological and Petroleum Technicians","Locomotive Engineers","Printing Press Operators","Customer Service Representatives","Forest and Conservation Workers","Miscellaneous Healthcare Support","Supervisors of Transportation and Material Moving Workers","Pharmacy Technicians","Machinists","Psychiatric Technicians","Occupational Health and Safety Specialists and Technicians","Astronomers and Physicists","Shoe and Leather Workers","Marketing and Sales Managers","Postal Service Mail Sorters, Processors, and Processing Machine Operators","Broadcast and Sound Engineering Technicians and Radio Operators","Printing Workers","Dispatchers, Except Police, Fire, and Ambulance","Biomedical Engineers","Education Administrators","Insurance Underwriters","Continuous Mining Machine Operators","Air Traffic Controllers and Airfield Operations Specialists","Web Developers","Computer and Information Analysts","Power Plant Operators, Distributors, and Dispatchers","Taxi Drivers and Chauffeurs","Heat Treating Equipment Setters, Operators, and Tenders, Metal and Plastic","Pressers, Textile, Garment, and Related Materials","Economics Teachers, Postsecondary","Airline Pilots, Copilots, and Flight Engineers","Training and Development Managers","Telecommunications Equipment Installers and Repairers, Except Line Installers","Print Binding and Finishing Workers","Community Health Workers","Dentists, All Other Specialists","Detectives and Criminal Investigators","Telephone Operators","Industrial Engineers, Including Health and Safety","Rock Splitters, Quarry","Media and Communication Equipment Workers","Computer and Mathematical","Survey Researchers","First-Line Supervisors of Police and Detectives","Philosophy and Religion Teachers, Postsecondary","Helpers--Carpenters","Industrial Truck and Tractor Operators","Woodworkers, All Other","Healthcare Practitioners and Technical Workers, All Other","Lathe and Turning Machine Tool Setters, Operators, and Tenders, Metal and Plastic","Plumbers, Pipefitters, and Steamfitters","Electrical Engineers","Paper Goods Machine Setters, Operators, and Tenders","Epidemiologists","Cashiers","Chemical Plant and System Operators","Lawyers","Secondary School Teachers","Arts, Communications, and Humanities Teachers, Postsecondary","Molders, Shapers, and Casters, Except Metal and Plastic","Tile and Marble Setters","Health and Safety Engineers, Except Mining Safety Engineers and Inspectors","Protective Service","Loan Interviewers and Clerks","Milling and Planing Machine Setters, Operators, and Tenders, Metal and Plastic","Waiters and Waitresses","First-Line Supervisors of Protective Service Workers, All Other","Architectural and Engineering Managers","Buyers and Purchasing Agents, Farm Products","Forensic Science Technicians","Credit Counselors","Correctional Officers and Jailers","Judges, Magistrate Judges, and Magistrates","Genetic Counselors","Molding, Coremaking, and Casting Machine Setters, Operators, and Tenders, Metal and Plastic","Area, Ethnic, and Cultural Studies Teachers, Postsecondary","Amusement and Recreation Attendants","Engineers, All Other","Locomotive Engineers and Operators","Cooks, Fast Food","Other Personal Care and Service Workers","Miscellaneous Plant and System Operators","Boilermakers","Laundry and Dry-Cleaning Workers","Security Guards and Gaming Surveillance Officers","Biological Scientists, All Other","Medical, Dental, and Ophthalmic Laboratory Technicians","Social and Community Service Managers","Appraisers and Assessors of Real Estate","Dietitians and Nutritionists","Umpires, Referees, and Other Sports Officials","Gaming and Sports Book Writers and Runners","Veterinary Assistants and Laboratory Animal Caretakers","Paperhangers","Construction and Related Workers, All Other","Tree Trimmers and Pruners","Media and Communication Workers","Mine Shuttle Car Operators","Miscellaneous Personal Appearance Workers","Agricultural Workers, All Other","Anthropology and Archeology Teachers, Postsecondary","Fish and Game Wardens","Fast Food and Counter Workers","Court Reporters","Healthcare Social Workers","Other Healthcare Support","English Language and Literature Teachers, Postsecondary","Insulation Workers","Statistical Assistants","Paralegals and Legal Assistants","Couriers and Messengers","Miscellaneous Protective Service Workers","Etchers and Engravers","Chefs and Head Cooks","Plant and System Operators, All Other","Credit Authorizers, Checkers, and Clerks","Top Executives","Data Entry and Information Processing Workers","Shampooers","Forest, Conservation, and Logging Workers","Tour and Travel Guides","Nonfarm Animal Caretakers","Computer User Support Specialists","Construction Managers","Grinding/Lapping/Polishing/Buffing Machine Tool Setters, Operators, and Tenders, Metal and Pla","Math and Computer Teachers, Postsecondary","Textile Bleaching and Dyeing Machine Operators and Tenders","Fine Artists, Including Painters, Sculptors, and Illustrators","Stonemasons","Skincare Specialists","Farm Equipment Mechanics and Service Technicians","Software Developers, Applications","Veterinary Technologists and Technicians","Nursing Assistants","Watch Repairers","Medical Equipment Repairers","Hydrologists","Information and Record Clerks, All Other","Word Processors and Typists","Musical Instrument Repairers and Tuners","Reservation and Transportation Ticket Agents and Travel Clerks","Forging Machine Setters, Operators, and Tenders, Metal and Plastic","Hairdressers, Hairstylists, and Cosmetologists","Biological Science Teachers, Postsecondary","Mining and Geological Engineers, Including Mining Safety Engineers","Motorboat Mechanics and Service Technicians","Interviewers, Except Eligibility and Loan","First-Line Supervisors of Housekeeping and Janitorial Workers","Woodworkers","New Accounts Clerks","Textile Machine Setters, Operators, and Tenders","Urban and Regional Planners","Miscellaneous Health Practitioners and Technical Workers","Musicians, Singers, and Related Workers","Nuclear Engineers","Agricultural Sciences Teachers, Postsecondary","Real Estate Sales Agents","Diagnostic Related Technologists and Technicians","Mobile Heavy Equipment Mechanics, Except Engines","Lawyers and Judicial Law Clerks","Ushers, Lobby Attendants, and Ticket Takers","Tire Builders","Counter Attendants, Cafeteria, Food Concession, and Coffee Shop","Drilling and Boring Machine Tool Setters, Operators, and Tenders, Metal and Plastic","Cleaning, Washing, and Metal Pickling Equipment Operators and Tenders","Media and Communication Workers, All Other","Barbers","Rail-Track Laying and Maintenance Equipment Operators","Agricultural and Food Scientists","Personal Care Aides","Computer Systems Analysts","Financial Managers","Telecommunications Line Installers and Repairers","Physical Therapist Assistants","Water and Wastewater Treatment Plant and System Operators","Shoe and Leather Workers and Repairers","Ophthalmic Medical Technicians","Police, Fire, and Ambulance Dispatchers","Tapers","Structural Metal Fabricators and Fitters","Automotive Service Technicians and Mechanics","Materials Scientists","Mathematicians","Operations Research Analysts","Managers, All Other","Machine Feeders and Offbearers","Bailiffs, Correctional Officers, and Jailers","Tank Car, Truck, and Ship Loaders","Education and Library Science Teachers, Postsecondary","Transportation, Storage, and Distribution Managers","Atmospheric and Space Scientists","Forest Fire Inspectors and Prevention Specialists","Musicians and Singers","Building and Grounds Cleaning and Maintenance","Rehabilitation Counselors","Library Assistants, Clerical","Pesticide Handlers, Sprayers, and Applicators, Vegetation","Farming, Fishing, and Forestry","Conveyor Operators and Tenders","Order Clerks","Chiropractors","Court, Municipal, and License Clerks","Helpers--Painters, Paperhangers, Plasterers, and Stucco Masons","Self-Enrichment Education Teachers","Janitors and Cleaners, Except Maids and Housekeeping Cleaners","Outdoor Power Equipment and Other Small Engine Mechanics","Industrial Machinery Installation, Repair, and Maintenance Workers","Maintenance Workers, Machinery","Switchboard Operators, Including Answering Service","Receptionists and Information Clerks","Occupational Therapy Assistants","Furnace, Kiln, Oven, Drier, and Kettle Operators and Tenders","Radiation Therapists","Engineering and Architecture Teachers, Postsecondary","Industrial-Organizational Psychologists","Baggage Porters and Bellhops","Secondary School Teachers, Except Special and Career/Technical Education","Locksmiths and Safe Repairers","Fitness Trainers and Aerobics Instructors","Producers and Directors","Interpreters and Translators","Museum Technicians and Conservators","Judges, Magistrates, and Other Judicial Workers","Media and Communication Equipment Workers, All Other","Athletes and Sports Competitors","Legal Support Workers, All Other","First-Line Supervisors of Farming, Fishing, and Forestry Workers","Air Traffic Controllers","Other Food Preparation and Serving Related Workers","Physical Therapists","Dredge, Excavating, and Loading Machine Operators","Medical Appliance Technicians","Subway and Streetcar Operators","Announcers","Coil Winders, Tapers, and Finishers","Food Service Managers","Food Preparation and Serving Related","Special Education Teachers, Kindergarten and Elementary School","Surgeons","Economists","Claims Adjusters, Examiners, and Investigators","Writers and Editors","Conservation Scientists","Segmental Pavers","Designers, All Other","Personal Care and Service Workers, All Other","Anthropologists and Archeologists","Public Address System and Other Announcers","Medical Assistants","Software Developers and Programmers","Helpers--Production Workers","Operating Engineers and Other Construction Equipment Operators","Carpet, Floor, and Tile Installers and Finishers"]
 },{}],37:[function(require,module,exports){
 var c3 = require('c3');
@@ -26808,14 +27024,14 @@ module.exports = function (json, g, path, color, type, height, width) {
   if (type !== "neighborhood"){
 
     g.selectAll("path")
-        .data(data.features, function(d){return d.properties.GEOID10;})
+        .data(data.features, function (d) { return d.properties.GEOID10;})
       .enter().append("path")
         .attr("d", path)
         .attr("class", "feature-" + type)
         .style("fill", fill)
         .style("fill-opacity", opacity)
         .style("stroke", stroke)
-        .attr("id", function(d){return d.properties.GEOID10;});
+        .attr("id", function (d) { return d.properties.GEOID10;});
 
   }else{
 
@@ -26824,7 +27040,7 @@ module.exports = function (json, g, path, color, type, height, width) {
     neighG.attr("class", "neighborhoods");
 
     neighG.selectAll("path")
-        .data(data.features, function(d){return d.properties.GEOID10;})
+        .data(data.features, function (d) { return d.properties.GEOID10;})
       .enter().append("path")
         .attr("d", path)
         .attr("class", "feature-" + type)
@@ -26832,7 +27048,7 @@ module.exports = function (json, g, path, color, type, height, width) {
         .style("fill-opacity", opacity)
         .style("stroke", stroke)
         .style("stroke-opacity", 0.1)
-        .attr("id", function(d){return d.properties.GEOID10;});
+        .attr("id", function (d) { return d.properties.GEOID10;});
 
     var text = neighG.append("g")
 
@@ -26843,14 +27059,14 @@ module.exports = function (json, g, path, color, type, height, width) {
     text.selectAll("text")
       .data(data.features)
     .enter().append("text")
-      .attr("transform", function(d){ return "translate(" + path.centroid(d) +
+      .attr("transform", function (d) { return "translate(" + path.centroid(d) +
             ")scale(" + 3 / (scale(path.bounds(d))) +")";})
-      .attr("id", function(d){return d.properties.GEOID10 + "T";})
+      .attr("id", function (d) { return d.properties.GEOID10 + "T";})
       .attr("opacity", 0)
       .attr("class", "maptext")
       .style("user-select", "none")
       .attr("text-anchor", "middle")
-      .text(function(d){ return d.properties.NAME;});
+      .text(function (d) { return d.properties.NAME;});
 
     var neighT = neighG.append("g")
     neighT.selectAll("path")
@@ -26861,8 +27077,7 @@ module.exports = function (json, g, path, color, type, height, width) {
         .style("fill", "white")
         .style("fill-opacity", 0)
         .style("stroke", "none")
-        .attr("id", function(d){return d.properties.GEOID10 + "TP";});
-
+        .attr("id", function (d) { return d.properties.GEOID10 + "TP";});
 
   }
 
@@ -26919,10 +27134,11 @@ module.exports = function(id){
 var map;
 var service;
 var infowindow;
-var $ = require('jquery') 
+var $ = require('jquery');
 
 module.exports = function(city, searchTerm, tabContainer, tabtitle) {
 	$(tabtitle).children('a').text(searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1));
+
 
 	var key = 'AIzaSyB6Gp2tJP3mWdIFot6fZNfarDoopGurZSs';
 	var request = {
@@ -26934,7 +27150,6 @@ module.exports = function(city, searchTerm, tabContainer, tabtitle) {
 	  for (var i = 0; i < results.length; i++) {
     	var place = results[i];
     	$(tabContainer).children('.list-left').append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
-      // $(tabContainer).append('<span class="clickSpan" id=' + place.place_id +'>' + place.name + '</span><br>');
 		}
 	});
 };
@@ -27112,15 +27327,12 @@ var clicked = function (){
       var translate = [width / 2 - scale * x, height / 2 - scale * y];
 
     g.transition()
-     .duration(250)
-     //.style("stroke-width", 1.5/ scale + "px")
+     .duration(750)
      .call(zoomMap.translate(translate).scale(scale).event);
-
-    //zoomed(translate, scale);
 
 }
 
-  function zoomed(translate, scale){
+  function zoomed(d){
 
     g.style("stroke-width", 1.5 / d3.event.scale + "px");
     g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");

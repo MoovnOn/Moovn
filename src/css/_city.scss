@@ -1,12 +1,6 @@
 .quad-1, .quad-2{
   margin-top:1.5em;
 }
-.tri-1 {
-  margin-top: 3.4em;
-}
-// .quad-3, .quad-4{
-//   margin-top: 1em
-// }
 .duo-1, .duo-1-vert, .duo-2-vert{
   margin-top: 1.5em;
 }
@@ -39,7 +33,16 @@
 .graph{
   width:50%;
 }
-
+.gauge-title{
+  display:none;
+  text-align: center;
+  margin-bottom: 0.2em;
+  margin-top:1em;
+  font-size:1.5em;
+}
+.gauge-graph{
+  padding-top:3em;
+}
 //adjusts tabs in certain views to go fullscreen
 .full-screen-container{
   margin-top: 0em;

@@ -39,15 +39,12 @@ var clicked = function (){
       var translate = [width / 2 - scale * x, height / 2 - scale * y];
 
     g.transition()
-     .duration(250)
-     //.style("stroke-width", 1.5/ scale + "px")
+     .duration(750)
      .call(zoomMap.translate(translate).scale(scale).event);
-
-    //zoomed(translate, scale);
 
 }
 
-  function zoomed(translate, scale){
+  function zoomed(d){
 
     g.style("stroke-width", 1.5 / d3.event.scale + "px");
     g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
