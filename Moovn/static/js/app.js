@@ -26305,7 +26305,13 @@ module.exports = function(state, city, element) {
               ['3-Bed', housingAfford3Bed],
               ['4-Bed', housingAfford4Bed],
           ],
-          type: 'bar'
+          type: 'bar',
+          colors: {
+            'Condo': '#3D5E99',
+            '2-Bed': '#CC2E14',
+            '3-Bed': '#00E2FF',
+            '4-Bed': '#707D94',
+          },
         },
         axis: {
           x: {
