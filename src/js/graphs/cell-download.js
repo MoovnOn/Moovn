@@ -55,6 +55,11 @@ module.exports = function (data, bindTo) {
             label: "Megabits Per Second"
           }
     		},
+        axis: {
+          y: {
+            max: 19000
+          },
+        },
 		});
 
 };
