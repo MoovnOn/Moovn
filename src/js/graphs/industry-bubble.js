@@ -16,8 +16,8 @@ module.exports = function(svg, state, city, height, width) {
 	.attr("class", "tooltip")
 	.style({"opacity": 1e-6,
 	"width": "100px",
-	"height": "12px",
-	"text-align": "center",
+	"height": "auto",
+	"text-align": "left",
 	"padding": "8px",
 	"pointer-events": "none"
 	});
@@ -87,7 +87,7 @@ module.exports = function(svg, state, city, height, width) {
 				.attr("active", false)
 				.attr("fill", function(d){ return color(d.name);});
 
-		g.attr("transform", "scale(" + 2 + ")");
+		g.attr("transform", "scale(" + 2.2 + ")");
 
 
 	};

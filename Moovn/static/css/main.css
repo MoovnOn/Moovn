@@ -1888,6 +1888,22 @@ header {
   line-height: 1.5;
   font-weight: 900; }
 
+.tooltip {
+  position: absolute;
+  background: white;
+  border-radius: 0.3em;
+  height: auto;
+  border: 1px solid black; }
+
+.bubble-title h2 {
+  text-align: center;
+  padding: 1em;
+  font-size: 1.5em;
+  color: #B27700; }
+
+.tri-2 svg {
+  margin-left: 8%; }
+
 body {
   font-family: Century Gothic, sans-serif; }
 
