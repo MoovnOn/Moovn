@@ -27215,16 +27215,16 @@ var router = require('./router');
 
 module.exports = function(){
 
-    var once = false;
+    // var once = false;
 
-    $('.search-city').keypress(function() {
+    // $('.search-city').keypress(function() {
       
-      if (!once) {
-        $('.compare-option').removeClass('hidden'); 
-        once = true;
-      }
+    //   if (!once) {
+    //     $('.compare-option').removeClass('hidden'); 
+    //     once = true;
+    //   }
     
-    });  
+    // });  
 
     $('.compare-option').on('click', function(){
       $('.search-city-comp').removeClass('hidden');
