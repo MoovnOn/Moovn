@@ -34,7 +34,7 @@ incomeCity(state, city, '.overview-graph3');
 housingGraphGeneral(state, city, '.overview-graph2')
 
 //commuting
-commuteTime(state, city);
+commuteTime(state, city, '.overview-graph1');
   
 //taxes
   var zipRegex = /\b\d{5}\b/g;

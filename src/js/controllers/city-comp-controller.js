@@ -9,6 +9,8 @@ var downloadGraph = require('../graphs/cell-download');
 var activeSelection = require('./active-selection');
 var searchFunction = require('../search');
 var peopleAge = require('../graphs/people-age');
+var housingGraphGeneral = require('../graphs/housing');
+var commuteTime = require('../graphs/commute-times')
 
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
@@ -43,5 +45,14 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
 
   peopleAge(state1, city1, '.comp-chart1-2');
   peopleAge(state2, city2, '.comp-chart2-2');
+
+
+  housingGraphGeneral(state1, city1, '.comp-chart1-3')
+  housingGraphGeneral(state2, city2, '.comp-chart2-3')
+
+  commuteTime(state1, city1, '.comp-chart1-4');
+  commuteTime(state2, city2, '.comp-chart2-4');
+
+
   
 });

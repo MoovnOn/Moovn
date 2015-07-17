@@ -24927,6 +24927,8 @@ var downloadGraph = require('../graphs/cell-download');
 var activeSelection = require('./active-selection');
 var searchFunction = require('../search');
 var peopleAge = require('../graphs/people-age');
+var housingGraphGeneral = require('../graphs/housing');
+var commuteTime = require('../graphs/commute-times')
 
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
@@ -24961,9 +24963,18 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
 
   peopleAge(state1, city1, '.comp-chart1-2');
   peopleAge(state2, city2, '.comp-chart2-2');
+
+
+  housingGraphGeneral(state1, city1, '.comp-chart1-3')
+  housingGraphGeneral(state2, city2, '.comp-chart2-3')
+
+  commuteTime(state1, city1, '.comp-chart1-4');
+  commuteTime(state2, city2, '.comp-chart2-4');
+
+
   
 });
-},{"../graphs/cell-download":22,"../graphs/parse-cell":30,"../graphs/parse-cell-2":29,"../graphs/people-age":31,"../router":45,"../search":46,"../show":47,"./active-selection":5,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
+},{"../graphs/cell-download":22,"../graphs/commute-times":24,"../graphs/housing":25,"../graphs/parse-cell":30,"../graphs/parse-cell-2":29,"../graphs/people-age":31,"../router":45,"../search":46,"../show":47,"./active-selection":5,"jquery":"jquery","underscore":"underscore","views":"views"}],7:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25136,7 +25147,7 @@ router.route('search/:cityName/education', function (cityName){
               .attr("class", "map");
 
   $(window).resize(function(){
-    var width = $(".duo-1").width();
+    var width = $(".tri-1-edu").width();
     svg.attr("width", width);
     svg.attr("height", width * aspect);
   });
@@ -25580,7 +25591,7 @@ incomeCity(state, city, '.overview-graph3');
 housingGraphGeneral(state, city, '.overview-graph2')
 
 //commuting
-commuteTime(state, city);
+commuteTime(state, city, '.overview-graph1');
   
 //taxes
   var zipRegex = /\b\d{5}\b/g;
@@ -26170,7 +26181,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, bindTo) {
 
   $.ajax({
     method: 'GET',
@@ -26187,7 +26198,7 @@ module.exports = function(state, city) {
     var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
 
       c3.generate({
-        bindto: '.overview-graph1',
+        bindto: bindTo,
         data: {
           columns: [
               ['Minutes Spent Commuting', housingPeopleCommute, housingPeopleCommuteNation],

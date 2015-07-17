@@ -2,7 +2,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, bindTo) {
 
   $.ajax({
     method: 'GET',
@@ -19,7 +19,7 @@ module.exports = function(state, city) {
     var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
 
       c3.generate({
-        bindto: '.overview-graph1',
+        bindto: bindTo,
         data: {
           columns: [
               ['Minutes Spent Commuting', housingPeopleCommute, housingPeopleCommuteNation],
