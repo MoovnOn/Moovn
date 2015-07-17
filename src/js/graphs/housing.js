@@ -11,7 +11,9 @@ module.exports = function(state, city, element) {
       method: 'GET',
       url: '/api/homeprices/' + state + '/' + city + '/'
     })
-    .then(function(d){parseHousing(d);})
+    .then(function(d){
+      parseHousing(d);
+    });
 
 //  ]).then(
 

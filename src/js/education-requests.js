@@ -10,7 +10,8 @@ $.ajax({
 }).then(function(data){
 		var school = data.schools.school;
 		console.log(school);
-		$('.school-info-title').classå('display', 'none');
+		
+		$('.school-info-title').css('display', 'none');
 		$('.school-info').append('<h1>Local Schools</h1>');
 		school.forEach(function(school, i) {
 		$('.school-info').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
@@ -19,6 +20,7 @@ $.ajax({
 			var id = $(this).data("id");
 			var currentSchool = school[id];
 			var modal = $('.school-modal-content');
+			
 			modal.text('');	
 			$('.school-modal').fadeIn();
 			modal.append('<h1>' + currentSchool.name + '</h1>');
@@ -31,6 +33,7 @@ $.ajax({
 			modal.append('<span class="details-titles">Parent Rating: </span><span class="school-details">' + currentSchool.parentRating + '</span><br>');
 			modal.append('<span class="details-titles">GS Rating: </span><span class="school-details">' + currentSchool.gsRating + '</span><br>');
 		});
+	
 	$('.main-content').on('click', '.school-modal-x' , function(){
     		$('.school-modal').fadeOut();
   });
