@@ -10,18 +10,18 @@ $.ajax({
 }).then(function(data){
 		var school = data.schools.school;
 		console.log(school);
-		
-		$('.school-info-title').css('display', 'none');
-		$('.school-info').append('<h1>Local Schools</h1>');
+		$('.school-info').append('<div class="school-info-container"></div>');
+		$('.school-info-title').text("Local Schools");
 		school.forEach(function(school, i) {
-		$('.school-info').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
+		$('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
 	});
+
 	$('.school-title').on('click', function(){
 			var id = $(this).data("id");
 			var currentSchool = school[id];
 			var modal = $('.school-modal-content');
-			
-			modal.text('');	
+
+			modal.text('');
 			$('.school-modal').fadeIn();
 			modal.append('<h1>' + currentSchool.name + '</h1>');
 			modal.append('<span class="school-details">' + currentSchool.address + '</p>');
@@ -33,7 +33,7 @@ $.ajax({
 			modal.append('<span class="details-titles">Parent Rating: </span><span class="school-details">' + currentSchool.parentRating + '</span><br>');
 			modal.append('<span class="details-titles">GS Rating: </span><span class="school-details">' + currentSchool.gsRating + '</span><br>');
 		});
-	
+
 	$('.main-content').on('click', '.school-modal-x' , function(){
     		$('.school-modal').fadeOut();
   });
@@ -41,4 +41,3 @@ $.ajax({
 });
 
 };
-

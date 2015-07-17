@@ -52,7 +52,7 @@ router.route('search/:cityName/education', function (cityName){
       aspect = 1;
 
   var svg = d3.select("#d3-graphs").append("svg")
-              .attr("preserveAspectRatio", "xMinYMin")
+              .attr("preserveAspectRatio", "xMidYMid")
               .attr("viewBox", "0 0 700 700")
               .attr("width", width)
               .attr("height", width * aspect)
@@ -167,8 +167,3 @@ router.route('search/:cityName/education', function (cityName){
   },1000);
 
 });
-
-
-
-
-

@@ -38,6 +38,21 @@ except:
         occupations = {line.split(',', 1)[0].rstrip('\n'): line.split(',', 1)[1].strip().replace('"', '') for line
                        in file}
 
+try:
+    with open("geo/colleges.csv") as file:
+        colleges = {line.split(',')[1]: {"rank": line.split(',')[0],
+                                         "tuition": line.split(',')[2].strip('$'),
+                                         "city": line.split(',')[3],
+                                         "state": line.split(',')[4].strip()
+                                         } for line in file}
+except:
+    with open("Moovn/geo/colleges.csv") as file:
+        colleges = {line.split(',')[1]: {"rank": line.split(',')[0],
+                                         "tuition": line.split(',')[2].strip('$'),
+                                         "city": line.split(',')[3],
+                                         "state": line.split(',')[4].strip()
+                                         } for line in file}
+
 
 # @api_view(['GET',])
 # @permission_classes((permissions.AllowAny,))
@@ -248,7 +263,6 @@ def salary_view(request, state, name, job):
     return JsonResponse(datadict)
 
 
-
 main_ind = [str(num) for num in range(110000, 530000, 20000)]
 
 
@@ -280,3 +294,15 @@ def industry_size_view(request, state, name):
         datadict[ind] = round((((float(datadict[ind])) / (float(allind))) * 100), 2)
 
     return JsonResponse(datadict)
+
+
+def college_view(request, state, name):
+    name = get_object_or_404(Name, name=name, state=state)
+    selected = {"colleges": ""}
+    college_list = []
+    for college in colleges:
+        if name.name in colleges[college]["city"] and name.state in colleges[college]["state"]:
+            college_list.append({college: colleges[college]})
+    selected["colleges"] = college_list
+
+    return JsonResponse(selected)
