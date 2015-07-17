@@ -1,7 +1,7 @@
 d3 = require('d3');
 $ = require('jquery');
 
-module.exports = function(svg, state, city) {
+module.exports = function(svg, state, city, height, width) {
 	var counter = function (){
 		var k = 0;
 		var m = function () {
@@ -43,7 +43,7 @@ module.exports = function(svg, state, city) {
 			cb(key, data);
 		}
 
-		var diameter = 200;
+		var diameter = Math.min(height, width) / 2;
 		var color = d3.scale.category20b();
 
 		var bubble = d3.layout.pack()
@@ -85,7 +85,7 @@ module.exports = function(svg, state, city) {
 
 
 ]).then(function(results) {
-	
+
 		var circles = d3.selectAll(".circle").on("mouseenter", showText);
 		circles.on("touch", showText);
 

@@ -2,7 +2,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, element) {
   //var data;
 
   //Promise.all([
@@ -11,7 +11,9 @@ module.exports = function(state, city) {
       method: 'GET',
       url: '/api/homeprices/' + state + '/' + city + '/'
     })
-    .then(function(d){parseHousing(d);})
+    .then(function(d){
+      parseHousing(d);
+    });
 
 //  ]).then(
 
@@ -31,17 +33,21 @@ module.exports = function(state, city) {
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
 
       var data = {
-        bindto: 'body .quad-2',
+        bindto: element,
         data: {
           columns: [
               ['Condo', housingAffordCondo],
-              ['2-Bed-Home', housingAfford2Bed],
-              ['3-Bed-Home', housingAfford3Bed],
-              ['4-Bed-Home', housingAfford4Bed],
+              ['2-Bed', housingAfford2Bed],
+              ['3-Bed', housingAfford3Bed],
+              ['4-Bed', housingAfford4Bed],
           ],
           type: 'bar'
         },
         axis: {
+          x: {
+            type: 'category',
+            categories: ['Median Housing Prices']
+        	},
             y : {
               tick: {
                 format: d3.format("$,")

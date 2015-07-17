@@ -1,183 +1,113 @@
-var c3 = require('c3');
+var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city, job) {
+module.exports = function(state, city, job, height, width) {
+	$("#boxplot").empty();
 
 	$.ajax({
     method: 'GET',
     url: 'api/salary/' + state + '/' + city + '/' + job
-    }).done(function(data){
-      console.log(data);
-     
-     var value10 = data[job+"10th"];
-     var value25 = data[job+"25th"];
-     var value50 = data[job+"50th"];
-     var value75 = data[job+"75th"]; 
-     var value90 = data[job+"90th"];
-     var max = ((parseInt(value90) / 9) + parseInt(value90));
-     console.log(max);
-     
-     c3.generate({
-      bindto: '.gauge25',
-      data: {
-           columns: [
-              ['25th Percentile', data[job+"25th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-              pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
+  }).done(function(data){
+		if (data !== "no data") {
 
-    c3.generate({
-      bindto: '.gauge50',
-      data: {
-           columns: [
-              ['50th Percentile', data[job+"50th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-               pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
-
-    c3.generate({
-      bindto: '.gauge75',
-      data: {
-           columns: [
-              ['75th Percentile', data[job+"75th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-             pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
-
-    c3.generate({
-      bindto: '.gauge90',
-      data: {
-           columns: [
-              ['90th Percentile', data[job+"90th"]], 
-          ],
-          type: 'gauge',
-          onclick: function (d, i) { },
-          onmouseover: function (d, i) { },
-          onmouseout: function (d, i) { }
-          },
-          gauge: {
-             label: {
-                 format: function(value, ratio) {
-                     return "$" + value;
-                 },
-                 show: false // to turn off the min/max labels.
-             },
-             min: 0, // 0 is default, //can handle negative min e.g. vacuum / voltage / current flow / rate of change
-             max: max, // 100 is default
-             units: ' %',
-             width: 39 // for adjusting arc thickness
-          },
-          color: {
-               pattern: ['#FF0000', '#F97600', '#F6C600', '#60B044'], // the three color levels for the percentage values.
-              threshold: {
-                 unit: 'value', // percentage is default
-                 max: max, // 100 is default
-                 values: [value25, value50, value75, value90]
-              }
-          },
-          size: {
-              height: 150
-          }
-      }); 
+	  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
+										data[job+"75th"], data[job+"90th"]];
 
 
+			var svg = d3.select("#boxplot");
 
-});
-    
-  //   c3.generate({
-  //      bindto: '.tri-1',
-  //       data: {
-  //           x: 'x',
-  //           columns: [
-  //               ['x', '25', '50', '75', '90'],
-  //               ['25th', data[job+"25th"]], 
-  //               ['50th', data[job+"50th"]], 
-  //               ['75th', data[job+"75th"]],
-  //               ['90th', data[job+"90th"]]
-  //           ],
-  //              type: 'bar'
-  //        }
-  //   });
-  // });
-}
+			var bp = svg;//.append("g")
+			//	.attr("height", svg.attr("height") + "px")
+			//	.attr("width", svg.attr("width") + "px");
+
+			//var x = d3.scale.linear()
+				//.domain([values[0], values[4]])
+				//.range([.05 * bp.attr("width"), .95 * bp.attr("width")]);
+			console.log(data)
+			console.log(bp.attr("width"))
+
+			var x = function(val) {
+				return .05 * bp.attr("width") + .9 * bp.attr("width") *
+							 (val - values[0]) / (values[4] - values[0]);
+			};
+
+			console.log(x(values[0]))
+			console.log(x(values[4]))
+
+				bp.append("line")
+					.attr("x1", x(values[0]))
+					.attr("x2", x(values[4]))
+					.attr("y1", height / 2)
+					.attr("y2", height / 2)
+					.style({"stroke-width": 2, "stroke": "black"});
+
+				bp.append("line")
+					.attr("x1", x(values[0]))
+					.attr("x2", x(values[0]))
+					.attr("y1", .9 * height / 2)
+					.attr("y2", 1.1 * height / 2)
+					.style({"stroke-width": 2, "stroke": "black"});
+
+				bp.append("line")
+					.attr("x1", x(values[4]))
+					.attr("x2", x(values[4]))
+					.attr("y1", .9 * height / 2)
+					.attr("y2", 1.1 * height / 2)
+					.style({"stroke-width": 2, "stroke": "black"});
+
+				bp.append("rect")
+					.attr("x", x(values[1]))
+					.attr("y", .425 * height)
+					.attr("height", .15 * height)
+					.attr("width", x(values[2]) - x(values[1]))
+					.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
+
+					bp.append("rect")
+						.attr("x", x(values[2]))
+						.attr("y", .425 * height)
+						.attr("height", .15 * height)
+						.attr("width", x(values[3]) - x(values[2]))
+						.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
+
+
+					//var g = bp.append("g");
+
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[0]))
+						.attr("y", .3 * height)
+						//.attr("lengthAdjust", "spacingAndGlyphs")
+						.attr("length", 50)
+						.text(values[0]);
+
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[1]))
+						.attr("y", .75 * height)
+						.text(values[1]);
+
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[2]))
+						.attr("y", .3 * height)
+						.text(values[2]);
+
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[3]))
+						.attr("y", .75 * height)
+						.text(values[3]);
+
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[4]))
+						.attr("y", .3 * height)
+						.text(values[4]);
+
+		} else{
+			console.log(data)
+		}
+
+  });
+
+};
