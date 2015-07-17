@@ -45,7 +45,7 @@ router.route('search/:cityName/industry', function (cityName){
               .call(bubbleChart, state, city, aspect * width, width);
 
   var svg2 = d3.select("#boxplot")
-    .attr("presevreAspectRatio", "xMidYMid")
+    .attr("preserveAspectRatio", "xMidYMid")
     .attr("viewBox", "0 0 1000 1000")
     .attr("width", width2)
     .attr("height", width2 * aspect);

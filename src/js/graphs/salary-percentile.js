@@ -1,151 +1,113 @@
 var d3 = require('d3');
 var $ = require('jquery');
-var box = require('../box');
 
 module.exports = function(state, city, job, height, width) {
+	$("#boxplot").empty();
 
 	$.ajax({
     method: 'GET',
     url: 'api/salary/' + state + '/' + city + '/' + job
   }).done(function(data){
+		if (data !== "no data") {
 
-  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
-									data[job+"75th"], data[job+"90th"]];
+	  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
+										data[job+"75th"], data[job+"90th"]];
 
-		var x = d3.scale.linear()
-			.domain([values[0], values[4]])
-			.range([.1 * width, .9 * width]);
 
-		var bp = d3.select("#boxplot");
+			var svg = d3.select("#boxplot");
 
-			bp.append("line")
-				.attr("x1", x(values[0]))
-				.attr("x2", x(values[4]))
-				.attr("y1", height / 2)
-				.attr("y2", height / 2)
-				.style({"stroke-width": 2, "stroke": "black"});
+			var bp = svg;//.append("g")
+			//	.attr("height", svg.attr("height") + "px")
+			//	.attr("width", svg.attr("width") + "px");
 
-			bp.append("line")
-				.attr("x1", x(values[0]))
-				.attr("x2", x(values[0]))
-				.attr("y1", .9 * height / 2)
-				.attr("y2", 1.1 * height / 2)
-				.style({"stroke-width": 2, "stroke": "black"});
+			//var x = d3.scale.linear()
+				//.domain([values[0], values[4]])
+				//.range([.05 * bp.attr("width"), .95 * bp.attr("width")]);
+			console.log(data)
+			console.log(bp.attr("width"))
 
-			bp.append("line")
-				.attr("x1", x(values[4]))
-				.attr("x2", x(values[4]))
-				.attr("y1", .9 * height / 2)
-				.attr("y2", 1.1 * height / 2)
-				.style({"stroke-width": 2, "stroke": "black"});
+			var x = function(val) {
+				return .05 * bp.attr("width") + .9 * bp.attr("width") *
+							 (val - values[0]) / (values[4] - values[0]);
+			};
 
-			bp.append("rect")
-				.attr("x", x(values[1]))
-				.attr("y", .4 * height)
-				.attr("height", .2 * height)
-				.attr("width", x(values[2]) - x(values[1]))
-				.style({"stroke-width": 2, "stroke": "black", "fill": "white"});
+			console.log(x(values[0]))
+			console.log(x(values[4]))
+
+				bp.append("line")
+					.attr("x1", x(values[0]))
+					.attr("x2", x(values[4]))
+					.attr("y1", height / 2)
+					.attr("y2", height / 2)
+					.style({"stroke-width": 2, "stroke": "black"});
+
+				bp.append("line")
+					.attr("x1", x(values[0]))
+					.attr("x2", x(values[0]))
+					.attr("y1", .9 * height / 2)
+					.attr("y2", 1.1 * height / 2)
+					.style({"stroke-width": 2, "stroke": "black"});
+
+				bp.append("line")
+					.attr("x1", x(values[4]))
+					.attr("x2", x(values[4]))
+					.attr("y1", .9 * height / 2)
+					.attr("y2", 1.1 * height / 2)
+					.style({"stroke-width": 2, "stroke": "black"});
 
 				bp.append("rect")
-					.attr("x", x(values[2]))
-					.attr("y", .4 * height)
-					.attr("height", .2 * height)
-					.attr("width", x(values[3]) - x(values[2]))
-					.style({"stroke-width": 2, "stroke": "black", "fill": "white"});
-
-
-				var g = bp.append("g");
-
-				g.append("text")
-					.attr("text-anchor", "middle")
-					.attr("x", x(values[0]))
-					.attr("y", .3 * height)
-					.text(values[0]);
-
-				g.append("text")
-					.attr("text-anchor", "middle")
 					.attr("x", x(values[1]))
-					.attr("y", .3 * height)
-					.text(values[1]);
+					.attr("y", .425 * height)
+					.attr("height", .15 * height)
+					.attr("width", x(values[2]) - x(values[1]))
+					.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
 
-				g.append("text")
-					.attr("text-anchor", "middle")
-					.attr("x", x(values[2]))
-					.attr("y", .3 * height)
-					.text(values[2]);
+					bp.append("rect")
+						.attr("x", x(values[2]))
+						.attr("y", .425 * height)
+						.attr("height", .15 * height)
+						.attr("width", x(values[3]) - x(values[2]))
+						.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
 
-				g.append("text")
-					.attr("text-anchor", "middle")
-					.attr("x", x(values[3]))
-					.attr("y", .3 * height)
-					.text(values[3]);
 
-				g.append("text")
-					.attr("text-anchor", "middle")
-					.attr("x", x(values[4]))
-					.attr("y", .3 * height)
-					.text(values[4]);
+					//var g = bp.append("g");
 
-				//g.attr("transform", "transform(" +  + ")scale(" + 2 + ")")
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[0]))
+						.attr("y", .3 * height)
+						//.attr("lengthAdjust", "spacingAndGlyphs")
+						.attr("length", 50)
+						.text(values[0]);
 
-		/**
-		find m = [A, B, C, D, E, F, G] (so find A, G) such that
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[1]))
+						.attr("y", .75 * height)
+						.text(values[1]);
 
-		sum(m) = 7*D
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[2]))
+						.attr("y", .3 * height)
+						.text(values[2]);
 
-			A*10 = 7*D
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[3]))
+						.attr("y", .75 * height)
+						.text(values[3]);
 
-		G*10 = 7*D
+					bp.append("text")
+						.attr("text-anchor", "middle")
+						.attr("x", x(values[4]))
+						.attr("y", .3 * height)
+						.text(values[4]);
 
-		(A + B)*4 = 7*D
-
-		(A + B + C)*2 = 7*D
-
-		(A + B + C + D)
-
-		**/
-		// function generate(nums) {
-		// 	var rand = [];
-		// 	rand.push(nums[2]*7/10)
-		// 	nums.forEach(function(d){ rand.push(d);});
-		// 	rand.push(nums[2]*7/10)
-		//
-		// 		return rand;
-		// };
-		//
-		//
-		// chartData = generate(values);
-
-		// var chart = d3.box()
-		// 			.whiskers([values[0], values[4]])
-		// 			.height(height)
-		// 			.width(width);
-		//
-		// var svg = d3.select("#boxplot")
-		// 						.data(chartData)
-		// 						.enter().append("g")
-		// 						.attr("class", "box")
-		// 						.attr("width", width)
-		// 						.attr("height", height)
-		// 						.call(chart);
+		} else{
+			console.log(data)
+		}
 
   });
 
 };
-
-  //   c3.generate({
-  //      bindto: '.tri-1',
-  //       data: {
-  //           x: 'x',
-  //           columns: [
-  //               ['x', '25', '50', '75', '90'],
-  //               ['25th', data[job+"25th"]],
-  //               ['50th', data[job+"50th"]],
-  //               ['75th', data[job+"75th"]],
-  //               ['90th', data[job+"90th"]]
-  //           ],
-  //              type: 'bar'
-  //        }
-  //   });
-  // });
-//}
