@@ -22,18 +22,19 @@ module.exports = function(state, city, bindTo) {
         bindto: bindTo,
         data: {
           columns: [
-              ['Minutes Spent Commuting', housingPeopleCommute, housingPeopleCommuteNation],
+              ['City Commute', housingPeopleCommute],
+              ['National Commute', housingPeopleCommuteNation]
           ],
           type: 'bar'
         },
         axis: {
+            x: {
+            type: 'category',
+            categories: ['Median Commute Times']
+        	},
             y: {
               label: 'minutes'
             },
-            x: {
-              type: 'category',
-              categories: [ city + " " + 'Commute Time', 'National Commute Time']
-        	  },
           },
           size: {
         		height: 400

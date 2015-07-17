@@ -34,7 +34,7 @@ module.exports = function(){
     	if (compareCity != '' && searchCity != '') {
     		router.navigate("search/" + searchCity + "/" + compareCity, {trigger: true});
     	} else if (compareCity === '' && searchCity != '') {
-    		router.navigate("search/" + searchCity + "/housing", {trigger: true});
+    		router.navigate("search/" + searchCity + "/overview", {trigger: true});
     	} else {
     		alert('Please enter the city you would like to see');
     	}

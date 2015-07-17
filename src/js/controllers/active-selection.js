@@ -38,6 +38,10 @@ var $ = require('jquery');
       window.location.href.indexOf("education") > -1 ){
       $(".education").addClass("side-nav-item-active");
       $(".fa-book").addClass("side-icon-active");
+    }else if( 
+      window.location.href.indexOf("overview") > -1 ){
+      $(".overview").addClass("side-nav-item-active");
+      $(".fa-plane").addClass("side-icon-active");
     }
     
 

@@ -1575,6 +1575,9 @@ header {
 .gauge-graph {
   padding-top: 3em; }
 
+.c3-axis-x {
+  font-size: 14px; }
+
 .full-screen-container {
   margin-top: 0em;
   margin-right: 0em;
@@ -1607,6 +1610,32 @@ header {
 
 .full-screen-details-right {
   max-height: 80vh; }
+
+.overview-city-title {
+  font-size: 1.5em;
+  text-align: center;
+  color: #B27700; }
+
+.overview-title {
+  text-align: center;
+  color: #B27700;
+  font-size: 1.2em; }
+
+.text-left, .text-right, .text-middle {
+  padding-left: 1em;
+  padding-bottom: 3em;
+  padding-top: 1em; }
+
+.text-left {
+  padding-left: 2em; }
+
+.text-middle {
+  position: relative; }
+
+.overview-img {
+  max-width: 300px;
+  position: absolute;
+  bottom: 0; }
 
 @media screen and (max-width: 670px) {
   .city-all-container {

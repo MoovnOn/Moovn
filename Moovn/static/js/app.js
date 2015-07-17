@@ -24911,6 +24911,10 @@ var $ = require('jquery');
       window.location.href.indexOf("education") > -1 ){
       $(".education").addClass("side-nav-item-active");
       $(".fa-book").addClass("side-icon-active");
+    }else if( 
+      window.location.href.indexOf("overview") > -1 ){
+      $(".overview").addClass("side-nav-item-active");
+      $(".fa-plane").addClass("side-icon-active");
     }
     
 
@@ -26223,18 +26227,19 @@ module.exports = function(state, city, bindTo) {
         bindto: bindTo,
         data: {
           columns: [
-              ['Minutes Spent Commuting', housingPeopleCommute, housingPeopleCommuteNation],
+              ['City Commute', housingPeopleCommute],
+              ['National Commute', housingPeopleCommuteNation]
           ],
           type: 'bar'
         },
         axis: {
+            x: {
+            type: 'category',
+            categories: ['Median Commute Times']
+        	},
             y: {
               label: 'minutes'
             },
-            x: {
-              type: 'category',
-              categories: [ city + " " + 'Commute Time', 'National Commute Time']
-        	  },
           },
           size: {
         		height: 400
@@ -26290,13 +26295,17 @@ module.exports = function(state, city, element) {
         data: {
           columns: [
               ['Condo', housingAffordCondo],
-              ['2-Bed-Home', housingAfford2Bed],
-              ['3-Bed-Home', housingAfford3Bed],
-              ['4-Bed-Home', housingAfford4Bed],
+              ['2-Bed', housingAfford2Bed],
+              ['3-Bed', housingAfford3Bed],
+              ['4-Bed', housingAfford4Bed],
           ],
           type: 'bar'
         },
         axis: {
+          x: {
+            type: 'category',
+            categories: ['Median Housing Prices']
+        	},
             y : {
               tick: {
                 format: d3.format("$,")
@@ -26348,6 +26357,10 @@ module.exports = function(state, city, element) {
           type: 'bar'
         },
         axis: {
+          x: {
+            type: 'category',
+            categories: ['Median Income of City vs. Nation']
+        	},
             y : {
               tick: {
                 format: d3.format("$,")
@@ -27286,7 +27299,7 @@ module.exports = function(){
     	if (compareCity != '' && searchCity != '') {
     		router.navigate("search/" + searchCity + "/" + compareCity, {trigger: true});
     	} else if (compareCity === '' && searchCity != '') {
-    		router.navigate("search/" + searchCity + "/housing", {trigger: true});
+    		router.navigate("search/" + searchCity + "/overview", {trigger: true});
     	} else {
     		alert('Please enter the city you would like to see');
     	}
