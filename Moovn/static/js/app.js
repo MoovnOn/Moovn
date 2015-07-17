@@ -26977,7 +26977,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
-    
+
 
     var x = d3.scale.linear()
         .domain([0, width])
@@ -27008,8 +27008,8 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
     var clicked = function (){
 
-        var scale = .5 / Math.max( dx(bounds) / width, dy(bounds) / height);
-        var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
+        var scale = .65 / Math.max( dx(bounds) / width, dy(bounds) / height);
+        var translate = [Math.floor(width / 2) - Math.floor(scale * center_x(bounds)), Math.ceil(height / 2) - Math.ceil(scale * center_y(bounds))];
 
         g.transition()
          .duration(250)
@@ -27020,7 +27020,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
     function zoomed(){
 
-      g.style("stroke-width", 1.5 / d3.event.scale + "px");
+      g.style("stroke-width", 3 / d3.event.scale + "px");
       g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 
 
@@ -27359,8 +27359,8 @@ var clicked = function (){
 
       var x = (bounds[0][0] + bounds[1][0])/2;
       var y = (bounds[0][1] + bounds[1][1])/2;
-      var scale = .85 / Math.max( dx(bounds) / width, dy(bounds) / height);
-      var translate = [width / 2 - scale * x, height / 2 - scale * y];
+      var scale = .95 / Math.min( dx(bounds) / width, dy(bounds) / height);
+      var translate = [Math.ceil(width / 2) - Math.floor(scale * x) + 5, (Math.ceil(height / 2) - Math.floor(scale * y)) * .998066];
 
     g.transition()
      .duration(750)
@@ -27370,7 +27370,7 @@ var clicked = function (){
 
   function zoomed(d){
 
-    g.style("stroke-width", 1.5 / d3.event.scale + "px");
+    g.style("stroke-width", 2 / d3.event.scale + "px");
     g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 
   };

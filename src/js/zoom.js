@@ -35,8 +35,8 @@ var clicked = function (){
 
       var x = (bounds[0][0] + bounds[1][0])/2;
       var y = (bounds[0][1] + bounds[1][1])/2;
-      var scale = .85 / Math.max( dx(bounds) / width, dy(bounds) / height);
-      var translate = [width / 2 - scale * x, height / 2 - scale * y];
+      var scale = .95 / Math.min( dx(bounds) / width, dy(bounds) / height);
+      var translate = [Math.ceil(width / 2) - Math.floor(scale * x) + 5, (Math.ceil(height / 2) - Math.floor(scale * y)) * .998066];
 
     g.transition()
      .duration(750)
@@ -46,7 +46,7 @@ var clicked = function (){
 
   function zoomed(d){
 
-    g.style("stroke-width", 1.5 / d3.event.scale + "px");
+    g.style("stroke-width", 2 / d3.event.scale + "px");
     g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 
   };
