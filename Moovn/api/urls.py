@@ -15,7 +15,7 @@ urlpatterns = [
     url(r'^neighborhooddata/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/(?P<region_id>[\w]+)/$', views.neighborhooddata_view),
     url(r'^neighborhooddata/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.neighborhooddata_view),
     # url(r'^jobs/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/$', views.jobs_view),
-    url(r'^salary/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/(?P<job>(?:[\w\.,]+\s?\-?)+)/$', views.salary_view),
+    url(r'^salary/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/(?P<job>(?:[\w\.\,]+\s?\-?)+)/$', views.salary_view),
     url(r'^cityschools/(?P<state>[\w]+)/(?P<name>(?:[\w\.]+\s?\-?)+)/', views.school_districts_view),
     url(r'^nearbyschools/(?P<state>[\w]+)/', views.nearby_schools_view),
     url(r'^schoolprofile/(?P<state>[\w]+)/(?P<gsid>[0-9]+)/', views.school_view),
