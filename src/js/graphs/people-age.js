@@ -46,7 +46,7 @@ module.exports = function(state, city, bindTo ) {
               title: "Age of Population (yrs)"
           },
           size: {
-      		height: 400
+      		height: 280
       		},
       });
              

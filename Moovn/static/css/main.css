@@ -1637,6 +1637,13 @@ header {
 .full-screen-details-right {
   max-height: 80vh; }
 
+.people-left {
+  line-height: 1.5;
+  padding-left: 1em; }
+
+.people-left h1 {
+  color: #B27700; }
+
 .overview-city-title {
   font-size: 1.5em;
   text-align: center;

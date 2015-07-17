@@ -25672,7 +25672,6 @@ var router = require('../../router');
 var show = require('../../show');
 var places = require('../../places-api');
 var tab = require('responsive-tabs');
-var d3 = require('d3');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
@@ -25688,7 +25687,7 @@ router.route('search/:cityName/people', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
-  show('city-template-4', '.main-content' , {city: cityName});
+  show('people-template', '.main-content' , {city: cityName});
   activeSelection();
 
   //slides the side-nav
@@ -25701,22 +25700,15 @@ router.route('search/:cityName/people', function (cityName){
   var state = citySplit[1];
 
 
-  peopleAge(state, city, '.quad-1');
-  peopleHousehold(state, city);
-  peopleRelationships(state, city);
-
-  show('content/tabs-lists', '.quad-4')
-
-  //gets the lists displaying as tabs and can change to accordian
-  $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
-  });
+  peopleAge(state, city, '.people-top-graph');
+  peopleHousehold(state, city, '.people-middle-graph');
+  peopleRelationships(state, city, '.people-bottom-graph');
 
   liveshere(state, city);
 
 });
 
-},{"../../graphs/people-age":31,"../../graphs/people-household":32,"../../graphs/people-relationships":33,"../../list-data/liveshere":37,"../../neighMap":40,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../zoom":49,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],16:[function(require,module,exports){
+},{"../../graphs/people-age":31,"../../graphs/people-household":32,"../../graphs/people-relationships":33,"../../list-data/liveshere":37,"../../neighMap":40,"../../places-api":43,"../../router":44,"../../search":45,"../../show":46,"../../zoom":49,"../active-selection":5,"jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],16:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -26425,7 +26417,7 @@ module.exports = function(svg, state, city, height, width) {
 		return m;
 	};
 
-	var div = d3.select("body").insert("div", ".side-bar-content")
+	var div = d3.select(".bubble-title").insert("div")
 	.attr("class", "tooltip")
 	.style({"opacity": 1e-6,
 	"width": "100px",
@@ -26688,7 +26680,7 @@ module.exports = function(state, city, bindTo ) {
               title: "Age of Population (yrs)"
           },
           size: {
-      		height: 400
+      		height: 280
       		},
       });
              
@@ -26701,7 +26693,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, element) {
 
   $.ajax({
     method: 'GET',
@@ -26717,7 +26709,7 @@ module.exports = function(state, city) {
     var housingWithKids = housingPeople[3].data.attribute[1].value['#text'];
     
       c3.generate({
-          bindto: 'body .quad-2',
+          bindto: element,
           data: {
               columns: [
                   ['% No Kids', housingNoKids],
@@ -26732,7 +26724,7 @@ module.exports = function(state, city) {
               title: "Household Composition"
           },
           size: {
-      		height: 400
+      		height: 280
       		},
       });
              
@@ -26745,7 +26737,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, element) {
 
   $.ajax({
     method: 'GET',
@@ -26764,12 +26756,12 @@ module.exports = function(state, city) {
     var housingMarriedMale = housingPeople[4].data.attribute[3].value['#text'];
     var housingSingleFemale = housingPeople[4].data.attribute[4].value['#text'];
     var housingSingleMale = housingPeople[4].data.attribute[5].value['#text'];
-    var housingWidowedFemale = housingPeople[4].data.attribute[6].value['#text'];
-    var housingWidowedMale = housingPeople[4].data.attribute[7].value['#text'];
+    // var housingWidowedFemale = housingPeople[4].data.attribute[6].value['#text'];
+    // var housingWidowedMale = housingPeople[4].data.attribute[7].value['#text'];
 
 
       c3.generate({
-          bindto: 'body .quad-3',
+          bindto: element,
           data: {
               columns: [
                   ['Divorced Female', housingDivFemale],
@@ -26778,8 +26770,8 @@ module.exports = function(state, city) {
                   ['Married Male', housingMarriedMale],
                   ['Single Female', housingSingleFemale],
                   ['Single Male', housingSingleMale],
-                  ['Widowed Female', housingWidowedFemale],
-                  ['Widowed Male', housingWidowedMale],
+                  // ['Widowed Female', housingWidowedFemale],
+                  // ['Widowed Male', housingWidowedMale],
               ],
               type : 'donut',
               onclick: function (d, i) {},
@@ -26790,7 +26782,7 @@ module.exports = function(state, city) {
               title: "Relationship Status"
           },
           size: {
-      		height: 400
+      		height: 280
       		},
       });
 
@@ -26994,11 +26986,11 @@ console.log(housingResponse);
       }
     
 
-  $(".tab-title1").html('<a href="#tab-1" class="r-tabs-anchor">People Who Live Here</a>');   
+  $(".people-left").append('<h1>People Who Live Here</h1>');   
     
     descArr.forEach(function(e, i) {
-      $(".tab-data1").append("<b>" + nameArr[i] + "</b>" + "<br>");
-      $(".tab-data1").append(descArr[i] + "<br><br>");
+      $(".people-left").append("<b>" + nameArr[i] + "</b>" + "<br>");
+      $(".people-left").append(descArr[i] + "<br><br>");
     });
 
   }

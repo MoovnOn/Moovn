@@ -87,7 +87,14 @@
 .full-screen-details-right{
   max-height: 80vh;
 }
-//
+//people page
+.people-left{
+  line-height: 1.5;
+  padding-left:1em;
+}
+.people-left h1{
+  color: $comp-color;
+}
 
 
 //overview page
