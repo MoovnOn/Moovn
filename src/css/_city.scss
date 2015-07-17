@@ -46,7 +46,11 @@
 
 //C3 chart adjustments
 .c3-axis-x{
-  font-size:14px;
+  font-size:12px;
+}
+.graph-title{
+  text-align: center;
+  color: $comp-color;
 }
 
 //adjusts tabs in certain views to go fullscreen

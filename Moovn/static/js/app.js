@@ -24225,7 +24225,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require("jquery");
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -26220,6 +26220,9 @@ module.exports = function(state, city, bindTo) {
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
     
     var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;    
+    
+    // if (!housingPeople.length) { housingPeople = [housingPeople] }
+    
     var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;
     var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
 
