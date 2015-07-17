@@ -9,7 +9,6 @@ header{
   max-height: 50px;
   max-width: auto;
 }
-
 .search-page-container{
    margin-bottom: 2em; 
    display: none;
@@ -33,15 +32,37 @@ header{
   margin: 0;
   margin-bottom:0.2em;
 }
+.compare-option {
+  float: right;
+  color: #00008B;
+}
+.compare-option:hover {
+  cursor: pointer;
+}
 .show-input {
 	display: inline-block;
 }
 .search-form-searchView {
   text-align: center;
-  padding: 0.3em;
 }
 .search-city-searchView{
   min-width: 20em;
+}
+.search-city {
+  margin: 0 0 0.2em 0;
+}
+.search-city-comp {
+  margin: 0 0 0.2em 0;
+  min-width: 20em;
+}
+.search-input-container {
+  width: 20em;
+  margin: auto;
+}
+.search-btn {
+  display: block;
+  min-width: 20em;
+  margin: 0 auto;
 }
 .map-container{
   text-align: center;

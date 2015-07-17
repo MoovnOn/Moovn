@@ -25,9 +25,17 @@ p {
   border: 1px solid grey;
   width: 4em;
   border-radius: 0.2em;
+  background-color:white;
 }
 .ui-menu-item:hover{
   background: lightgray;  
+}
+.ui-menu .ui-menu-item a{
+  border:none;
+  line-height: 1.5;
+  border-radius: 0;
+  background-image: none;
+  background-color: transparent;
 }
 .pure-g > *{
   box-sizing: border-box; 
