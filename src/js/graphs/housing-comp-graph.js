@@ -2,18 +2,51 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city, element) {
+module.exports = function(state1, city1, state2, city2) {
 
-    $.ajax({
-      method: 'GET',
-      url: '/api/homeprices/' + state + '/' + city + '/'
-    })
-    .then(function(d){
-      parseHousing(d);
-    });
+		Promise.all([
+
+			$.ajax({
+	      method: 'GET',
+	      url: '/api/homeprices/' + state1 + '/' + city1 + '/'
+	    }),
+
+	    $.ajax({
+	      method: 'GET',
+	      url: '/api/homeprices/' + state2 + '/' + city2 + '/'
+	    })
+	    ]).then(function(results) {
+	    	var parsedData1 = parseHousing(results[0]);
+				var arr1 = parsedData1.data.columns;
+				var cleanArr1 = arr1.map(function(obj) {
+					return obj[1];
+				});
+
+				var parsedData2 = parseHousing(results[1]);
+				var arr2 = parsedData2.data.columns;
+				var cleanArr2 = arr2.map(function(obj) {
+					return obj[1];
+				});
+
+				var sortArr1 = cleanArr1.sort().reverse();
+				var sortArr2 = cleanArr2.sort().reverse();
+
+				var highVal1 = parseInt(sortArr1[0]);
+				var highVal2 = parseInt(sortArr2[1]);
 
 
-  function parseHousing(allHousingData){
+				var maxCost = highVal1;
+				if (highVal2 > highVal1) {
+					maxCost = highVal2;
+				};
+
+				parseHousing(results[0],'.comp-chart1-3', maxCost);
+				parseHousing(results[1], '.comp-chart2-3', maxCost);
+
+			});
+			
+
+  function parseHousing(allHousingData, element, maxCost){
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
     var housingAfford= allHousingData["Demographics:demographics"].response.pages.page[0].tables.table.data.attribute;
     var housingRealEstate= allHousingData["Demographics:demographics"].response.pages.page[1].tables.table;
@@ -23,6 +56,7 @@ module.exports = function(state, city, element) {
     var housingAfford2Bed = housingAfford[3].values.city.value["#text"];
     var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
     var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
+
 
       var data = {
         bindto: element,
@@ -46,11 +80,12 @@ module.exports = function(state, city, element) {
             type: 'category',
             categories: ['Median Housing Prices']
         	},
-            y : {
-              tick: {
-                format: d3.format("$,"),
-              }
+          y : {
+          	max: maxCost,
+            tick: {
+              format: d3.format("$,"),
             }
+          }
           },
           size: {
         		height: 400

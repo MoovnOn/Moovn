@@ -29,7 +29,7 @@ router.route('search/:cityName/internet', function (cityName){
   var state = citySplit[1];
 
 	parseCell(state, city).then(function (data) {
-       
+      console.log(data);
       var data2 = parseCell2(data);     
 
       downloadGraph(data2, '.duo-1');

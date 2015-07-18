@@ -1928,7 +1928,7 @@ header {
   float: left;
   text-align: center;
   font-size: 1.5em;
-  padding: 1.5em 0 1.5em 0; }
+  padding: 1em 0 1.5em 0; }
 
 .comp-logo-container {
   position: fixed;
@@ -1936,8 +1936,8 @@ header {
   left: 0; }
 
 .comp-logo {
-  padding-top: 1.5em;
-  padding-left: 1.5em; }
+  padding-top: 0.3em;
+  padding-left: 0.354052em; }
 
 .tri-1-edu, .tri-2-edu {
   margin-top: 1em; }

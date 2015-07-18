@@ -52,14 +52,10 @@ module.exports = function (data, bindTo) {
             categories: ['3G Download', '3G Upload' , '4G Download', '4G Upload']
         	},
           y: {
-            label: "Megabits Per Second"
+            label: "Megabits Per Second",
+            max: 1900
           }
     		},
-        axis: {
-          y: {
-            max: 19000
-          },
-        },
 		});
 
 };
