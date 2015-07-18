@@ -46,6 +46,8 @@ requests_cache.install_cache('cache', expire_after=18000)
 #             "state": line.split(',')[4].strip()
 #         } for line in file}
 
+
+
 try:
     parity = {}
     with open("geo/price_parity.csv") as file:
@@ -252,6 +254,7 @@ main_ind = [str(num) for num in range(110000, 530000, 20000)]
 
 def industry_size_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
+    occupations = Occupation.objects.all()
     locid = name.city.ocp_id.split(',')[0][4:11]
     seriesids = [("OEUM" + locid + "000000" + ocup + "01") for ocup in main_ind]
     seriesids += [("OEUM" + locid + "000000" + "000000" + "01")]
@@ -274,14 +277,15 @@ def industry_size_view(request, state, name):
     else:
         for line in ndata["Results"]["series"]:
             for job in occupations:
-                if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
-                    datadict[occupations[job]] = line["data"][0]["value"]
+                if job.code == line['seriesID'][17:-2] and len(line["data"]) > 0:
+                    datadict[job.job] = line["data"][0]["value"]
 
     allind = datadict["All"]
-    datadict.pop("All", None)
 
     for ind in datadict:
         datadict[ind] = round(100 * float(datadict[ind]) / float(allind), 2)
+
+    datadict.pop("All", None)
 
     return JsonResponse(datadict)
 
