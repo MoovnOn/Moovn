@@ -247,7 +247,7 @@ def salary_view(request, state, name, job):
                 if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
                     datadict[occupations[job] \
                     + typecodes[str(line['seriesID'][-2:])]] = \
-                        line["data"][0]["value"]
+                    line["data"][0]["value"]
 
     for value in datadict:
         if datadict[value] == "-":
