@@ -13,13 +13,13 @@ module.exports = function(svg, state, city, height, width) {
 	};
 
 	var div = d3.select("body").insert("div", ".side-bar-content")
-	.attr("class", "tooltip")
-	.style({"opacity": 1e-6,
-	"width": "100px",
-	"height": "12px",
-	"text-align": "center",
-	"padding": "8px",
-	"pointer-events": "none"
+		.attr("class", "tooltip")
+		.style({"opacity": 1e-6,
+		"width": "100px",
+		"height": "12px",
+		"text-align": "center",
+		"padding": "8px",
+		"pointer-events": "none"
 	});
 
 	var showText = function (d) {
@@ -30,10 +30,10 @@ module.exports = function(svg, state, city, height, width) {
 			d3.select(this).attr("active", true);
 
 			d3.select(".tooltip")
-			.style({"left": d3.event.pageX + "px",
-			"top": d3.event.pageY + "px",
-			"opacity": 1})
-			.text(d.name);
+				.style({"left": d3.event.pageX + "px",
+					"top": d3.event.pageY + "px",
+					"opacity": 1})
+				.text(d.name);
 
 
 			// d3.select(".bubble-title").select("span")
@@ -64,9 +64,9 @@ module.exports = function(svg, state, city, height, width) {
 		var color = d3.scale.category20b();
 
 		var bubble = d3.layout.pack()
-					.sort(null)
-					.size([diameter, diameter])
-					.padding(.5);
+			.sort(null)
+			.size([diameter, diameter])
+			.padding(.5);
 
 		//console.log(bubble.nodes(data_list))
 		g = svg.append("g")
@@ -75,11 +75,11 @@ module.exports = function(svg, state, city, height, width) {
 		var count2 = counter();
 
 		var node = g.selectAll(".node")
-									.data(bubble.nodes(data_list))
-								.enter().append("g")
-									.attr("class", "node")
-									.attr("transform", function (d) { return "translate(" + d.x +
-												"," + d.y + ")";});
+				.data(bubble.nodes(data_list))
+			.enter().append("g")
+				.attr("class", "node")
+				.attr("transform", function (d) { return "translate(" + d.x +
+							"," + d.y + ")";});
 
 		node.append("circle")
 				.attr("r", function(d){ return d.r;})
