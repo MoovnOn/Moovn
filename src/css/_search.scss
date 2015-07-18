@@ -73,6 +73,7 @@ header{
 .map-image {
   max-width: 100%;
   max-height: auto; 
+  margin-bottom:-2px;
 }
 .submit, .compare {
   background: rgb(28, 184, 65);
@@ -89,7 +90,7 @@ header{
   overflow-x: auto;
 }
 .flow-container{
-  margin-top:3em;
+  margin-top:5em;
 }
 .flow{
   text-align: center;
@@ -100,16 +101,16 @@ header{
   height: 1.5em;
   width: auto;
   display:block;
-  font-size: 2em;
+  font-size: 3em;
 }
 .fa-compass{
-  color: darkred;
+  color: $graph-color-1;
 }
 .fa-bar-chart{
-  color: darkblue
+  color: $graph-color-2;
 }
 .fa-globe{
-  color: darkgreen;
+  color: $graph-color-4;
 }
 .powered-by-container{
   position: fixed;
