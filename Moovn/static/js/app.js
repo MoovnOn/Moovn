@@ -24956,16 +24956,6 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   parseCell(state1, city1, '.comp-chart1-1');
   parseCell(state2, city2, '.comp-chart2-1');
 
-  // parseCell(state1, city1, '.comp-chart1-1').then(function (data) {
-  //     var data2 = parseCell2(data);
-  //     downloadGraph(data2, '.comp-chart1-1' )
-  // });
-
-  // parseCell(state2, city2).then(function (data) {
-  //     var data2 = parseCell2(data);  
-  //     downloadGraph(data2, '.comp-chart2-1' )
-  // });
-
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
@@ -24973,9 +24963,6 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   peopleAge(state1, city1, '.comp-chart1-2');
   peopleAge(state2, city2, '.comp-chart2-2');
 
-
-  // housingGraphGeneral(state1, city1, '.comp-chart1-3')
-  // housingGraphGeneral(state2, city2, '.comp-chart2-3')
 
   housingGraph(state1, city1, state2, city2)
 
@@ -26860,32 +26847,6 @@ module.exports = function (state, city, el1, el2) {
   });
 
 };
-  // return $.ajax({
-  //  method: 'GET',
-  //  url: 'api/celldata/' + state + '/' + city + '/?lat=' + lat + '&lon=' + lon
-  // }).then(function (data){
-  //   console.log(data)
-  //  var array = data.networkRank;
-  //   var newArray = [];
-
-  //   console.log(array);
-
-  //  array.forEach(function(prov) {
-  //    if (prov.networkName === "AT&T") {
-  //      newArray[0] = prov
-  //    }
-  //    if (prov.networkName === "Verizon") {
-  //      newArray[1] = prov
-  //    }
-  //    if (prov.networkName === "Sprint") {
-  //      newArray[2] = prov
-  //    }
-  //    if (prov.networkName === "T-Mobile") {
-  //      newArray[3] = prov
-  //    }
-  //  })
-  //   return newArray
-  // });
 
 },{"../topojson":49,"./cell-download":22,"./cell-reliability":23,"./parse-cell-2":30,"c3":"c3","jquery":"jquery"}],32:[function(require,module,exports){
 var c3 = require('c3');

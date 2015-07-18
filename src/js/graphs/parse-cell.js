@@ -60,29 +60,3 @@ module.exports = function (state, city, el1, el2) {
   });
 
 };
-  // return $.ajax({
-  //  method: 'GET',
-  //  url: 'api/celldata/' + state + '/' + city + '/?lat=' + lat + '&lon=' + lon
-  // }).then(function (data){
-  //   console.log(data)
-  //  var array = data.networkRank;
-  //   var newArray = [];
-
-  //   console.log(array);
-
-  //  array.forEach(function(prov) {
-  //    if (prov.networkName === "AT&T") {
-  //      newArray[0] = prov
-  //    }
-  //    if (prov.networkName === "Verizon") {
-  //      newArray[1] = prov
-  //    }
-  //    if (prov.networkName === "Sprint") {
-  //      newArray[2] = prov
-  //    }
-  //    if (prov.networkName === "T-Mobile") {
-  //      newArray[3] = prov
-  //    }
-  //  })
-  //   return newArray
-  // });
