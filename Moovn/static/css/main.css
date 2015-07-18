@@ -1684,7 +1684,7 @@ header {
   margin-right: 0em;
   margin-bottom: 0em;
   background: #E5F2F2;
-  height: 100vh; }
+  height: 100%; }
 
 @media screen and (max-width: 670px) {
   .city-all-container {
