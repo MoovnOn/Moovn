@@ -6,7 +6,6 @@ import requests
 import requests_cache
 import geojson
 import json
-# pandas as pd
 
 from rest_framework import permissions
 from rest_framework.response import Response
@@ -72,8 +71,6 @@ except:
                             "score": line.split(',')[2].strip('\n')}
 
 
-# @api_view(['GET',])
-# @permission_classes((permissions.AllowAny,))
 def city_boundary_view(request, state, name):
     name_obj = get_object_or_404(Name, name=name, state=state)
     if name == 'US':
