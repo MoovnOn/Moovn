@@ -25317,7 +25317,6 @@ router.route('search/:cityName/housing', function (cityName){
               .attr("height", width * aspect)
               .attr("class", "map");
 
-  // svg.attr("width", width).attr("height", height);
 
   $(window).resize(function(){
     var width = $(".quad-1").width();
@@ -26219,10 +26218,16 @@ module.exports = function(state, city, bindTo) {
 
   
   function parseHousing(allHousingData){
-    var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
-    
+    // var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
     var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;    
-    var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;
+    
+    try{
+      var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;  
+    }catch(err){
+      $('.overview-graph1').append('<p class="no-data-message">Sorry, no data is available in this location</p>');
+      console.log(err);
+    }
+    
     var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
 
       c3.generate({
@@ -26342,13 +26347,17 @@ module.exports = function(state, city, element) {
   
   function parseHousing(allHousingData){
     var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;
-            
-       var housingPeopleIncome= housingPeople[0].data.attribute[0].values.city.value["#text"];
-       var housingPeopleIncomeNation= housingPeople[0].data.attribute[0].values.nation.value["#text"];
-       // var housingPeopleCommute = housingPeople[0].data.attribute[6].values.city.value;
-       // var housingPeopleCommuteNation = housingPeople[0].data.attribute[6].values.nation.value;
-       
-       
+   
+      try{
+    var housingPeopleIncome= housingPeople[0].data.attribute[0].values.city.value["#text"];
+    }catch(err){
+      $('.overview-graph3').append('<p class="no-data-message">Sorry, no data is available in this location</p>');
+      console.log(err);
+    }
+        
+
+    var housingPeopleIncomeNation= housingPeople[0].data.attribute[0].values.nation.value["#text"];
+              
        c3.generate({
         bindto: element,
         data: {
@@ -26393,6 +26402,16 @@ module.exports = function(svg, state, city, height, width) {
 		return m;
 	};
 
+	var div = d3.select("body").insert("div", ".side-bar-content")
+	.attr("class", "tooltip")
+	.style({"opacity": 1e-6,
+	"width": "100px",
+	"height": "12px",
+	"text-align": "center",
+	"padding": "8px",
+	"pointer-events": "none"
+	});
+
 	var showText = function (d) {
 
 		if (!this.active) {
@@ -26400,9 +26419,16 @@ module.exports = function(svg, state, city, height, width) {
 
 			d3.select(this).attr("active", true);
 
-			d3.select(".bubble-title").select("span")
-				.style("color", this.getAttribute("fill"))
-				.text(d.name);
+			d3.select(".tooltip")
+			.style({"left": d3.event.pageX + "px",
+			"top": d3.event.pageY + "px",
+			"opacity": 1})
+			.text(d.name);
+
+
+			// d3.select(".bubble-title").select("span")
+			// 	.style("color", this.getAttribute("fill"))
+			// 	.text(d.name);
 		};
 
 	};
@@ -27009,7 +27035,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     var clicked = function (){
 
         var scale = .65 / Math.max( dx(bounds) / width, dy(bounds) / height);
-        var translate = [Math.floor(width / 2) - Math.floor(scale * center_x(bounds)), Math.ceil(height / 2) - Math.ceil(scale * center_y(bounds))];
+        var translate = [width / 2 - scale * center_x(bounds), height / 2 - scale * center_y(bounds)];
 
         g.transition()
          .duration(250)
@@ -27359,8 +27385,8 @@ var clicked = function (){
 
       var x = (bounds[0][0] + bounds[1][0])/2;
       var y = (bounds[0][1] + bounds[1][1])/2;
-      var scale = .95 / Math.min( dx(bounds) / width, dy(bounds) / height);
-      var translate = [Math.ceil(width / 2) - Math.floor(scale * x) + 5, (Math.ceil(height / 2) - Math.floor(scale * y)) * .998066];
+      var scale = 1.40 / Math.max( dx(bounds) / width, dy(bounds) / height);
+      var translate = [width / 2 - scale * x + 30, height / 2 - scale * y + 100];
 
     g.transition()
      .duration(750)

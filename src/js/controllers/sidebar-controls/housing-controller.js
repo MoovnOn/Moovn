@@ -54,7 +54,6 @@ router.route('search/:cityName/housing', function (cityName){
               .attr("height", width * aspect)
               .attr("class", "map");
 
-  // svg.attr("width", width).attr("height", height);
 
   $(window).resize(function(){
     var width = $(".quad-1").width();
