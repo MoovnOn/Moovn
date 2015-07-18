@@ -25566,7 +25566,7 @@ router.route('search/:cityName/internet', function (cityName){
   var state = citySplit[1];
 
 	parseCell(state, city).then(function (data) {
-       
+      console.log(data);
       var data2 = parseCell2(data);     
 
       downloadGraph(data2, '.duo-1');
@@ -26162,14 +26162,10 @@ module.exports = function (data, bindTo) {
             categories: ['3G Download', '3G Upload' , '4G Download', '4G Upload']
         	},
           y: {
-            label: "Megabits Per Second"
+            label: "Megabits Per Second",
+            max: 1900
           }
     		},
-        axis: {
-          y: {
-            max: 19000
-          },
-        },
 		});
 
 };
@@ -26371,12 +26367,12 @@ module.exports = function(state1, city1, state2, city2) {
             type: 'category',
             categories: ['Median Housing Prices']
         	},
-            y : {
-            	max: maxCost,
-              tick: {
-                format: d3.format("$,"),
-              }
+          y : {
+          	max: maxCost,
+            tick: {
+              format: d3.format("$,"),
             }
+          }
           },
           size: {
         		height: 400
@@ -26717,36 +26713,63 @@ module.exports = function(data) {
 },{}],31:[function(require,module,exports){
 var $ = require('jquery');
 var c3 = require('c3');
+var d3 = require('d3');
 
 module.exports = function (state, city) {
 
-  return $.ajax({
-  	method: 'GET',
-  	url: 'api/celldata/' + state + '/' + city + '/'
-  }).then(function (data){	
+  $.ajax({
+    method: 'GET',
+    url: 'api/boundary/' + state + '/' + city + '/'
+  }).then(function (data) {
+     
+      var projection = d3.geo.albers().scale(200).translate([150,140]);
+      var path = d3.geo.path().projection(projection);
 
-  	var array = data.networkRank;
-    var newArray = [];
-  	
-  	array.forEach(function(prov) {
-  		if (prov.networkName === "AT&T") {
-  			newArray[0] = prov
-  		}
-  		if (prov.networkName === "Verizon") {
-  			newArray[1] = prov
-  		}
-  		if (prov.networkName === "Sprint") {
-  			newArray[2] = prov
-  		}
-  		if (prov.networkName === "T-Mobile") {
-  			newArray[3] = prov
-  		}
-  	})
-    return newArray
-  });
+      var bounds = path.bounds(data); 
+      var lon = (bounds[0][0] + bounds[0][0])/2;
+      var lat = (bounds[0][1] + bounds[1][1])/2;
+
+      console.log(lat);
+      console.log(lon);
+
+  }).then(function(data) {
+
+      console.log(data)
+
+
+
+  })
+
 
 };
-},{"c3":"c3","jquery":"jquery"}],32:[function(require,module,exports){
+  // return $.ajax({
+  //  method: 'GET',
+  //  url: 'api/celldata/' + state + '/' + city + '/?lat=' + lat + '&lon=' + lon
+  // }).then(function (data){
+  //   console.log(data)  
+  //  var array = data.networkRank;
+  //   var newArray = [];
+
+  //   console.log(array);
+    
+  //  array.forEach(function(prov) {
+  //    if (prov.networkName === "AT&T") {
+  //      newArray[0] = prov
+  //    }
+  //    if (prov.networkName === "Verizon") {
+  //      newArray[1] = prov
+  //    }
+  //    if (prov.networkName === "Sprint") {
+  //      newArray[2] = prov
+  //    }
+  //    if (prov.networkName === "T-Mobile") {
+  //      newArray[3] = prov
+  //    }
+  //  })
+  //   return newArray
+  // });
+
+},{"c3":"c3","d3":"d3","jquery":"jquery"}],32:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
