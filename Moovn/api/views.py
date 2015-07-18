@@ -197,6 +197,7 @@ def industry_view(request, state, name):
 
     return JsonResponse(datadict)
 
+
 def salary_view(request, state, name, job):
     name = get_object_or_404(Name, name=name, state=state)
     jobtitle = job.title()
@@ -237,7 +238,6 @@ def salary_view(request, state, name, job):
 
     return JsonResponse(datadict)
     # return HttpResponse(ocp_data)
-
 
 
 main_ind = [str(num) for num in range(110000, 530000, 20000)]
