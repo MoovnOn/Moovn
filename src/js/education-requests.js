@@ -10,7 +10,7 @@ $.ajax({
   "&lon=" + coords[0] //+ "&radius=" + 2, // min might be 5 miles
 }).then(function(data){
 		var school = data.schools.school;
-		$('.school-info').append('<div class="school-info-container"></div>');
+		$('.school-info').html('<div class="school-modal"><button class="school-modal-x close-button">X</button><div class="school-modal-content"></div></div><div class="school-info-container"></div>');
 		$('.school-info-title').text("Local Schools");
 		school.forEach(function(school, i) {
 			schoolList.push(school);
