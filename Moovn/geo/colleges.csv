@@ -1,4 +1,4 @@
-rank,college,tuition,city,state
+0,1,2,3,4
 1,'Princeton University',$41820,Princeton,NJ
 2,'Harvard University',$43938,Cambridge,MA
 3,'Yale University',$45800,New Haven,CT
@@ -68,7 +68,7 @@ rank,college,tuition,city,state
 62,'University of Pittsburgh',in-state: $17772 out-of-state: $28168,Pittsburgh,PA
 68,'Texas A&M University--College Station',in-state: $9180 out-of-state: $26356,College Station,TX
 68,'Worcester Polytechnic Institute',$42778,Worcester,MA
-70,"b'Rutgers, The State University of New Jersey--New Brunswick'",in-state: $13813 out-of-state: $28591,Piscataway,NJ
+70,'Rutgers',in-state: $13813 out-of-state: $28591,New Brunswick,NJ
 71,'American University',$41833,Washington,DC
 71,'Baylor University',$38290,Waco,TX
 71,'University of Iowa',in-state: $8079 out-of-state: $27409,Iowa City,IA
@@ -124,7 +124,7 @@ rank,college,tuition,city,state
 121,'DePaul University',$35071,Chicago,IL
 121,'Temple University',in-state: $14770 out-of-state: $25450,Philadelphia,PA
 121,'University of Arizona',in-state: $10581 out-of-state: $28379,Tucson,AZ
-126,"b'Rutgers, The State University of New Jersey--Newark'",in-state: $13297 out-of-state: $28075,Newark,NJ
+126,'Rutgers',in-state: $13297 out-of-state: $28075,Newark,NJ
 126,'Seton Hall University',$36926,South Orange,NJ
 126,'University at Albany--SUNY',in-state: $8527 out-of-state: $20167,Albany,NY
 129,'Arizona State University--Tempe',in-state: $9811 out-of-state: $23312,Tempe,AZ

@@ -31,7 +31,19 @@ class City(models.Model):
 
 
 class College(models.Model):
-    city = models.ForeignKey("City", null=True)
-    amount_is = models.IntegerField(null=True)
-    amount_os = models.IntegerField(null=True)
-    name = models.TextField()
+    city = models.ForeignKey('Name', null=True)
+    tuition = models.IntegerField(null=True)
+    in_state = models.IntegerField(null=True)
+    out_state = models.IntegerField(null=True)
+    school = models.CharField(max_length=255)
+    rank = models.CharField(max_length=255)
+
+
+class Bls(models.Model):
+    code = models.CharField(max_length=255)
+    industry = models.CharField(max_length=255)
+
+
+class Occupation(models.Model):
+    code = models.CharField(max_length=255)
+    job = models.CharField(max_length=255)
