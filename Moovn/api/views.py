@@ -192,8 +192,7 @@ def industry_view(request, state, name):
     ndata = json.loads(ind_data.text)
     datadict = {}
     if len(ndata["Results"]["series"]) == 0:
-        response = HttpResponse(print("no data"))
-        return response
+        return HttpResponse("no data")
     else:
         for line in ndata["Results"]["series"]:
             for name in industry:
@@ -242,8 +241,7 @@ def salary_view(request, state, name, job):
                  "15": "90th"}
 
     if not ndata["Results"] or not ndata["Results"]["series"]:
-        response = HttpResponse("no data")
-        return response
+        return HttpResponse("no data")
 
     else:
         for line in ndata["Results"]["series"]:
@@ -251,14 +249,14 @@ def salary_view(request, state, name, job):
                 if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
                     datadict[occupations[job]
                     + typecodes[str(line['seriesID'][-2:])]] =
-                        line["data"][0]["value"]
+                    line["data"][0]["value"]
 
     for value in datadict:
         if datadict[value] == "-":
             response = HttpResponse("no data")
             return response
-
-    return JsonResponse(datadict)
+        else:
+            return JsonResponse(datadict)
 
 main_ind = [str(num) for num in range(110000, 530000, 20000)]
 
