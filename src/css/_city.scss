@@ -101,10 +101,9 @@
 .overview-city-title{
   font-size: 1.5em;
   text-align: center;
-    color:$comp-color;
 }
 .overview-title{
-  text-align: center;
+  text-align: left;
   color:$comp-color;
   font-size: 1.2em;
 }
@@ -112,9 +111,10 @@
   padding-left: 1em;
   padding-bottom: 3em;
   padding-top: 1em;
+  background-color: white;
 }
-.text-left{
-  padding-left: 2em;
+.text-left, .text-right{
+  padding-top: 3em;
 }
 .text-middle{
   background-image: url("../img/skyline-outline.png");
@@ -125,7 +125,19 @@
   position:absolute;
   bottom:0;
 }
-
+.overview-graph-title{
+  color: $primary-color;
+  padding-top:1em;
+  padding-left: 1.5em;
+  text-decoration:underline;
+}
+.city-all-container-overview{
+  margin-left: 12.9em;
+  margin-right:0em;
+  margin-bottom: 0em;
+  background: #E5F2F2;
+  height: 100%;
+}
 //media queries for mobile
 
 @media screen and (max-width: 670px) {
