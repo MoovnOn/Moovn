@@ -25922,10 +25922,11 @@ $.ajax({
 }).then(function(data){
 		var school = data.schools.school;
 		$('.school-info').html('<div class="school-modal"><button class="school-modal-x close-button">X</button><div class="school-modal-content"></div></div><div class="school-info-container"></div>');
-		$('.school-info-title').text("Local Schools");
 		school.forEach(function(school, i) {
 			schoolList.push(school);
 			$('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
+      $('.school-info-container').fadeIn();
+
 	});
 
 var showDetails = function() {
@@ -25934,6 +25935,7 @@ var showDetails = function() {
       var currentSchool = school[id];
       var modal = $('.school-modal-content');
 
+      $('.school-info-container').fadeOut();
       $('.school-info-container').html('');
 
       modal.text('');
@@ -25958,6 +25960,7 @@ showDetails();
        		$('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
        		showDetails();
   		});
+        $('.school-info-container').fadeIn(800);
   });
 
 });

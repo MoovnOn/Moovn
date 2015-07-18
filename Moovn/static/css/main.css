@@ -1943,7 +1943,10 @@ header {
   margin-top: 1em; }
 
 .school-info {
-  height: 400px; }
+  height: 400px;
+  position: relative;
+  overflow: auto;
+  padding: 2em; }
 
 .school-title {
   color: #0046B2;
@@ -1953,17 +1956,19 @@ header {
   cursor: pointer;
   text-decoration: underline; }
 
+.school-info-container {
+  padding: 1em;
+  display: none; }
+
 .school-modal {
-  height: 400px;
-  width: 100%;
   display: none;
   padding: 1em;
-  position: relative; }
-
-.school-info-container {
-  height: 400px;
-  overflow: auto;
-  padding: 1em; }
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+  z-index: 105;
+  width: 90%; }
 
 .school-modal-content {
   padding: 1em;
