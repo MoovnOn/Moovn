@@ -24,11 +24,6 @@ router.route('search/:cityName/people', function (cityName){
   show('people-template', '.main-content' , {city: cityName});
   activeSelection();
 
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
-
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];

@@ -66,10 +66,6 @@ router.route('search/:cityName/industry', function (cityName){
 
   });
 
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
 
   var citySplit = cityName.split(', ');
   var city = citySplit[0];

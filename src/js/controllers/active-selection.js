@@ -44,5 +44,8 @@ var $ = require('jquery');
       $(".fa-plane").addClass("side-icon-active");
     }
     
+      $('.bar-menu-icon').click(function() {
+    $( ".side-nav-container" ).toggle( "slide" );
+  });
 
 }

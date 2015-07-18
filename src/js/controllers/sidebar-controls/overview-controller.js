@@ -18,10 +18,6 @@ router.route('search/:cityName/overview', function (cityName){
   show('city-template-overview', '.main-content', {city: cityName});
   activeSelection();
 
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
   
   var citySplit = cityName.split(', ');
   var city = citySplit[0];

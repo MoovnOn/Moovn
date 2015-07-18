@@ -138,11 +138,6 @@ router.route('search/:cityName/housing', function (cityName){
 
   activeSelection();
 
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
-
   show('content/tabs-lists', '.quad-3')
 
   //gets the lists displaying as tabs and can change to accordian

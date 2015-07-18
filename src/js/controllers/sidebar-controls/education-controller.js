@@ -41,10 +41,6 @@ router.route('search/:cityName/education', function (cityName){
   nTitle.append("span").style({"color": "darkgreen", "font-weight": "bold"})
     .text(city);
 
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
 
   show('content/tabs-lists', '.tri-3-edu')
 
