@@ -21,54 +21,54 @@ requests_cache.install_cache('cache', expire_after=18000)
 try:
     with open('geo/all_bls_codes.csv') as file:
         industry = {
-                line.split(',')[1][:-1]: line.split(',')[0] for line in file}
+            line.split(',')[1][:-1]: line.split(',')[0] for line in file}
 except:
     with open('Moovn/geo/all_bls_codes.csv') as file:
         industry = {
-                line.split(',')[1][:-1]: line.split(',')[0] for line in file}
+            line.split(',')[1][:-1]: line.split(',')[0] for line in file}
 try:
     with open('geo/oe_ocup.csv') as file:
         occupations = {
-                line.split(',', 1)[0].rstrip('\n'):
+            line.split(',', 1)[0].rstrip('\n'):
                 line.split(',', 1)[1].strip().replace('"', '') for line in file}
 except:
     with open('Moovn/geo/oe_ocup.csv') as file:
         occupations = {
             line.split(',', 1)[0].rstrip('\n'):
-            line.split(',', 1)[1].strip().replace('"', '') for line in file}
+                line.split(',', 1)[1].strip().replace('"', '') for line in file}
 
 try:
     with open("geo/colleges.csv") as file:
         colleges = {line.split(',')[1]: {
-                        "rank": line.split(',')[0],
-                        "tuition": line.split(',')[2].strip('$'),
-                        "city": line.split(',')[3],
-                        "state": line.split(',')[4].strip()
-                                         } for line in file}
+            "rank": line.split(',')[0],
+            "tuition": line.split(',')[2].strip('$'),
+            "city": line.split(',')[3],
+            "state": line.split(',')[4].strip()
+        } for line in file}
 except:
     with open("Moovn/geo/colleges.csv") as file:
         colleges = {line.split(',')[1]: {
-                        "rank": line.split(',')[0],
-                        "tuition": line.split(',')[2].strip('$'),
-                        "city": line.split(',')[3],
-                        "state": line.split(',')[4].strip()
-                                         } for line in file}
+            "rank": line.split(',')[0],
+            "tuition": line.split(',')[2].strip('$'),
+            "city": line.split(',')[3],
+            "state": line.split(',')[4].strip()
+        } for line in file}
 
 try:
     parity = {}
     with open("geo/price_parity.csv") as file:
         for line in file:
             parity[line.split(',')[0].strip('"')] = {
-                        "state": line.split(',')[1].strip('"').strip(),
-                        "score": line.split(',')[2].strip('\n')}
+                "state": line.split(',')[1].strip('"').strip(),
+                "score": line.split(',')[2].strip('\n')}
 
 except:
     parity = {}
     with open("Moovn/geo/price_parity.csv") as file:
         for line in file:
             parity[line.split(',')[0].strip('"')] = {
-                            "state": line.split(',')[1].strip('"').strip(),
-                            "score": line.split(',')[2].strip('\n')}
+                "state": line.split(',')[1].strip('"').strip(),
+                "score": line.split(',')[2].strip('\n')}
 
 
 def city_boundary_view(request, state, name):
@@ -97,7 +97,7 @@ def cell_view(request, state, name):
     places = geojson.loads(places.text)
     coords = [places.features[0].center[0], places.features[0].center[1]]
 
-    signal = requests.get("http://api.opensignal.com/v2/networkstats.json?lat="\
+    signal = requests.get("http://api.opensignal.com/v2/networkstats.json?lat=" \
                           + str(coords[1]) + "&lng=" + str(coords[0]) \
                           + "&distance=" + "10" \
                           # + "&network_type=" + {network_type} +
@@ -189,21 +189,18 @@ def industry_view(request, state, name):
     ndata = json.loads(ind_data.text)
     datadict = {}
     if len(ndata["Results"]["series"]) == 0:
-        response = HttpResponse(print("no data"))
-        return response
+        return HttpResponse("no data")
     else:
         for line in ndata["Results"]["series"]:
             for name in industry:
                 if industry[name] == line["seriesID"][10:-2] and \
-                   len(line["data"]) > 0:
-
+                                len(line["data"]) > 0:
                     datadict[name] = line["data"][0]["value"]
 
     for val in datadict:
         if val != "Total Nonfarm" and val != "Total Private" and \
-           val != "Government":
-
-            datadict[val] = round(100 * float(datadict[val]) /  \
+                        val != "Government":
+            datadict[val] = round(100 * float(datadict[val]) / \
                                   float(datadict["Total Nonfarm"]), ndigits=1)
 
     datadict['Gov'] = str(round(float(datadict["Total Nonfarm"]) - \
@@ -211,8 +208,8 @@ def industry_view(request, state, name):
 
     return JsonResponse(datadict)
 
-def salary_view(request, state, name, job):
 
+def salary_view(request, state, name, job):
     name = get_object_or_404(Name, name=name, state=state)
     jobtitle = job.title()
     locids = name.city.ocp_id.split(',')
@@ -238,29 +235,34 @@ def salary_view(request, state, name, job):
                  "15": "90th"}
 
     if not ndata["Results"] or not ndata["Results"]["series"]:
-        response = HttpResponse("no data")
-        return response
+        return HttpResponse("no data")
 
     else:
         for line in ndata["Results"]["series"]:
             for job in occupations:
                 if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
+<<<<<<< HEAD
                     datadict[occupations[job] \
                     + typecodes[str(line['seriesID'][-2:])]] = \
                     line["data"][0]["value"]
+=======
+                    datadict[occupations[job]
+                             + typecodes[str(line['seriesID'][-2:])]] = \
+                        line["data"][0]["value"]
+>>>>>>> eb458b986e407830c5eeb2497dddbc030a080858
 
     for value in datadict:
         if datadict[value] == "-":
             response = HttpResponse("no data")
             return response
-
-    return JsonResponse(datadict)
+        else:
+            return JsonResponse(datadict)
 
 
 main_ind = [str(num) for num in range(110000, 530000, 20000)]
 
-def industry_size_view(request, state, name):
 
+def industry_size_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
     locid = name.city.ocp_id.split(',')[0][4:11]
     seriesids = [("OEUM" + locid + "000000" + ocup + "01") for ocup in main_ind]
@@ -297,15 +299,13 @@ def industry_size_view(request, state, name):
 
 
 def college_view(request, state, name):
-
     name = get_object_or_404(Name, name=name, state=state)
     selected = {"colleges": ""}
     college_list = []
 
     for college in colleges:
         if name.name in colleges[college]["city"] and name.state in \
-           colleges[college]["state"]:
-
+                colleges[college]["state"]:
             college_list.append({college: colleges[college]})
 
     selected["colleges"] = college_list
@@ -314,7 +314,6 @@ def college_view(request, state, name):
 
 
 def parity_view(request, state, name):
-
     name = get_object_or_404(Name, name=name, state=state)
     data = "no data"
 
