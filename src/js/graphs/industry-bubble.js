@@ -8,7 +8,7 @@ module.exports = function(svg, state, city, height, width) {
 	// styling for the bubble chart and list elements
 	var listBackgroundColor = "black";
 	var listHighlightColor = "red";
-	var circleStrokeWidth = 2;
+	var circleStrokeWidth = 3;
 	var circleHighlightColor = "white";
 
 
@@ -126,7 +126,7 @@ module.exports = function(svg, state, city, height, width) {
 		var bubble = d3.layout.pack()
 			.sort(null)
 			.size([diameter, diameter])
-			.padding(.5);
+			.padding(circleStrokeWidth / 2);
 
 		//console.log(bubble.nodes(data_list))
 		g = svg.append("g")
@@ -151,6 +151,7 @@ module.exports = function(svg, state, city, height, width) {
 				.attr("r", function(d){ return d.r;})
 				.attr("class", "circle")
 				.attr("active", false)
+				.style("stroke-width", circleStrokeWidth)
 				.attr("id", function(d){ return count();})
 				.attr("fill", function(d){ return color(d.name);});
 
