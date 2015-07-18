@@ -25613,7 +25613,7 @@ router.route('search/:cityName/overview', function (cityName){
       url: '/api/parity/' + state + '/' + city + '/'
     })
     .then(function(data){
-      $('.text-right').append('<p>' + data + '</p>');
+      $('.overview-tax-container').append('<p>' + data + '</p>');
     });
 
 //income graph
@@ -25652,11 +25652,11 @@ commuteTime(state, city, '.overview-graph1');
               }
               
                nameArr.forEach(function(e, i) {
-                $(".text-left").append(nameArr[i] + " ");
-                $(".text-left").append(rateArr[i] + "%<br><br>");
+                $(".overview-cost-container").append(nameArr[i] + " ");
+                $(".overview-cost-container").append(rateArr[i] + "%<br><br>");
                });
                
-               $(".text-left").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
+               $(".overview-cost-container").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
                
             })          
           

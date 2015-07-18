@@ -107,16 +107,16 @@
   color:$comp-color;
   font-size: 1.2em;
 }
-.text-left, .text-right, .text-middle{
+.overview-tax-container, .overview-cost-container, .overview-cityImg-container{
   padding-left: 1em;
   padding-bottom: 3em;
   padding-top: 1em;
   background-color: white;
 }
-.text-left, .text-right{
+.overview-tax-container, .overview-cost-container{
   padding-top: 3em;
 }
-.text-middle{
+.overview-cityImg-container{
   background-image: url("../img/skyline-outline.png");
   background-size: cover;
 }
@@ -130,6 +130,7 @@
   padding-top:1em;
   padding-left: 1.5em;
   text-decoration:underline;
+  border-top:1px solid $light-primary-color;
 }
 .city-all-container-overview{
   margin-left: 12.9em;
@@ -138,22 +139,6 @@
   background: #E5F2F2;
   height: 100%;
 }
-//media queries for mobile
 
-@media screen and (max-width: 670px) {
-    .city-all-container{
-      margin: 0.1em;
-    }
-    .bar-menu-icon{
-      margin-top:0.7em;
-      margin-left:0.7em;
-      margin-bottom: 0em;
-    }
-    .duo-1{
-      margin-top: 1em;
-    }
-    .r-tabs .r-tabs-panel {
-    padding-left: 30px;
-    }
-}
+
 
