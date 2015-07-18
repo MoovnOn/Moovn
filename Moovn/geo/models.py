@@ -27,10 +27,11 @@ class City(models.Model):
     geo_id = models.IntegerField()
     ind_id = models.TextField(default="0")
     ocp_id = models.TextField(default="0")
-    price_parity = models.FloatField(default=0)
+    price_parity = models.FloatField(null=True)
 
 
 class College(models.Model):
     city = models.ForeignKey("City", null=True)
-    amount = models.IntegerField(default=0)
+    amount_is = models.IntegerField(null=True)
+    amount_os = models.IntegerField(null=True)
     name = models.TextField()

@@ -245,8 +245,8 @@ def salary_view(request, state, name, job):
         for line in ndata["Results"]["series"]:
             for job in occupations:
                 if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
-                    datadict[occupations[job]
-                    + typecodes[str(line['seriesID'][-2:])]] =
+                    datadict[occupations[job] \
+                    + typecodes[str(line['seriesID'][-2:])]] = \
                         line["data"][0]["value"]
 
     for value in datadict:
@@ -303,7 +303,7 @@ def college_view(request, state, name):
     college_list = []
 
     for college in colleges:
-        if name.name in colleges[college]["city"] and name.state in
+        if name.name in colleges[college]["city"] and name.state in \
            colleges[college]["state"]:
 
             college_list.append({college: colleges[college]})
