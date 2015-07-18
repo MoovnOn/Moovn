@@ -12,35 +12,41 @@ module.exports = function(svg, state, city, height, width) {
 		return m;
 	};
 
-
-	var div = d3.select(".bubble-title").insert("div")
-		.attr("class", "tooltip")
-		.style({"opacity": 1e-6,
-			"width": "100px",
-			"height": "auto",
-			"text-align": "left",
-			"padding": "8px",
-			"pointer-events": "none"
-		});
+	// var div = d3.select(".bubble-title").insert("div")
+	// 	.attr("class", "tooltip")
+	// 	.style({"opacity": 1e-6,
+	// 		"width": "100px",
+	// 		"height": "auto",
+	// 		"text-align": "left",
+	// 		"padding": "8px",
+	// 		"pointer-events": "none"
+	// 	});
 
 	var showText = function (d) {
 
 		if (!this.active) {
 			d3.selectAll("circle").attr("active", false);
+			$(".job").css("background-color", "black");
 
 			d3.select(this).attr("active", true);
 
-			d3.select(".tooltip")
-				.style({"left": d3.event.pageX + "px",
-					"top": d3.event.pageY + "px",
-					"opacity": 1})
-				.text(d.name);
+			$("#" + "L" + this.id).css("background-color", "red");
+			console.log(this.id)
+			var num = "L" + this.id
+			console.log(num)
+			console.log(document.getElementById(num))
+
+			// d3.select(".tooltip")
+			// 	.style({"left": d3.event.pageX + "px",
+			// 		"top": d3.event.pageY + "px",
+			// 		"opacity": 1})
+			// 	.text(d.name);
 
 
 			// d3.select(".bubble-title").select("span")
 			// 	.style("color", this.getAttribute("fill"))
 			// 	.text(d.name);
-		};
+		}
 
 	};
 
@@ -61,6 +67,19 @@ module.exports = function(svg, state, city, height, width) {
 			cb(key, data);
 		}
 
+		// var entries = data_list.children.sort(function(a, b){
+		// 	return b["value"] - a["value"];
+		// });
+
+		var jobList = d3.select(".tri-2")//.append("div")
+			.append("ul").attr("class", "jobList");
+
+		// for (var i = 0; i < entries.length; i++) {
+		// 	jobList.append("li")
+		// 		.attr("class", "job")
+		// 		.text(entries[i]["name"] + ": " + entries[i]["value"] + "%")
+		// }
+
 		var diameter = Math.min(height, width) / 2;
 		var color = d3.scale.category20b();
 
@@ -75,8 +94,10 @@ module.exports = function(svg, state, city, height, width) {
 		var count = counter();
 		var count2 = counter();
 
+		bubbles = bubble.nodes(data_list)
+
 		var node = g.selectAll(".node")
-				.data(bubble.nodes(data_list))
+				.data(bubbles)
 			.enter().append("g")
 				.attr("class", "node")
 				.attr("transform", function (d) { return "translate(" + d.x +
@@ -86,10 +107,19 @@ module.exports = function(svg, state, city, height, width) {
 				.attr("r", function(d){ return d.r;})
 				.attr("class", "circle")
 				.attr("active", false)
+				.attr("id", function(d){ return count();})
 				.attr("fill", function(d){ return color(d.name);});
 
 		g.attr("transform", "scale(" + 2 + ")");
 
+		jobList.selectAll("li")
+			.data(bubbles)
+		.enter().append("li")
+			.attr("class", "job")
+			.attr("id", function(d){ return "L" + count2();})
+			.style({"color": function(d){ return color(d.name);},
+							"background-color": "black"})
+			.text(function(d){ return d.name + ": " + Math.round((d.value + .00001) * 100) / 100 + "%";});
 
 	};
 
