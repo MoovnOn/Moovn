@@ -12,7 +12,7 @@ module.exports = function(svg, state, city, height, width) {
 		return m;
 	};
 
-	var div = d3.select("body").insert("div", ".side-bar-content")
+	var div = d3.select(".bubble-title").insert("div")
 	.attr("class", "tooltip")
 	.style({"opacity": 1e-6,
 	"width": "100px",

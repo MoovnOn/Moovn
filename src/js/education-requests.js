@@ -14,7 +14,7 @@ $.ajax({
 		$('.school-info-title').text("Local Schools");
 		school.forEach(function(school, i) {
 			schoolList.push(school);
-		$('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
+			$('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
 	});
 
 var showDetails = function() {
@@ -44,8 +44,8 @@ showDetails();
   $('.main-content').on('click', '.school-modal-x' , function(){
         $('.school-modal').fadeOut();
         schoolList.forEach(function(school, i) {
-        $('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
-        showDetails();
+       		$('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
+       		showDetails();
   		});
   });
 

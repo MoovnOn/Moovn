@@ -1637,6 +1637,13 @@ header {
 .full-screen-details-right {
   max-height: 80vh; }
 
+.people-left {
+  line-height: 1.5;
+  padding-left: 1em; }
+
+.people-left h1 {
+  color: #B27700; }
+
 .overview-city-title {
   font-size: 1.5em;
   text-align: center;
@@ -1935,16 +1942,28 @@ header {
   height: 400px;
   width: 100%;
   display: none;
-  padding: 1em; }
+  padding: 1em;
+  position: relative; }
 
 .school-info-container {
   height: 400px;
   overflow: auto;
   padding: 1em; }
 
+.school-modal-content {
+  padding: 1em;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+  height: 100%;
+  border: 1px solid black;
+  border-radius: 12px; }
+
 .school-modal-x {
   margin: 0.6em;
-  display: block; }
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0; }
 
 .school-details {
   line-height: 1.5; }

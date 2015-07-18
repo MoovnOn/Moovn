@@ -6,7 +6,6 @@ var router = require('../../router');
 var show = require('../../show');
 var places = require('../../places-api');
 var tab = require('responsive-tabs');
-var d3 = require('d3');
 var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
@@ -22,7 +21,7 @@ router.route('search/:cityName/people', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
-  show('city-template-4', '.main-content' , {city: cityName});
+  show('people-template', '.main-content' , {city: cityName});
   activeSelection();
 
   //slides the side-nav
@@ -35,16 +34,9 @@ router.route('search/:cityName/people', function (cityName){
   var state = citySplit[1];
 
 
-  peopleAge(state, city, '.quad-1');
-  peopleHousehold(state, city);
-  peopleRelationships(state, city);
-
-  show('content/tabs-lists', '.quad-4')
-
-  //gets the lists displaying as tabs and can change to accordian
-  $('#responsiveTabsDemo').responsiveTabs({
-      startCollapsed: 'accordion'
-  });
+  peopleAge(state, city, '.people-top-graph');
+  peopleHousehold(state, city, '.people-middle-graph');
+  peopleRelationships(state, city, '.people-bottom-graph');
 
   liveshere(state, city);
 

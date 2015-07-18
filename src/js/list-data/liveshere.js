@@ -34,11 +34,11 @@ console.log(housingResponse);
       }
     
 
-  $(".tab-title1").html('<a href="#tab-1" class="r-tabs-anchor">People Who Live Here</a>');   
+  $(".people-left").append('<h1>People Who Live Here</h1>');   
     
     descArr.forEach(function(e, i) {
-      $(".tab-data1").append("<b>" + nameArr[i] + "</b>" + "<br>");
-      $(".tab-data1").append(descArr[i] + "<br><br>");
+      $(".people-left").append("<b>" + nameArr[i] + "</b>" + "<br>");
+      $(".people-left").append(descArr[i] + "<br><br>");
     });
 
   }
