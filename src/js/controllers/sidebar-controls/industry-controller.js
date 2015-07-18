@@ -31,12 +31,12 @@ router.route('search/:cityName/industry', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  var width = $(".tri-2").width(),
+  var width = $(".bubble-chart").width(),
       aspect = 1;
 
-  var width2 = $(".tri-1").width();
+  var width2 = $(".bubble-chart").width();
 
-  var svg = d3.select(".tri-2").append("svg")
+  var svg = d3.select(".bubble-chart").append("svg")
               .attr("preserveAspectRatio", "xMidYMid")
               .attr("viewBox", "0 0 1000 1000")
               .attr("width", width)
@@ -50,7 +50,7 @@ router.route('search/:cityName/industry', function (cityName){
     .attr("height", width2 * aspect);
 
   $(window).resize(function(){
-    var width = $(".tri-2").width();
+    var width = $(".bubble-chart").width();
     var width2 = $(".tri-1").width();
     svg.attr("width", width);
     svg.attr("height", width * aspect);

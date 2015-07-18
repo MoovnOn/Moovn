@@ -24219,13 +24219,13 @@ $.widget( "ui.tooltip", {
 
 },{"jquery":"jquery"}],3:[function(require,module,exports){
 /*
- *  Project: jQuery.responsiveTabs.js
+ *  Project: jquery.responsiveTabs.js
  *  Description: A plugin that creates responsive tabs, optimized for all devices
  *  Author: Jelle Kralt (jelle@jellekralt.nl)
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require('jquery');
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -24350,7 +24350,7 @@ var jQuery = require('jquery');
         // Trigger loaded event
         this.$element.trigger('tabs-load');
     };
-
+    
     //
     // PRIVATE FUNCTIONS
     //
@@ -24482,7 +24482,7 @@ var jQuery = require('jquery');
     ResponsiveTabs.prototype._getStartTab = function() {
         var tabRef = this._getTabRefBySelector(window.location.hash);
         var startTab;
-
+        
         // Check if the page has a hash set that is linked to a tab
         if(tabRef >= 0 && !this._getTab(tabRef).disabled) {
             // If so, set the current tab to the linked tab
@@ -24561,7 +24561,7 @@ var jQuery = require('jquery');
         _this._doTransition(oTab.panel, _this.options.animation, 'open', function() {
             // When finished, set active class to the panel
             oTab.panel.removeClass(_this.options.classes.stateDefault).addClass(_this.options.classes.stateActive);
-
+          
            // And if enabled and state is accordion, scroll to the accordion tab
             if(_this.getState() === 'accordion' && _this.options.scrollToAccordion && (!_this._isInView(oTab.accordionTab) || _this.options.animation !== 'default')) {
                 // Check if the animation option is enabled, and if the duration isn't 0
@@ -24742,7 +24742,7 @@ var jQuery = require('jquery');
 
     //
     // HELPER FUNCTIONS
-    //
+    // 
 
     ResponsiveTabs.prototype._isInView = function($element) {
         var docViewTop = $(window).scrollTop(),
@@ -25419,12 +25419,12 @@ router.route('search/:cityName/industry', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  var width = $(".tri-2").width(),
+  var width = $(".bubble-chart").width(),
       aspect = 1;
 
-  var width2 = $(".tri-1").width();
+  var width2 = $(".bubble-chart").width();
 
-  var svg = d3.select(".tri-2").append("svg")
+  var svg = d3.select(".bubble-chart").append("svg")
               .attr("preserveAspectRatio", "xMidYMid")
               .attr("viewBox", "0 0 1000 1000")
               .attr("width", width)
@@ -25438,7 +25438,7 @@ router.route('search/:cityName/industry', function (cityName){
     .attr("height", width2 * aspect);
 
   $(window).resize(function(){
-    var width = $(".tri-2").width();
+    var width = $(".bubble-chart").width();
     var width2 = $(".tri-1").width();
     svg.attr("width", width);
     svg.attr("height", width * aspect);
@@ -26284,8 +26284,8 @@ module.exports = function(svg, state, city, height, width) {
 	var boundTo = ".tri-2"; // d3-selector for element the list is appended to
 
 	// styling for the bubble chart and list elements
-	var listBackgroundColor = "black";
-	var listHighlightColor = "red";
+	var listBackgroundColor = "white";
+	var listHighlightColor = "lightgrey";
 	var circleStrokeWidth = 3;
 	var circleHighlightColor = "white";
 
@@ -26387,7 +26387,7 @@ module.exports = function(svg, state, city, height, width) {
 
 		// adding the job list to the page
 		var jobList = d3.select(boundTo)//.append("div")
-			.append("ul").attr("class", "jobList");
+			.append("ul").attr("class", "jobList pure-u-1-2");
 
 		// for (var i = 0; i < entries.length; i++) {
 		// 	jobList.append("li")
@@ -26434,7 +26434,7 @@ module.exports = function(svg, state, city, height, width) {
 				.attr("fill", function(d){ return color(d.name);});
 
 		// fill the svg
-		g.attr("transform", "scale(" + 2 + ")");
+		g.attr("transform", "scale(" + 4 + ")");
 
 		// create list items
 		jobList.selectAll("li")

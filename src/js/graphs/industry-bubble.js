@@ -6,8 +6,8 @@ module.exports = function(svg, state, city, height, width) {
 	var boundTo = ".tri-2"; // d3-selector for element the list is appended to
 
 	// styling for the bubble chart and list elements
-	var listBackgroundColor = "black";
-	var listHighlightColor = "red";
+	var listBackgroundColor = "white";
+	var listHighlightColor = "lightgrey";
 	var circleStrokeWidth = 3;
 	var circleHighlightColor = "white";
 
@@ -109,7 +109,7 @@ module.exports = function(svg, state, city, height, width) {
 
 		// adding the job list to the page
 		var jobList = d3.select(boundTo)//.append("div")
-			.append("ul").attr("class", "jobList");
+			.append("ul").attr("class", "jobList pure-u-1-2");
 
 		// for (var i = 0; i < entries.length; i++) {
 		// 	jobList.append("li")
@@ -156,7 +156,7 @@ module.exports = function(svg, state, city, height, width) {
 				.attr("fill", function(d){ return color(d.name);});
 
 		// fill the svg
-		g.attr("transform", "scale(" + 2 + ")");
+		g.attr("transform", "scale(" + 4 + ")");
 
 		// create list items
 		jobList.selectAll("li")
