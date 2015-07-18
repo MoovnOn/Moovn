@@ -108,7 +108,7 @@
   font-size: 1.2em;
 }
 .overview-tax-container, .overview-cost-container, .overview-cityImg-container{
-  padding-left: 1em;
+  padding-left: 3em;
   padding-bottom: 3em;
   padding-top: 1em;
   background-color: white;
@@ -117,8 +117,9 @@
   padding-top: 3em;
 }
 .overview-cityImg-container{
-  background-image: url("../img/skyline-outline.png");
-  background-size: cover;
+  background-image: url("../img/chicago-outline.jpg");
+  background-size:100%;
+  background-repeat: no-repeat;
 }
 .overview-img{
   max-width:300px;

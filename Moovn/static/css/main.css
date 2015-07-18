@@ -1347,6 +1347,13 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   padding: 0.4em;
   border: none; }
 
+.side-bar-background {
+  position: fixed;
+  height: 100vh;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none; }
+
 @media screen and (max-width: 670px) {
   .side-nav-container {
     z-index: 100;
@@ -1656,7 +1663,7 @@ header {
   font-size: 1.2em; }
 
 .overview-tax-container, .overview-cost-container, .overview-cityImg-container {
-  padding-left: 1em;
+  padding-left: 3em;
   padding-bottom: 3em;
   padding-top: 1em;
   background-color: white; }
@@ -1665,8 +1672,9 @@ header {
   padding-top: 3em; }
 
 .overview-cityImg-container {
-  background-image: url("../img/skyline-outline.png");
-  background-size: cover; }
+  background-image: url("../img/chicago-outline.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat; }
 
 .overview-img {
   max-width: 300px;

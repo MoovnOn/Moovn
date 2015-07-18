@@ -1,6 +1,19 @@
 var $ = require('jquery');
 
   module.exports = function(){
+  
+  //slides the menu for mobile view
+    $('.bar-menu-icon').click(function() {
+      $('.side-nav-container').toggle( "slide" );
+      $('.side-bar-background').fadeIn();
+    });
+    $('.side-bar-background').click(function(){
+      $('.side-nav-container').toggle( "slide" );
+      $('.side-bar-background').fadeOut();
+    });
+    
+    
+    //changes side-nav styles to indicate which selection user is on.
     if( window.location.href.indexOf("housing") > -1 ){
       $(".housing").addClass("side-nav-item-active");
       $(".fa-home").addClass("side-icon-active");
@@ -44,8 +57,6 @@ var $ = require('jquery');
       $(".fa-plane").addClass("side-icon-active");
     }
     
-      $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
+
 
 }

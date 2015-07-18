@@ -6,7 +6,7 @@ var show = require('../show');
 var parseCell = require('../graphs/parse-cell');
 var parseCell2 = require('../graphs/parse-cell-2');
 var downloadGraph = require('../graphs/cell-download');
-var activeSelection = require('./active-selection');
+var sideBar = require('./side-bar-controller');
 var searchFunction = require('../search');
 var peopleAge = require('../graphs/people-age');
 var housingGraphGeneral = require('../graphs/housing');
@@ -18,7 +18,7 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
  	// show('side-bar-city-search', '.side-bar-content', {city1: cityName1});
  	// searchFunction();
  	show('city-template-vertical', '.main-content', {city1: cityName1, city2: cityName2})
- 	activeSelection();
+ 	sideBar();
  	
 
  	var citySplit1 = cityName1.split(', ');
