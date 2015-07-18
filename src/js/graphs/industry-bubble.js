@@ -12,15 +12,16 @@ module.exports = function(svg, state, city, height, width) {
 		return m;
 	};
 
-	var div = d3.select("body").insert("div", ".side-bar-content")
+
+	var div = d3.select(".bubble-title").insert("div")
 		.attr("class", "tooltip")
 		.style({"opacity": 1e-6,
-		"width": "100px",
-		"height": "12px",
-		"text-align": "center",
-		"padding": "8px",
-		"pointer-events": "none"
-	});
+			"width": "100px",
+			"height": "auto",
+			"text-align": "left",
+			"padding": "8px",
+			"pointer-events": "none"
+		});
 
 	var showText = function (d) {
 

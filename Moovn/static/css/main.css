@@ -1387,21 +1387,44 @@ header {
   font-weight: normal; }
 
 .sub-title-container {
-  margin-bottom: 1em; }
+  margin-bottom: 1em;
+  margin-top: 2em; }
 
 .sub-title {
   margin: 0;
   margin-bottom: 0.2em; }
 
+.compare-option {
+  float: right;
+  color: #00008B; }
+
+.compare-option:hover {
+  cursor: pointer; }
+
 .show-input {
   display: inline-block; }
 
 .search-form-searchView {
-  text-align: center;
-  padding: 0.3em; }
+  text-align: center; }
 
 .search-city-searchView {
   min-width: 20em; }
+
+.search-city {
+  margin: 0 0 0.2em 0; }
+
+.search-city-comp {
+  margin: 0 0 0.2em 0;
+  min-width: 20em; }
+
+.search-input-container {
+  width: 20em;
+  margin: auto; }
+
+.search-btn {
+  display: block;
+  min-width: 20em;
+  margin: 0 auto; }
 
 .map-container {
   text-align: center;
@@ -1411,7 +1434,8 @@ header {
 
 .map-image {
   max-width: 100%;
-  max-height: auto; }
+  max-height: auto;
+  margin-bottom: -2px; }
 
 .submit, .compare {
   background: #1cb841;
@@ -1428,7 +1452,7 @@ header {
   overflow-x: auto; }
 
 .flow-container {
-  margin-top: 3em; }
+  margin-top: 5em; }
 
 .flow {
   text-align: center;
@@ -1436,19 +1460,19 @@ header {
 
 .flow-icon {
   margin: auto;
-  height: 1.5em;
+  height: 1.2em;
   width: auto;
   display: block;
-  font-size: 2em; }
+  font-size: 3em; }
 
 .fa-compass {
-  color: darkred; }
+  color: #3D5E99; }
 
 .fa-bar-chart {
-  color: darkblue; }
+  color: #CC2E14; }
 
 .fa-globe {
-  color: darkgreen; }
+  color: #FF7640; }
 
 .powered-by-container {
   position: fixed;
@@ -1615,31 +1639,52 @@ header {
 .full-screen-details-right {
   max-height: 80vh; }
 
-.overview-city-title {
-  font-size: 1.5em;
-  text-align: center;
+.people-left {
+  line-height: 1.5;
+  padding-left: 1em; }
+
+.people-left h1 {
   color: #B27700; }
 
+.overview-city-title {
+  font-size: 1.5em;
+  text-align: center; }
+
 .overview-title {
-  text-align: center;
+  text-align: left;
   color: #B27700;
   font-size: 1.2em; }
 
 .text-left, .text-right, .text-middle {
   padding-left: 1em;
   padding-bottom: 3em;
-  padding-top: 1em; }
+  padding-top: 1em;
+  background-color: white; }
 
-.text-left {
-  padding-left: 2em; }
+.text-left, .text-right {
+  padding-top: 3em; }
 
 .text-middle {
-  position: relative; }
+  background-image: url("../img/skyline-outline.png");
+  background-size: cover; }
 
 .overview-img {
   max-width: 300px;
   position: absolute;
   bottom: 0; }
+
+.overview-graph-title {
+  color: #354052;
+  padding-top: 1em;
+  padding-left: 1.5em;
+  text-decoration: underline; }
+
+.city-all-container-overview {
+  margin-left: 12.9em;
+  margin-right: 0em;
+  margin-bottom: 0em;
+  background: #E5F2F2;
+  height: 100%; }
 
 @media screen and (max-width: 670px) {
   .city-all-container {
@@ -1857,8 +1902,47 @@ header {
   100% {
     top: 0; } }
 
+.comp-grid {
+  margin-top: 100px; }
+
+.comp-chart-cont {
+  width: 45%;
+  float: left;
+  padding: 1em; }
+
+.comp-graph-title {
+  text-align: center;
+  padding-top: 2.8em;
+  font-size: 1.2em; }
+
+.comp-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.9); }
+
+.comp-city-title {
+  width: 50%;
+  float: left;
+  text-align: center;
+  font-size: 1.5em;
+  padding: 1.5em 0 1.5em 0; }
+
+.comp-logo-container {
+  position: fixed;
+  top: 0;
+  left: 0; }
+
+.comp-logo {
+  padding-top: 1.5em;
+  padding-left: 1.5em; }
+
+.tri-1-edu, .tri-2-edu {
+  margin-top: 1em; }
+
 .school-info {
-  overflow: auto;
   height: 400px; }
 
 .school-title {
@@ -1870,15 +1954,31 @@ header {
   text-decoration: underline; }
 
 .school-modal {
-  overflow: auto;
   height: 400px;
   width: 100%;
   display: none;
-  box-shadow: 0px 0px 10px; }
+  padding: 1em;
+  position: relative; }
+
+.school-info-container {
+  height: 400px;
+  overflow: auto;
+  padding: 1em; }
+
+.school-modal-content {
+  padding: 1em;
+  margin-bottom: 0.5em;
+  overflow: hidden;
+  height: 100%;
+  box-shadow: 0px 0px 8px 1px rgba(0, 0, 0, 0.75);
+  border-radius: 12px; }
 
 .school-modal-x {
   margin: 0.6em;
-  display: block; }
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0; }
 
 .school-details {
   line-height: 1.5; }
@@ -1886,6 +1986,25 @@ header {
 .details-titles {
   line-height: 1.5;
   font-weight: 900; }
+
+.tooltip {
+  position: absolute;
+  background: white;
+  border-radius: 0.3em;
+  height: auto;
+  border: 1px solid black; }
+
+.bubble-title h2 {
+  text-align: center;
+  padding: 1em;
+  font-size: 1.5em;
+  color: #B27700; }
+
+.tri-2 svg {
+  margin-left: 8%; }
+
+.tri-1 {
+  margin: auto; }
 
 body {
   font-family: Century Gothic, sans-serif; }

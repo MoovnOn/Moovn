@@ -13,7 +13,6 @@ var searchFunction = require('../../search');
 var views = require('views');
 var incomeCity = require ('../../graphs/income-city-wide')
 var activeSelection = require('../active-selection');
-var jobSearch = require('../../job-search');
 var autocomplete = require('jquery-ui');
 var jobtitles = require('../../job-titles');
 var bubbleChart = require('../../graphs/industry-bubble');

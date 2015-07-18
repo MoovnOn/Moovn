@@ -9,7 +9,6 @@ header{
   max-height: 50px;
   max-width: auto;
 }
-
 .search-page-container{
    margin-bottom: 2em; 
    display: none;
@@ -28,20 +27,43 @@ header{
 }
 .sub-title-container{
   margin-bottom:1em;
+  margin-top: 2em;
 }
 .sub-title{
   margin: 0;
   margin-bottom:0.2em;
+}
+.compare-option {
+  float: right;
+  color: #00008B;
+}
+.compare-option:hover {
+  cursor: pointer;
 }
 .show-input {
 	display: inline-block;
 }
 .search-form-searchView {
   text-align: center;
-  padding: 0.3em;
 }
 .search-city-searchView{
   min-width: 20em;
+}
+.search-city {
+  margin: 0 0 0.2em 0;
+}
+.search-city-comp {
+  margin: 0 0 0.2em 0;
+  min-width: 20em;
+}
+.search-input-container {
+  width: 20em;
+  margin: auto;
+}
+.search-btn {
+  display: block;
+  min-width: 20em;
+  margin: 0 auto;
 }
 .map-container{
   text-align: center;
@@ -52,6 +74,7 @@ header{
 .map-image {
   max-width: 100%;
   max-height: auto; 
+  margin-bottom:-2px;
 }
 .submit, .compare {
   background: rgb(28, 184, 65);
@@ -68,7 +91,7 @@ header{
   overflow-x: auto;
 }
 .flow-container{
-  margin-top:3em;
+  margin-top:5em;
 }
 .flow{
   text-align: center;
@@ -76,19 +99,19 @@ header{
 }
 .flow-icon{
   margin: auto;
-  height: 1.5em;
+  height: 1.2em;
   width: auto;
   display:block;
-  font-size: 2em;
+  font-size: 3em;
 }
 .fa-compass{
-  color: darkred;
+  color: $graph-color-1;
 }
 .fa-bar-chart{
-  color: darkblue
+  color: $graph-color-2;
 }
 .fa-globe{
-  color: darkgreen;
+  color: $graph-color-4;
 }
 .powered-by-container{
   position: fixed;
