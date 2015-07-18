@@ -12,7 +12,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var getDetails = require('../../place-details')
 var views = require('views');
-var activeSelection = require('../active-selection');
+var sideBar = require('../side-bar-controller');
 
 router.route('search/:cityName/places', function (cityName){
 
@@ -22,7 +22,7 @@ router.route('search/:cityName/places', function (cityName){
 
   show('city-template-2', '.main-content', {city: cityName} );
 
-  activeSelection();
+  sideBar();
 
   var citySplit = cityName.split(', ');
   var city = citySplit[0];

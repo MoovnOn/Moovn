@@ -14,7 +14,7 @@ var views = require('views');
 var parseCell = require('../../graphs/parse-cell');
 var downloadGraph = require('../../graphs/cell-download');
 var reliabilityGraph = require('../../graphs/cell-reliability');
-var activeSelection = require('../active-selection');
+var sideBar = require('../side-bar-controller');
 var parseCell2 = require('../../graphs/parse-cell-2')
 
 router.route('search/:cityName/internet', function (cityName){
@@ -22,7 +22,7 @@ router.route('search/:cityName/internet', function (cityName){
   show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
   show('city-template-2', '.main-content', {city: cityName});
-  activeSelection();
+  sideBar();
     
   var citySplit = cityName.split(', ');
   var city = citySplit[0];

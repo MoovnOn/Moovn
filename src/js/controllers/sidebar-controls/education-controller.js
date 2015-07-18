@@ -11,7 +11,7 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var activeSelection = require('../active-selection');
+var sideBar = require('../side-bar-controller');
 var getDetails = require('../../place-details');
 
 // for the map
@@ -30,7 +30,7 @@ router.route('search/:cityName/education', function (cityName){
   searchFunction();
   show('education-template', '.main-content', {city: cityName} );
 
-  activeSelection();
+  sideBar();
 
   nTitle = d3.select(".neighborhood-select");
   nTitle.selectAll("span");

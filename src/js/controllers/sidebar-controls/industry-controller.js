@@ -12,7 +12,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var incomeCity = require ('../../graphs/income-city-wide')
-var activeSelection = require('../active-selection');
+var sideBar = require('../side-bar-controller');
 var autocomplete = require('jquery-ui');
 var jobtitles = require('../../job-titles');
 var bubbleChart = require('../../graphs/industry-bubble');
@@ -25,7 +25,7 @@ router.route('search/:cityName/industry', function (cityName){
   searchFunction();
 
   show('city-template-3', '.main-content', {city: cityName});
-  activeSelection();
+  sideBar();
 
   var citySplit = cityName.split(', ');
   var city = citySplit[0];

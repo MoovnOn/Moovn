@@ -6,7 +6,7 @@ var router = require('../../router');
 var show = require('../../show');
 var places = require('../../places-api');
 var searchFunction = require('../../search');
-var activeSelection = require('../active-selection');
+var sideBar = require('../side-bar-controller');
 var commuteTime = require('../../graphs/commute-times');
 var housingGraphGeneral = require('../../graphs/housing');
 var incomeCity = require ('../../graphs/income-city-wide')
@@ -16,7 +16,7 @@ router.route('search/:cityName/overview', function (cityName){
   show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
   show('city-template-overview', '.main-content', {city: cityName});
-  activeSelection();
+  sideBar();
 
   
   var citySplit = cityName.split(', ');
