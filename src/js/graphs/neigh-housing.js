@@ -25,11 +25,17 @@ module.exports = function (allHousingData){
     data: {
       columns: [
           ['Condo', housingAffordData[0]],
-          ['2-Bed-Home', housingAffordData[1]],
-          ['3-Bed-Home', housingAffordData[2]],
-          ['4-Bed-Home', housingAffordData[3]],
+          ['2-Bed', housingAffordData[1]],
+          ['3-Bed', housingAffordData[2]],
+          ['4-Bed', housingAffordData[3]],
       ],
-      type: 'bar'
+      type: 'bar',
+      colors: {
+            'Condo': '#3D5E99',
+            '2-Bed': '#CC2E14',
+            '3-Bed': '#707D94',
+            '4-Bed': '#FF7640',
+          },
     },
     axis: {
 

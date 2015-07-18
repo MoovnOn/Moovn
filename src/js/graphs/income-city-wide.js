@@ -28,10 +28,14 @@ module.exports = function(state, city, element) {
         bindto: element,
         data: {
           columns: [
-              ['Median-City-Income', housingPeopleIncome],
-              ['Median-Nation-Income', housingPeopleIncomeNation],
+              ['City Income', housingPeopleIncome],
+              ['National Income', housingPeopleIncomeNation],
           ],
-          type: 'bar'
+          type: 'bar',
+          colors: {
+            'City Income': '#3D5E99',
+            'National Income': '#CC2E14',           
+          },
         },
         axis: {
           x: {

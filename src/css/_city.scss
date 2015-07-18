@@ -87,6 +87,8 @@
 .full-screen-details-right{
   max-height: 80vh;
 }
+//
+
 
 //overview page
 .overview-city-title{
@@ -108,7 +110,8 @@
   padding-left: 2em;
 }
 .text-middle{
-  position:relative;
+  background-image: url("../img/skyline-outline.png");
+  background-size: cover;
 }
 .overview-img{
   max-width:300px;

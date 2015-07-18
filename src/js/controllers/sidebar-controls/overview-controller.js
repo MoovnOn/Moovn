@@ -27,6 +27,15 @@ router.route('search/:cityName/overview', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
+//cost of living
+    $.ajax({
+      method: 'GET',
+      url: '/api/parity/' + state + '/' + city + '/'
+    })
+    .then(function(data){
+      $('.text-right').append('<p>' + data + '</p>');
+    });
+
 //income graph
 incomeCity(state, city, '.overview-graph3');
 

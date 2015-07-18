@@ -166,4 +166,6 @@ router.route('search/:cityName/education', function (cityName){
     getDetails(id)
   },1000);
 
+// bottom
 });
+
