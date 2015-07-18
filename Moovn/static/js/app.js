@@ -25549,10 +25549,8 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var parseCell = require('../../graphs/parse-cell');
-var downloadGraph = require('../../graphs/cell-download');
-var reliabilityGraph = require('../../graphs/cell-reliability');
 var activeSelection = require('../active-selection');
-var parseCell2 = require('../../graphs/parse-cell-2')
+
 
 router.route('search/:cityName/internet', function (cityName){
 
@@ -25560,18 +25558,14 @@ router.route('search/:cityName/internet', function (cityName){
   searchFunction();
   show('city-template-2', '.main-content', {city: cityName});
   activeSelection();
-    
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
 
-	parseCell(state, city).then(function (data) {
-      console.log(data);
-      var data2 = parseCell2(data);     
 
-      downloadGraph(data2, '.duo-1');
-      reliabilityGraph(data2, '.duo-2');
-    });
+  parseCell(state, city);
+
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -25580,7 +25574,7 @@ router.route('search/:cityName/internet', function (cityName){
 
 });
 
-},{"../../graphs/cell-download":22,"../../graphs/cell-reliability":23,"../../graphs/parse-cell":31,"../../graphs/parse-cell-2":30,"../../neighMap":41,"../../places-api":44,"../../router":45,"../../search":46,"../../show":47,"../../zoom":50,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
+},{"../../graphs/parse-cell":31,"../../neighMap":41,"../../places-api":44,"../../router":45,"../../search":46,"../../show":47,"../../zoom":50,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -26799,45 +26793,76 @@ module.exports = function(data) {
 },{}],31:[function(require,module,exports){
 var $ = require('jquery');
 var c3 = require('c3');
-var d3 = require('d3');
+var topojson = require('../topojson')
+var parse2 = require('./parse-cell-2')
+var downloadGraph = require('./cell-download');
+var reliabilityGraph = require('./cell-reliability');
+
 
 module.exports = function (state, city) {
+  var centroid = [];
+  var newArray = [];
 
-  $.ajax({
-    method: 'GET',
-    url: 'api/boundary/' + state + '/' + city + '/'
-  }).then(function (data) {
-     
-      var projection = d3.geo.albers().scale(200).translate([150,140]);
-      var path = d3.geo.path().projection(projection);
+  Promise.all([
 
-      var bounds = path.bounds(data); 
-      var lon = (bounds[0][0] + bounds[0][0])/2;
-      var lat = (bounds[0][1] + bounds[1][1])/2;
+    $.ajax({
+      method: 'GET',
+      url: 'api/boundary/' + state + '/' + city + '/'
+    }).then(function (json) {
 
-      console.log(lat);
-      console.log(lon);
+      data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]]);
+      centroid = [data.features[0].properties.INTPTLAT10, data.features[0].properties.INTPTLON10]
 
-  }).then(function(data) {
+    }),
 
-      console.log(data)
+  ]).then(function(results) {
 
+    Promise.all([
+    $.ajax({
+      method: "GET",
+      url: "api/celldata/" + state + "/" + city + "/?lat=" + centroid[0] + "&lon=" + centroid[1],
+    }).then(function(data){
+        var array = data.networkRank;
 
+       array.forEach(function(prov) {
+         if (prov.networkName === "AT&T") {
+           newArray[0] = prov;
+         }
+         if (prov.networkName === "Verizon") {
+           newArray[1] = prov;
+         }
+         if (prov.networkName === "Sprint") {
+           newArray[2] = prov;
+         }
+         if (prov.networkName === "T-Mobile") {
+           newArray[3] = prov;
+         }
+       })
 
-  })
+    }),
 
+  ]).then(function(results){
+      console.log(newArray)
+      var data2 = parse2(newArray);
+      console.log(data2)
+      downloadGraph(data2, '.duo-1');
+      reliabilityGraph(data2, '.duo-2');
+
+    });
+
+  });
 
 };
   // return $.ajax({
   //  method: 'GET',
   //  url: 'api/celldata/' + state + '/' + city + '/?lat=' + lat + '&lon=' + lon
   // }).then(function (data){
-  //   console.log(data)  
+  //   console.log(data)
   //  var array = data.networkRank;
   //   var newArray = [];
 
   //   console.log(array);
-    
+
   //  array.forEach(function(prov) {
   //    if (prov.networkName === "AT&T") {
   //      newArray[0] = prov
@@ -26855,7 +26880,7 @@ module.exports = function (state, city) {
   //   return newArray
   // });
 
-},{"c3":"c3","d3":"d3","jquery":"jquery"}],32:[function(require,module,exports){
+},{"../topojson":49,"./cell-download":22,"./cell-reliability":23,"./parse-cell-2":30,"c3":"c3","jquery":"jquery"}],32:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');

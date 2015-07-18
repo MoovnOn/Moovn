@@ -92,7 +92,7 @@ def cell_view(request, state, name):
     # places = geojson.loads(places.text)
     # coords = [places.features[0].center[0], places.features[0].center[1]]
 
-    coords = [request.data.get("lon"), request.data.get("lat")]
+    coords = [request.GET.get("lon"), request.GET.get("lat")]
 
     signal = requests.get("http://api.opensignal.com/v2/networkstats.json?lat=" \
                           + str(coords[1]) + "&lng=" + str(coords[0]) \
