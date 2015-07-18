@@ -24952,15 +24952,19 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   var city2 = citySplit2[0];
   var state2 = citySplit2[1];
 
-  parseCell(state1, city1).then(function (data) {
-      var data2 = parseCell2(data);
-      downloadGraph(data2, '.comp-chart1-1' )
-  });
 
-  parseCell(state2, city2).then(function (data) {
-      var data2 = parseCell2(data);  
-      downloadGraph(data2, '.comp-chart2-1' )
-  });
+  parseCell(state1, city1, '.comp-chart1-1');
+  parseCell(state2, city2, '.comp-chart2-1');
+
+  // parseCell(state1, city1, '.comp-chart1-1').then(function (data) {
+  //     var data2 = parseCell2(data);
+  //     downloadGraph(data2, '.comp-chart1-1' )
+  // });
+
+  // parseCell(state2, city2).then(function (data) {
+  //     var data2 = parseCell2(data);  
+  //     downloadGraph(data2, '.comp-chart2-1' )
+  // });
 
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
@@ -25549,10 +25553,8 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var parseCell = require('../../graphs/parse-cell');
-var downloadGraph = require('../../graphs/cell-download');
-var reliabilityGraph = require('../../graphs/cell-reliability');
 var activeSelection = require('../active-selection');
-var parseCell2 = require('../../graphs/parse-cell-2')
+
 
 router.route('search/:cityName/internet', function (cityName){
 
@@ -25560,18 +25562,14 @@ router.route('search/:cityName/internet', function (cityName){
   searchFunction();
   show('city-template-2', '.main-content', {city: cityName});
   activeSelection();
-    
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
 
-	parseCell(state, city).then(function (data) {
-      console.log(data);
-      var data2 = parseCell2(data);     
 
-      downloadGraph(data2, '.duo-1');
-      reliabilityGraph(data2, '.duo-2');
-    });
+  parseCell(state, city, '.duo-1', '.duo-2');
+
 
   //slides the side-nav
   $('.bar-menu-icon').click(function() {
@@ -25580,7 +25578,7 @@ router.route('search/:cityName/internet', function (cityName){
 
 });
 
-},{"../../graphs/cell-download":22,"../../graphs/cell-reliability":23,"../../graphs/parse-cell":31,"../../graphs/parse-cell-2":30,"../../neighMap":41,"../../places-api":44,"../../router":45,"../../search":46,"../../show":47,"../../zoom":50,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
+},{"../../graphs/parse-cell":31,"../../neighMap":41,"../../places-api":44,"../../router":45,"../../search":46,"../../show":47,"../../zoom":50,"../active-selection":5,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -26521,6 +26519,17 @@ d3 = require('d3');
 $ = require('jquery');
 
 module.exports = function(svg, state, city, height, width) {
+
+	var boundTo = ".tri-2"; // d3-selector for element the list is appended to
+
+	// styling for the bubble chart and list elements
+	var listBackgroundColor = "black";
+	var listHighlightColor = "red";
+	var circleStrokeWidth = 3;
+	var circleHighlightColor = "white";
+
+
+	// closure for generating element IDs
 	var counter = function (){
 		var k = 0;
 		var m = function () {
@@ -26531,37 +26540,69 @@ module.exports = function(svg, state, city, height, width) {
 		return m;
 	};
 
-	var div = d3.select(".bubble-title").insert("div")
-	.attr("class", "tooltip")
-	.style({"opacity": 1e-6,
-	"width": "100px",
-	"height": "auto",
-	"text-align": "left",
-	"padding": "8px",
-	"pointer-events": "none"
-	});
+	// var div = d3.select(".bubble-title").insert("div")
+	// 	.attr("class", "tooltip")
+	// 	.style({"opacity": 1e-6,
+	// 		"width": "100px",
+	// 		"height": "auto",
+	// 		"text-align": "left",
+	// 		"padding": "8px",
+	// 		"pointer-events": "none"
+	// 	});
 
+	/**
+		function to highlight descriptive list items corresponding to circles
+		on mouse-enter
+	**/
 	var showText = function (d) {
 
 		if (!this.active) {
-			d3.selectAll("circle").attr("active", false);
+			d3.selectAll("circle").attr("active", false)
+				.style("stroke", "none");
+			$(".job").css("background-color", listBackgroundColor);
+			d3.select(this).attr("active", true)
+				.style("stroke", circleHighlightColor);
+			$("#" + "L" + this.id).css("background-color", listHighlightColor);
 
-			d3.select(this).attr("active", true);
 
-			d3.select(".tooltip")
-			.style({"left": d3.event.pageX + "px",
-			"top": d3.event.pageY + "px",
-			"opacity": 1})
-			.text(d.name);
+			// currently unused tooltips for the bubble chart
 
+			// d3.select(".tooltip")
+			// 	.style({"left": d3.event.pageX + "px",
+			// 		"top": d3.event.pageY + "px",
+			// 		"opacity": 1})
+			// 	.text(d.name);
 
 			// d3.select(".bubble-title").select("span")
 			// 	.style("color", this.getAttribute("fill"))
 			// 	.text(d.name);
-		};
+		}
 
 	};
 
+	/**
+		function for highlighting circles corresponding to list items
+		on mouse-enter
+	**/
+	var showCircle = function (d) {
+
+		if(!this.active){
+
+			d3.selectAll("circle").attr("active", false)
+				.style("stroke", "none");
+			$("#" + this.id.slice(1)).css("stroke", circleHighlightColor);
+
+			d3.selectAll(".job").style("background-color", listBackgroundColor)
+			$("#" + this.id).css("background-color", listHighlightColor);
+
+		}
+
+	};
+
+
+	/**
+		function to create bubble chart from industry job data
+	**/
 	var bubbleChart = function (data) {
 
 		var data_list = {"name": "Jobs by Industry",
@@ -26579,44 +26620,84 @@ module.exports = function(svg, state, city, height, width) {
 			cb(key, data);
 		}
 
+		// var entries = data_list.children.sort(function(a, b){
+		// 	return b["value"] - a["value"];
+		// });
+
+		// adding the job list to the page
+		var jobList = d3.select(boundTo)//.append("div")
+			.append("ul").attr("class", "jobList");
+
+		// for (var i = 0; i < entries.length; i++) {
+		// 	jobList.append("li")
+		// 		.attr("class", "job")
+		// 		.text(entries[i]["name"] + ": " + entries[i]["value"] + "%")
+		// }
+
+
+		//bubble size and color generators
 		var diameter = Math.min(height, width) / 2;
 		var color = d3.scale.category20b();
 
+		// bubble layout
 		var bubble = d3.layout.pack()
-					.sort(null)
-					.size([diameter, diameter])
-					.padding(.5);
+			.sort(null)
+			.size([diameter, diameter])
+			.padding(circleStrokeWidth / 2);
 
 		//console.log(bubble.nodes(data_list))
 		g = svg.append("g")
 
+		// synced ID generators
 		var count = counter();
 		var count2 = counter();
 
-		var node = g.selectAll(".node")
-									.data(bubble.nodes(data_list))
-								.enter().append("g")
-									.attr("class", "node")
-									.attr("transform", function (d) { return "translate(" + d.x +
-												"," + d.y + ")";});
+		// the data set with bubble positions
+		bubbles = bubble.nodes(data_list)
 
+		// nodes with positions for the circles
+		var node = g.selectAll(".node")
+				.data(bubbles)
+			.enter().append("g")
+				.attr("class", "node")
+				.attr("transform", function (d) { return "translate(" + d.x +
+							"," + d.y + ")";});
+
+		// create the circles
 		node.append("circle")
 				.attr("r", function(d){ return d.r;})
 				.attr("class", "circle")
 				.attr("active", false)
+				.style("stroke-width", circleStrokeWidth)
+				.attr("id", function(d){ return count();})
 				.attr("fill", function(d){ return color(d.name);});
 
+		// fill the svg
 		g.attr("transform", "scale(" + 2 + ")");
 
+		// create list items
+		jobList.selectAll("li")
+			.data(bubbles)
+		.enter().append("li")
+			.attr("class", "job")
+			.attr("id", function(d){ return "L" + count2();})
+			.style({"color": function(d){ return color(d.name);},
+							"background-color": listBackgroundColor})
+			.text(function(d){ return d.name + ": " + Math.round((d.value + .00001) * 100) / 100 + "%";});
 
 	};
 
+	/**
+		ajax request to load the data, then select items
+		for mouse and touch events
+	**/
 	Promise.all([
 
 	$.ajax({
 		url: "/api/industrysize/" + state + "/" + city + "/"
 	}).done(function(d){
 		bubbleChart(d);
+		$(".job").first().css("display", "none"); // drop total from list
 	}),
 
 
@@ -26624,6 +26705,9 @@ module.exports = function(svg, state, city, height, width) {
 
 		var circles = d3.selectAll(".circle").on("mouseenter", showText);
 		circles.on("touch", showText);
+
+		var legend = d3.selectAll(".job").on("mouseenter", showCircle);
+		legend.on("touch", showCircle);
 
 	});
 
@@ -26716,45 +26800,76 @@ module.exports = function(data) {
 },{}],31:[function(require,module,exports){
 var $ = require('jquery');
 var c3 = require('c3');
-var d3 = require('d3');
-
-module.exports = function (state, city) {
-
-  $.ajax({
-    method: 'GET',
-    url: 'api/boundary/' + state + '/' + city + '/'
-  }).then(function (data) {
-     
-      var projection = d3.geo.albers().scale(200).translate([150,140]);
-      var path = d3.geo.path().projection(projection);
-
-      var bounds = path.bounds(data); 
-      var lon = (bounds[0][0] + bounds[0][0])/2;
-      var lat = (bounds[0][1] + bounds[1][1])/2;
-
-      console.log(lat);
-      console.log(lon);
-
-  }).then(function(data) {
-
-      console.log(data)
+var topojson = require('../topojson')
+var parse2 = require('./parse-cell-2')
+var downloadGraph = require('./cell-download');
+var reliabilityGraph = require('./cell-reliability');
 
 
+module.exports = function (state, city, el1, el2) {
+  var centroid = [];
+  var newArray = [];
+  console.log(el2);
+  Promise.all([
 
-  })
+    $.ajax({
+      method: 'GET',
+      url: 'api/boundary/' + state + '/' + city + '/'
+    }).then(function (json) {
 
+      data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]]);
+      centroid = [data.features[0].properties.INTPTLAT10, data.features[0].properties.INTPTLON10]
+
+    }),
+
+  ]).then(function(results) {
+
+    Promise.all([
+    $.ajax({
+      method: "GET",
+      url: "api/celldata/" + state + "/" + city + "/?lat=" + centroid[0] + "&lon=" + centroid[1],
+    }).then(function(data){
+        var array = data.networkRank;
+
+       array.forEach(function(prov) {
+         if (prov.networkName === "AT&T") {
+           newArray[0] = prov;
+         }
+         if (prov.networkName === "Verizon") {
+           newArray[1] = prov;
+         }
+         if (prov.networkName === "Sprint") {
+           newArray[2] = prov;
+         }
+         if (prov.networkName === "T-Mobile") {
+           newArray[3] = prov;
+         }
+       })
+
+    }),
+
+  ]).then(function(results){
+      var data2 = parse2(newArray);
+      if (el2 != undefined) {
+        downloadGraph(data2, el1);
+        reliabilityGraph(data2, el2);
+      } else {
+        downloadGraph(data2, el1);      }
+    });
+
+  });
 
 };
   // return $.ajax({
   //  method: 'GET',
   //  url: 'api/celldata/' + state + '/' + city + '/?lat=' + lat + '&lon=' + lon
   // }).then(function (data){
-  //   console.log(data)  
+  //   console.log(data)
   //  var array = data.networkRank;
   //   var newArray = [];
 
   //   console.log(array);
-    
+
   //  array.forEach(function(prov) {
   //    if (prov.networkName === "AT&T") {
   //      newArray[0] = prov
@@ -26772,7 +26887,7 @@ module.exports = function (state, city) {
   //   return newArray
   // });
 
-},{"c3":"c3","d3":"d3","jquery":"jquery"}],32:[function(require,module,exports){
+},{"../topojson":49,"./cell-download":22,"./cell-reliability":23,"./parse-cell-2":30,"c3":"c3","jquery":"jquery"}],32:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
