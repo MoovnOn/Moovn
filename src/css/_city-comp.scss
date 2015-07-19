@@ -1,0 +1,44 @@
+.comp-grid {
+	margin-top: 100px;
+}
+
+.comp-chart-cont {
+	width: 45%;
+	float: left;
+	padding: 1em;
+}
+
+.comp-graph-title {
+	text-align: center;
+	padding-top: 2.8em;
+	font-size: 1.2em;
+}
+
+.comp-header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;	
+	z-index: 100;
+	background-color: rgba(255, 255, 255, 0.9);
+	// border-bottom: 1px solid #354052;
+}
+
+.comp-city-title {
+	width: 50%;
+	float: left;
+	text-align: center;
+	font-size: 1.5em;
+	padding: 1em 0 1.5em 0;
+}
+
+.comp-logo-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+}
+
+.comp-logo {
+	padding-top: 0.3em;
+	padding-left: 0.354052em; 
+}

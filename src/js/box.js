@@ -1,5 +1,5 @@
 //module.exports = function() {
-
+var d3 = require('d3');
 (function(){
 // Inspired by http://informationandvisualization.de/blog/box-plot
 d3.box = function() {

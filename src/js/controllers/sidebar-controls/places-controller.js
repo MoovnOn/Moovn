@@ -12,22 +12,16 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var getDetails = require('../../place-details')
 var views = require('views');
-var activeSelection = require('../active-selection');
+var sideBar = require('../side-bar-controller');
 
 router.route('search/:cityName/places', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', {city: cityName} );
   searchFunction();
 
-
   show('city-template-2', '.main-content', {city: cityName} );
 
-  activeSelection();
-
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
+  sideBar();
 
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
@@ -72,9 +66,27 @@ router.route('search/:cityName/places', function (cityName){
 
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
+      var searchTerm = $(this).text();
+        
+      if (searchTerm != 'Search'){
+        var request = {
+          query: searchTerm + " " + city
+        };  
+
+        map = new google.maps.Map(document.getElementById('map'));
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch(request, function(results) {
+          var id = results[0].place_id;
+              getDetails(id)
+        });
+   
+      };
+
   });
 
+
   $('.city-all-container').on('click', '.clickSpan', function (){
+
     var id = this.id;
     getDetails(id);
     $(".clickSpan").removeClass("clickSpan-selected");

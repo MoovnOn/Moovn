@@ -11,6 +11,11 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RenameField(
+            model_name='college',
+            old_name='name',
+            new_name='school',
+        ),
         migrations.AddField(
             model_name='college',
             name='in_state',
@@ -20,6 +25,11 @@ class Migration(migrations.Migration):
             model_name='college',
             name='out_state',
             field=models.IntegerField(null=True),
+        ),
+        migrations.AlterField(
+            model_name='college',
+            name='city',
+            field=models.ForeignKey(null=True, to='geo.Name'),
         ),
         migrations.AlterField(
             model_name='college',

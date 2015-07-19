@@ -7,14 +7,24 @@ var router = require('./router');
 
 
 module.exports = function(){
-  
-  $('.compare').on('click', function(e) {
-  	e.preventDefault();
 
-  	$('.search-city-comp').removeClass('hidden');
-  	$('.search-city-comp').addClass(' show-input');
-  	$(this).addClass('hidden');
-  });
+    // var once = false;
+
+    // $('.search-city').keypress(function() {
+      
+    //   if (!once) {
+    //     $('.compare-option').removeClass('hidden'); 
+    //     once = true;
+    //   }
+    
+    // });  
+
+    $('.compare-option').on('click', function(){
+      $('.search-city-comp').removeClass('hidden');
+      $('.search-city-comp').addClass(' show-input');
+      $(this).addClass('hidden');
+    })
+
 
   $('.search-form').on('submit', function(e) {
   	e.preventDefault();

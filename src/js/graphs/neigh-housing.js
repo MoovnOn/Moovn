@@ -21,18 +21,27 @@ module.exports = function (allHousingData){
 
 
   var chart = c3.generate({
-    bindto: 'body .quad-2',
+    bindto: '.housing-graph',
     data: {
       columns: [
           ['Condo', housingAffordData[0]],
-          ['2-Bed-Home', housingAffordData[1]],
-          ['3-Bed-Home', housingAffordData[2]],
-          ['4-Bed-Home', housingAffordData[3]],
+          ['2-Bed', housingAffordData[1]],
+          ['3-Bed', housingAffordData[2]],
+          ['4-Bed', housingAffordData[3]],
       ],
-      type: 'bar'
+      type: 'bar',
+      colors: {
+            'Condo': '#3D5E99',
+            '2-Bed': '#CC2E14',
+            '3-Bed': '#707D94',
+            '4-Bed': '#FF7640',
+          },
     },
     axis: {
-
+        x: {
+            type: 'category',
+            categories: ['Median Housing Prices']
+        	},
         y : {
           tick: {
             format: d3.format("$,")
