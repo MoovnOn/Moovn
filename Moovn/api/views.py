@@ -18,52 +18,6 @@ import json
 
 requests_cache.install_cache('cache', expire_after=18000)
 
-# try:
-#     with open('geo/oe_ocup.csv') as file:
-#         occupations = {
-#             line.split(',', 1)[0].rstrip('\n'):
-#                 line.split(',', 1)[1].strip().replace('"', '') for line in file}
-# except:
-#     with open('Moovn/geo/oe_ocup.csv') as file:
-#         occupations = {
-#             line.split(',', 1)[0].rstrip('\n'):
-#                 line.split(',', 1)[1].strip().replace('"', '') for line in file}
-
-# try:
-#     with open("geo/colleges.csv") as file:
-#         colleges = {line.split(',')[1]: {
-#             "rank": line.split(',')[0],
-#             "tuition": line.split(',')[2].strip('$'),
-#             "city": line.split(',')[3],
-#             "state": line.split(',')[4].strip()
-#         } for line in file}
-# except:
-#     with open("Moovn/geo/colleges.csv") as file:
-#         colleges = {line.split(',')[1]: {
-#             "rank": line.split(',')[0],
-#             "tuition": line.split(',')[2].strip('$'),
-#             "city": line.split(',')[3],
-#             "state": line.split(',')[4].strip()
-#         } for line in file}
-
-
-
-try:
-    parity = {}
-    with open("geo/price_parity.csv") as file:
-        for line in file:
-            parity[line.split(',')[0].strip('"')] = {
-                "state": line.split(',')[1].strip('"').strip(),
-                "score": line.split(',')[2].strip('\n')}
-
-except:
-    parity = {}
-    with open("Moovn/geo/price_parity.csv") as file:
-        for line in file:
-            parity[line.split(',')[0].strip('"')] = {
-                "state": line.split(',')[1].strip('"').strip(),
-                "score": line.split(',')[2].strip('\n')}
-
 
 def city_boundary_view(request, state, name):
     name_obj = get_object_or_404(Name, name=name, state=state)
@@ -310,22 +264,20 @@ def college_view(request, state, name):
 
 def parity_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
-    data = "no data"
+    string = "no data"
+    parity = name.city.price_parity
 
-    for city in parity:
-        if name.name in city and name.state in parity[city]["state"]:
-            data = parity[city]["score"]
+    if parity:
+        if parity <= 100:
+            new_data = round((100 - parity), 1)
+            string = """Cost of living in {} is {}% lower than the national
+                     average.""".format(name.name, new_data)
 
-    if float(data) <= 100:
-        new_data = round((100 - float(data)), 1)
-        string = """Cost of living in {} is {}% lower than the national
-                 average.""".format(name.name, new_data)
+            return HttpResponse(string)
 
-        return HttpResponse(string)
+        else:
+            new_data = round((parity - 100))
+            string = """Cost of living in {} is {}% higher than the national
+                     average.""".format(name.name, new_data)
 
-    else:
-        new_data = round((float(data) - 100))
-        string = """Cost of living in {} is {}% higher than the national
-                 average.""".format(name.name, new_data)
-
-        return HttpResponse(string)
+    return HttpResponse(string)
