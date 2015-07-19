@@ -25183,17 +25183,21 @@ router.route('search/:cityName/education', function (cityName){
 
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
-      var searchTerm = $(this).text()
-      var request = {
-        query: searchTerm + " " + city
-      };  
+      var searchTerm = $(this).text();
+      
+      if(searchTerm != 'US News Best Colleges') {
+      
+        var request = {
+          query: searchTerm + " " + city
+        };  
 
-      map = new google.maps.Map(document.getElementById('map'));
-      service = new google.maps.places.PlacesService(map);
-      service.textSearch(request, function(results) {
-        var id = results[0].place_id;
-          getDetails(id)
-      });
+        map = new google.maps.Map(document.getElementById('map'));
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch(request, function(results) {
+          var id = results[0].place_id;
+            getDetails(id)
+        });
+      }  
   });
 
   $('.city-all-container').on('click', '.clickSpan', function (){
@@ -27401,6 +27405,7 @@ module.exports = function(state, city, element) {
 
 },{}],48:[function(require,module,exports){
 var $ = require('jquery');
+var _ = require('underscore');
 
 module.exports = function(state, city) {
 	
@@ -27408,11 +27413,34 @@ module.exports = function(state, city) {
 		method: 'GET',
 		url: '/api/college/' + state + '/' + city + '/'
 	}).then(function(data) {
-		console.log(data)
-	})
+
+	if(_.isEmpty(data) === false){
+		for(key in data)
+			var keyName = key;
+			$('#tab-3').append('<p>' + keyName.substring(1, keyName.length-1) + '</p>');
+			$('.tab-title3').children('a').text('US News Best Colleges');	
+
+		for(key in data) {
+	    if(data.hasOwnProperty(key)) {
+	      var value = data[key];
+			  for(key in value) {
+			    var value2 = value[key];
+			      if (value2 != null) {
+							$('#tab-3').append('<p>' + key + ': $' + value2 + '</p>')
+			      }     	
+			  }
+			}
+		}
+	}
+
+
+
+
+ 			
+	});	
 
 };
-},{"jquery":"jquery"}],49:[function(require,module,exports){
+},{"jquery":"jquery","underscore":"underscore"}],49:[function(require,module,exports){
 var d3 = require('d3')
 module.exports = function (cityjson, boundaryjson, g, path, height, width){
 
