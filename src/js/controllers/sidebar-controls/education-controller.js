@@ -146,6 +146,17 @@ router.route('search/:cityName/education', function (cityName){
 
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
+      var searchTerm = $(this).text()
+      var request = {
+        query: searchTerm + " " + city
+      };  
+
+      map = new google.maps.Map(document.getElementById('map'));
+      service = new google.maps.places.PlacesService(map);
+      service.textSearch(request, function(results) {
+        var id = results[0].place_id;
+          getDetails(id)
+      });
   });
 
   $('.city-all-container').on('click', '.clickSpan', function (){

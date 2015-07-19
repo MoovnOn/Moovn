@@ -12,7 +12,8 @@ module.exports = function(id){
 	};
 
 	service.getDetails(request, function(result, status) {
-  
+  	
+
 		show('content/place-details', '.details-right', {detail: result} );
      	$(".details-right").fadeIn();
 
