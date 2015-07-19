@@ -2049,9 +2049,13 @@ header {
   .overview-cost-container {
     padding-top: 0em; }
   .overview-cityImg-container-mobile {
-    display: block; }
+    display: block;
+    padding-bottom: 0em; }
   .overview-cityImg-container {
-    display: none; } }
+    display: none; }
+  .overview-graph-container {
+    margin-bottom: 0em;
+    border-bottom: none; } }
 
 body {
   font-family: Century Gothic, sans-serif; }
