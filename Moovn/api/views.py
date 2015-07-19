@@ -21,8 +21,6 @@ requests_cache.install_cache('cache', expire_after=18000)
 
 def city_boundary_view(request, state, name):
     name_obj = get_object_or_404(Name, name=name, state=state)
-    if name == 'US':
-        return JsonResponse(json.loads(name_obj.city.boundary.data))
     return JsonResponse(geojson.loads(name_obj.city.boundary.data))
 
 
