@@ -27,8 +27,8 @@ def city_boundary_view(request, state, name):
 class HomeView(View):
     def get(self, request, state, city):
         payload = {"zws-id": apis("zillowkey"), "state": state, "city": city}
-        housing_data = requests.get("""http://www.zillow.com/
-                                    webservice/GetDemographics.htm""",
+        housing_data = requests.get("http://www.zillow.com/"
+                                    + "webservice/GetDemographics.htm",
                                     params=payload)
         housing_data = xmltodict.parse(housing_data.text, xml_attribs=True)
         return JsonResponse(housing_data)
