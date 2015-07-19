@@ -12,7 +12,6 @@ def add_bls_codes():
         blsvalue = bls.loc[
             (bls["state"].str.contains(name.state)) & (bls["city"].str.contains(name.name)), "code"].tolist()
         statecode = abv.loc[(abv["state"].str.contains(name.state)), "code"].tolist()
-
         if (blsvalue != []) & (statecode != []):
             city = name.city
             series_ids = []
