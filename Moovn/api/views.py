@@ -36,9 +36,9 @@ class HomeView(View):
 
 def cell_view(request, state, name):
     query = state + '+' + name
-    places = requests.get("""http://api.tiles.mapbox.com/v4/
-                          geocode/mapbox.places/""" + query + \
-                          ".json?access_token=" + apis('mapbox'))
+    places = requests.get("http://api.tiles.mapbox.com/v4/"
+                          + "geocode/mapbox.places/" + query \
+                          + ".json?access_token=" + apis('mapbox'))
 
     places = geojson.loads(places.text)
     coords = [places.features[0].center[0], places.features[0].center[1]]
@@ -268,14 +268,14 @@ def parity_view(request, state, name):
     if parity:
         if parity <= 100:
             new_data = round((100 - parity), 1)
-            string = """Cost of living in {} is {}% lower than the national
-                     average.""".format(name.name, new_data)
+            string = "Cost of living in {} is {}% lower than the national" \
+                     + "average.".format(name.name, new_data)
 
             return HttpResponse(string)
 
         else:
             new_data = round((parity - 100))
-            string = """Cost of living in {} is {}% higher than the national
-                     average.""".format(name.name, new_data)
+            string = "Cost of living in {} is {}% higher than the national" \
+                     + "average.".format(name.name, new_data)
 
     return HttpResponse(string)
