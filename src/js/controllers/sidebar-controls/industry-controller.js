@@ -82,9 +82,13 @@ router.route('search/:cityName/industry', function (cityName){
   
   $('.industry-form').submit(function(){
     var job = $('.job-input').val();
-    $('.salary-title').html('Salaries for '+ job +" in " + cityName);  
+    $('.salary-title').html('Salaries for '+ job +" in " + cityName);      
   })
   
-
+ $(document).ready(function() {
+    $("#job-input").val("Web Developers");
+    $("#job-input").submit();
+    $("#job-input").val("");
+  });
 
 });

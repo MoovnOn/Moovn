@@ -25453,10 +25453,14 @@ router.route('search/:cityName/industry', function (cityName){
   
   $('.industry-form').submit(function(){
     var job = $('.job-input').val();
-    $('.salary-title').html('Salaries for '+ job +" in " + cityName);  
+    $('.salary-title').html('Salaries for '+ job +" in " + cityName);      
   })
   
-
+ $(document).ready(function() {
+    $("#job-input").val("Web Developers");
+    $("#job-input").submit();
+    $("#job-input").val("");
+  });
 
 });
 
@@ -26861,31 +26865,31 @@ module.exports = function(state, city, job, height, width) {
 						.attr("y", .3 * height)
 						//.attr("lengthAdjust", "spacingAndGlyphs")
 						.attr("length", 50)
-						.text(values[0]);
+						.text('$' + values[0]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[1]))
 						.attr("y", .75 * height)
-						.text(values[1]);
+						.text('$' + values[1]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[2]))
 						.attr("y", .3 * height)
-						.text(values[2]);
+						.text('$' + values[2]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[3]))
 						.attr("y", .75 * height)
-						.text(values[3]);
+						.text('$' + values[3]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[4]))
 						.attr("y", .3 * height)
-						.text(values[4]);
+						.text('$' + values[4]);
 
 		} else{
 			console.log(data)

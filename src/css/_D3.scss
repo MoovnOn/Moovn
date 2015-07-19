@@ -28,4 +28,16 @@
 }
 #boxplot{
   overflow: visible;
+  padding-left: 3.5em;
+}
+.industry-form, .salary-title{
+  padding-top:1em;
+  text-align: center;
+  color: $comp-color;
+}
+.income-title{
+  text-align: center;
+  color: $comp-color;
+  padding-top:1em;
+  padding-bottom:1em;
 }
