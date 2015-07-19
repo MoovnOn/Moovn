@@ -26796,7 +26796,6 @@ var reliabilityGraph = require('./cell-reliability');
 module.exports = function (state, city, el1, el2) {
   var centroid = [];
   var newArray = [];
-  console.log(el2);
   Promise.all([
 
     $.ajax({
@@ -27184,7 +27183,6 @@ module.exports = function(state, city) {
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
     var housingLiveshere = allHousingData["Demographics:demographics"].response.pages.page[2].segmentation.liveshere;
 
-console.log(housingResponse);
 
     var descArr =[];     
       for (var index = 0; index < housingLiveshere.length; index++) {
