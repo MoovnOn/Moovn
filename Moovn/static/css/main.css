@@ -1970,6 +1970,9 @@ header {
   padding-top: 0.3em;
   padding-left: 0.354052em; }
 
+.text-container {
+  padding-left: 8em; }
+
 .tri-1-edu, .tri-2-edu {
   margin-top: 1em; }
 

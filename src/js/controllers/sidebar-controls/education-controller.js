@@ -13,6 +13,7 @@ var searchFunction = require('../../search');
 var views = require('views');
 var sideBar = require('../side-bar-controller');
 var getDetails = require('../../place-details');
+var tuitionCall = require('../../tuition-call');
 
 // for the map
 var d3 = require('d3');
@@ -143,6 +144,9 @@ router.route('search/:cityName/education', function (cityName){
 //google places
   places(cityName, "colleges", ".tab-data1", ".tab-title1");
   places(cityName, "community college", ".tab-data2", ".tab-title2");
+
+  tuitionCall(state, city);
+
 
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');

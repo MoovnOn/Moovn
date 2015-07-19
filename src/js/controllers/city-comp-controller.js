@@ -12,6 +12,8 @@ var peopleAge = require('../graphs/people-age');
 var housingGraphGeneral = require('../graphs/housing');
 var commuteTime = require('../graphs/commute-times');
 var housingGraph = require('../graphs/housing-comp-graph');
+var taxDetails = require('../tax-details');
+var costLiving = require('../cost-living');
 
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
@@ -31,21 +33,26 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   var state2 = citySplit2[1];
 
 
-  parseCell(state1, city1, '.comp-chart1-1');
-  parseCell(state2, city2, '.comp-chart2-1');
+  parseCell(state1, city1, '.comp-chart1-4');
+  parseCell(state2, city2, '.comp-chart2-4');
 
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-  peopleAge(state1, city1, '.comp-chart1-2');
-  peopleAge(state2, city2, '.comp-chart2-2');
+  peopleAge(state1, city1, '.comp-chart1-5');
+  peopleAge(state2, city2, '.comp-chart2-5');
 
+  taxDetails(state1, city1, ".comp-chart1-2");
+  taxDetails(state2, city2, ".comp-chart2-2");
+
+  costLiving(state1, city1, ".comp-chart1-1");
+  costLiving(state2, city2, ".comp-chart2-1");
 
   housingGraph(state1, city1, state2, city2)
 
-  commuteTime(state1, city1, '.comp-chart1-4');
-  commuteTime(state2, city2, '.comp-chart2-4');
+  commuteTime(state1, city1, '.comp-chart1-6');
+  commuteTime(state2, city2, '.comp-chart2-6');
 
 
   
