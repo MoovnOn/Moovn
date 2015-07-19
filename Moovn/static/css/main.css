@@ -1633,7 +1633,8 @@ header {
   color: #B27700; }
 
 .no-data-message {
-  padding-top: 2em; }
+  padding-top: 2em;
+  text-align: center; }
 
 .housing-graph {
   padding-top: 3em; }

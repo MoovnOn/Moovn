@@ -38,7 +38,10 @@ module.exports = function (allHousingData){
           },
     },
     axis: {
-
+        x: {
+            type: 'category',
+            categories: ['Median Housing Prices']
+        	},
         y : {
           tick: {
             format: d3.format("$,")
