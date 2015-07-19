@@ -25450,6 +25450,13 @@ router.route('search/:cityName/industry', function (cityName){
       results: function() {}
     }
   });
+  
+  $('.industry-form').submit(function(){
+    var job = $('.job-input').val();
+    $('.salary-title').html('Salaries for '+ job +" in " + cityName);  
+  })
+  
+
 
 });
 
