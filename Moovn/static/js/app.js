@@ -25357,14 +25357,8 @@ router.route('search/:cityName/housing', function (cityName){
     $(".clickSpan").removeClass("clickSpan-selected");
     $(this).addClass("clickSpan-selected");
   });
-<<<<<<< HEAD
+
 // code handling schools modal in  education-requests file
-=======
-
-
-  // code handling schools modal in  education-requests file
-
->>>>>>> 8c87ab39138f4ffcbea3800a086ea13af6e9123c
   setTimeout(function() {
     var id = $('.clickSpan').eq(0).attr('id')
     getDetails(id)
