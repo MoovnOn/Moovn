@@ -63,7 +63,6 @@ router.route('search/:cityName/industry', function (cityName){
     e.stopPropagation();
     var job = $('.job-input').val();
     salaryPer(state, city, job, (aspect * width)*2, width);
-
   });
 
 

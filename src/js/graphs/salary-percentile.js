@@ -3,7 +3,6 @@ var $ = require('jquery');
 
 module.exports = function(state, city, job, height, width) {
 	$("#boxplot").empty();
-
 	$.ajax({
     method: 'GET',
     url: 'api/salary/' + state + '/' + city + '/' + job
@@ -12,7 +11,6 @@ module.exports = function(state, city, job, height, width) {
 
 	  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
 										data[job+"75th"], data[job+"90th"]];
-
 
 			var svg = d3.select("#boxplot");
 
