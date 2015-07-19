@@ -53,13 +53,11 @@ module.exports = function(state, city, element) {
             }
           },
           size: {
-        		height: 400
+        		height: 500
       		},
        }
 
       var chart = c3.generate(data);
       return data;
-  };
-
-  //return data;
+  }; 
 };

@@ -25303,62 +25303,43 @@ router.route('search/:cityName/housing', function (cityName){
   };
 
   Promise.all([
-
       $.ajax({
-
         method: 'GET',
         url: '/api/boundary/' + state + '/' + city + '/'
-
       }).done(function (json){
-
-        cityjson = neighMap(json, g, path, "brown", "city", aspect * width, width);
-
-      }),
-
-  ]).then(function(results){
+              cityjson = neighMap(json, g, path, "brown", "city", aspect * width, width);
+              }),
+      ]).then(function(results){
 
     Promise.all([
-
       $.ajax({
-
         method: 'GET',
         url: '/api/neighborhoods/' + state + '/' + city + '/'
-
       }).done(function (json){
         if (json){
           boundaryjson = neighMap(json, g, path, "grey", "neighborhood", aspect * width, width);
         } else {
           boundaryjson = false
         }
-
       })
-
     ]).then(function(results){
-
       if (boundaryjson){
         zoom(cityjson, boundaryjson, g, path, aspect * width, width);
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
-
       } else {
-
         zoom(cityjson, cityjson, g, path, aspect * width, width);
-
       }
-
     });
-
   });
 
-
+//loads the sidebar
   sideBar();
-
+//shows the tabs
   show('content/tabs-lists', '.quad-3')
-
-  //gets the lists displaying as tabs and can change to accordian
+//gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
   });
-
 //google places
   places(cityName, "apartments", ".tab-data1", ".tab-title1");
   places(cityName, "realty", ".tab-data2", ".tab-title2");
@@ -25373,15 +25354,13 @@ router.route('search/:cityName/housing', function (cityName){
     $(".clickSpan").removeClass("clickSpan-selected");
     $(this).addClass("clickSpan-selected");
   });
-
-  // code handling schools modal in  education-requests file
-
+// code handling schools modal in  education-requests file
   setTimeout(function() {
     var id = $('.clickSpan').eq(0).attr('id')
     getDetails(id)
   },1000);
 
-
+$('.graph-title').html("Housing Prices");
 
 });
 
@@ -26203,15 +26182,13 @@ module.exports = function(state, city, element) {
             }
           },
           size: {
-        		height: 400
+        		height: 500
       		},
        }
 
       var chart = c3.generate(data);
       return data;
-  };
-
-  //return data;
+  }; 
 };
 
 },{"c3":"c3","d3":"d3","jquery":"jquery"}],23:[function(require,module,exports){
