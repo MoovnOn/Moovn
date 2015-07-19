@@ -27,15 +27,15 @@ def make():
             city = City.objects.create(geo_id=cities[item])
             city.names.add(name)
 
-                    with open('geo/CityBoundaries/converted/' + cities[item] + '.json', 'r', \
-                              encoding='utf-8') as fh:
+            with open('geo/CityBoundaries/converted/' + cities[item] + '.json', 'r', \
+                      encoding='utf-8') as fh:
 
-                        boundary=Boundary.objects.create(data=fh.read(), city=city)
+                boundary=Boundary.objects.create(data=fh.read(), city=city)
 
-            name = Name.objects.create(name='US', state='US')
-
-            US = City.objects.create(geo_id='0')
-            US.names.add(name)
-
-            with open('geo/CityBoundaries/us_topo.json', 'r') as fh:
-                Boundary.objects.create(data=fh.read(), city=US)
+            #name = Name.objects.create(name='US', state='US')
+            #
+            # US = City.objects.create(geo_id='0')
+            # US.names.add(name)
+            #
+            # with open('geo/CityBoundaries/us_topo.json', 'r') as fh:
+            #     Boundary.objects.create(data=fh.read(), city=US)
