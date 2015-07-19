@@ -1,6 +1,6 @@
 from Moovn.moovn_apis import apis
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from django.views.generic import View
 import requests
 import requests_cache
@@ -181,7 +181,7 @@ def salary_view(request, state, name, job):
     typecodes = {"11": "10th", "12": "25th", "13": "50th", "14": "75th",
                  "15": "90th"}
 
-    if not ndata["Results"] or not ndata["Results"]["series"]:
+    if not ndata["Results"] or not ndata["Results"]["series"] or ndata["message"]:
         return JsonResponse({"no data": "no data"})
 
     else:
@@ -200,7 +200,7 @@ def salary_view(request, state, name, job):
         else:
             return JsonResponse(datadict)
 
-
+    # return JsonResponse(ndata)
 main_ind = [str(num) for num in range(110000, 530000, 20000)]
 
 
