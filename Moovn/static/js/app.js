@@ -26794,7 +26794,7 @@ module.exports = function(state, city, job, height, width) {
 	$("#boxplot").empty();
 	$.ajax({
     method: 'GET',
-    url: 'api/salary/' + state + '/' + city + '/' + job
+    url: 'api/salary/' + state + '/' + city + '/' + job + '/'
   }).done(function(data){
 		if (data !== "no data") {
 
