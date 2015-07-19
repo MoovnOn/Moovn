@@ -17,7 +17,6 @@ router.route('search/:cityName/overview', function (cityName){
   searchFunction();
   show('city-template-overview', '.main-content', {city: cityName});
   sideBar();
-
   
   var citySplit = cityName.split(', ');
   var city = citySplit[0];

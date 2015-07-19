@@ -1,3 +1,9 @@
+@media screen and (max-width: 1024px) {
+  .overview-graph-container{
+    margin-bottom:6em;
+  }
+}
+
 @media screen and (max-width: 670px) {
     .city-all-container{
       margin: 0.1em;
@@ -16,15 +22,19 @@
     .r-tabs .r-tabs-panel {
     padding-left: 30px;
     }
-    .overview-cityImg-container{
+    .overview-cityImg-container, .overview-cityImg-container-mobile{
       padding-left:0em;
       padding-top: 0em;
-    }
-    .overview-city-title{
-      padding-bottom:5em;
     }
     .overview-tax-container, 
     .overview-cost-container{
      padding-top:0em;
     }
+    .overview-cityImg-container-mobile{
+      display:block;
+    }
+    .overview-cityImg-container{
+      display:none;
+    }
 }
+

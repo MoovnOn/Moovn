@@ -1311,6 +1311,9 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   min-width: 25px;
   color: #A5B6C3; }
 
+.fa-mobile {
+  font-size: 1.4em; }
+
 .side-nav-item-container:hover .side-nav-item {
   color: white;
   background: #2F3948;
@@ -1564,6 +1567,9 @@ header {
   .details-right {
     display: inline-block; } }
 
+.main-content {
+  height: 100vh; }
+
 .quad-1, .quad-2 {
   margin-top: 1.5em; }
 
@@ -1576,9 +1582,6 @@ header {
 .duo-1-vert, .duo-2-vert {
   padding-right: 0.7em;
   padding-left: 0.7em; }
-
-.tri-2 {
-  width: 100%; }
 
 .city-all-container {
   margin-right: 2em;
@@ -1665,7 +1668,7 @@ header {
   color: #B27700;
   font-size: 1.2em; }
 
-.overview-tax-container, .overview-cost-container, .overview-cityImg-container {
+.overview-tax-container, .overview-cost-container, .overview-cityImg-container, .overview-cityImg-container-mobile {
   padding-left: 3em;
   padding-bottom: 3em;
   padding-top: 1em;
@@ -1674,10 +1677,13 @@ header {
 .overview-tax-container, .overview-cost-container {
   padding-top: 3em; }
 
-.overview-cityImg-container {
-  background-image: url("../img/chicago-outline.jpg");
-  background-size: 100%;
-  background-repeat: no-repeat; }
+.overview-cityImg-container, .overview-cityImg-container-mobile {
+  padding-left: 0em;
+  position: relative; }
+
+.overview-city-img {
+  width: 100%;
+  padding-bottom: 3em; }
 
 .overview-img {
   max-width: 300px;
@@ -1691,12 +1697,19 @@ header {
   text-decoration: underline;
   border-top: 1px solid #A5B6C3; }
 
+.overview-graph-container {
+  background-color: #E5F2F2;
+  border-bottom: 1px solid #A5B6C3; }
+
 .city-all-container-overview {
   margin-left: 12.9em;
   margin-right: 0em;
   margin-bottom: 0em;
-  background: #E5F2F2;
-  height: 100%; }
+  background-color: #E5F2F2;
+  background-size: cover; }
+
+.overview-cityImg-container-mobile {
+  display: none; }
 
 .c3 svg {
   font: 10px sans-serif; }
@@ -2012,6 +2025,10 @@ header {
 .bubble-title {
   letter-spacing: 0; }
 
+@media screen and (max-width: 1024px) {
+  .overview-graph-container {
+    margin-bottom: 6em; } }
+
 @media screen and (max-width: 670px) {
   .city-all-container {
     margin: 0.1em; }
@@ -2025,14 +2042,16 @@ header {
     margin-top: 1em; }
   .r-tabs .r-tabs-panel {
     padding-left: 30px; }
-  .overview-cityImg-container {
+  .overview-cityImg-container, .overview-cityImg-container-mobile {
     padding-left: 0em;
     padding-top: 0em; }
-  .overview-city-title {
-    padding-bottom: 5em; }
   .overview-tax-container,
   .overview-cost-container {
-    padding-top: 0em; } }
+    padding-top: 0em; }
+  .overview-cityImg-container-mobile {
+    display: block; }
+  .overview-cityImg-container {
+    display: none; } }
 
 body {
   font-family: Century Gothic, sans-serif; }

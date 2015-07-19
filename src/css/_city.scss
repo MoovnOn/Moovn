@@ -1,4 +1,7 @@
 //alignment of template elements
+.main-content{
+  height:100vh;
+}
 .quad-1, .quad-2{
   margin-top:1.5em;
 }
@@ -107,7 +110,7 @@
   color:$comp-color;
   font-size: 1.2em;
 }
-.overview-tax-container, .overview-cost-container, .overview-cityImg-container{
+.overview-tax-container, .overview-cost-container, .overview-cityImg-container, .overview-cityImg-container-mobile{
   padding-left: 3em;
   padding-bottom: 3em;
   padding-top: 1em;
@@ -116,10 +119,14 @@
 .overview-tax-container, .overview-cost-container{
   padding-top: 3em;
 }
-.overview-cityImg-container{
-  background-image: url("../img/chicago-outline.jpg");
-  background-size:100%;
-  background-repeat: no-repeat;
+.overview-cityImg-container, .overview-cityImg-container-mobile{
+  padding-left: 0em;
+  position: relative;
+}
+.overview-city-img{
+  // background-image: url("../img/chicago-outline.jpg");
+  width:100%;
+  padding-bottom: 3em;
 }
 .overview-img{
   max-width:300px;
@@ -133,13 +140,18 @@
   text-decoration:underline;
   border-top:1px solid $light-primary-color;
 }
+.overview-graph-container{
+  background-color: #E5F2F2;
+  border-bottom:1px solid $light-primary-color;
+}
 .city-all-container-overview{
   margin-left: 12.9em;
   margin-right:0em;
   margin-bottom: 0em;
-  background: #E5F2F2;
-  height: 100%;
+  background-color: #E5F2F2;
+  background-size:cover;
 }
-
-
+.overview-cityImg-container-mobile{
+  display:none;
+}
 
