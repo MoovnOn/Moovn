@@ -24993,32 +24993,22 @@ var $ = require('jquery');
     }else if( 
       window.location.href.indexOf("internet") > -1 ){
       $(".internet").addClass("side-nav-item-active");
-      $(".fa-laptop").addClass("side-icon-active");
+      $(".fa-cell").addClass("side-icon-active");
     }
     else if( 
       window.location.href.indexOf("people") > -1 ){
       $(".people").addClass("side-nav-item-active");
-      $(".fa-male").addClass("side-icon-active");
-    }
-    else if( 
-      window.location.href.indexOf("transportation") > -1 ){
-      $(".transportation").addClass("side-nav-item-active");
-      $(".fa-car").addClass("side-icon-active");
+      $(".fa-users").addClass("side-icon-active");
     }
     else if( 
       window.location.href.indexOf("industry") > -1 ){
       $(".industry").addClass("side-nav-item-active");
-      $(".fa-building").addClass("side-icon-active");
+      $(".fa-briefcase").addClass("side-icon-active");
     }
     else if( 
-      window.location.href.indexOf("taxes") > -1 ){
-      $(".taxes").addClass("side-nav-item-active");
-      $(".fa-money").addClass("side-icon-active");
-    }
-    else if( 
-      window.location.href.indexOf("leisure") > -1 ){
+      window.location.href.indexOf("places") > -1 ){
       $(".leisure").addClass("side-nav-item-active");
-      $(".fa-beer").addClass("side-icon-active");
+      $(".fa-location-arrow").addClass("side-icon-active");
     }
     else if( 
       window.location.href.indexOf("education") > -1 ){
@@ -26466,7 +26456,7 @@ module.exports = function (allHousingData){
 
 
   var chart = c3.generate({
-    bindto: 'body .quad-2',
+    bindto: '.housing-graph',
     data: {
       columns: [
           ['Condo', housingAffordData[0]],
