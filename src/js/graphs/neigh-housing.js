@@ -21,7 +21,7 @@ module.exports = function (allHousingData){
 
 
   var chart = c3.generate({
-    bindto: 'body .quad-2',
+    bindto: '.housing-graph',
     data: {
       columns: [
           ['Condo', housingAffordData[0]],
@@ -38,7 +38,10 @@ module.exports = function (allHousingData){
           },
     },
     axis: {
-
+        x: {
+            type: 'category',
+            categories: ['Median Housing Prices']
+        	},
         y : {
           tick: {
             format: d3.format("$,")

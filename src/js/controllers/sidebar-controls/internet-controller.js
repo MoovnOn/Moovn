@@ -12,7 +12,10 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var parseCell = require('../../graphs/parse-cell');
-var activeSelection = require('../active-selection');
+var downloadGraph = require('../../graphs/cell-download');
+var reliabilityGraph = require('../../graphs/cell-reliability');
+var sideBar = require('../side-bar-controller');
+var parseCell2 = require('../../graphs/parse-cell-2')
 
 
 router.route('search/:cityName/internet', function (cityName){
@@ -20,8 +23,9 @@ router.route('search/:cityName/internet', function (cityName){
   show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
   show('city-template-2', '.main-content', {city: cityName});
-  activeSelection();
 
+  sideBar();
+    
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -29,10 +33,7 @@ router.route('search/:cityName/internet', function (cityName){
 
   parseCell(state, city, '.duo-1', '.duo-2');
 
-
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
-
+  $('.download-title').prepend('<h2 class = "pure-u-1 graph-download-title">User Average Download and Upload Speeds</h2>');
+  $('.rel-title').prepend('<h2 class = "pure-u-1 graph-rel-title">User Reliability Scores</h2>');
+    
 });

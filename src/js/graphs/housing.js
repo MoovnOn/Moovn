@@ -59,7 +59,5 @@ module.exports = function(state, city, element) {
 
       var chart = c3.generate(data);
       return data;
-  };
-
-  //return data;
+  }; 
 };

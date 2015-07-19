@@ -1,6 +1,6 @@
 from Moovn.moovn_apis import apis
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from django.views.generic import View
 import requests
 import requests_cache
@@ -174,8 +174,8 @@ def salary_view(request, state, name, job):
     typecodes = {"11": "10th", "12": "25th", "13": "50th", "14": "75th",
                  "15": "90th"}
 
-    if not ndata["Results"] or not ndata["Results"]["series"]:
-        return HttpResponse("no data")
+    if not ndata["Results"] or not ndata["Results"]["series"] or ndata["message"]:
+        return JsonResponse({"no data": "no data"})
 
     else:
         for line in ndata["Results"]["series"]:
@@ -188,12 +188,12 @@ def salary_view(request, state, name, job):
 
     for value in datadict:
         if datadict[value] == "-":
-            response = HttpResponse("no data")
+            response = JsonResponse({"no data": "no data"})
             return response
         else:
             return JsonResponse(datadict)
 
-
+    # return JsonResponse(ndata)
 main_ind = [str(num) for num in range(110000, 530000, 20000)]
 
 
@@ -216,9 +216,9 @@ def industry_size_view(request, state, name):
     datadict = {}
 
     if not ndata["Results"] or not ndata["Results"]["series"]:
-        response = HttpResponse("no data")
+        datadict["no data"] = "no data"
+        response = JsonResponse(datadict)
         return response
-
     else:
         for line in ndata["Results"]["series"]:
             for job in occupations:

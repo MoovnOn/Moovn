@@ -9,7 +9,6 @@ var reliabilityGraph = require('./cell-reliability');
 module.exports = function (state, city, el1, el2) {
   var centroid = [];
   var newArray = [];
-  console.log(el2);
   Promise.all([
 
     $.ajax({

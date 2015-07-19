@@ -14,7 +14,7 @@ var peopleAge = require('../../graphs/people-age');
 var peopleHousehold = require('../../graphs/people-household');
 var peopleRelationships = require('../../graphs/people-relationships');
 var liveshere = require('../../list-data/liveshere');
-var activeSelection = require('../active-selection');
+var sideBar = require('../side-bar-controller');
 
 
 router.route('search/:cityName/people', function (cityName){
@@ -22,12 +22,7 @@ router.route('search/:cityName/people', function (cityName){
   show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
   show('people-template', '.main-content' , {city: cityName});
-  activeSelection();
-
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
+  sideBar();
 
   var citySplit = cityName.split(', ');
   var city = citySplit[0];

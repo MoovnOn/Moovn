@@ -53,9 +53,9 @@ module.exports = function (data, bindTo) {
         	},
           y: {
             label: "Megabits Per Second",
-            max: 1900
+            max: 19000
           }
-    		},
+    		}
 		});
 
 };
