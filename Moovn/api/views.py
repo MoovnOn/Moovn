@@ -196,7 +196,7 @@ def salary_view(request, state, name, job):
 
     for value in datadict:
         if datadict[value] == "-":
-            response = HttpResponse("no data")
+            response = JsonResponse({"no data": "no data"})
             return response
         else:
             return JsonResponse(datadict)
