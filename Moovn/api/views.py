@@ -35,19 +35,12 @@ class HomeView(View):
 
 
 def cell_view(request, state, name):
-    query = state + '+' + name
-    places = requests.get("http://api.tiles.mapbox.com/v4/"
-                          + "geocode/mapbox.places/" + query \
-                          + ".json?access_token=" + apis('mapbox'))
-
-    places = geojson.loads(places.text)
-    coords = [places.features[0].center[0], places.features[0].center[1]]
+    coords = [request.GET.get("lat"), request.GET.get("lon")]
 
     signal = requests.get("http://api.opensignal.com/v2/networkstats.json?lat=" \
                           + str(coords[1]) + "&lng=" + str(coords[0]) \
                           + "&distance=" + "10" \
-                          # + "&network_type=" + {network_type} +
-                          + "&json_format=" + "2"  # 2 is suggested \
+                          + "&json_format=" + "2" \
                           + "&apikey=" + apis('opensignal'))
 
     signal = json.loads(signal.text)
