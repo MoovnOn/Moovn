@@ -241,15 +241,11 @@ def salary_view(request, state, name, job):
         for line in ndata["Results"]["series"]:
             for job in occupations:
                 if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
-<<<<<<< HEAD
+
                     datadict[occupations[job] \
                     + typecodes[str(line['seriesID'][-2:])]] = \
                     line["data"][0]["value"]
-=======
-                    datadict[occupations[job]
-                             + typecodes[str(line['seriesID'][-2:])]] = \
-                        line["data"][0]["value"]
->>>>>>> eb458b986e407830c5eeb2497dddbc030a080858
+
 
     for value in datadict:
         if datadict[value] == "-":
