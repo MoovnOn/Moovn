@@ -2,6 +2,13 @@
   .overview-graph-container{
     margin-bottom:6em;
   }
+      .overview-cityImg-container-mobile{
+      display:block;
+      padding-bottom: 0em;
+    }
+    .overview-cityImg-container{
+      display:none;
+    }
 }
 
 @media screen and (max-width: 670px) {
