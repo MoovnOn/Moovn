@@ -24225,7 +24225,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
- var jQuery = require("jquery");
+var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -24903,15 +24903,9 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   var city2 = citySplit2[0];
   var state2 = citySplit2[1];
 
-  parseCell(state1, city1).then(function (data) {
-      var data2 = parseCell2(data);
-      downloadGraph(data2, '.comp-chart1-1' )
-  });
 
-  parseCell(state2, city2).then(function (data) {
-      var data2 = parseCell2(data);  
-      downloadGraph(data2, '.comp-chart2-1' )
-  });
+  parseCell(state1, city1, '.comp-chart1-1');
+  parseCell(state2, city2, '.comp-chart2-1');
 
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
@@ -24920,9 +24914,6 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   peopleAge(state1, city1, '.comp-chart1-2');
   peopleAge(state2, city2, '.comp-chart2-2');
 
-
-  // housingGraphGeneral(state1, city1, '.comp-chart1-3')
-  // housingGraphGeneral(state2, city2, '.comp-chart2-3')
 
   housingGraph(state1, city1, state2, city2)
 
@@ -25470,24 +25461,22 @@ var reliabilityGraph = require('../../graphs/cell-reliability');
 var sideBar = require('../side-bar-controller');
 var parseCell2 = require('../../graphs/parse-cell-2')
 
+
 router.route('search/:cityName/internet', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
   show('city-template-2', '.main-content', {city: cityName});
+
   sideBar();
     
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
 
-	parseCell(state, city).then(function (data) {
-       
-      var data2 = parseCell2(data);     
 
-      downloadGraph(data2, '.duo-1');
-      reliabilityGraph(data2, '.duo-2');
-    });
+  parseCell(state, city, '.duo-1', '.duo-2');
+
 
 
 });
@@ -25728,11 +25717,12 @@ $.ajax({
   "&lon=" + coords[0] //+ "&radius=" + 2, // min might be 5 miles
 }).then(function(data){
 		var school = data.schools.school;
-		$('.school-info').append('<div class="school-info-container"></div>');
-		$('.school-info-title').text("Local Schools");
+		$('.school-info').html('<div class="school-modal"><button class="school-modal-x close-button">X</button><div class="school-modal-content"></div></div><div class="school-info-container"></div>');
 		school.forEach(function(school, i) {
 			schoolList.push(school);
 			$('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
+      $('.school-info-container').fadeIn();
+
 	});
 
 var showDetails = function() {
@@ -25741,6 +25731,7 @@ var showDetails = function() {
       var currentSchool = school[id];
       var modal = $('.school-modal-content');
 
+      $('.school-info-container').fadeOut();
       $('.school-info-container').html('');
 
       modal.text('');
@@ -25765,6 +25756,7 @@ showDetails();
        		$('.school-info-container').append('<p class="school-title" data-id="' + i + '">'  + school.name + '</p>');
        		showDetails();
   		});
+        $('.school-info-container').fadeIn(800);
   });
 
 });
@@ -25904,8 +25896,7 @@ module.exports = function (data, bindTo) {
             label: "Megabits Per Second",
             max: 19000
           }
-    		},
-        
+    		}
 		});
 
 };
@@ -26107,12 +26098,12 @@ module.exports = function(state1, city1, state2, city2) {
             type: 'category',
             categories: ['Median Housing Prices']
         	},
-            y : {
-            	max: maxCost,
-              tick: {
-                format: d3.format("$,"),
-              }
+          y : {
+          	max: maxCost,
+            tick: {
+              format: d3.format("$,"),
             }
+          }
           },
           size: {
         		height: 400
@@ -26537,36 +26528,67 @@ module.exports = function(data) {
 },{}],27:[function(require,module,exports){
 var $ = require('jquery');
 var c3 = require('c3');
+var topojson = require('../topojson')
+var parse2 = require('./parse-cell-2')
+var downloadGraph = require('./cell-download');
+var reliabilityGraph = require('./cell-reliability');
 
-module.exports = function (state, city) {
 
-  return $.ajax({
-  	method: 'GET',
-  	url: 'api/celldata/' + state + '/' + city + '/'
-  }).then(function (data){	
+module.exports = function (state, city, el1, el2) {
+  var centroid = [];
+  var newArray = [];
+  Promise.all([
 
-  	var array = data.networkRank;
-    var newArray = [];
-  	
-  	array.forEach(function(prov) {
-  		if (prov.networkName === "AT&T") {
-  			newArray[0] = prov
-  		}
-  		if (prov.networkName === "Verizon") {
-  			newArray[1] = prov
-  		}
-  		if (prov.networkName === "Sprint") {
-  			newArray[2] = prov
-  		}
-  		if (prov.networkName === "T-Mobile") {
-  			newArray[3] = prov
-  		}
-  	})
-    return newArray
+    $.ajax({
+      method: 'GET',
+      url: 'api/boundary/' + state + '/' + city + '/'
+    }).then(function (json) {
+
+      data = topojson.feature(json, json.objects[Object.keys(json.objects)[0]]);
+      centroid = [data.features[0].properties.INTPTLAT10, data.features[0].properties.INTPTLON10]
+
+    }),
+
+  ]).then(function(results) {
+
+    Promise.all([
+    $.ajax({
+      method: "GET",
+      url: "api/celldata/" + state + "/" + city + "/?lat=" + centroid[0] + "&lon=" + centroid[1],
+    }).then(function(data){
+        var array = data.networkRank;
+
+       array.forEach(function(prov) {
+         if (prov.networkName === "AT&T") {
+           newArray[0] = prov;
+         }
+         if (prov.networkName === "Verizon") {
+           newArray[1] = prov;
+         }
+         if (prov.networkName === "Sprint") {
+           newArray[2] = prov;
+         }
+         if (prov.networkName === "T-Mobile") {
+           newArray[3] = prov;
+         }
+       })
+
+    }),
+
+  ]).then(function(results){
+      var data2 = parse2(newArray);
+      if (el2 != undefined) {
+        downloadGraph(data2, el1);
+        reliabilityGraph(data2, el2);
+      } else {
+        downloadGraph(data2, el1);      }
+    });
+
   });
 
 };
-},{"c3":"c3","jquery":"jquery"}],28:[function(require,module,exports){
+
+},{"../topojson":45,"./cell-download":18,"./cell-reliability":19,"./parse-cell-2":26,"c3":"c3","jquery":"jquery"}],28:[function(require,module,exports){
 var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
@@ -26902,7 +26924,6 @@ module.exports = function(state, city) {
     var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
     var housingLiveshere = allHousingData["Demographics:demographics"].response.pages.page[2].segmentation.liveshere;
 
-console.log(housingResponse);
 
     var descArr =[];     
       for (var index = 0; index < housingLiveshere.length; index++) {

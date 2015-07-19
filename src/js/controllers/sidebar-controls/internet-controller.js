@@ -17,24 +17,22 @@ var reliabilityGraph = require('../../graphs/cell-reliability');
 var sideBar = require('../side-bar-controller');
 var parseCell2 = require('../../graphs/parse-cell-2')
 
+
 router.route('search/:cityName/internet', function (cityName){
 
   show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
   show('city-template-2', '.main-content', {city: cityName});
+
   sideBar();
     
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
 
-	parseCell(state, city).then(function (data) {
-       
-      var data2 = parseCell2(data);     
 
-      downloadGraph(data2, '.duo-1');
-      reliabilityGraph(data2, '.duo-2');
-    });
+  parseCell(state, city, '.duo-1', '.duo-2');
+
 
 
 });

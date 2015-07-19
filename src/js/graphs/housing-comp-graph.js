@@ -80,12 +80,12 @@ module.exports = function(state1, city1, state2, city2) {
             type: 'category',
             categories: ['Median Housing Prices']
         	},
-            y : {
-            	max: maxCost,
-              tick: {
-                format: d3.format("$,"),
-              }
+          y : {
+          	max: maxCost,
+            tick: {
+              format: d3.format("$,"),
             }
+          }
           },
           size: {
         		height: 400

@@ -55,8 +55,7 @@ module.exports = function (data, bindTo) {
             label: "Megabits Per Second",
             max: 19000
           }
-    		},
-        
+    		}
 		});
 
 };

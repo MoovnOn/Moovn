@@ -30,15 +30,9 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   var city2 = citySplit2[0];
   var state2 = citySplit2[1];
 
-  parseCell(state1, city1).then(function (data) {
-      var data2 = parseCell2(data);
-      downloadGraph(data2, '.comp-chart1-1' )
-  });
 
-  parseCell(state2, city2).then(function (data) {
-      var data2 = parseCell2(data);  
-      downloadGraph(data2, '.comp-chart2-1' )
-  });
+  parseCell(state1, city1, '.comp-chart1-1');
+  parseCell(state2, city2, '.comp-chart2-1');
 
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
@@ -47,9 +41,6 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   peopleAge(state1, city1, '.comp-chart1-2');
   peopleAge(state2, city2, '.comp-chart2-2');
 
-
-  // housingGraphGeneral(state1, city1, '.comp-chart1-3')
-  // housingGraphGeneral(state2, city2, '.comp-chart2-3')
 
   housingGraph(state1, city1, state2, city2)
 
