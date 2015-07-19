@@ -183,7 +183,7 @@ def salary_view(request, state, name, job):
                  "15": "90th"}
 
     if not ndata["Results"] or not ndata["Results"]["series"]:
-        return HttpResponse("no data")
+        return JsonResponse({"no data": "no data"})
 
     else:
         for line in ndata["Results"]["series"]:
@@ -224,9 +224,9 @@ def industry_size_view(request, state, name):
     datadict = {}
 
     if not ndata["Results"] or not ndata["Results"]["series"]:
-        response = HttpResponse("no data")
+        datadict["no data"] = "no data"
+        response = JsonResponse(datadict)
         return response
-
     else:
         for line in ndata["Results"]["series"]:
             for job in occupations:
