@@ -1,7 +1,7 @@
 from geo.models import Name, City
 
 
-def load():
+def parity_load():
     names = Name.objects.all()
     with open("geo/price_parity.csv") as file:
         for line in file:
