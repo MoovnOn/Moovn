@@ -24225,7 +24225,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
- var jQuery = require("jquery");
+var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -25357,14 +25357,8 @@ router.route('search/:cityName/housing', function (cityName){
     $(".clickSpan").removeClass("clickSpan-selected");
     $(this).addClass("clickSpan-selected");
   });
-<<<<<<< HEAD
+
 // code handling schools modal in  education-requests file
-=======
-
-
-  // code handling schools modal in  education-requests file
-
->>>>>>> 8c87ab39138f4ffcbea3800a086ea13af6e9123c
   setTimeout(function() {
     var id = $('.clickSpan').eq(0).attr('id')
     getDetails(id)
@@ -25693,23 +25687,27 @@ router.route('search/:cityName/places', function (cityName){
 
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
-      var searchTerm = $(this).text()
-      var request = {
-        query: searchTerm + " " + city
-      };  
+      var searchTerm = $(this).text();
+        
+      if (searchTerm != 'Search'){
+        var request = {
+          query: searchTerm + " " + city
+        };  
 
-      map = new google.maps.Map(document.getElementById('map'));
-      service = new google.maps.places.PlacesService(map);
-      service.textSearch(request, function(results) {
-        var id = results[0].place_id;
-            getDetails(id)
-      });
+        map = new google.maps.Map(document.getElementById('map'));
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch(request, function(results) {
+          var id = results[0].place_id;
+              getDetails(id)
+        });
+   
+      };
+
   });
 
 
   $('.city-all-container').on('click', '.clickSpan', function (){
 
-    
     var id = this.id;
     getDetails(id);
     $(".clickSpan").removeClass("clickSpan-selected");
