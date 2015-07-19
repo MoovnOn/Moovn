@@ -25670,7 +25670,6 @@ router.route('search/:cityName/places', function (cityName){
   show('side-bar-city-search', '.side-bar-content', {city: cityName} );
   searchFunction();
 
-
   show('city-template-2', '.main-content', {city: cityName} );
 
   sideBar();
@@ -25733,6 +25732,8 @@ router.route('search/:cityName/places', function (cityName){
 
 
   $('.city-all-container').on('click', '.clickSpan', function (){
+
+    
     var id = this.id;
     getDetails(id);
     $(".clickSpan").removeClass("clickSpan-selected");
@@ -27216,8 +27217,7 @@ module.exports = function(id){
 	};
 
 	service.getDetails(request, function(result, status) {
-  	
-
+    
 		show('content/place-details', '.details-right', {detail: result} );
      	$(".details-right").fadeIn();
 
