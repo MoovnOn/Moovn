@@ -25282,8 +25282,8 @@ router.route('search/:cityName/housing', function (cityName){
   var projection = d3.geo.albers().scale(200).translate([150,140]);
   var path = d3.geo.path().projection(projection);
 
-  //currenty bound to quad-2
-  var housingdata = housingGraphGeneral(state, city, '.quad-2');
+  //City wide housing graph
+  var housingdata = housingGraphGeneral(state, city, '.housing-graph');
   var cityjson = [];
   var boundaryjson = [];
   var id = 0;
@@ -25292,7 +25292,7 @@ router.route('search/:cityName/housing', function (cityName){
     $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
     d3.selectAll("path")
       .classed("active", false);
-    housingGraphGeneral(state, city, '.quad-2');
+    housingGraphGeneral(state, city, '.housing-graph');
     return zoom(cityjson, boundaryjson, g, path, aspect * width, width);
   };
 
