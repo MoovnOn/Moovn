@@ -2048,6 +2048,12 @@ header {
 .jobList {
   line-height: 1.5; }
 
+#boxplot text {
+  font-size: 2.2em; }
+
+#boxplot {
+  overflow: visible; }
+
 @media screen and (max-width: 1024px) {
   .overview-graph-container {
     margin-bottom: 6em; } }

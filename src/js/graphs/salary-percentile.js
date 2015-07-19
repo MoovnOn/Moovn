@@ -27,7 +27,7 @@ module.exports = function(state, city, job, height, width) {
 			console.log(bp.attr("width"))
 
 			var x = function(val) {
-				return .05 * bp.attr("width") + .9 * bp.attr("width") *
+				return .05 * bp.attr("width") + 1.4 * bp.attr("width") *
 							 (val - values[0]) / (values[4] - values[0]);
 			};
 
