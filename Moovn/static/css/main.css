@@ -1686,7 +1686,6 @@ header {
 
 .overview-tax-container, .overview-cost-container, .overview-cityImg-container, .overview-cityImg-container-mobile {
   padding-left: 3em;
-  padding-bottom: 3em;
   padding-top: 1em;
   background-color: white; }
 
@@ -1707,10 +1706,9 @@ header {
   bottom: 0; }
 
 .overview-graph-title {
-  color: #354052;
+  color: #B27700;
   padding-top: 1em;
   padding-left: 1.5em;
-  text-decoration: underline;
   border-top: 1px solid #A5B6C3; }
 
 .overview-graph-container {
@@ -2048,12 +2046,16 @@ header {
 
 @media screen and (max-width: 1024px) {
   .overview-graph-container {
-    margin-bottom: 6em; }
+    margin-bottom: 6em; } }
+
+@media screen and (max-width: 768px) {
   .overview-cityImg-container-mobile {
     display: block;
     padding-bottom: 0em; }
   .overview-cityImg-container {
-    display: none; } }
+    display: none; }
+  .overview-tax-container, .overview-cost-container, .overview-cityImg-container, .overview-cityImg-container-mobile {
+    padding-bottom: 3em; } }
 
 @media screen and (max-width: 670px) {
   .city-all-container {

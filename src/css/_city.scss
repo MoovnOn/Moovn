@@ -128,7 +128,6 @@
 }
 .overview-tax-container, .overview-cost-container, .overview-cityImg-container, .overview-cityImg-container-mobile{
   padding-left: 3em;
-  padding-bottom: 3em;
   padding-top: 1em;
   background-color: white;
 }
@@ -150,10 +149,9 @@
   bottom:0;
 }
 .overview-graph-title{
-  color: $primary-color;
+  color: $comp-color;
   padding-top:1em;
   padding-left: 1.5em;
-  text-decoration:underline;
   border-top:1px solid $light-primary-color;
 }
 .overview-graph-container{

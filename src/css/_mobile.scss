@@ -2,14 +2,23 @@
   .overview-graph-container{
     margin-bottom:6em;
   }
-      .overview-cityImg-container-mobile{
+
+}
+@media screen and (max-width: 768px) {
+     .overview-cityImg-container-mobile{
       display:block;
       padding-bottom: 0em;
     }
     .overview-cityImg-container{
       display:none;
     }
+    .overview-tax-container, .overview-cost-container, .overview-cityImg-container, .overview-cityImg-container-mobile{
+    padding-bottom:3em;
+    }
+
 }
+
+
 
 @media screen and (max-width: 670px) {
     .city-all-container{
