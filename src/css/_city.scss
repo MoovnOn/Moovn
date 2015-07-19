@@ -50,6 +50,22 @@
   text-align: center;
   color: $comp-color;
 }
+.rel-title{
+  margin:auto;
+}
+.graph-rel-title{
+  padding-top:2em;
+  text-align: center;
+  color: $comp-color;
+}
+.download-title{
+  margin:auto;
+}
+.graph-download-title{
+  padding-top:1em;
+  text-align: center;
+  color: $comp-color;
+}
 .no-data-message{
   padding-top:2em;
 }

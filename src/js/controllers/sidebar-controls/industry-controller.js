@@ -26,7 +26,7 @@ router.route('search/:cityName/industry', function (cityName){
 
   show('city-template-3', '.main-content', {city: cityName});
   sideBar();
-
+  
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];

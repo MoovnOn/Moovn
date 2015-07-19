@@ -1616,6 +1616,22 @@ header {
   text-align: center;
   color: #B27700; }
 
+.rel-title {
+  margin: auto; }
+
+.graph-rel-title {
+  padding-top: 2em;
+  text-align: center;
+  color: #B27700; }
+
+.download-title {
+  margin: auto; }
+
+.graph-download-title {
+  padding-top: 1em;
+  text-align: center;
+  color: #B27700; }
+
 .no-data-message {
   padding-top: 2em; }
 

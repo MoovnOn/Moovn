@@ -24225,7 +24225,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require("jquery");
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -25384,7 +25384,7 @@ router.route('search/:cityName/industry', function (cityName){
 
   show('city-template-3', '.main-content', {city: cityName});
   sideBar();
-
+  
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -25477,8 +25477,9 @@ router.route('search/:cityName/internet', function (cityName){
 
   parseCell(state, city, '.duo-1', '.duo-2');
 
-
-
+  $('.download-title').prepend('<h2 class = "pure-u-1 graph-download-title">User Average Download and Upload Speeds</h2>');
+  $('.rel-title').prepend('<h2 class = "pure-u-1 graph-rel-title">User Reliability Scores</h2>');
+    
 });
 
 },{"../../graphs/cell-download":18,"../../graphs/cell-reliability":19,"../../graphs/parse-cell":27,"../../graphs/parse-cell-2":26,"../../neighMap":37,"../../places-api":40,"../../router":41,"../../search":42,"../../show":43,"../../zoom":46,"../side-bar-controller":8,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],13:[function(require,module,exports){
@@ -26173,7 +26174,7 @@ module.exports = function(state, city, element) {
             }
           },
           size: {
-        		height: 500
+        		height: 400
       		},
        }
 

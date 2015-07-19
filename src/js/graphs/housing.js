@@ -53,7 +53,7 @@ module.exports = function(state, city, element) {
             }
           },
           size: {
-        		height: 500
+        		height: 400
       		},
        }
 
