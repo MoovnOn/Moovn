@@ -1,7 +1,6 @@
 from geo.models import City, Name, Boundary
 
 
-
 def make():
     cities = {}
     with open('geo/cities.py', 'r', encoding='utf-8') as fh:
@@ -33,10 +32,10 @@ def make():
 
                 boundary=Boundary.objects.create(data=fh.read(), city=city)
 
-    name = Name.objects.create(name='US', state='US')
-
-    US = City.objects.create(geo_id='0')
-    US.names.add(name)
-
-    with open('geo/CityBoundaries/us_topo.json', 'r') as fh:
-        Boundary.objects.create(data=fh.read(), city=US)
+            #name = Name.objects.create(name='US', state='US')
+            #
+            # US = City.objects.create(geo_id='0')
+            # US.names.add(name)
+            #
+            # with open('geo/CityBoundaries/us_topo.json', 'r') as fh:
+            #     Boundary.objects.create(data=fh.read(), city=US)

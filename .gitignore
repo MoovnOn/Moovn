@@ -78,7 +78,6 @@ docs/_build/
 # PyBuilder
 target/
 
-*.sqlite3
 /.idea/
 .envrc
 .direnv
@@ -89,3 +88,5 @@ node_modules/
 bower.json
 Moovn/geo/.ipynb_checkpoints/
 Moovn/api/.ipynb_checkpoints/
+
+
