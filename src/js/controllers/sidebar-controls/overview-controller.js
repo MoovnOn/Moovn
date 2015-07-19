@@ -6,7 +6,7 @@ var router = require('../../router');
 var show = require('../../show');
 var places = require('../../places-api');
 var searchFunction = require('../../search');
-var activeSelection = require('../active-selection');
+var sideBar = require('../side-bar-controller');
 var commuteTime = require('../../graphs/commute-times');
 var housingGraphGeneral = require('../../graphs/housing');
 var incomeCity = require ('../../graphs/income-city-wide')
@@ -16,16 +16,20 @@ router.route('search/:cityName/overview', function (cityName){
   show('side-bar-city-search', '.side-bar-content', {city: cityName});
   searchFunction();
   show('city-template-overview', '.main-content', {city: cityName});
-  activeSelection();
-
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
+  sideBar();
   
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
+
+//cost of living
+    $.ajax({
+      method: 'GET',
+      url: '/api/parity/' + state + '/' + city + '/'
+    })
+    .then(function(data){
+      $('.overview-cost-container').append('<p>' + data + '</p>');
+    });
 
 //income graph
 incomeCity(state, city, '.overview-graph3');
@@ -63,11 +67,11 @@ commuteTime(state, city, '.overview-graph1');
               }
               
                nameArr.forEach(function(e, i) {
-                $(".text-left").append(nameArr[i] + " ");
-                $(".text-left").append(rateArr[i] + "%<br><br>");
+                $(".overview-tax-container").append(nameArr[i] + " ");
+                $(".overview-tax-container").append(rateArr[i] + "%<br><br>");
                });
                
-               $(".text-left").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
+               $(".overview-tax-container").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
                
             })          
           

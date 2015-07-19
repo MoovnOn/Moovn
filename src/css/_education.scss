@@ -1,6 +1,11 @@
+.tri-1-edu, .tri-2-edu {
+	margin-top: 1em;
+}
 .school-info {
-	overflow: auto;
 	height: 400px;
+	position: relative;
+	overflow: auto;
+	padding: 2em;
 }
 .school-title{
 	color: #0046B2;
@@ -10,16 +15,34 @@
 	cursor: pointer;
 	text-decoration: underline;
 }
+.school-info-container{
+	padding: 1em;
+	display: none;
+}
 .school-modal {
-	overflow: auto;
-	height: 400px;
-	width: 100%;
 	display: none; 
-	box-shadow: 0px 0px 10px;
+	padding: 1em;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: white;
+	z-index: 105;
+	width: 90%;
+}
+.school-modal-content {
+	padding: 1em;	
+	margin-bottom: 0.5em;
+	overflow: hidden;
+	height: 100%;
+  box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.75);
+	border-radius: 12px;
 }
 .school-modal-x {
 	margin: 0.6em;
 	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
 }
 .school-details {
   line-height: 1.5;

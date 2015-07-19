@@ -1,13 +1,22 @@
 <button class="close-button">&#10005</button>
-<h1 class = "detail-title"><%- m.detail.name %></h1>
-<p><%- m.detail.formatted_address %></p>
-<p><%- m.detail.formatted_phone_number %></p>
-<p><a href ="<%- m.detail.website %>" target="_blank"><%- m.detail.website %></a></p>
-<br>
-<img src='<%- m.detail.photos[0].getUrl({ 'maxWidth': 400, 'maxHeight': 300 }) %>'>
-<p><b>Reviews</b><p>
-<br>
-<% m.detail.reviews.forEach(function(i) { %>
-	<p><%- i.text %></p><br><hr>
-<% }); %>
-
+<h1 class = "detail-title">
+	<% if (m.detail.name) { %> 
+		<%- m.detail.name %></h1>
+	<% }; %>	
+	<% if (m.detail.formatted_phone_number) { %>	
+		<p><%- m.detail.formatted_phone_number %></p>
+	<% }; %>	
+	<% if (m.detail.website) { %>
+		<p><a href ="<%- m.detail.website %>" target="_blank"><%- m.detail.website %></a></p>
+	<% }; %>	
+	<br>
+	<% if (m.detail.photos) { %>	
+		<img src='<%- m.detail.photos[0].getUrl({ 'maxWidth': 400, 'maxHeight': 300 }) %>'>
+	<% }; %>
+	<% if (m.detail.reviews) { %>	
+		<p><b>Reviews</b><p>
+		<br>
+		<% m.detail.reviews.forEach(function(i) { %>
+			<p><%- i.text %></p><br>
+		<% }); %>
+	<% }; %>

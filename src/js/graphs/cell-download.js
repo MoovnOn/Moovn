@@ -49,12 +49,13 @@ module.exports = function (data, bindTo) {
   	 		axis: {
        		x: {
             type: 'category',
-            categories: ['3G Download Speed', '3G Upload Speed' , '4G Download Speed', '4G Upload Speed']
+            categories: ['3G Download', '3G Upload' , '4G Download', '4G Upload']
         	},
           y: {
-            label: "Megabits Per Second"
+            label: "Megabits Per Second",
+            max: 19000
           }
-    		},
+    		}
 		});
 
 };

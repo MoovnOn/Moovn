@@ -2,7 +2,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city) {
+module.exports = function(state, city, element) {
 
   $.ajax({
     method: 'GET',
@@ -18,7 +18,7 @@ module.exports = function(state, city) {
     var housingWithKids = housingPeople[3].data.attribute[1].value['#text'];
     
       c3.generate({
-          bindto: 'body .quad-2',
+          bindto: element,
           data: {
               columns: [
                   ['% No Kids', housingNoKids],
@@ -33,7 +33,7 @@ module.exports = function(state, city) {
               title: "Household Composition"
           },
           size: {
-      		height: 400
+      		height: 280
       		},
       });
              

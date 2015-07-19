@@ -12,8 +12,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var incomeCity = require ('../../graphs/income-city-wide')
-var activeSelection = require('../active-selection');
-var jobSearch = require('../../job-search');
+var sideBar = require('../side-bar-controller');
 var autocomplete = require('jquery-ui');
 var jobtitles = require('../../job-titles');
 var bubbleChart = require('../../graphs/industry-bubble');
@@ -26,18 +25,18 @@ router.route('search/:cityName/industry', function (cityName){
   searchFunction();
 
   show('city-template-3', '.main-content', {city: cityName});
-  activeSelection();
-
+  sideBar();
+  
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
 
-  var width = $(".tri-2").width(),
+  var width = $(".bubble-chart").width(),
       aspect = 1;
 
-  var width2 = $(".tri-1").width();
+  var width2 = $(".bubble-chart").width();
 
-  var svg = d3.select(".tri-2").append("svg")
+  var svg = d3.select(".bubble-chart").append("svg")
               .attr("preserveAspectRatio", "xMidYMid")
               .attr("viewBox", "0 0 1000 1000")
               .attr("width", width)
@@ -51,7 +50,7 @@ router.route('search/:cityName/industry', function (cityName){
     .attr("height", width2 * aspect);
 
   $(window).resize(function(){
-    var width = $(".tri-2").width();
+    var width = $(".bubble-chart").width();
     var width2 = $(".tri-1").width();
     svg.attr("width", width);
     svg.attr("height", width * aspect);
@@ -67,10 +66,6 @@ router.route('search/:cityName/industry', function (cityName){
 
   });
 
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
 
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
