@@ -3,7 +3,7 @@ import re
 import pandas as pd
 
 
-def load():
+def college_load():
     colleges = pd.read_csv("geo/university_ranking.csv", header=None)
     new = colleges[3].apply(lambda x: pd.Series([i.strip() for i in x.split(',')]))
     colleges = pd.concat([colleges, new], axis=1)
