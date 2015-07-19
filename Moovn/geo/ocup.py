@@ -1,4 +1,4 @@
-from models import City, Name
+from geo.models import City, Name
 import pandas as pd
 
 
@@ -27,5 +27,4 @@ def add_ocup_codes():
             out = out[:-1]
             city.ocp_id = out
             city.save()
-        else:
-            print("{}, {} is not in bls data :(".format(name.name, name.state))
+
