@@ -26,17 +26,6 @@ module.exports = function(){
     })
 
 
-
-
-      // $('.search-city-comp').removeClass('hidden');
-     //    $('.search-city-comp').addClass(' show-input');
-
-      // $(this).addClass('hidden');
-
-
-
-
-
   $('.search-form').on('submit', function(e) {
   	e.preventDefault();
 

@@ -12,7 +12,7 @@ var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
 var housingGraphGeneral = require('../../graphs/housing');
-var activeSelection = require('../active-selection');
+var sideBar = require('../side-bar-controller');
 var getDetails = require('../../place-details');
 
 // for the map
@@ -136,12 +136,7 @@ router.route('search/:cityName/housing', function (cityName){
   });
 
 
-  activeSelection();
-
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
+  sideBar();
 
   show('content/tabs-lists', '.quad-3')
 

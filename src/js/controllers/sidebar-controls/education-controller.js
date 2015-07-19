@@ -11,7 +11,7 @@ var drawNeigh = require('../../neighMap');
 var zoom = require('../../zoom');
 var searchFunction = require('../../search');
 var views = require('views');
-var activeSelection = require('../active-selection');
+var sideBar = require('../side-bar-controller');
 var getDetails = require('../../place-details');
 
 // for the map
@@ -30,7 +30,7 @@ router.route('search/:cityName/education', function (cityName){
   searchFunction();
   show('education-template', '.main-content', {city: cityName} );
 
-  activeSelection();
+  sideBar();
 
   nTitle = d3.select(".neighborhood-select");
   nTitle.selectAll("span");
@@ -41,10 +41,6 @@ router.route('search/:cityName/education', function (cityName){
   nTitle.append("span").style({"color": "darkgreen", "font-weight": "bold"})
     .text(city);
 
-  //slides the side-nav
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
 
   show('content/tabs-lists', '.tri-3-edu')
 
