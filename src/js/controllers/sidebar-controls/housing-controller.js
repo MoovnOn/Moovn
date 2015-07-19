@@ -130,8 +130,19 @@ router.route('search/:cityName/housing', function (cityName){
   places(cityName, "apartments", ".tab-data1", ".tab-title1");
   places(cityName, "realty", ".tab-data2", ".tab-title2");
 
-    $('.main-content').on('click', '.r-tabs-anchor', function(){
+  $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
+      var searchTerm = $(this).text()
+      var request = {
+        query: searchTerm + " " + city
+      };  
+
+      map = new google.maps.Map(document.getElementById('map'));
+      service = new google.maps.places.PlacesService(map);
+      service.textSearch(request, function(results) {
+        var id = results[0].place_id;
+            getDetails(id)
+      });
   });
 
   $('.city-all-container').on('click', '.clickSpan', function (){
@@ -140,6 +151,7 @@ router.route('search/:cityName/housing', function (cityName){
     $(".clickSpan").removeClass("clickSpan-selected");
     $(this).addClass("clickSpan-selected");
   });
+
 // code handling schools modal in  education-requests file
   setTimeout(function() {
     var id = $('.clickSpan').eq(0).attr('id')
