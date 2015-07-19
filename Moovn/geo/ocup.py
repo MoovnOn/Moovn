@@ -1,4 +1,4 @@
-from models import City, Name
+from geo.models import City, Name
 import pandas as pd
 
 

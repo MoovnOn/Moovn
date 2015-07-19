@@ -67,7 +67,7 @@
 67,62,'University of Pittsburgh',"Pittsburgh, PA",in-state: $17772 out-of-state: $28168
 68,68,'Texas A&M University--College Station',"College Station, TX",in-state: $9180 out-of-state: $26356
 69,68,'Worcester Polytechnic Institute',"Worcester, MA",$42778
-70,70,"b'Rutgers, The State University of New Jersey--New Brunswick'","Piscataway, NJ",in-state: $13813 out-of-state: $28591
+70,70,'Rutgers',"New Brunswick, NJ",in-state: $13813 out-of-state: $28591
 71,71,'American University',"Washington, DC",$41833
 72,71,'Baylor University',"Waco, TX",$38290
 73,71,'University of Iowa',"Iowa City, IA",in-state: $8079 out-of-state: $27409
@@ -123,7 +123,7 @@
 123,121,'DePaul University',"Chicago, IL",$35071
 124,121,'Temple University',"Philadelphia, PA",in-state: $14770 out-of-state: $25450
 125,121,'University of Arizona',"Tucson, AZ",in-state: $10581 out-of-state: $28379
-126,126,"b'Rutgers, The State University of New Jersey--Newark'","Newark, NJ",in-state: $13297 out-of-state: $28075
+126,126,'Rutgers',"Newark, NJ",in-state: $13297 out-of-state: $28075
 127,126,'Seton Hall University',"South Orange, NJ",$36926
 128,126,'University at Albany--SUNY',"Albany, NY",in-state: $8527 out-of-state: $20167
 129,129,'Arizona State University--Tempe',"Tempe, AZ",in-state: $9811 out-of-state: $23312

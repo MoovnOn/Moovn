@@ -12,63 +12,11 @@ from rest_framework.response import Response
 
 from rest_framework.decorators import api_view, permission_classes
 
-from geo.models import City, Boundary, Name, NeighborhoodBoundary
+from geo.models import City, Boundary, Name, NeighborhoodBoundary, Bls, Occupation, College
 import xmltodict
 import json
 
 requests_cache.install_cache('cache', expire_after=18000)
-
-try:
-    with open('geo/all_bls_codes.csv') as file:
-        industry = {
-            line.split(',')[1][:-1]: line.split(',')[0] for line in file}
-except:
-    with open('Moovn/geo/all_bls_codes.csv') as file:
-        industry = {
-            line.split(',')[1][:-1]: line.split(',')[0] for line in file}
-try:
-    with open('geo/oe_ocup.csv') as file:
-        occupations = {
-            line.split(',', 1)[0].rstrip('\n'):
-                line.split(',', 1)[1].strip().replace('"', '') for line in file}
-except:
-    with open('Moovn/geo/oe_ocup.csv') as file:
-        occupations = {
-            line.split(',', 1)[0].rstrip('\n'):
-                line.split(',', 1)[1].strip().replace('"', '') for line in file}
-
-try:
-    with open("geo/colleges.csv") as file:
-        colleges = {line.split(',')[1]: {
-            "rank": line.split(',')[0],
-            "tuition": line.split(',')[2].strip('$'),
-            "city": line.split(',')[3],
-            "state": line.split(',')[4].strip()
-        } for line in file}
-except:
-    with open("Moovn/geo/colleges.csv") as file:
-        colleges = {line.split(',')[1]: {
-            "rank": line.split(',')[0],
-            "tuition": line.split(',')[2].strip('$'),
-            "city": line.split(',')[3],
-            "state": line.split(',')[4].strip()
-        } for line in file}
-
-try:
-    parity = {}
-    with open("geo/price_parity.csv") as file:
-        for line in file:
-            parity[line.split(',')[0].strip('"')] = {
-                "state": line.split(',')[1].strip('"').strip(),
-                "score": line.split(',')[2].strip('\n')}
-
-except:
-    parity = {}
-    with open("Moovn/geo/price_parity.csv") as file:
-        for line in file:
-            parity[line.split(',')[0].strip('"')] = {
-                "state": line.split(',')[1].strip('"').strip(),
-                "score": line.split(',')[2].strip('\n')}
 
 
 def city_boundary_view(request, state, name):
@@ -177,6 +125,7 @@ def nearby_schools_view(request, state):
 
 def industry_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
+    bls = Bls.objects.all()
     seriesids = name.city.ind_id.split(',')
     headers = {'Content-type': 'application/json'}
     data = json.dumps({"seriesid": seriesids,
@@ -192,10 +141,10 @@ def industry_view(request, state, name):
         return HttpResponse("no data")
     else:
         for line in ndata["Results"]["series"]:
-            for name in industry:
-                if industry[name] == line["seriesID"][10:-2] and \
+            for name in bls:
+                if name.code == line["seriesID"][10:-2] and \
                                 len(line["data"]) > 0:
-                    datadict[name] = line["data"][0]["value"]
+                    datadict[name.industry] = line["data"][0]["value"]
 
     for val in datadict:
         if val != "Total Nonfarm" and val != "Total Private" and \
@@ -211,15 +160,16 @@ def industry_view(request, state, name):
 
 def salary_view(request, state, name, job):
     name = get_object_or_404(Name, name=name, state=state)
+    occupations = Occupation.objects.all()
     jobtitle = job.title()
     locids = name.city.ocp_id.split(',')
     seriesids = []
 
     for series in locids:
         for line in occupations:
-            if jobtitle == occupations[line]:
+            if jobtitle == line.job:
                 for item in range(11, 16):
-                    seriesids.append(series + line + str(item))
+                    seriesids.append(series + line.code + str(item))
 
     headers = {'Content-type': 'application/json'}
     data = json.dumps({"seriesid": seriesids,
@@ -240,12 +190,11 @@ def salary_view(request, state, name, job):
     else:
         for line in ndata["Results"]["series"]:
             for job in occupations:
-                if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
 
-                    datadict[occupations[job] \
-                    + typecodes[str(line['seriesID'][-2:])]] = \
-                    line["data"][0]["value"]
-
+                if job.code == line['seriesID'][17:-2] and len(line["data"]) > 0:
+                    datadict[job.job
+                             + typecodes[str(line['seriesID'][-2:])]] = \
+                        line["data"][0]["value"]
 
     for value in datadict:
         if datadict[value] == "-":
@@ -260,6 +209,7 @@ main_ind = [str(num) for num in range(110000, 530000, 20000)]
 
 def industry_size_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
+    occupations = Occupation.objects.all()
     locid = name.city.ocp_id.split(',')[0][4:11]
     seriesids = [("OEUM" + locid + "000000" + ocup + "01") for ocup in main_ind]
     seriesids += [("OEUM" + locid + "000000" + "000000" + "01")]
@@ -282,51 +232,53 @@ def industry_size_view(request, state, name):
     else:
         for line in ndata["Results"]["series"]:
             for job in occupations:
-                if job == line['seriesID'][17:-2] and len(line["data"]) > 0:
-                    datadict[occupations[job]] = line["data"][0]["value"]
+                if job.code == line['seriesID'][17:-2] and len(line["data"]) > 0:
+                    datadict[job.job] = line["data"][0]["value"]
 
     allind = datadict["All"]
-    datadict.pop("All", None)
 
     for ind in datadict:
         datadict[ind] = round(100 * float(datadict[ind]) / float(allind), 2)
+
+    datadict.pop("All", None)
 
     return JsonResponse(datadict)
 
 
 def college_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
-    selected = {"colleges": ""}
-    college_list = []
-
+    colleges = College.objects.filter(city=name)
+    data = {}
     for college in colleges:
-        if name.name in colleges[college]["city"] and name.state in \
-                colleges[college]["state"]:
-            college_list.append({college: colleges[college]})
-
-    selected["colleges"] = college_list
-
-    return JsonResponse(selected)
+        if college.tuition:
+            data[college.school] = {"tuition": college.tuition,
+                                    "In-state": None,
+                                    "Out-of-state": None
+                                    }
+        else:
+            data[college.school] = {"tuition": None,
+                                    "In-state": college.in_state,
+                                    "Out-of-state": college.out_state
+                                    }
+    return JsonResponse(data)
 
 
 def parity_view(request, state, name):
     name = get_object_or_404(Name, name=name, state=state)
-    data = "no data"
+    string = "no data"
+    parity = name.city.price_parity
 
-    for city in parity:
-        if name.name in city and name.state in parity[city]["state"]:
-            data = parity[city]["score"]
+    if parity:
+        if parity <= 100:
+            new_data = round((100 - parity), 1)
+            string = """Cost of living in {} is {}% lower than the national
+                     average.""".format(name.name, new_data)
 
-    if float(data) <= 100:
-        new_data = round((100 - float(data)), 1)
-        string = """Cost of living in {} is {}% lower than the national
-                 average.""".format(name.name, new_data)
+            return HttpResponse(string)
 
-        return HttpResponse(string)
+        else:
+            new_data = round((parity - 100))
+            string = """Cost of living in {} is {}% higher than the national
+                     average.""".format(name.name, new_data)
 
-    else:
-        new_data = round((float(data) - 100))
-        string = """Cost of living in {} is {}% higher than the national
-                 average.""".format(name.name, new_data)
-
-        return HttpResponse(string)
+    return HttpResponse(string)
