@@ -78,7 +78,6 @@ docs/_build/
 # PyBuilder
 target/
 
-*.sqlite3
 /.idea/
 .envrc
 .direnv
