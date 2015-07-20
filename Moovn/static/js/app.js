@@ -25046,6 +25046,7 @@ var topojson = require('../../topojson');
 var neighMap = require('../../neighMap');
 var zoom = require('../../zoom');
 var mouseOverZoom = require('../../educationmouseover');
+var mouseout = require('../../mouseout')
 
 router.route('search/:cityName/education', function (cityName){
   var citySplit = cityName.split(', ');
@@ -25096,6 +25097,23 @@ router.route('search/:cityName/education', function (cityName){
   var boundaryjson = [];
   var id = 0;
 
+  var mouseOutZoom = function (d) {
+    d3.selectAll(".maptext").attr("opacity", 0);
+    d3.selectAll("path")
+      .classed("active", false);
+    mouseout();
+    return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
+  };
+
+  var mouseZoom = function(d) {
+    $(".maptext").attr("opacity", 0);
+    $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+
+    d3.selectAll(".feature-city").on("click", mouseOutZoom);
+    //d3.select(".map").on("click", mouseOutZoom);
+
+    return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
+  };
 
   Promise.all([
 
@@ -25133,31 +25151,8 @@ router.route('search/:cityName/education', function (cityName){
 
       if (boundaryjson){
         zoom(cityjson, boundaryjson, g, path, width * aspect, width);
-
-        var mouseOutZoom = function (d) {
-          d3.selectAll(".maptext").attr("opacity", 0);
-
-          d3.selectAll("path")
-            .classed("active", false)
-
-          d3.select(".feature-city").on("click", "none");
-          d3.select(".map").on("click", "none");
-
-          return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
-        };
-
-        var mouseZoom = function(d) {
-          $(".maptext").attr("opacity", 0);
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
-
-          d3.select(".feature-city").on("click", mouseOutZoom);
-          d3.select(".map").on("click", mouseOutZoom);
-
-          return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
-        };
-
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
-
+        d3.selectAll(".feature-city").on("click", mouseOutZoom);
 
       } else {
 
@@ -25210,7 +25205,7 @@ router.route('search/:cityName/education', function (cityName){
 // bottom
 });
 
-},{"../../educationmouseover":17,"../../neighMap":37,"../../place-details":39,"../../places-api":40,"../../router":41,"../../search":42,"../../show":43,"../../topojson":45,"../../zoom":46,"../side-bar-controller":8,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
+},{"../../educationmouseover":17,"../../mouseout":35,"../../neighMap":37,"../../place-details":39,"../../places-api":40,"../../router":41,"../../search":42,"../../show":43,"../../topojson":45,"../../zoom":46,"../side-bar-controller":8,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25227,6 +25222,7 @@ var views = require('views');
 var housingGraphGeneral = require('../../graphs/housing');
 var sideBar = require('../side-bar-controller');
 var getDetails = require('../../place-details');
+var mouseout = require('../../mouseout');
 
 // for the map
 var d3 = require('d3');
@@ -25288,10 +25284,11 @@ router.route('search/:cityName/housing', function (cityName){
   var id = 0;
 
   var mouseOutZoom = function (d) {
-    $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
+    $(".maptext").attr("opacity", 0);
     d3.selectAll("path")
       .classed("active", false);
     housingGraphGeneral(state, city, '.housing-graph');
+    mouseout();
     return zoom(cityjson, boundaryjson, g, path, aspect * width, width);
   };
 
@@ -25325,6 +25322,7 @@ router.route('search/:cityName/housing', function (cityName){
       if (boundaryjson){
         zoom(cityjson, boundaryjson, g, path, aspect * width, width);
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
+        d3.selectAll(".feature-city").on("click", mouseOutZoom);
       } else {
         zoom(cityjson, cityjson, g, path, aspect * width, width);
       }
@@ -25348,7 +25346,7 @@ router.route('search/:cityName/housing', function (cityName){
       var searchTerm = $(this).text()
       var request = {
         query: searchTerm + " " + city
-      };  
+      };
 
       map = new google.maps.Map(document.getElementById('map'));
       service = new google.maps.places.PlacesService(map);
@@ -25375,7 +25373,7 @@ $('.graph-title').html("Housing Prices");
 
 });
 
-},{"../../graphs/housing":22,"../../mouseoverzoom":36,"../../neighMap":37,"../../place-details":39,"../../places-api":40,"../../router":41,"../../search":42,"../../show":43,"../../topojson":45,"../../zoom":46,"../side-bar-controller":8,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
+},{"../../graphs/housing":22,"../../mouseout":35,"../../mouseoverzoom":36,"../../neighMap":37,"../../place-details":39,"../../places-api":40,"../../router":41,"../../search":42,"../../show":43,"../../topojson":45,"../../zoom":46,"../side-bar-controller":8,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25404,7 +25402,7 @@ router.route('search/:cityName/industry', function (cityName){
 
   show('city-template-3', '.main-content', {city: cityName});
   sideBar();
-  
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -25457,12 +25455,12 @@ router.route('search/:cityName/industry', function (cityName){
       results: function() {}
     }
   });
-  
+
   $('.industry-form').submit(function(){
     var job = $('.job-input').val();
-    $('.salary-title').html('Salaries for '+ job +" in " + cityName);      
+    $('.salary-title').html('Salaries for '+ job +" in " + cityName);
   })
-  
+
  $(document).ready(function() {
     $("#job-input").val("Web Developers");
     $("#job-input").submit();
@@ -27006,7 +27004,7 @@ module.exports = function(state, city) {
 var $ = require('jQuery')
 module.exports = function (d){
 
-  d3.select($("#" + d.properties.GEOID10)[0]).style("fill", "grey")
+  d3.selectAll(".feature-neighborhood").style("fill", "grey")
 
 }
 
@@ -27020,7 +27018,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
   var bounds = path.bounds(d);
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
-    mouseout(d);
+    d3.selectAll(".feature-neighborhood").style("fill", "grey")
     zoomout(d);
 
   } else {

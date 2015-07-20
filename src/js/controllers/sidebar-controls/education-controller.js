@@ -20,6 +20,7 @@ var topojson = require('../../topojson');
 var neighMap = require('../../neighMap');
 var zoom = require('../../zoom');
 var mouseOverZoom = require('../../educationmouseover');
+var mouseout = require('../../mouseout')
 
 router.route('search/:cityName/education', function (cityName){
   var citySplit = cityName.split(', ');
@@ -70,6 +71,23 @@ router.route('search/:cityName/education', function (cityName){
   var boundaryjson = [];
   var id = 0;
 
+  var mouseOutZoom = function (d) {
+    d3.selectAll(".maptext").attr("opacity", 0);
+    d3.selectAll("path")
+      .classed("active", false);
+    mouseout();
+    return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
+  };
+
+  var mouseZoom = function(d) {
+    $(".maptext").attr("opacity", 0);
+    $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+
+    d3.selectAll(".feature-city").on("click", mouseOutZoom);
+    //d3.select(".map").on("click", mouseOutZoom);
+
+    return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
+  };
 
   Promise.all([
 
@@ -107,31 +125,8 @@ router.route('search/:cityName/education', function (cityName){
 
       if (boundaryjson){
         zoom(cityjson, boundaryjson, g, path, width * aspect, width);
-
-        var mouseOutZoom = function (d) {
-          d3.selectAll(".maptext").attr("opacity", 0);
-
-          d3.selectAll("path")
-            .classed("active", false)
-
-          d3.select(".feature-city").on("click", "none");
-          d3.select(".map").on("click", "none");
-
-          return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
-        };
-
-        var mouseZoom = function(d) {
-          $(".maptext").attr("opacity", 0);
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
-
-          d3.select(".feature-city").on("click", mouseOutZoom);
-          d3.select(".map").on("click", mouseOutZoom);
-
-          return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
-        };
-
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
-
+        d3.selectAll(".feature-city").on("click", mouseOutZoom);
 
       } else {
 
