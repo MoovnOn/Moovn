@@ -41,8 +41,8 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-  peopleAge(state1, city1, '.comp-chart1-5');
-  peopleAge(state2, city2, '.comp-chart2-5');
+  peopleAge(state1, city1, '.comp-chart1-5', 'bar');
+  peopleAge(state2, city2, '.comp-chart2-5', 'bar');
 
 
   costLiving(state1, city1, ".comp1-1");

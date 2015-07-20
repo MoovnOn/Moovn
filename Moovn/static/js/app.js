@@ -24941,8 +24941,8 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-  peopleAge(state1, city1, '.comp-chart1-5');
-  peopleAge(state2, city2, '.comp-chart2-5');
+  peopleAge(state1, city1, '.comp-chart1-5', 'bar');
+  peopleAge(state2, city2, '.comp-chart2-5', 'bar');
 
 
   costLiving(state1, city1, ".comp1-1");
@@ -25701,7 +25701,7 @@ router.route('search/:cityName/people', function (cityName){
   var state = citySplit[1];
 
 
-  peopleAge(state, city, '.people-top-graph');
+  peopleAge(state, city, '.people-top-graph', 'donut');
   peopleHousehold(state, city, '.people-middle-graph');
   peopleRelationships(state, city, '.people-bottom-graph');
 
@@ -26749,7 +26749,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city, bindTo ) {
+module.exports = function(state, city, bindTo, graphType) {
 
   $.ajax({
     method: 'GET',
@@ -26784,7 +26784,7 @@ module.exports = function(state, city, bindTo ) {
                   ['60-69', housingPeople60],
                   ['70+', housingPeople70],
               ],
-              type : 'donut',
+              type : graphType,
               onclick: function (d, i) {},
               onmouseover: function (d, i) {},
               onmouseout: function (d, i) {},

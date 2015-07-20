@@ -29,7 +29,7 @@ router.route('search/:cityName/people', function (cityName){
   var state = citySplit[1];
 
 
-  peopleAge(state, city, '.people-top-graph');
+  peopleAge(state, city, '.people-top-graph', 'donut');
   peopleHousehold(state, city, '.people-middle-graph');
   peopleRelationships(state, city, '.people-bottom-graph');
 
