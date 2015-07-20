@@ -25106,8 +25106,11 @@ router.route('search/:cityName/education', function (cityName){
   var id = 0;
 
   d3.select(".tri-2-edu").insert("h3", ".school-info").attr("class", "school-info-title").text("");
+  d3.select(".school-info").insert("h1",".school-modal").attr("class", "directions").text("Select a neighborhood to view nearby schools");
+
 
   var mouseOutZoom = function (d) {
+    $(".school-info-container").empty();
     d3.selectAll(".maptext").attr("opacity", 0);
 
     d3.selectAll("path")
@@ -25115,13 +25118,17 @@ router.route('search/:cityName/education', function (cityName){
 
     mouseout();
     d3.select(".school-info-container").empty();
+
+    d3.select(".school-info").insert("h1", ".school-modal").attr("class", "directions").text("Select a neighborhood to view nearby schools");
     $(".school-info-title").text("");
 
     return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
   };
 
   var mouseZoom = function(d) {
+    $(".school-info-container").empty();
     $(".maptext").attr("opacity", 0);
+    d3.select(".directions").text("");
 
     $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
 
@@ -25897,10 +25904,9 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
     zoomout(d);
-    $(".school-info-container").empty();
+
 
   } else {
-    $(".school-info-container").empty();
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
