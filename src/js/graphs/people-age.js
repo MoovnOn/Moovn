@@ -40,7 +40,17 @@ module.exports = function(state, city, bindTo ) {
               type : 'donut',
               onclick: function (d, i) {},
               onmouseover: function (d, i) {},
-              onmouseout: function (d, i) {}
+              onmouseout: function (d, i) {},
+              colors: {
+                '0-9': '#B1D3DD',
+                '10-19': '#BDBBC3',
+                '20-29': '#51ABD2',
+                '30-39': '#55818F',
+                '40-49': '#98E6FF',
+                '50-59': '#263A40',
+                '60-69': '#7C7A7F',
+                '70+': '#C492B3',
+              },
           },
           donut: {
               title: "Age of Population (yrs)"

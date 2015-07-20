@@ -33,8 +33,8 @@ module.exports = function(state, city, element) {
           ],
           type: 'bar',
           colors: {
-            'City Income': '#3D5E99',
-            'National Income': '#CC2E14',           
+            'City Income': '#BDBBC3',
+            'National Income': '#55818F',           
           },
         },
         axis: {

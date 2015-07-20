@@ -1473,13 +1473,13 @@ header {
   font-size: 3em; }
 
 .fa-compass {
-  color: #3D5E99; }
+  color: #51ABD2; }
 
 .fa-bar-chart {
-  color: #CC2E14; }
+  color: #707D94; }
 
 .fa-globe {
-  color: #FF7640; }
+  color: #55818F; }
 
 .powered-by-container {
   position: fixed;
@@ -1649,7 +1649,10 @@ header {
 
 .full-screen-tab-container {
   border-radius: 0px;
-  border-bottom: none; }
+  border-bottom: none;
+  border-radius: 10px;
+  border-right: none;
+  border-left: none; }
 
 .clickSpan {
   cursor: pointer;
@@ -1682,8 +1685,8 @@ header {
   font-size: 1.5em; }
 
 .people-right {
-  border-left: 1px solid #A5B6C3;
-  background-color: #E5F2F2;
+  border-left: 1px solid #E5E5E5;
+  background-color: #F6F6F6;
   line-height: 1.5; }
 
 .people-right h1 {
@@ -1729,17 +1732,17 @@ header {
   color: #B27700;
   padding-top: 1em;
   padding-left: 1.5em;
-  border-top: 1px solid #A5B6C3; }
+  border-top: 1px solid #E5E5E5; }
 
 .overview-graph-container {
-  background-color: #E5F2F2;
-  border-bottom: 1px solid #A5B6C3; }
+  background-color: #F6F6F6;
+  border-bottom: 1px solid #E5E5E5; }
 
 .city-all-container-overview {
   margin-left: 12.9em;
   margin-right: 0em;
   margin-bottom: 0em;
-  background-color: #E5F2F2;
+  background-color: #F6F6F6;
   background-size: cover; }
 
 .overview-cityImg-container-mobile {

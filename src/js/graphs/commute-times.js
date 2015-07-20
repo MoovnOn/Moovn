@@ -33,8 +33,8 @@ module.exports = function(state, city, bindTo) {
           ],
           type: 'bar',
           colors: {
-            'City Commute': '#3D5E99',
-            'National Commute': '#CC2E14',
+            'City Commute': '#B1D3DD',
+            'National Commute': '#51ABD2',
           },
           
         },

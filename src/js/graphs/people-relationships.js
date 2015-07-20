@@ -41,7 +41,15 @@ module.exports = function(state, city, element) {
               type : 'donut',
               onclick: function (d, i) {},
               onmouseover: function (d, i) {},
-              onmouseout: function (d, i) {}
+              onmouseout: function (d, i) {},
+              colors: {
+                'Divorced Female': '#B1D3DD',
+                'Divorced Male': '#BDBBC3',
+                'Married Female': '#51ABD2',
+                'Married Male': '#55818F',
+                'Single Female': '#98E6FF',
+                'Single Male': '#263A40',
+              },
           },
           donut: {
               title: "Relationship Status"
