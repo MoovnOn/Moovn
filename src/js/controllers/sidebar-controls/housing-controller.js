@@ -129,7 +129,7 @@ router.route('search/:cityName/housing', function (cityName){
 //loads the sidebar
   sideBar();
 //shows the tabs
-  show('content/tabs-lists', '.quad-3')
+  show('content/tabs-lists-housing', '.quad-3')
 //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'

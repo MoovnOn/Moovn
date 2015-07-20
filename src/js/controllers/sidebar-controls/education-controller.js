@@ -44,7 +44,7 @@ router.route('search/:cityName/education', function (cityName){
     .text(city);
 
 
-  show('content/tabs-lists', '.tri-3-edu')
+  show('content/tabs-lists-education', '.tri-3-edu')
 
   var width = Math.max($("#d3-graphs").width(), 200),
       aspect = 1;
