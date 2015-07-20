@@ -14,6 +14,7 @@ var commuteTime = require('../graphs/commute-times');
 var housingGraph = require('../graphs/housing-comp-graph');
 var taxDetails = require('../tax-details');
 var costLiving = require('../cost-living');
+var commuteComp = require('../commute-comp')
 
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
@@ -43,11 +44,15 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   peopleAge(state1, city1, '.comp-chart1-5');
   peopleAge(state2, city2, '.comp-chart2-5');
 
-  taxDetails(state1, city1, ".comp-chart1-2");
-  taxDetails(state2, city2, ".comp-chart2-2");
 
-  costLiving(state1, city1, ".comp-chart1-1");
-  costLiving(state2, city2, ".comp-chart2-1");
+  costLiving(state1, city1, ".comp1-1");
+  costLiving(state2, city2, ".comp2-1");
+
+  commuteComp(state1, city1, ".comp1-2");
+  commuteComp(state2, city2, ".comp2-2");
+
+  taxDetails(state1, city1, ".comp1-3");
+  taxDetails(state2, city2, ".comp2-3");
 
   housingGraph(state1, city1, state2, city2)
 

@@ -7,7 +7,7 @@ module.exports = function(state, city, element) {
     url: '/api/parity/' + state + '/' + city + '/'
   })
 	  .then(function(data){
-	    $(element).append('<p>' + data + '</p>');
+	    $(element).append('<p>' + data + '</p><br>');
 	  });
 
 };    
