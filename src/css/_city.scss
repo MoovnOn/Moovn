@@ -151,6 +151,12 @@
 .overview-tax-container, .overview-cost-container{
   padding-top: 3em;
 }
+.overview-tax-container p{
+  line-height: 1.5;
+}
+.overview-cost-container p{
+  line-height: 1.5;
+}
 .overview-cityImg-container, .overview-cityImg-container-mobile{
   padding-left: 0em;
   position: relative;

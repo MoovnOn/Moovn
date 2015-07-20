@@ -28,12 +28,16 @@ module.exports = function(state, city, element) {
                 rateArr.push(result.rates[index].rate)
               }
               
+               //changes the case
+              function toTitleCase(str){
+                return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+              }
+              
                nameArr.forEach(function(e, i) {
-                $(element).append(nameArr[i] + " ");
-                $(element).append(rateArr[i] + "%<br><br>");
+                $(element).append("<p>" + toTitleCase(nameArr[i]) + " " + rateArr[i] + "%</p>");
                });
                
-               $(element).append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
+               $(element).append("<p><b>Total Sales Tax Rate = " + result.totalRate + "%<br></b></p>");
                
             })          
           

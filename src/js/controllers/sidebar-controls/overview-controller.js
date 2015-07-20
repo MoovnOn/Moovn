@@ -66,12 +66,17 @@ commuteTime(state, city, '.overview-graph1');
                 rateArr.push(result.rates[index].rate)
               }
               
+              //changes the case
+              function toTitleCase(str){
+                return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+              }
+              
+           
                nameArr.forEach(function(e, i) {
-                $(".overview-tax-container").append(nameArr[i] + " ");
-                $(".overview-tax-container").append(rateArr[i] + "%<br><br>");
+                $(".overview-tax-container").append("<p>" + toTitleCase(nameArr[i]) + " " + rateArr[i] + "%</p>");
                });
                
-               $(".overview-tax-container").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
+               $(".overview-tax-container").append("<p><b>Total Sales Tax Rate = " + result.totalRate + "%<br></b></p>");
                
             })          
           
