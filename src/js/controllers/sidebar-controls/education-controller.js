@@ -72,20 +72,29 @@ router.route('search/:cityName/education', function (cityName){
   var boundaryjson = [];
   var id = 0;
 
+  d3.select(".tri-2-edu").insert("h3", ".school-info").attr("class", "school-info-title").text("");
+
   var mouseOutZoom = function (d) {
     d3.selectAll(".maptext").attr("opacity", 0);
+
     d3.selectAll("path")
       .classed("active", false);
+
     mouseout();
+    d3.select(".school-info-container").empty();
+    $(".school-info-title").text("");
+
     return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
   };
 
   var mouseZoom = function(d) {
     $(".maptext").attr("opacity", 0);
+
     $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
 
     d3.selectAll(".feature-city").on("click", mouseOutZoom);
-    //d3.select(".map").on("click", mouseOutZoom);
+
+    $(".school-info-title").text("Schools near " + d.properties.NAME);
 
     return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
   };
