@@ -26887,6 +26887,7 @@ module.exports = function(state, city, job, height, width) {
 		d3.select(".tri-1").select("h3").remove();
 		$("#boxplot").empty();
 
+		console.log(data);
   	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
 									data[job+"75th"], data[job+"90th"]];
 
