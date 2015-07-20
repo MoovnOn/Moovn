@@ -25589,12 +25589,17 @@ commuteTime(state, city, '.overview-graph1');
                 rateArr.push(result.rates[index].rate)
               }
               
+              //changes the case
+              function toTitleCase(str){
+                return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+              }
+              
+           
                nameArr.forEach(function(e, i) {
-                $(".overview-tax-container").append(nameArr[i] + " ");
-                $(".overview-tax-container").append(rateArr[i] + "%<br><br>");
+                $(".overview-tax-container").append("<p>" + toTitleCase(nameArr[i]) + " " + rateArr[i] + "%</p>");
                });
                
-               $(".overview-tax-container").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
+               $(".overview-tax-container").append("<p><b>Total Sales Tax Rate = " + result.totalRate + "%<br></b></p>");
                
             })          
           
@@ -25797,7 +25802,10 @@ var showDetails = function() {
       $('.school-modal').fadeIn();
       modal.append('<h1>' + currentSchool.name + '</h1>');
       modal.append('<span class="school-details">' + currentSchool.address + '</p>');
-      modal.append('<span class="school-details">' + currentSchool.phone + '</p>');
+      
+      if (currentSchool.phone != null) {
+        modal.append('<span class="school-details">' + currentSchool.phone + '</p>');
+      }
       modal.append('<a href="' + currentSchool.website + '" target="_blank">' + currentSchool.website + '</p><br>');
       modal.append('<span class="details-titles">Type: </span><span class="school-details">' + currentSchool.type + '</span><br>');
       modal.append('<span class="details-titles">Grade Range: </span><span class="school-details">' + currentSchool.gradeRange + '</span><br>');
@@ -25903,6 +25911,8 @@ var c3 = require('c3');
 
 module.exports = function (data, bindTo) {
 
+    var dwnldArr = [];
+
     var aTDwnld3 = Math.round(data[0].type3G.downloadSpeed);
     var vDwnld3 = Math.round(data[1].type3G.downloadSpeed);
     var sDwnld3 = Math.round(data[2].type3G.downloadSpeed);
@@ -25922,6 +25932,14 @@ module.exports = function (data, bindTo) {
     var vUpld4 = Math.round(data[1].type4G.uploadSpeed);
     var sUpld4 = Math.round(data[2].type4G.uploadSpeed);
     var tmUpld4 = Math.round(data[3].type4G.uploadSpeed);
+
+    dwnldArr.push(aTDwnld4);
+    dwnldArr.push(vDwnld4);
+    dwnldArr.push(tmDwnld4);
+
+    var srtArr = dwnldArr.sort(function(a, b){return a-b});
+    srtArr.reverse();
+    maxVal = srtArr[0];
 
 
   	var chart = c3.generate({
@@ -25953,7 +25971,7 @@ module.exports = function (data, bindTo) {
         	},
           y: {
             label: "Megabits Per Second",
-            max: 19000
+            max: 14000
           }
     		}
 		});
@@ -26041,8 +26059,8 @@ module.exports = function(state, city, bindTo) {
         bindto: bindTo,
         data: {
           columns: [
-              ['City Commute', housingPeopleCommute],
-              ['National Commute', housingPeopleCommuteNation]
+              ['City Commute', Math.round(housingPeopleCommute)],
+              ['National Commute', Math.round(housingPeopleCommuteNation)]
           ],
           type: 'bar',
           colors: {
@@ -26272,8 +26290,8 @@ module.exports = function(state, city, element) {
         bindto: element,
         data: {
           columns: [
-              ['City Income', housingPeopleIncome],
-              ['National Income', housingPeopleIncomeNation],
+              ['City Income', Math.round(housingPeopleIncome)],
+              ['National Income', Math.round(housingPeopleIncomeNation)],
           ],
           type: 'bar',
           colors: {
@@ -26643,7 +26661,7 @@ module.exports = function (state, city, el1, el2) {
         downloadGraph(data2, el1);
         reliabilityGraph(data2, el2);
       } else {
-        downloadGraph(data2, el1);      }
+        downloadGraph(data2, el1);}
     });
 
   });
@@ -26906,7 +26924,7 @@ module.exports = function(state, city, job, height, width) {
 						.text('$' + values[4]);
 
 
-					bp.attr("transform", "translate(" + [-50, -250] +")scale(" + 1.8 + ")")
+					bp.attr("transform", "translate(" + [-50, -275] +")scale(" + 1.8 + ")")
 
 		} else{
 			console.log(data)
@@ -27415,12 +27433,16 @@ module.exports = function(state, city, element) {
                 rateArr.push(result.rates[index].rate)
               }
               
+               //changes the case
+              function toTitleCase(str){
+                return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+              }
+              
                nameArr.forEach(function(e, i) {
-                $(element).append(nameArr[i] + " ");
-                $(element).append(rateArr[i] + "%<br><br>");
+                $(element).append("<p>" + toTitleCase(nameArr[i]) + " " + rateArr[i] + "%</p>");
                });
                
-               $(element).append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
+               $(element).append("<p><b>Total Sales Tax Rate = " + result.totalRate + "%<br></b></p>");
                
             })          
           

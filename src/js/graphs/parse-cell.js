@@ -53,7 +53,7 @@ module.exports = function (state, city, el1, el2) {
         downloadGraph(data2, el1);
         reliabilityGraph(data2, el2);
       } else {
-        downloadGraph(data2, el1);      }
+        downloadGraph(data2, el1);}
     });
 
   });
