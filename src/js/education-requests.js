@@ -30,17 +30,32 @@ var showDetails = function() {
       modal.text('');
       $('.school-modal').fadeIn();
       modal.append('<h1>' + currentSchool.name + '</h1>');
-      modal.append('<span class="school-details">' + currentSchool.address + '</p>');
-      
-      if (currentSchool.phone != null) {
+
+      if (currentSchool.address != null && currentSchool.address != undefined) {
+        modal.append('<span class="school-details">' + currentSchool.address + '</p>');
+      }
+      if (currentSchool.phone != null && currentSchool.phone != undefined) {        
         modal.append('<span class="school-details">' + currentSchool.phone + '</p>');
       }
-      modal.append('<a href="' + currentSchool.website + '" target="_blank">' + currentSchool.website + '</p><br>');
-      modal.append('<span class="details-titles">Type: </span><span class="school-details">' + currentSchool.type + '</span><br>');
-      modal.append('<span class="details-titles">Grade Range: </span><span class="school-details">' + currentSchool.gradeRange + '</span><br>');
-      modal.append('<span class="details-titles">Enrollment: </span><span class="school-details">' + currentSchool.enrollment + '</span><br>');
-      modal.append('<span class="details-titles">Parent Rating: </span><span class="school-details">' + currentSchool.parentRating + '</span><br>');
-      modal.append('<span class="details-titles">GS Rating: </span><span class="school-details">' + currentSchool.gsRating + '</span><br>');
+      if (currentSchool.website != null && currentSchool.website != undefined) {
+        modal.append('<a href="' + currentSchool.website + '" target="_blank">' + currentSchool.website + '</p><br>');
+      }
+      if (currentSchool.type != null && currentSchool.type != undefined) {
+        modal.append('<span class="details-titles">Type: </span><span class="school-details">' + currentSchool.type + '</span><br>');
+      }
+      if (currentSchool.gradeRange != null && currentSchool.gradeRange != undefined) {
+        modal.append('<span class="details-titles">Grade Range: </span><span class="school-details">' + currentSchool.gradeRange + '</span><br>');
+      }
+      if (currentSchool.enrollment != null && currentSchool.enrollment != undefined) {
+        modal.append('<span class="details-titles">Enrollment: </span><span class="school-details">' + currentSchool.enrollment + '</span><br>');
+      }
+      if (currentSchool.parentRating != null && currentSchool.parentRating != undefined) {
+        modal.append('<span class="details-titles">Parent Rating: </span><span class="school-details">' + currentSchool.parentRating + '</span><br>');
+      }
+      if (currentSchool.gsRating != null && currentSchool.gsRating != undefined) {
+        modal.append('<span class="details-titles">GS Rating: </span><span class="school-details">' + currentSchool.gsRating + '</span><br>');
+      }
+
     });
 };
 
