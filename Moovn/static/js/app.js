@@ -25446,7 +25446,9 @@ router.route('search/:cityName/industry', function (cityName){
   var width = $(".bubble-chart").width(),
       aspect = 1;
 
-  var width2 = $(".bubble-chart").width();
+  var width2 = $("#plotdiv").width();
+  d3.select("#plotdiv").insert("p", "#boxplot")
+    .text("Percentiles shown: 10th, 25th, 50th, 75th, 90th");
 
   var svg = d3.select(".bubble-chart").append("svg")
               .attr("preserveAspectRatio", "xMidYMid")
@@ -25474,7 +25476,7 @@ router.route('search/:cityName/industry', function (cityName){
     e.preventDefault();
     e.stopPropagation();
     var job = $('.job-input').val();
-    salaryPer(state, city, job, (aspect * width)*2, width);
+    salaryPer(state, city, job, aspect * width, width);
   });
 
 
@@ -26475,7 +26477,7 @@ module.exports = function(svg, state, city, height, width) {
 			.padding(circleStrokeWidth / 2);
 
 		//console.log(bubble.nodes(data_list))
-		g = svg.append("g")
+		var g = svg.append("g")
 
 		// synced ID generators
 		var count = counter();
@@ -26504,7 +26506,7 @@ module.exports = function(svg, state, city, height, width) {
 				.attr("fill", function(d){ return color(d.name);});
 
 		// fill the svg
-		g.attr("transform", "scale(" + 4 + ")");
+		g.attr("transform", "scale(" + 3 + ")");
 
 		// create list items
 		jobList.selectAll("li")
@@ -26890,8 +26892,6 @@ module.exports = function(state, city, job, height, width) {
   	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
 									data[job+"75th"], data[job+"90th"]];
 
-
-
 		var draw = true;
 		values.forEach(function(d){ if (d === undefined){ draw=false;}});
 
@@ -26974,7 +26974,8 @@ module.exports = function(state, city, job, height, width) {
 						.attr("y", .35 * height)
 						.text('$' + values[4]);
 
-					bp.attr("transform", "translate("+ [0, - scale * height * .65] +")scale(" + 3.5 + ")")
+					var scale = 1.5;
+					bp.attr("transform", "translate("+ [0,  - height * .1] +")scale(" + scale + ")")
 
 		} else {
 
