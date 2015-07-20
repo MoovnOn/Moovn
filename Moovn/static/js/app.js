@@ -26894,12 +26894,16 @@ module.exports = function(state, city, job, height, width) {
   	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
 									data[job+"75th"], data[job+"90th"]];
 
+
+
 		var draw = true;
-		for (var i = 0; i < values.length; i++){
-			if (values[i] === undefined) {
-				draw = false;
-			}
-		}
+
+		values.forEach(function(d){ if (d === undefined){ draw = false;}});
+		// for (var i = 0; i < values.length; i++){
+		// 	if (values[i] === undefined) {
+		// 		draw = false;
+		// 	}
+		// }
 
 		if (draw) {
 
