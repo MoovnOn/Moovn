@@ -62,8 +62,7 @@ router.route('search/:cityName/industry', function (cityName){
     e.preventDefault();
     e.stopPropagation();
     var job = $('.job-input').val();
-    salaryPer(state, city, job, aspect * width, width);
-
+    salaryPer(state, city, job, (aspect * width)*2, width);
   });
 
 
@@ -79,6 +78,17 @@ router.route('search/:cityName/industry', function (cityName){
       noResults: '',
       results: function() {}
     }
+  });
+  
+  $('.industry-form').submit(function(){
+    var job = $('.job-input').val();
+    $('.salary-title').html('Salaries for '+ job +" in " + cityName);      
+  })
+  
+ $(document).ready(function() {
+    $("#job-input").val("Web Developers");
+    $("#job-input").submit();
+    $("#job-input").val("");
   });
 
 });

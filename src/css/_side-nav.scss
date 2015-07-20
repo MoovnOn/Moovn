@@ -12,8 +12,10 @@
   color: white;
 }
 .city-title{
-  text-align: center;
-  font-size: 1.2em;
+  text-align: left;
+  font-size: 1.4em;
+  padding-left: 1em;
+  margin-top: 0;
 }
 .side-nav-list{
   background-color: $primary-color;
@@ -31,15 +33,12 @@
   border-left:3px solid $primary-color;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-style: bold;
-  font-size: 0.9em;
+  font-size: 1.1em;
 }
 
 .side-icon{
   min-width:25px;
   color:$light-primary-color;
-}
-.fa-mobile{
-  font-size: 1.4em;
 }
 .side-nav-item-container:hover .side-nav-item{
   color:white;
@@ -66,8 +65,6 @@
 .search-form-city-view{
   color:black;
   padding:1em;
-  margin-top: 1em;
-  border-top:4px solid $dark-primary-color;
 }
 .search-city-view{
   border-radius: 0.2em;
