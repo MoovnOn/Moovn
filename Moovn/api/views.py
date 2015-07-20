@@ -35,7 +35,7 @@ class HomeView(View):
 
 
 def cell_view(request, state, name):
-    coords = [request.GET.get("lat"), request.GET.get("lon")]
+    coords = [request.GET.get("lon"), request.GET.get("lat")]
 
     signal = requests.get("http://api.opensignal.com/v2/networkstats.json?lat=" \
                           + str(coords[1]) + "&lng=" + str(coords[0]) \
