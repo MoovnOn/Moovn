@@ -24225,7 +24225,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
- var jQuery = require("jquery");
+var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -25682,15 +25682,15 @@ router.route('search/:cityName/places', function (cityName){
 
   // Sets up search in the sixth tab
   $('.tab-title8').children('a').text('Search');
-  $('.tab-data8').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
+  $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" value="Search ' + city + '"><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>');
 
   $('.main-content').on('submit', '.tab-search-form' , function(e){
     e.preventDefault();
 
-  var searchVal = $('.search-tab-input').val();
-    $('.tab-data8').children('.list-left').html('');
-    $('.tab-data8').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
-    places(cityName, searchVal, ".tab-data8", "Search");
+    var searchVal = $('.search-tab-input').val();
+      $('.tab-data8').children('.list-left').html('');
+      $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>')
+      places(cityName, searchVal, ".tab-data8", "Search");
   });
 
 
@@ -25715,9 +25715,10 @@ router.route('search/:cityName/places', function (cityName){
   //   }, 3500);
 
 
+
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
-      var searchTerm = $(this).text()
+    var searchTerm = $(this).text();
       var request = {
         query: searchTerm + " " + city
       };  
@@ -25728,12 +25729,12 @@ router.route('search/:cityName/places', function (cityName){
         var id = results[0].place_id;
             getDetails(id)
       });
+  
   });
 
 
   $('.city-all-container').on('click', '.clickSpan', function (){
 
-    
     var id = this.id;
     getDetails(id);
     $(".clickSpan").removeClass("clickSpan-selected");
@@ -25741,18 +25742,10 @@ router.route('search/:cityName/places', function (cityName){
   });
 
   setTimeout(function() {
-    var id = $('.clickSpan').first().attr('id')
+    var id = $('.clickSpan').first().attr('id');
     getDetails(id)
   }, 800);
 
-//code to get each tab opening the first item in the list  
-  // $(".r-tabs-anchor").click(function(){
-  //    setTimeout(function() {
-  //     console.log();
-  //     var id = $('.clickSpan').first().attr('id')
-  //     getDetails(id)
-  //    }, 500);
-  // })
   
   //changes tab view so that it is fullscreen only on this view
   $(".city-all-container").addClass("full-screen-container");
@@ -25809,7 +25802,10 @@ var showDetails = function() {
       $('.school-modal').fadeIn();
       modal.append('<h1>' + currentSchool.name + '</h1>');
       modal.append('<span class="school-details">' + currentSchool.address + '</p>');
-      modal.append('<span class="school-details">' + currentSchool.phone + '</p>');
+      
+      if (currentSchool.phone != null) {
+        modal.append('<span class="school-details">' + currentSchool.phone + '</p>');
+      }
       modal.append('<a href="' + currentSchool.website + '" target="_blank">' + currentSchool.website + '</p><br>');
       modal.append('<span class="details-titles">Type: </span><span class="school-details">' + currentSchool.type + '</span><br>');
       modal.append('<span class="details-titles">Grade Range: </span><span class="school-details">' + currentSchool.gradeRange + '</span><br>');
@@ -25915,6 +25911,8 @@ var c3 = require('c3');
 
 module.exports = function (data, bindTo) {
 
+    var dwnldArr = [];
+
     var aTDwnld3 = Math.round(data[0].type3G.downloadSpeed);
     var vDwnld3 = Math.round(data[1].type3G.downloadSpeed);
     var sDwnld3 = Math.round(data[2].type3G.downloadSpeed);
@@ -25934,6 +25932,14 @@ module.exports = function (data, bindTo) {
     var vUpld4 = Math.round(data[1].type4G.uploadSpeed);
     var sUpld4 = Math.round(data[2].type4G.uploadSpeed);
     var tmUpld4 = Math.round(data[3].type4G.uploadSpeed);
+
+    dwnldArr.push(aTDwnld4);
+    dwnldArr.push(vDwnld4);
+    dwnldArr.push(tmDwnld4);
+
+    var srtArr = dwnldArr.sort(function(a, b){return a-b});
+    srtArr.reverse();
+    maxVal = srtArr[0];
 
 
   	var chart = c3.generate({
@@ -25965,7 +25971,7 @@ module.exports = function (data, bindTo) {
         	},
           y: {
             label: "Megabits Per Second",
-            max: 19000
+            max: 14000
           }
     		}
 		});
@@ -26655,7 +26661,7 @@ module.exports = function (state, city, el1, el2) {
         downloadGraph(data2, el1);
         reliabilityGraph(data2, el2);
       } else {
-        downloadGraph(data2, el1);      }
+        downloadGraph(data2, el1);}
     });
 
   });

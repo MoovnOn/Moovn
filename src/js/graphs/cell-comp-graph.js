@@ -63,7 +63,7 @@ module.exports = function (data, bindTo) {
         	},
           y: {
             label: "Megabits Per Second",
-            max: 14000
+            max: maxVal
           }
     		}
 		});
