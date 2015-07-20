@@ -16,7 +16,7 @@ from geo.models import City, Boundary, Name, NeighborhoodBoundary, Bls, Occupati
 import xmltodict
 import json
 
-requests_cache.install_cache('cache', expire_after=18000)
+requests_cache.install_cache('cache', expire_after=86400)
 
 
 def city_boundary_view(request, state, name):
