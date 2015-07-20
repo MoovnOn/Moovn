@@ -25135,10 +25135,13 @@ router.route('search/:cityName/education', function (cityName){
         zoom(cityjson, boundaryjson, g, path, width * aspect, width);
 
         var mouseOutZoom = function (d) {
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
+          d3.selectAll(".maptext").attr("opacity", 0);
 
           d3.selectAll("path")
             .classed("active", false)
+
+          d3.select(".feature-city").on("click", "none");
+          d3.select(".map").on("click", "none");
 
           return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
         };
@@ -25146,10 +25149,15 @@ router.route('search/:cityName/education', function (cityName){
         var mouseZoom = function(d) {
           $(".maptext").attr("opacity", 0);
           $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+
+          d3.select(".feature-city").on("click", mouseOutZoom);
+          d3.select(".map").on("click", mouseOutZoom);
+
           return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
         };
 
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
+
 
       } else {
 
@@ -25175,7 +25183,7 @@ router.route('search/:cityName/education', function (cityName){
       var searchTerm = $(this).text()
       var request = {
         query: searchTerm + " " + city
-      };  
+      };
 
       map = new google.maps.Map(document.getElementById('map'));
       service = new google.maps.places.PlacesService(map);
@@ -25201,7 +25209,6 @@ router.route('search/:cityName/education', function (cityName){
 
 // bottom
 });
-
 
 },{"../../educationmouseover":17,"../../neighMap":37,"../../place-details":39,"../../places-api":40,"../../router":41,"../../search":42,"../../show":43,"../../topojson":45,"../../zoom":46,"../side-bar-controller":8,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 var $ = require('jquery');
@@ -26420,6 +26427,8 @@ module.exports = function(svg, state, city, height, width) {
 		// the data set with bubble positions
 		bubbles = bubble.nodes(data_list)
 
+		bubbles = bubbles.sort(function(a, b){ return b.r - a.r;})
+
 		// nodes with positions for the circles
 		var node = g.selectAll(".node")
 				.data(bubbles)
@@ -26844,14 +26853,14 @@ module.exports = function(state, city, job, height, width) {
 
 				bp.append("rect")
 					.attr("x", x(values[1]))
-					.attr("y", .425 * height)
+					.attr("y", .45 * height)
 					.attr("height", .1 * height)
 					.attr("width", x(values[2]) - x(values[1]))
 					.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
 
 					bp.append("rect")
 						.attr("x", x(values[2]))
-						.attr("y", .425 * height)
+						.attr("y", .45 * height)
 						.attr("height", .1 * height)
 						.attr("width", x(values[3]) - x(values[2]))
 						.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
@@ -26890,8 +26899,8 @@ module.exports = function(state, city, job, height, width) {
 
 
 					//bp.attr("transform", "translate(" + [ width, -.5 * height] +")scale(" + 2.5 + ")")
-					bp.attr("transform", "translate("+ [0, - scale * height * .5] +")scale(" + 2.5 + ")")
-
+					bp.attr("transform", "translate("+ [0, - scale * height * .65] +")scale(" + 3.5 + ")")
+					//bp.attr("transform", "scale(" + 2.5 + ")")
 		} else {
 
 			d3.select(".tri-1").insert("h3", "#boxplot").text("No data found for entry \'" + job + "\'")

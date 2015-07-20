@@ -55,14 +55,14 @@ module.exports = function(state, city, job, height, width) {
 
 				bp.append("rect")
 					.attr("x", x(values[1]))
-					.attr("y", .425 * height)
+					.attr("y", .45 * height)
 					.attr("height", .1 * height)
 					.attr("width", x(values[2]) - x(values[1]))
 					.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
 
 					bp.append("rect")
 						.attr("x", x(values[2]))
-						.attr("y", .425 * height)
+						.attr("y", .45 * height)
 						.attr("height", .1 * height)
 						.attr("width", x(values[3]) - x(values[2]))
 						.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
@@ -101,8 +101,8 @@ module.exports = function(state, city, job, height, width) {
 
 
 					//bp.attr("transform", "translate(" + [ width, -.5 * height] +")scale(" + 2.5 + ")")
-					bp.attr("transform", "translate("+ [0, - scale * height * .5] +")scale(" + 2.5 + ")")
-
+					bp.attr("transform", "translate("+ [0, - scale * height * .65] +")scale(" + 3.5 + ")")
+					//bp.attr("transform", "scale(" + 2.5 + ")")
 		} else {
 
 			d3.select(".tri-1").insert("h3", "#boxplot").text("No data found for entry \'" + job + "\'")

@@ -109,10 +109,13 @@ router.route('search/:cityName/education', function (cityName){
         zoom(cityjson, boundaryjson, g, path, width * aspect, width);
 
         var mouseOutZoom = function (d) {
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
+          d3.selectAll(".maptext").attr("opacity", 0);
 
           d3.selectAll("path")
             .classed("active", false)
+
+          d3.select(".feature-city").on("click", "none");
+          d3.select(".map").on("click", "none");
 
           return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
         };
@@ -120,10 +123,15 @@ router.route('search/:cityName/education', function (cityName){
         var mouseZoom = function(d) {
           $(".maptext").attr("opacity", 0);
           $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+
+          d3.select(".feature-city").on("click", mouseOutZoom);
+          d3.select(".map").on("click", mouseOutZoom);
+
           return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
         };
 
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
+
 
       } else {
 
@@ -149,7 +157,7 @@ router.route('search/:cityName/education', function (cityName){
       var searchTerm = $(this).text()
       var request = {
         query: searchTerm + " " + city
-      };  
+      };
 
       map = new google.maps.Map(document.getElementById('map'));
       service = new google.maps.places.PlacesService(map);
@@ -175,4 +183,3 @@ router.route('search/:cityName/education', function (cityName){
 
 // bottom
 });
-
