@@ -25597,7 +25597,6 @@ commuteTime(state, city, '.overview-graph1');
            
                nameArr.forEach(function(e, i) {
                 $(".overview-tax-container").append("<p>" + toTitleCase(nameArr[i]) + " " + rateArr[i] + "%</p>");
-                // $(".overview-tax-container").append(rateArr[i] + "%</p><br>");
                });
                
                $(".overview-tax-container").append("<p><b>Total Sales Tax Rate = " + result.totalRate + "%<br></b></p>");
@@ -26054,8 +26053,8 @@ module.exports = function(state, city, bindTo) {
         bindto: bindTo,
         data: {
           columns: [
-              ['City Commute', housingPeopleCommute],
-              ['National Commute', housingPeopleCommuteNation]
+              ['City Commute', Math.round(housingPeopleCommute)],
+              ['National Commute', Math.round(housingPeopleCommuteNation)]
           ],
           type: 'bar',
           colors: {
@@ -26285,8 +26284,8 @@ module.exports = function(state, city, element) {
         bindto: element,
         data: {
           columns: [
-              ['City Income', housingPeopleIncome],
-              ['National Income', housingPeopleIncomeNation],
+              ['City Income', Math.round(housingPeopleIncome)],
+              ['National Income', Math.round(housingPeopleIncomeNation)],
           ],
           type: 'bar',
           colors: {
