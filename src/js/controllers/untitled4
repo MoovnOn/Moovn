@@ -18,13 +18,13 @@ var costLiving = require('../cost-living');
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
  
-  // show('side-bar-city-search', '.side-bar-content', {city1: cityName1});
-  // searchFunction();
-  show('city-template-vertical', '.main-content', {city1: cityName1, city2: cityName2})
-  sideBar();
-  
+ 	// show('side-bar-city-search', '.side-bar-content', {city1: cityName1});
+ 	// searchFunction();
+ 	show('city-template-vertical', '.main-content', {city1: cityName1, city2: cityName2})
+ 	sideBar();
+ 	
 
-  var citySplit1 = cityName1.split(', ');
+ 	var citySplit1 = cityName1.split(', ');
   var city1 = citySplit1[0];
   var state1 = citySplit1[1];
 

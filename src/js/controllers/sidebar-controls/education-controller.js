@@ -13,6 +13,7 @@ var searchFunction = require('../../search');
 var views = require('views');
 var sideBar = require('../side-bar-controller');
 var getDetails = require('../../place-details');
+var tuitionCall = require('../../tuition-call');
 
 // for the map
 var d3 = require('d3');
@@ -147,19 +148,28 @@ router.route('search/:cityName/education', function (cityName){
   places(cityName, "colleges", ".tab-data1", ".tab-title1");
   places(cityName, "community college", ".tab-data2", ".tab-title2");
 
+  tuitionCall(state, city);
+
+
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
-      var searchTerm = $(this).text()
-      var request = {
-        query: searchTerm + " " + city
-      };
 
-      map = new google.maps.Map(document.getElementById('map'));
-      service = new google.maps.places.PlacesService(map);
-      service.textSearch(request, function(results) {
-        var id = results[0].place_id;
-          getDetails(id)
-      });
+      var searchTerm = $(this).text();
+
+      if(searchTerm != 'US News Best Colleges') {
+
+        var request = {
+          query: searchTerm + " " + city
+        };
+
+        map = new google.maps.Map(document.getElementById('map'));
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch(request, function(results) {
+          var id = results[0].place_id;
+            getDetails(id)
+        });
+      }
+
   });
 
   $('.city-all-container').on('click', '.clickSpan', function (){
