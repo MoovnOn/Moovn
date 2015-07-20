@@ -1636,6 +1636,9 @@ header {
 .housing-graph {
   padding-top: 3em; }
 
+.graph-download-subtitle {
+  text-align: center; }
+
 .full-screen-container {
   margin-top: 0em;
   margin-right: 0em;
@@ -1967,6 +1970,9 @@ header {
   padding-top: 0.3em;
   padding-left: 0.354052em; }
 
+.cost-taxes {
+  margin-left: 6em; }
+
 .tri-1-edu, .tri-2-edu {
   margin-top: 1em; }
 
@@ -2111,7 +2117,8 @@ body {
 
 p {
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
-  line-height: 1.2; }
+  line-height: 1.2;
+  letter-spacing: 0; }
 
 .ui-autocomplete {
   border: 1px solid grey;
