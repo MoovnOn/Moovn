@@ -31,15 +31,15 @@ router.route('search/:cityName/places', function (cityName){
 
   // Sets up search in the sixth tab
   $('.tab-title8').children('a').text('Search');
-  $('.tab-data8').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
+  $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" value="Search ' + city + '"><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>');
 
   $('.main-content').on('submit', '.tab-search-form' , function(e){
     e.preventDefault();
 
-  var searchVal = $('.search-tab-input').val();
-    $('.tab-data8').children('.list-left').html('');
-    $('.tab-data8').children('.list-left').append('<form class="tab-search-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn" style="display:inline-block">Search</button></form><br>')
-    places(cityName, searchVal, ".tab-data8", "Search");
+    var searchVal = $('.search-tab-input').val();
+      $('.tab-data8').children('.list-left').html('');
+      $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>')
+      places(cityName, searchVal, ".tab-data8", "Search");
   });
 
 
@@ -64,9 +64,10 @@ router.route('search/:cityName/places', function (cityName){
   //   }, 3500);
 
 
+
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
-      var searchTerm = $(this).text()
+    var searchTerm = $(this).text();
       var request = {
         query: searchTerm + " " + city
       };  
@@ -77,12 +78,12 @@ router.route('search/:cityName/places', function (cityName){
         var id = results[0].place_id;
             getDetails(id)
       });
+  
   });
 
 
   $('.city-all-container').on('click', '.clickSpan', function (){
 
-    
     var id = this.id;
     getDetails(id);
     $(".clickSpan").removeClass("clickSpan-selected");
@@ -90,18 +91,10 @@ router.route('search/:cityName/places', function (cityName){
   });
 
   setTimeout(function() {
-    var id = $('.clickSpan').first().attr('id')
+    var id = $('.clickSpan').first().attr('id');
     getDetails(id)
   }, 800);
 
-//code to get each tab opening the first item in the list  
-  // $(".r-tabs-anchor").click(function(){
-  //    setTimeout(function() {
-  //     console.log();
-  //     var id = $('.clickSpan').first().attr('id')
-  //     getDetails(id)
-  //    }, 500);
-  // })
   
   //changes tab view so that it is fullscreen only on this view
   $(".city-all-container").addClass("full-screen-container");

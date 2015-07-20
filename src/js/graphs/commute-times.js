@@ -28,13 +28,13 @@ module.exports = function(state, city, bindTo) {
         bindto: bindTo,
         data: {
           columns: [
-              ['City Commute', housingPeopleCommute],
-              ['National Commute', housingPeopleCommuteNation]
+              ['City Commute', Math.round(housingPeopleCommute)],
+              ['National Commute', Math.round(housingPeopleCommuteNation)]
           ],
           type: 'bar',
           colors: {
-            'City Commute': '#3D5E99',
-            'National Commute': '#CC2E14',
+            'City Commute': '#B1D3DD',
+            'National Commute': '#51ABD2',
           },
           
         },

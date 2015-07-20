@@ -31,7 +31,10 @@ var showDetails = function() {
       $('.school-modal').fadeIn();
       modal.append('<h1>' + currentSchool.name + '</h1>');
       modal.append('<span class="school-details">' + currentSchool.address + '</p>');
-      modal.append('<span class="school-details">' + currentSchool.phone + '</p>');
+      
+      if (currentSchool.phone != null) {
+        modal.append('<span class="school-details">' + currentSchool.phone + '</p>');
+      }
       modal.append('<a href="' + currentSchool.website + '" target="_blank">' + currentSchool.website + '</p><br>');
       modal.append('<span class="details-titles">Type: </span><span class="school-details">' + currentSchool.type + '</span><br>');
       modal.append('<span class="details-titles">Grade Range: </span><span class="school-details">' + currentSchool.gradeRange + '</span><br>');
