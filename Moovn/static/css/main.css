@@ -1674,10 +1674,20 @@ header {
 
 .people-left {
   line-height: 1.5;
-  padding-left: 1em; }
+  padding-left: 1em;
+  padding-right: 1em; }
 
 .people-left h1 {
-  color: #B27700; }
+  color: #B27700;
+  font-size: 1.5em; }
+
+.people-right {
+  border-left: 1px solid #A5B6C3;
+  background-color: #E5F2F2;
+  line-height: 1.5; }
+
+.people-right h1 {
+  font-size: 1.5em; }
 
 .overview-city-title {
   font-size: 1.5em;
