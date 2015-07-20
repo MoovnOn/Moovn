@@ -105,7 +105,7 @@ module.exports = function(state, city, job, height, width) {
 						.text(values[4]);
 
 
-					bp.attr("transform", "translate(" + [height/2, width/2] +")scale(" + 2.5 + ")")
+					bp.attr("transform", "translate(" + [.9 * height / 2, .9 * width / 2] +")scale(" + 2.5 + ")")
 
 		} else{
 			console.log(data)
