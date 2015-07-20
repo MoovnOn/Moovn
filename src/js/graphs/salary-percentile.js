@@ -51,15 +51,15 @@ module.exports = function(state, city, job, height, width) {
 
 				bp.append("rect")
 					.attr("x", x(values[1]))
-					.attr("y", .45 * height)
-					.attr("height", .1 * height)
+					.attr("y", .425 * height)
+					.attr("height", .15 * height)
 					.attr("width", x(values[2]) - x(values[1]))
 					.style({"stroke-width": 2, "stroke": "black", "fill": "#B1D3DD"});
 
 					bp.append("rect")
 						.attr("x", x(values[2]))
-						.attr("y", .45 * height)
-						.attr("height", .1 * height)
+						.attr("y", .425 * height)
+						.attr("height", .15 * height)
 						.attr("width", x(values[3]) - x(values[2]))
 						.style({"stroke-width": 2, "stroke": "black", "fill": "#B1D3DD"});
 
