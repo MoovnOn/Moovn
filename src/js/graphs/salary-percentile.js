@@ -16,7 +16,7 @@ module.exports = function(state, city, job, height, width) {
 
 			var svg = d3.select("#boxplot");
 
-			var bp = svg;//.append("g")
+			var bp = svg.append("g");
 			//	.attr("height", svg.attr("height") + "px")
 			//	.attr("width", svg.attr("width") + "px");
 
@@ -27,7 +27,7 @@ module.exports = function(state, city, job, height, width) {
 			console.log(bp.attr("width"))
 
 			var x = function(val) {
-				return .05 * bp.attr("width") + .9 * bp.attr("width") *
+				return .05 * svg.attr("width") + .9 * svg.attr("width") *
 							 (val - values[0]) / (values[4] - values[0]);
 			};
 
@@ -103,6 +103,9 @@ module.exports = function(state, city, job, height, width) {
 						.attr("x", x(values[4]))
 						.attr("y", .3 * height)
 						.text(values[4]);
+
+
+					bp.attr("transform", "translate(" + [height/2, width/2] +")scale(" + 2.5 + ")")
 
 		} else{
 			console.log(data)
