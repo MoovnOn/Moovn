@@ -31,10 +31,10 @@ module.exports = function (allHousingData){
       ],
       type: 'bar',
       colors: {
-            'Condo': '#3D5E99',
-            '2-Bed': '#CC2E14',
-            '3-Bed': '#707D94',
-            '4-Bed': '#FF7640',
+            'Condo': '#B1D3DD',
+            '2-Bed': '#BDBBC3',
+            '3-Bed': '#51ABD2',
+            '4-Bed': '#55818F',
           },
     },
     axis: {

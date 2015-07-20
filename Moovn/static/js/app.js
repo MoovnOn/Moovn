@@ -26064,8 +26064,8 @@ module.exports = function(state, city, bindTo) {
           ],
           type: 'bar',
           colors: {
-            'City Commute': '#3D5E99',
-            'National Commute': '#CC2E14',
+            'City Commute': '#B1D3DD',
+            'National Commute': '#51ABD2',
           },
           
         },
@@ -26232,10 +26232,10 @@ module.exports = function(state, city, element) {
           ],
           type: 'bar',
           colors: {
-            'Condo': '#3D5E99',
-            '2-Bed': '#CC2E14',
-            '3-Bed': '#707D94',
-            '4-Bed': '#FF7640',
+            'Condo': '#B1D3DD',
+            '2-Bed': '#BDBBC3',
+            '3-Bed': '#51ABD2',
+            '4-Bed': '#55818F',
           },
         },
         axis: {
@@ -26295,8 +26295,8 @@ module.exports = function(state, city, element) {
           ],
           type: 'bar',
           colors: {
-            'City Income': '#3D5E99',
-            'National Income': '#CC2E14',           
+            'City Income': '#BDBBC3',
+            'National Income': '#55818F',           
           },
         },
         axis: {
@@ -26552,10 +26552,10 @@ module.exports = function (allHousingData){
       ],
       type: 'bar',
       colors: {
-            'Condo': '#3D5E99',
-            '2-Bed': '#CC2E14',
-            '3-Bed': '#707D94',
-            '4-Bed': '#FF7640',
+            'Condo': '#B1D3DD',
+            '2-Bed': '#BDBBC3',
+            '3-Bed': '#51ABD2',
+            '4-Bed': '#55818F',
           },
     },
     axis: {
@@ -26711,7 +26711,17 @@ module.exports = function(state, city, bindTo ) {
               type : 'donut',
               onclick: function (d, i) {},
               onmouseover: function (d, i) {},
-              onmouseout: function (d, i) {}
+              onmouseout: function (d, i) {},
+              colors: {
+                '0-9': '#B1D3DD',
+                '10-19': '#BDBBC3',
+                '20-29': '#51ABD2',
+                '30-39': '#55818F',
+                '40-49': '#98E6FF',
+                '50-59': '#263A40',
+                '60-69': '#7C7A7F',
+                '70+': '#C492B3',
+              },
           },
           donut: {
               title: "Age of Population (yrs)"
@@ -26755,7 +26765,11 @@ module.exports = function(state, city, element) {
               type : 'donut',
               onclick: function (d, i) {},
               onmouseover: function (d, i) {  },
-              onmouseout: function (d, i) { }
+              onmouseout: function (d, i) { },
+                colors: {
+                '% No Kids': '#B1D3DD',
+                '% With Kids': '#51ABD2',
+              },
           },
           donut: {
               title: "Household Composition"
@@ -26813,7 +26827,15 @@ module.exports = function(state, city, element) {
               type : 'donut',
               onclick: function (d, i) {},
               onmouseover: function (d, i) {},
-              onmouseout: function (d, i) {}
+              onmouseout: function (d, i) {},
+              colors: {
+                'Divorced Female': '#B1D3DD',
+                'Divorced Male': '#BDBBC3',
+                'Married Female': '#51ABD2',
+                'Married Male': '#55818F',
+                'Single Female': '#98E6FF',
+                'Single Male': '#263A40',
+              },
           },
           donut: {
               title: "Relationship Status"

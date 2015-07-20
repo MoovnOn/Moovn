@@ -27,7 +27,11 @@ module.exports = function(state, city, element) {
               type : 'donut',
               onclick: function (d, i) {},
               onmouseover: function (d, i) {  },
-              onmouseout: function (d, i) { }
+              onmouseout: function (d, i) { },
+                colors: {
+                '% No Kids': '#B1D3DD',
+                '% With Kids': '#51ABD2',
+              },
           },
           donut: {
               title: "Household Composition"
