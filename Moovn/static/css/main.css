@@ -1643,6 +1643,9 @@ header {
 .graph-download-subtitle {
   text-align: center; }
 
+.comp-graph-title p {
+  font-size: 0.8em; }
+
 .full-screen-container {
   margin-top: 0em;
   margin-right: 0em;
@@ -2151,6 +2154,9 @@ header {
 
 body {
   font-family: Century Gothic, sans-serif; }
+
+h2 {
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
 
 p {
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
