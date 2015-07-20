@@ -24219,13 +24219,13 @@ $.widget( "ui.tooltip", {
 
 },{"jquery":"jquery"}],3:[function(require,module,exports){
 /*
- *  Project: jQuery.responsiveTabs.js
+ *  Project: jquery.responsiveTabs.js
  *  Description: A plugin that creates responsive tabs, optimized for all devices
  *  Author: Jelle Kralt (jelle@jellekralt.nl)
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require('jquery');
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -24350,7 +24350,7 @@ var jQuery = require('jquery');
         // Trigger loaded event
         this.$element.trigger('tabs-load');
     };
-
+    
     //
     // PRIVATE FUNCTIONS
     //
@@ -24482,7 +24482,7 @@ var jQuery = require('jquery');
     ResponsiveTabs.prototype._getStartTab = function() {
         var tabRef = this._getTabRefBySelector(window.location.hash);
         var startTab;
-
+        
         // Check if the page has a hash set that is linked to a tab
         if(tabRef >= 0 && !this._getTab(tabRef).disabled) {
             // If so, set the current tab to the linked tab
@@ -24561,7 +24561,7 @@ var jQuery = require('jquery');
         _this._doTransition(oTab.panel, _this.options.animation, 'open', function() {
             // When finished, set active class to the panel
             oTab.panel.removeClass(_this.options.classes.stateDefault).addClass(_this.options.classes.stateActive);
-
+          
            // And if enabled and state is accordion, scroll to the accordion tab
             if(_this.getState() === 'accordion' && _this.options.scrollToAccordion && (!_this._isInView(oTab.accordionTab) || _this.options.animation !== 'default')) {
                 // Check if the animation option is enabled, and if the duration isn't 0
@@ -24742,7 +24742,7 @@ var jQuery = require('jquery');
 
     //
     // HELPER FUNCTIONS
-    //
+    // 
 
     ResponsiveTabs.prototype._isInView = function($element) {
         var docViewTop = $(window).scrollTop(),
@@ -25433,8 +25433,7 @@ router.route('search/:cityName/industry', function (cityName){
     e.preventDefault();
     e.stopPropagation();
     var job = $('.job-input').val();
-    salaryPer(state, city, job, aspect * width, width);
-
+    salaryPer(state, city, job, (aspect * width)*2, width);
   });
 
 
@@ -25450,6 +25449,17 @@ router.route('search/:cityName/industry', function (cityName){
       noResults: '',
       results: function() {}
     }
+  });
+  
+  $('.industry-form').submit(function(){
+    var job = $('.job-input').val();
+    $('.salary-title').html('Salaries for '+ job +" in " + cityName);      
+  })
+  
+ $(document).ready(function() {
+    $("#job-input").val("Web Developers");
+    $("#job-input").submit();
+    $("#job-input").val("");
   });
 
 });
@@ -25687,27 +25697,23 @@ router.route('search/:cityName/places', function (cityName){
 
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
-      var searchTerm = $(this).text();
-        
-      if (searchTerm != 'Search'){
-        var request = {
-          query: searchTerm + " " + city
-        };  
+      var searchTerm = $(this).text()
+      var request = {
+        query: searchTerm + " " + city
+      };  
 
-        map = new google.maps.Map(document.getElementById('map'));
-        service = new google.maps.places.PlacesService(map);
-        service.textSearch(request, function(results) {
-          var id = results[0].place_id;
-              getDetails(id)
-        });
-   
-      };
-
+      map = new google.maps.Map(document.getElementById('map'));
+      service = new google.maps.places.PlacesService(map);
+      service.textSearch(request, function(results) {
+        var id = results[0].place_id;
+            getDetails(id)
+      });
   });
 
 
   $('.city-all-container').on('click', '.clickSpan', function (){
 
+    
     var id = this.id;
     getDetails(id);
     $(".clickSpan").removeClass("clickSpan-selected");
@@ -26786,31 +26792,21 @@ var $ = require('jquery');
 
 module.exports = function(state, city, job, height, width) {
 	$("#boxplot").empty();
-
 	$.ajax({
     method: 'GET',
-    url: 'api/salary/' + state + '/' + city + '/' + job
+    url: 'api/salary/' + state + '/' + city + '/' + job + '/'
   }).done(function(data){
 		if (data !== "no data") {
 
 	  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
 										data[job+"75th"], data[job+"90th"]];
 
-
 			var svg = d3.select("#boxplot");
 
 			var bp = svg.append("g");
-			//	.attr("height", svg.attr("height") + "px")
-			//	.attr("width", svg.attr("width") + "px");
-
-			//var x = d3.scale.linear()
-				//.domain([values[0], values[4]])
-				//.range([.05 * bp.attr("width"), .95 * bp.attr("width")]);
-			console.log(data)
-			console.log(bp.attr("width"))
 
 			var x = function(val) {
-				return .05 * svg.attr("width") + .9 * svg.attr("width") *
+				return .05 * svg.attr("width") + .9 * svg.attr("width") * 
 							 (val - values[0]) / (values[4] - values[0]);
 			};
 
@@ -26861,34 +26857,34 @@ module.exports = function(state, city, job, height, width) {
 						.attr("y", .3 * height)
 						//.attr("lengthAdjust", "spacingAndGlyphs")
 						.attr("length", 50)
-						.text(values[0]);
+						.text('$' + values[0]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[1]))
 						.attr("y", .75 * height)
-						.text(values[1]);
+						.text('$' + values[1]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[2]))
 						.attr("y", .3 * height)
-						.text(values[2]);
+						.text('$' + values[2]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[3]))
 						.attr("y", .75 * height)
-						.text(values[3]);
+						.text('$' + values[3]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[4]))
 						.attr("y", .3 * height)
-						.text(values[4]);
+						.text('$' + values[4]);
 
 
-					bp.attr("transform", "translate(" + [.9 * height / 2, .9 * width / 2] +")scale(" + 2.5 + ")")
+					bp.attr("transform", "translate(" + [-50, -250] +")scale(" + 1.8 + ")")
 
 		} else{
 			console.log(data)

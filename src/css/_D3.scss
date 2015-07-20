@@ -24,16 +24,18 @@
   line-height: 1.5;
 }
 #boxplot text {
-  font-size:2.2em;
+  font-size:1.8em;
 }
 #boxplot{
   overflow: visible;
   padding-left: 3.5em;
 }
+.salary-title{
+  color: $comp-color;
+}
 .industry-form, .salary-title{
   padding-top:1em;
   text-align: center;
-  color: $comp-color;
 }
 .income-title{
   text-align: center;
