@@ -26158,10 +26158,10 @@ module.exports = function(state1, city1, state2, city2) {
           ],
           type: 'bar',
           colors: {
-            'Condo': '#3D5E99',
-            '2-Bed': '#CC2E14',
-            '3-Bed': '#707D94',
-            '4-Bed': '#FF7640',
+            'Condo': '#B1D3DD',
+            '2-Bed': '#BDBBC3',
+            '3-Bed': '#51ABD2',
+            '4-Bed': '#55818F',
           },
         },
         axis: {
@@ -26895,14 +26895,14 @@ module.exports = function(state, city, job, height, width) {
 					.attr("y", .425 * height)
 					.attr("height", .15 * height)
 					.attr("width", x(values[2]) - x(values[1]))
-					.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
+					.style({"stroke-width": 2, "stroke": "black", "fill": "#B1D3DD"});
 
 					bp.append("rect")
 						.attr("x", x(values[2]))
 						.attr("y", .425 * height)
 						.attr("height", .15 * height)
 						.attr("width", x(values[3]) - x(values[2]))
-						.style({"stroke-width": 2, "stroke": "black", "fill": "green"});
+						.style({"stroke-width": 2, "stroke": "black", "fill": "#B1D3DD"});
 
 
 					//var g = bp.append("g");
