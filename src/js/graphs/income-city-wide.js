@@ -28,13 +28,13 @@ module.exports = function(state, city, element) {
         bindto: element,
         data: {
           columns: [
-              ['City Income', housingPeopleIncome],
-              ['National Income', housingPeopleIncomeNation],
+              ['City Income', Math.round(housingPeopleIncome)],
+              ['National Income', Math.round(housingPeopleIncomeNation)],
           ],
           type: 'bar',
           colors: {
-            'City Income': '#3D5E99',
-            'National Income': '#CC2E14',           
+            'City Income': '#BDBBC3',
+            'National Income': '#55818F',           
           },
         },
         axis: {

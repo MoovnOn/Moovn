@@ -89,6 +89,9 @@
 .full-screen-tab-container{
   border-radius: 0px;
   border-bottom: none;
+  border-radius: 10px;
+  border-right:none;
+  border-left:none;
 }
 
 // css for places details 
@@ -124,8 +127,8 @@
   font-size: 1.5em;
 }
 .people-right{
-  border-left: 1px solid $light-primary-color;
-  background-color: #E5F2F2;
+  border-left: 1px solid #E5E5E5;
+  background-color: #F6F6F6;
   line-height: 1.5;
 }
 .people-right h1{
@@ -151,6 +154,12 @@
 .overview-tax-container, .overview-cost-container{
   padding-top: 3em;
 }
+.overview-tax-container p{
+  line-height: 1.5;
+}
+.overview-cost-container p{
+  line-height: 1.5;
+}
 .overview-cityImg-container, .overview-cityImg-container-mobile{
   padding-left: 0em;
   position: relative;
@@ -169,17 +178,17 @@
   color: $comp-color;
   padding-top:1em;
   padding-left: 1.5em;
-  border-top:1px solid $light-primary-color;
+  border-top:1px solid #E5E5E5;
 }
 .overview-graph-container{
-  background-color: #E5F2F2;
-  border-bottom:1px solid $light-primary-color;
+  background-color: #F6F6F6;
+  border-bottom:1px solid #E5E5E5;
 }
 .city-all-container-overview{
   margin-left: 12.9em;
   margin-right:0em;
   margin-bottom: 0em;
-  background-color: #E5F2F2;
+  background-color: #F6F6F6;
   background-size:cover;
 }
 .overview-cityImg-container-mobile{
