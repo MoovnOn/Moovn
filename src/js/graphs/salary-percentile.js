@@ -3,31 +3,21 @@ var $ = require('jquery');
 
 module.exports = function(state, city, job, height, width) {
 	$("#boxplot").empty();
-
 	$.ajax({
     method: 'GET',
-    url: 'api/salary/' + state + '/' + city + '/' + job
+    url: 'api/salary/' + state + '/' + city + '/' + job + '/'
   }).done(function(data){
 		if (data !== "no data") {
 
 	  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
 										data[job+"75th"], data[job+"90th"]];
 
-
 			var svg = d3.select("#boxplot");
 
-			var bp = svg;//.append("g")
-			//	.attr("height", svg.attr("height") + "px")
-			//	.attr("width", svg.attr("width") + "px");
-
-			//var x = d3.scale.linear()
-				//.domain([values[0], values[4]])
-				//.range([.05 * bp.attr("width"), .95 * bp.attr("width")]);
-			console.log(data)
-			console.log(bp.attr("width"))
+			var bp = svg.append("g");
 
 			var x = function(val) {
-				return .05 * bp.attr("width") + .9 * bp.attr("width") *
+				return .05 * svg.attr("width") + .9 * svg.attr("width") * 
 							 (val - values[0]) / (values[4] - values[0]);
 			};
 
@@ -78,31 +68,34 @@ module.exports = function(state, city, job, height, width) {
 						.attr("y", .3 * height)
 						//.attr("lengthAdjust", "spacingAndGlyphs")
 						.attr("length", 50)
-						.text(values[0]);
+						.text('$' + values[0]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[1]))
 						.attr("y", .75 * height)
-						.text(values[1]);
+						.text('$' + values[1]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[2]))
 						.attr("y", .3 * height)
-						.text(values[2]);
+						.text('$' + values[2]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[3]))
 						.attr("y", .75 * height)
-						.text(values[3]);
+						.text('$' + values[3]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[4]))
 						.attr("y", .3 * height)
-						.text(values[4]);
+						.text('$' + values[4]);
+
+
+					bp.attr("transform", "translate(" + [-50, -250] +")scale(" + 1.8 + ")")
 
 		} else{
 			console.log(data)

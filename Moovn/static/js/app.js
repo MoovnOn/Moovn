@@ -24891,13 +24891,13 @@ var costLiving = require('../cost-living');
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
  
- 	// show('side-bar-city-search', '.side-bar-content', {city1: cityName1});
- 	// searchFunction();
- 	show('city-template-vertical', '.main-content', {city1: cityName1, city2: cityName2})
- 	sideBar();
- 	
+  // show('side-bar-city-search', '.side-bar-content', {city1: cityName1});
+  // searchFunction();
+  show('city-template-vertical', '.main-content', {city1: cityName1, city2: cityName2})
+  sideBar();
+  
 
- 	var citySplit1 = cityName1.split(', ');
+  var citySplit1 = cityName1.split(', ');
   var city1 = citySplit1[0];
   var state1 = citySplit1[1];
 
@@ -25448,8 +25448,7 @@ router.route('search/:cityName/industry', function (cityName){
     e.preventDefault();
     e.stopPropagation();
     var job = $('.job-input').val();
-    salaryPer(state, city, job, aspect * width, width);
-
+    salaryPer(state, city, job, (aspect * width)*2, width);
   });
 
 
@@ -25465,6 +25464,17 @@ router.route('search/:cityName/industry', function (cityName){
       noResults: '',
       results: function() {}
     }
+  });
+  
+  $('.industry-form').submit(function(){
+    var job = $('.job-input').val();
+    $('.salary-title').html('Salaries for '+ job +" in " + cityName);      
+  })
+  
+ $(document).ready(function() {
+    $("#job-input").val("Web Developers");
+    $("#job-input").submit();
+    $("#job-input").val("");
   });
 
 });
@@ -25522,9 +25532,7 @@ var searchFunction = require('../../search');
 var sideBar = require('../side-bar-controller');
 var commuteTime = require('../../graphs/commute-times');
 var housingGraphGeneral = require('../../graphs/housing');
-var incomeCity = require ('../../graphs/income-city-wide');
-var taxDetails = require('../../tax-details');
-var costLiving = require('../../cost-living');
+var incomeCity = require ('../../graphs/income-city-wide')
 
 router.route('search/:cityName/overview', function (cityName){
 
@@ -25538,8 +25546,13 @@ router.route('search/:cityName/overview', function (cityName){
   var state = citySplit[1];
 
 //cost of living
-costLiving(state, city, '.overview-cost-container');    
-
+    $.ajax({
+      method: 'GET',
+      url: '/api/parity/' + state + '/' + city + '/'
+    })
+    .then(function(data){
+      $('.overview-cost-container').append('<p>' + data + '</p>');
+    });
 
 //income graph
 incomeCity(state, city, '.overview-graph3');
@@ -25549,13 +25562,48 @@ housingGraphGeneral(state, city, '.overview-graph2')
 
 //commuting
 commuteTime(state, city, '.overview-graph1');
-
+  
 //taxes
-taxDetails(state, city, ".overview-tax-container");
-
+  var zipRegex = /\b\d{5}\b/g;
+   
+   var client = new XMLHttpRequest();
+      client.open("GET", "http://api.zippopotam.us/us/" + state + "/" + city, true);
+      client.onreadystatechange = function () {
+        if(client.readyState == 4) {
+      		var response = client.responseText;
+          var zipArr = response.match(zipRegex);
+          var zip = zipArr[0];
+          var taxAPIKey = "mZ%2B6%2Bz8d%2B%2FlemJE9aFq4nKKnllHyjnV6dxQubPKpTX2X0dGNDGa6OrsVBIKAKyQDWPd%2FC7HqWhEC%2F2Aq41Ybew%3D%3D"
+            $.ajax({
+              method: 'GET',  
+              url:'https://taxrates.api.avalara.com:443/postal?country=usa&postal=' + zip + '&apikey=' + taxAPIKey 
+            }).done(function (result){
+              
+              var nameArr = [];
+              for (var index = 0; index < result.rates.length; index++) {
+                nameArr.push(result.rates[index].name)
+              }
+              
+              var rateArr = [];
+              for (var index = 0; index < result.rates.length; index++) {
+                rateArr.push(result.rates[index].rate)
+              }
+              
+               nameArr.forEach(function(e, i) {
+                $(".overview-tax-container").append(nameArr[i] + " ");
+                $(".overview-tax-container").append(rateArr[i] + "%<br><br>");
+               });
+               
+               $(".overview-tax-container").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
+               
+            })          
+          
+      	};
+      };
+      client.send();
   
 });
-},{"../../cost-living":17,"../../graphs/commute-times":22,"../../graphs/housing":24,"../../graphs/income-city-wide":25,"../../places-api":42,"../../router":43,"../../search":44,"../../show":45,"../../tax-details":47,"../side-bar-controller":8,"jquery":"jquery","underscore":"underscore","views":"views"}],14:[function(require,module,exports){
+},{"../../graphs/commute-times":22,"../../graphs/housing":24,"../../graphs/income-city-wide":25,"../../places-api":42,"../../router":43,"../../search":44,"../../show":45,"../side-bar-controller":8,"jquery":"jquery","underscore":"underscore","views":"views"}],14:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25664,27 +25712,23 @@ router.route('search/:cityName/places', function (cityName){
 
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
-      var searchTerm = $(this).text();
-        
-      if (searchTerm != 'Search'){
-        var request = {
-          query: searchTerm + " " + city
-        };  
+      var searchTerm = $(this).text()
+      var request = {
+        query: searchTerm + " " + city
+      };  
 
-        map = new google.maps.Map(document.getElementById('map'));
-        service = new google.maps.places.PlacesService(map);
-        service.textSearch(request, function(results) {
-          var id = results[0].place_id;
-              getDetails(id)
-        });
-   
-      };
-
+      map = new google.maps.Map(document.getElementById('map'));
+      service = new google.maps.places.PlacesService(map);
+      service.textSearch(request, function(results) {
+        var id = results[0].place_id;
+            getDetails(id)
+      });
   });
 
 
   $('.city-all-container').on('click', '.clickSpan', function (){
 
+    
     var id = this.id;
     getDetails(id);
     $(".clickSpan").removeClass("clickSpan-selected");
@@ -25770,13 +25814,11 @@ var housing = require('./graphs/neigh-housing');
 module.exports = function(state, city, id, coords){
 	var schoolList = [];
 
-
 $.ajax({
   method: "GET",
   url: "api/nearbyschools/" + state + "/" + city + "/?lat=" + coords[1] +
   "&lon=" + coords[0] //+ "&radius=" + 2, // min might be 5 miles
 }).then(function(data){
-  console.log(data)
 		var school = data.schools.school;
 		$('.school-info').html('<div class="school-modal"><button class="school-modal-x close-button">X</button><div class="school-modal-content"></div></div><div class="school-info-container"></div>');
 		school.forEach(function(school, i) {
@@ -26816,31 +26858,21 @@ var $ = require('jquery');
 
 module.exports = function(state, city, job, height, width) {
 	$("#boxplot").empty();
-
 	$.ajax({
     method: 'GET',
-    url: 'api/salary/' + state + '/' + city + '/' + job
+    url: 'api/salary/' + state + '/' + city + '/' + job + '/'
   }).done(function(data){
 		if (data !== "no data") {
 
 	  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
 										data[job+"75th"], data[job+"90th"]];
 
-
 			var svg = d3.select("#boxplot");
 
-			var bp = svg;//.append("g")
-			//	.attr("height", svg.attr("height") + "px")
-			//	.attr("width", svg.attr("width") + "px");
-
-			//var x = d3.scale.linear()
-				//.domain([values[0], values[4]])
-				//.range([.05 * bp.attr("width"), .95 * bp.attr("width")]);
-			console.log(data)
-			console.log(bp.attr("width"))
+			var bp = svg.append("g");
 
 			var x = function(val) {
-				return .05 * bp.attr("width") + .9 * bp.attr("width") *
+				return .05 * svg.attr("width") + .9 * svg.attr("width") * 
 							 (val - values[0]) / (values[4] - values[0]);
 			};
 
@@ -26891,31 +26923,34 @@ module.exports = function(state, city, job, height, width) {
 						.attr("y", .3 * height)
 						//.attr("lengthAdjust", "spacingAndGlyphs")
 						.attr("length", 50)
-						.text(values[0]);
+						.text('$' + values[0]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[1]))
 						.attr("y", .75 * height)
-						.text(values[1]);
+						.text('$' + values[1]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[2]))
 						.attr("y", .3 * height)
-						.text(values[2]);
+						.text('$' + values[2]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[3]))
 						.attr("y", .75 * height)
-						.text(values[3]);
+						.text('$' + values[3]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[4]))
 						.attr("y", .3 * height)
-						.text(values[4]);
+						.text('$' + values[4]);
+
+
+					bp.attr("transform", "translate(" + [-50, -250] +")scale(" + 1.8 + ")")
 
 		} else{
 			console.log(data)

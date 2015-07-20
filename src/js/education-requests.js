@@ -4,13 +4,11 @@ var housing = require('./graphs/neigh-housing');
 module.exports = function(state, city, id, coords){
 	var schoolList = [];
 
-
 $.ajax({
   method: "GET",
   url: "api/nearbyschools/" + state + "/" + city + "/?lat=" + coords[1] +
   "&lon=" + coords[0] //+ "&radius=" + 2, // min might be 5 miles
 }).then(function(data){
-  console.log(data)
 		var school = data.schools.school;
 		$('.school-info').html('<div class="school-modal"><button class="school-modal-x close-button">X</button><div class="school-modal-content"></div></div><div class="school-info-container"></div>');
 		school.forEach(function(school, i) {

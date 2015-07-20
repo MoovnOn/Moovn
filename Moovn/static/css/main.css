@@ -1286,8 +1286,10 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   color: white; }
 
 .city-title {
-  text-align: center;
-  font-size: 1.2em; }
+  text-align: left;
+  font-size: 1.4em;
+  padding-left: 1em;
+  margin-top: 0; }
 
 .side-nav-list {
   background-color: #354052;
@@ -1305,14 +1307,11 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   border-left: 3px solid #354052;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   font-style: bold;
-  font-size: 0.9em; }
+  font-size: 1.1em; }
 
 .side-icon {
   min-width: 25px;
   color: #A5B6C3; }
-
-.fa-mobile {
-  font-size: 1.4em; }
 
 .side-nav-item-container:hover .side-nav-item {
   color: white;
@@ -1335,9 +1334,7 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
 
 .search-form-city-view {
   color: black;
-  padding: 1em;
-  margin-top: 1em;
-  border-top: 4px solid #2F3948; }
+  padding: 1em; }
 
 .search-city-view {
   border-radius: 0.2em;
@@ -1970,9 +1967,6 @@ header {
   padding-top: 0.3em;
   padding-left: 0.354052em; }
 
-.text-container {
-  padding-left: 8em; }
-
 .tri-1-edu, .tri-2-edu {
   margin-top: 1em; }
 
@@ -2039,9 +2033,6 @@ header {
   font-size: 1.5em;
   color: #B27700; }
 
-.tri-2 svg {
-  margin-left: 8%; }
-
 .tri-2 {
   width: 100%; }
 
@@ -2050,6 +2041,29 @@ header {
 
 .bubble-title {
   letter-spacing: 0; }
+
+.jobList {
+  line-height: 1.5; }
+
+#boxplot text {
+  font-size: 1.8em; }
+
+#boxplot {
+  overflow: visible;
+  padding-left: 3.5em; }
+
+.salary-title {
+  color: #B27700; }
+
+.industry-form, .salary-title {
+  padding-top: 1em;
+  text-align: center; }
+
+.income-title {
+  text-align: center;
+  color: #B27700;
+  padding-top: 1em;
+  padding-bottom: 1em; }
 
 @media screen and (max-width: 1024px) {
   .overview-graph-container {

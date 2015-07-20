@@ -9,9 +9,7 @@ var searchFunction = require('../../search');
 var sideBar = require('../side-bar-controller');
 var commuteTime = require('../../graphs/commute-times');
 var housingGraphGeneral = require('../../graphs/housing');
-var incomeCity = require ('../../graphs/income-city-wide');
-var taxDetails = require('../../tax-details');
-var costLiving = require('../../cost-living');
+var incomeCity = require ('../../graphs/income-city-wide')
 
 router.route('search/:cityName/overview', function (cityName){
 
@@ -25,8 +23,13 @@ router.route('search/:cityName/overview', function (cityName){
   var state = citySplit[1];
 
 //cost of living
-costLiving(state, city, '.overview-cost-container');    
-
+    $.ajax({
+      method: 'GET',
+      url: '/api/parity/' + state + '/' + city + '/'
+    })
+    .then(function(data){
+      $('.overview-cost-container').append('<p>' + data + '</p>');
+    });
 
 //income graph
 incomeCity(state, city, '.overview-graph3');
@@ -36,9 +39,44 @@ housingGraphGeneral(state, city, '.overview-graph2')
 
 //commuting
 commuteTime(state, city, '.overview-graph1');
-
+  
 //taxes
-taxDetails(state, city, ".overview-tax-container");
-
+  var zipRegex = /\b\d{5}\b/g;
+   
+   var client = new XMLHttpRequest();
+      client.open("GET", "http://api.zippopotam.us/us/" + state + "/" + city, true);
+      client.onreadystatechange = function () {
+        if(client.readyState == 4) {
+      		var response = client.responseText;
+          var zipArr = response.match(zipRegex);
+          var zip = zipArr[0];
+          var taxAPIKey = "mZ%2B6%2Bz8d%2B%2FlemJE9aFq4nKKnllHyjnV6dxQubPKpTX2X0dGNDGa6OrsVBIKAKyQDWPd%2FC7HqWhEC%2F2Aq41Ybew%3D%3D"
+            $.ajax({
+              method: 'GET',  
+              url:'https://taxrates.api.avalara.com:443/postal?country=usa&postal=' + zip + '&apikey=' + taxAPIKey 
+            }).done(function (result){
+              
+              var nameArr = [];
+              for (var index = 0; index < result.rates.length; index++) {
+                nameArr.push(result.rates[index].name)
+              }
+              
+              var rateArr = [];
+              for (var index = 0; index < result.rates.length; index++) {
+                rateArr.push(result.rates[index].rate)
+              }
+              
+               nameArr.forEach(function(e, i) {
+                $(".overview-tax-container").append(nameArr[i] + " ");
+                $(".overview-tax-container").append(rateArr[i] + "%<br><br>");
+               });
+               
+               $(".overview-tax-container").append("<b>Total Sales Tax Rate = " + result.totalRate + "%<br></b>");
+               
+            })          
+          
+      	};
+      };
+      client.send();
   
 });

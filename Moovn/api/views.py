@@ -1,6 +1,6 @@
 from Moovn.moovn_apis import apis
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, Http404
 from django.views.generic import View
 import requests
 import requests_cache
@@ -35,19 +35,12 @@ class HomeView(View):
 
 
 def cell_view(request, state, name):
-    query = state + '+' + name
-    places = requests.get("http://api.tiles.mapbox.com/v4/"
-                          + "geocode/mapbox.places/" + query \
-                          + ".json?access_token=" + apis('mapbox'))
-
-    places = geojson.loads(places.text)
-    coords = [places.features[0].center[0], places.features[0].center[1]]
+    coords = [request.GET.get("lon"), request.GET.get("lat")]
 
     signal = requests.get("http://api.opensignal.com/v2/networkstats.json?lat=" \
                           + str(coords[1]) + "&lng=" + str(coords[0]) \
                           + "&distance=" + "10" \
-                          # + "&network_type=" + {network_type} +
-                          + "&json_format=" + "2"  # 2 is suggested \
+                          + "&json_format=" + "2" \
                           + "&apikey=" + apis('opensignal'))
 
     signal = json.loads(signal.text)
@@ -181,7 +174,7 @@ def salary_view(request, state, name, job):
     typecodes = {"11": "10th", "12": "25th", "13": "50th", "14": "75th",
                  "15": "90th"}
 
-    if not ndata["Results"] or not ndata["Results"]["series"]:
+    if not ndata["Results"] or not ndata["Results"]["series"] or ndata["message"]:
         return JsonResponse({"no data": "no data"})
 
     else:
@@ -200,7 +193,7 @@ def salary_view(request, state, name, job):
         else:
             return JsonResponse(datadict)
 
-
+    # return JsonResponse(ndata)
 main_ind = [str(num) for num in range(110000, 530000, 20000)]
 
 
@@ -268,14 +261,14 @@ def parity_view(request, state, name):
     if parity:
         if parity <= 100:
             new_data = round((100 - parity), 1)
-            string = "Cost of living in {} is {}% lower than the national" \
-                     + "average.".format(name.name, new_data)
+            string = """Cost of living in {} is {}% lower than the national
+            average.""".format(name.name, new_data)
 
             return HttpResponse(string)
 
         else:
             new_data = round((parity - 100))
-            string = "Cost of living in {} is {}% higher than the national" \
-                     + "average.".format(name.name, new_data)
+            string = """Cost of living in {} is {}% higher than the national
+                     average.""".format(name.name, new_data)
 
     return HttpResponse(string)
