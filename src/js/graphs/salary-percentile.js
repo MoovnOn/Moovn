@@ -14,11 +14,12 @@ module.exports = function(state, city, job, height, width) {
 									data[job+"75th"], data[job+"90th"]];
 
 		var draw = true;
-		for (var i = 0; i < values.length; i++){
-			if (values[i] === undefined) {
-				draw = false;
-			}
-		}
+		values.forEach(function(d){ if (d === undefined){ draw=false;}});
+		// for (var i = 0; i < values.length; i++){
+		// 	if (values[i] === undefined) {
+		// 		draw = false;
+		// 	}
+		// }
 
 		if (draw) {
 
@@ -105,7 +106,7 @@ module.exports = function(state, city, job, height, width) {
 					//bp.attr("transform", "scale(" + 2.5 + ")")
 		} else {
 
-			d3.select(".tri-1").insert("h3", "#boxplot").text("No data found for entry \'" + job + "\'")
+			d3.select(".tri-1").insert("h3", "#plotdiv").text("No data found for entry \'" + job + "\'")
 
 		}
   });
