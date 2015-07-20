@@ -25,8 +25,8 @@ def city_boundary_view(request, state, name):
 
 
 class HomeView(View):
-    def get(self, request, state, city):
-        payload = {"zws-id": apis("zillowkey"), "state": state, "city": city}
+    def get(self, request, state, name):
+        payload = {"zws-id": apis("zillowkey"), "state": state, "city": name}
         housing_data = requests.get("http://www.zillow.com/"
                                     + "webservice/GetDemographics.htm",
                                     params=payload)
@@ -261,14 +261,14 @@ def parity_view(request, state, name):
     if parity:
         if parity <= 100:
             new_data = round((100 - parity), 1)
-            string = """Cost of living in {} is {}% lower than the national
-            average.""".format(name.name, new_data)
+            string = "Cost of living in {} is {}% lower than the national" \
+                     + "average.".format(name.name, new_data)
 
             return HttpResponse(string)
 
         else:
             new_data = round((parity - 100))
-            string = """Cost of living in {} is {}% higher than the national
-                     average.""".format(name.name, new_data)
+            string = "Cost of living in {} is {}% higher than the national" \
+                     + "average.".format(name.name, new_data)
 
     return HttpResponse(string)
