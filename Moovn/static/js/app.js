@@ -24225,7 +24225,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
- var jQuery = require("jquery");
+var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -25109,7 +25109,7 @@ router.route('search/:cityName/education', function (cityName){
     .text(city);
 
 
-  show('content/tabs-lists', '.tri-3-edu')
+  show('content/tabs-lists-education', '.tri-3-edu')
 
   var width = Math.max($("#d3-graphs").width(), 200),
       aspect = 1;
@@ -25402,7 +25402,7 @@ router.route('search/:cityName/housing', function (cityName){
 //loads the sidebar
   sideBar();
 //shows the tabs
-  show('content/tabs-lists', '.quad-3')
+  show('content/tabs-lists-housing', '.quad-3')
 //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
@@ -25739,7 +25739,7 @@ router.route('search/:cityName/places', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  show('content/tabs-lists', '.duo-1');
+  show('content/tabs-lists-places', '.duo-1');
 
   // Sets up search in the sixth tab
   $('.tab-title8').children('a').text('Search');

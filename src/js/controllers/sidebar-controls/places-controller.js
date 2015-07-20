@@ -27,7 +27,7 @@ router.route('search/:cityName/places', function (cityName){
   var city = citySplit[0];
   var state = citySplit[1];
 
-  show('content/tabs-lists', '.duo-1');
+  show('content/tabs-lists-places', '.duo-1');
 
   // Sets up search in the sixth tab
   $('.tab-title8').children('a').text('Search');
