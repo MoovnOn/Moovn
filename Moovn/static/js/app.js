@@ -25238,12 +25238,7 @@ router.route('search/:cityName/education', function (cityName){
 // bottom
 });
 
-<<<<<<< HEAD
-},{"../../educationmouseover":19,"../../mouseout":37,"../../neighMap":39,"../../place-details":41,"../../places-api":42,"../../router":43,"../../search":44,"../../show":45,"../../topojson":48,"../../tuition-call":49,"../../zoom":50,"../side-bar-controller":8,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
-=======
-
-},{"../../educationmouseover":18,"../../neighMap":38,"../../place-details":40,"../../places-api":41,"../../router":42,"../../search":43,"../../show":44,"../../topojson":47,"../../tuition-call":48,"../../zoom":49,"../side-bar-controller":8,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
->>>>>>> e20837e284ca12653061ccd40f81888357f7a9a0
+},{"../../educationmouseover":18,"../../mouseout":36,"../../neighMap":38,"../../place-details":40,"../../places-api":41,"../../router":42,"../../search":43,"../../show":44,"../../topojson":47,"../../tuition-call":48,"../../zoom":49,"../side-bar-controller":8,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25414,11 +25409,7 @@ router.route('search/:cityName/housing', function (cityName){
 
 });
 
-<<<<<<< HEAD
-},{"../../graphs/housing":24,"../../mouseout":37,"../../mouseoverzoom":38,"../../neighMap":39,"../../place-details":41,"../../places-api":42,"../../router":43,"../../search":44,"../../show":45,"../../topojson":48,"../../zoom":50,"../side-bar-controller":8,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
-=======
-},{"../../graphs/housing":23,"../../mouseoverzoom":37,"../../neighMap":38,"../../place-details":40,"../../places-api":41,"../../router":42,"../../search":43,"../../show":44,"../../topojson":47,"../../zoom":49,"../side-bar-controller":8,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
->>>>>>> e20837e284ca12653061ccd40f81888357f7a9a0
+},{"../../graphs/housing":23,"../../mouseout":36,"../../mouseoverzoom":37,"../../neighMap":38,"../../place-details":40,"../../places-api":41,"../../router":42,"../../search":43,"../../show":44,"../../topojson":47,"../../zoom":49,"../side-bar-controller":8,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -26985,11 +26976,7 @@ module.exports = function(state, city, job, height, width) {
 
 					bp.attr("transform", "translate("+ [0, - scale * height * .65] +")scale(" + 3.5 + ")")
 
-<<<<<<< HEAD
 		} else {
-=======
-					bp.attr("transform", "translate(" + [-50, -275] +")scale(" + 1.8 + ")")
->>>>>>> e20837e284ca12653061ccd40f81888357f7a9a0
 
 			d3.select(".tri-1").insert("h3", "#plotdiv").text("No data found for entry \'" + job + "\'")
 
