@@ -1383,7 +1383,11 @@ header {
 
 .title-container {
   display: inline-block;
-  font-family: Century Gothic, sans-serif; }
+  font-family: Century Gothic, sans-serif;
+  color: white; }
+
+.title-container-home {
+  color: black; }
 
 .title {
   margin: 0;
