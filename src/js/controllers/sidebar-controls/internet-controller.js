@@ -33,7 +33,7 @@ router.route('search/:cityName/internet', function (cityName){
 
   parseCell(state, city, '.duo-1', '.duo-2');
 
-  $('.download-title').prepend('<h2 class = "pure-u-1 graph-download-title">User Reported Data Speeds</h2><br><p class = "graph-download-subtitle">updated weekly</p>');
-  $('.rel-title').prepend('<h2 class = "pure-u-1 graph-rel-title">User Reported Reliability Scores</h2><br><p class = "graph-download-subtitle">updated weekly</p>');
+  $('.download-title').prepend('<h2 class = "pure-u-1 graph-download-title">User Reported Data Speeds</h2><br><p class = "graph-download-subtitle">updated weekly</p><p class = "graph-download-subtitle">data availability varies</p>');
+  $('.rel-title').prepend('<h2 class = "pure-u-1 graph-rel-title">User Reported Reliability Scores</h2><br><p class = "graph-download-subtitle">updated weekly</p><p class = "graph-download-subtitle">data availability varies</p>');
     
 });
