@@ -2,7 +2,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city, element) {
+module.exports = function(state, city, element, graphType) {
 
   $.ajax({
     method: 'GET',
@@ -38,7 +38,7 @@ module.exports = function(state, city, element) {
                   // ['Widowed Female', housingWidowedFemale],
                   // ['Widowed Male', housingWidowedMale],
               ],
-              type : 'donut',
+              type : graphType,
               onclick: function (d, i) {},
               onmouseover: function (d, i) {},
               onmouseout: function (d, i) {},

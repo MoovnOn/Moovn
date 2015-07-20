@@ -24,6 +24,10 @@ module.exports = function(state, city, bindTo, graphType) {
     var housingPeople60 = housingPeople[1].data.attribute[7].value['#text'];
     var housingPeople70 = housingPeople[1].data.attribute[0].value['#text'];
     
+    console.log(housingPeople20);
+    var foo = Math.round(housingPeople20 * 100);
+    console.log(foo);
+    
       c3.generate({
           bindto: bindTo,
           data: {
@@ -52,6 +56,18 @@ module.exports = function(state, city, bindTo, graphType) {
                 '70+': '#C492B3',
               },
           },
+          axis: {
+                 x: {
+                    type: 'category',
+                    categories: ['Demographics from the US Census']
+                  },
+                  y: {
+                    tick: {
+                      format: d3.format('%')
+                      //or format: function (d) { return '$' + d; }
+                    }
+                  }
+                },
           donut: {
               title: "Age of Population (yrs)"
           },
