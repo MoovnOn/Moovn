@@ -9,11 +9,9 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
     zoomout(d);
-    $(".school-info-container").empty();
-    $(".school-info-title").text("Select a Neighborhood to see it's schools");
+
 
   } else {
-    $(".school-info-container").empty();
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
@@ -66,7 +64,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     };
 
     clicked();
-    var ident = d3.geo.path().projection({stream: function(d){return d;}})
+    var ident = d3.geo.path().projection({stream: function(d){return d;}});
     educationRequests(state, city, d.properties['GEOID10'], ident.centroid(d));
   }
 

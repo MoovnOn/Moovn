@@ -25054,6 +25054,7 @@ var topojson = require('../../topojson');
 var neighMap = require('../../neighMap');
 var zoom = require('../../zoom');
 var mouseOverZoom = require('../../educationmouseover');
+var mouseout = require('../../mouseout')
 
 router.route('search/:cityName/education', function (cityName){
   var citySplit = cityName.split(', ');
@@ -25104,6 +25105,39 @@ router.route('search/:cityName/education', function (cityName){
   var boundaryjson = [];
   var id = 0;
 
+  d3.select(".tri-2-edu").insert("h3", ".school-info").attr("class", "school-info-title").text("");
+  d3.select(".school-info").insert("h1",".school-modal").attr("class", "directions").text("Select a neighborhood to view nearby schools");
+
+
+  var mouseOutZoom = function (d) {
+    $(".school-info-container").empty();
+    d3.selectAll(".maptext").attr("opacity", 0);
+
+    d3.selectAll("path")
+      .classed("active", false);
+
+    mouseout();
+    d3.select(".school-info-container").empty();
+
+    d3.select(".school-info").insert("h1", ".school-modal").attr("class", "directions").text("Select a neighborhood to view nearby schools");
+    $(".school-info-title").text("");
+
+    return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
+  };
+
+  var mouseZoom = function(d) {
+    $(".school-info-container").empty();
+    $(".maptext").attr("opacity", 0);
+    d3.select(".directions").text("");
+
+    $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+
+    d3.selectAll(".feature-city").on("click", mouseOutZoom);
+
+    $(".school-info-title").text("Schools near " + d.properties.NAME);
+
+    return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
+  };
 
   Promise.all([
 
@@ -25141,23 +25175,8 @@ router.route('search/:cityName/education', function (cityName){
 
       if (boundaryjson){
         zoom(cityjson, boundaryjson, g, path, width * aspect, width);
-
-        var mouseOutZoom = function (d) {
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
-
-          d3.selectAll("path")
-            .classed("active", false)
-
-          return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
-        };
-
-        var mouseZoom = function(d) {
-          $(".maptext").attr("opacity", 0);
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
-          return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
-        };
-
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
+        d3.selectAll(".feature-city").on("click", mouseOutZoom);
 
       } else {
 
@@ -25183,13 +25202,14 @@ router.route('search/:cityName/education', function (cityName){
 
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
+
       var searchTerm = $(this).text();
-      
+
       if(searchTerm != 'US News Best Colleges') {
-      
+
         var request = {
           query: searchTerm + " " + city
-        };  
+        };
 
         map = new google.maps.Map(document.getElementById('map'));
         service = new google.maps.places.PlacesService(map);
@@ -25197,7 +25217,8 @@ router.route('search/:cityName/education', function (cityName){
           var id = results[0].place_id;
             getDetails(id)
         });
-      }  
+      }
+
   });
 
   $('.city-all-container').on('click', '.clickSpan', function (){
@@ -25217,8 +25238,7 @@ router.route('search/:cityName/education', function (cityName){
 // bottom
 });
 
-
-},{"../../educationmouseover":18,"../../neighMap":38,"../../place-details":40,"../../places-api":41,"../../router":42,"../../search":43,"../../show":44,"../../topojson":47,"../../tuition-call":48,"../../zoom":49,"../side-bar-controller":8,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
+},{"../../educationmouseover":18,"../../mouseout":36,"../../neighMap":38,"../../place-details":40,"../../places-api":41,"../../router":42,"../../search":43,"../../show":44,"../../topojson":47,"../../tuition-call":48,"../../zoom":49,"../side-bar-controller":8,"d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],10:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25235,6 +25255,7 @@ var views = require('views');
 var housingGraphGeneral = require('../../graphs/housing');
 var sideBar = require('../side-bar-controller');
 var getDetails = require('../../place-details');
+var mouseout = require('../../mouseout');
 
 // for the map
 var d3 = require('d3');
@@ -25295,17 +25316,23 @@ router.route('search/:cityName/housing', function (cityName){
   var boundaryjson = [];
   var id = 0;
 
+  $(".graph-title").text("Housing prices in " + city);
+
   var mouseOutZoom = function (d) {
-    $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
+    $(".maptext").attr("opacity", 0);
     d3.selectAll("path")
       .classed("active", false);
     housingGraphGeneral(state, city, '.housing-graph');
+    mouseout();
+    $(".graph-title").text("Housing prices in " + city);
     return zoom(cityjson, boundaryjson, g, path, aspect * width, width);
   };
 
   var mouseZoom = function(d) {
     $(".maptext").attr("opacity", 0);
     $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+    console.log(d)
+    $(".graph-title").text("Housing prices in " + d.properties.NAME);
     return mouseOverZoom(d, path, g, aspect * width, width, mouseOutZoom, state, city);
   };
 
@@ -25333,6 +25360,7 @@ router.route('search/:cityName/housing', function (cityName){
       if (boundaryjson){
         zoom(cityjson, boundaryjson, g, path, aspect * width, width);
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
+        d3.selectAll(".feature-city").on("click", mouseOutZoom);
       } else {
         zoom(cityjson, cityjson, g, path, aspect * width, width);
       }
@@ -25356,7 +25384,7 @@ router.route('search/:cityName/housing', function (cityName){
       var searchTerm = $(this).text()
       var request = {
         query: searchTerm + " " + city
-      };  
+      };
 
       map = new google.maps.Map(document.getElementById('map'));
       service = new google.maps.places.PlacesService(map);
@@ -25379,11 +25407,12 @@ router.route('search/:cityName/housing', function (cityName){
     getDetails(id)
   },1000);
 
+
 $('.graph-title').html("Housing Prices In The Area<br>Updated Monthly");
 
 });
 
-},{"../../graphs/housing":23,"../../mouseoverzoom":37,"../../neighMap":38,"../../place-details":40,"../../places-api":41,"../../router":42,"../../search":43,"../../show":44,"../../topojson":47,"../../zoom":49,"../side-bar-controller":8,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
+},{"../../graphs/housing":23,"../../mouseout":36,"../../mouseoverzoom":37,"../../neighMap":38,"../../place-details":40,"../../places-api":41,"../../router":42,"../../search":43,"../../show":44,"../../topojson":47,"../../zoom":49,"../side-bar-controller":8,"c3":"c3","d3":"d3","jquery":"jquery","responsive-tabs":3,"underscore":"underscore","views":"views"}],11:[function(require,module,exports){
 var $ = require('jquery');
 var jQuery = require('jquery');
 var _ = require('underscore');
@@ -25412,7 +25441,7 @@ router.route('search/:cityName/industry', function (cityName){
 
   show('city-template-3', '.main-content', {city: cityName});
   sideBar();
-  
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -25465,12 +25494,12 @@ router.route('search/:cityName/industry', function (cityName){
       results: function() {}
     }
   });
-  
+
   $('.industry-form').submit(function(){
     var job = $('.job-input').val();
-    $('.salary-title').html('Salaries for '+ job +" in " + cityName);      
+    $('.salary-title').html('Salaries for '+ job +" in " + cityName);
   })
-  
+
  $(document).ready(function() {
     $("#job-input").val("Web Developers");
     $("#job-input").submit();
@@ -25842,11 +25871,9 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
     mouseout(d);
     zoomout(d);
-    $(".school-info-container").empty();
-    $(".school-info-title").text("Select a Neighborhood to see it's schools");
+
 
   } else {
-    $(".school-info-container").empty();
     d3.selectAll(".feature-neighborhood").classed("active", false).style("fill", "grey")
     d3.select($("#" + d.properties['GEOID10'])[0]).classed("active", true)
     .style("fill", "orange")
@@ -25899,7 +25926,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     };
 
     clicked();
-    var ident = d3.geo.path().projection({stream: function(d){return d;}})
+    var ident = d3.geo.path().projection({stream: function(d){return d;}});
     educationRequests(state, city, d.properties['GEOID10'], ident.centroid(d));
   }
 
@@ -26460,6 +26487,8 @@ module.exports = function(svg, state, city, height, width) {
 		// the data set with bubble positions
 		bubbles = bubble.nodes(data_list)
 
+		bubbles = bubbles.sort(function(a, b){ return b.r - a.r;})
+
 		// nodes with positions for the circles
 		var node = g.selectAll(".node")
 				.data(bubbles)
@@ -26858,22 +26887,29 @@ module.exports = function(state, city, job, height, width) {
     method: 'GET',
     url: 'api/salary/' + state + '/' + city + '/' + job + '/'
   }).done(function(data){
-		if (data !== "no data") {
+		d3.select(".tri-1").select("h3").remove();
+		$("#boxplot").empty();
 
-	  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
-										data[job+"75th"], data[job+"90th"]];
+		console.log(data);
+  	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
+									data[job+"75th"], data[job+"90th"]];
+
+
+
+		var draw = true;
+		values.forEach(function(d){ if (d === undefined){ draw=false;}});
+
+
+		if (draw) {
 
 			var svg = d3.select("#boxplot");
 
 			var bp = svg.append("g");
 
 			var x = function(val) {
-				return .05 * svg.attr("width") + .9 * svg.attr("width") * 
+				return .05 * svg.attr("width") + .9 * svg.attr("width") *
 							 (val - values[0]) / (values[4] - values[0]);
 			};
-
-			console.log(x(values[0]))
-			console.log(x(values[4]))
 
 				bp.append("line")
 					.attr("x1", x(values[0]))
@@ -26898,25 +26934,22 @@ module.exports = function(state, city, job, height, width) {
 
 				bp.append("rect")
 					.attr("x", x(values[1]))
-					.attr("y", .425 * height)
-					.attr("height", .15 * height)
+					.attr("y", .45 * height)
+					.attr("height", .1 * height)
 					.attr("width", x(values[2]) - x(values[1]))
 					.style({"stroke-width": 2, "stroke": "black", "fill": "#B1D3DD"});
 
 					bp.append("rect")
 						.attr("x", x(values[2]))
-						.attr("y", .425 * height)
-						.attr("height", .15 * height)
+						.attr("y", .45 * height)
+						.attr("height", .1 * height)
 						.attr("width", x(values[3]) - x(values[2]))
 						.style({"stroke-width": 2, "stroke": "black", "fill": "#B1D3DD"});
-
-
-					//var g = bp.append("g");
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[0]))
-						.attr("y", .3 * height)
+						.attr("y", .35 * height)
 						//.attr("lengthAdjust", "spacingAndGlyphs")
 						.attr("length", 50)
 						.text('$' + values[0]);
@@ -26924,34 +26957,34 @@ module.exports = function(state, city, job, height, width) {
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[1]))
-						.attr("y", .75 * height)
+						.attr("y", .7 * height)
 						.text('$' + values[1]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[2]))
-						.attr("y", .3 * height)
+						.attr("y", .35 * height)
 						.text('$' + values[2]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[3]))
-						.attr("y", .75 * height)
+						.attr("y", .7 * height)
 						.text('$' + values[3]);
 
 					bp.append("text")
 						.attr("text-anchor", "middle")
 						.attr("x", x(values[4]))
-						.attr("y", .3 * height)
+						.attr("y", .35 * height)
 						.text('$' + values[4]);
 
+					bp.attr("transform", "translate("+ [0, - scale * height * .65] +")scale(" + 3.5 + ")")
 
-					bp.attr("transform", "translate(" + [-50, -275] +")scale(" + 1.8 + ")")
+		} else {
 
-		} else{
-			console.log(data)
+			d3.select(".tri-1").insert("h3", "#plotdiv").text("No data found for entry \'" + job + "\'")
+
 		}
-
   });
 
 };
@@ -27052,7 +27085,7 @@ module.exports = function(state, city) {
 var $ = require('jQuery')
 module.exports = function (d){
 
-  d3.select($("#" + d.properties.GEOID10)[0]).style("fill", "grey")
+  d3.selectAll(".feature-neighborhood").style("fill", "grey")
 
 }
 
@@ -27066,7 +27099,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
 
   var bounds = path.bounds(d);
   if (d3.select($("#" + d.properties['GEOID10'])[0]).classed("active")){
-    mouseout(d);
+    d3.selectAll(".feature-neighborhood").style("fill", "grey")
     zoomout(d);
 
   } else {

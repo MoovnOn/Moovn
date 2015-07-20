@@ -14,6 +14,7 @@ var views = require('views');
 var housingGraphGeneral = require('../../graphs/housing');
 var sideBar = require('../side-bar-controller');
 var getDetails = require('../../place-details');
+var mouseout = require('../../mouseout');
 
 // for the map
 var d3 = require('d3');
@@ -74,17 +75,23 @@ router.route('search/:cityName/housing', function (cityName){
   var boundaryjson = [];
   var id = 0;
 
+  $(".graph-title").text("Housing prices in " + city);
+
   var mouseOutZoom = function (d) {
-    $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
+    $(".maptext").attr("opacity", 0);
     d3.selectAll("path")
       .classed("active", false);
     housingGraphGeneral(state, city, '.housing-graph');
+    mouseout();
+    $(".graph-title").text("Housing prices in " + city);
     return zoom(cityjson, boundaryjson, g, path, aspect * width, width);
   };
 
   var mouseZoom = function(d) {
     $(".maptext").attr("opacity", 0);
     $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+    console.log(d)
+    $(".graph-title").text("Housing prices in " + d.properties.NAME);
     return mouseOverZoom(d, path, g, aspect * width, width, mouseOutZoom, state, city);
   };
 
@@ -112,6 +119,7 @@ router.route('search/:cityName/housing', function (cityName){
       if (boundaryjson){
         zoom(cityjson, boundaryjson, g, path, aspect * width, width);
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
+        d3.selectAll(".feature-city").on("click", mouseOutZoom);
       } else {
         zoom(cityjson, cityjson, g, path, aspect * width, width);
       }
@@ -135,7 +143,7 @@ router.route('search/:cityName/housing', function (cityName){
       var searchTerm = $(this).text()
       var request = {
         query: searchTerm + " " + city
-      };  
+      };
 
       map = new google.maps.Map(document.getElementById('map'));
       service = new google.maps.places.PlacesService(map);
@@ -157,6 +165,7 @@ router.route('search/:cityName/housing', function (cityName){
     var id = $('.clickSpan').eq(0).attr('id')
     getDetails(id)
   },1000);
+
 
 $('.graph-title').html("Housing Prices In The Area<br>Updated Monthly");
 

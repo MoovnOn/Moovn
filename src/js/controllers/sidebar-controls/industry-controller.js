@@ -26,7 +26,7 @@ router.route('search/:cityName/industry', function (cityName){
 
   show('city-template-3', '.main-content', {city: cityName});
   sideBar();
-  
+
   var citySplit = cityName.split(', ');
   var city = citySplit[0];
   var state = citySplit[1];
@@ -79,12 +79,12 @@ router.route('search/:cityName/industry', function (cityName){
       results: function() {}
     }
   });
-  
+
   $('.industry-form').submit(function(){
     var job = $('.job-input').val();
-    $('.salary-title').html('Salaries for '+ job +" in " + cityName);      
+    $('.salary-title').html('Salaries for '+ job +" in " + cityName);
   })
-  
+
  $(document).ready(function() {
     $("#job-input").val("Web Developers");
     $("#job-input").submit();
