@@ -13,6 +13,7 @@ var searchFunction = require('../../search');
 var views = require('views');
 var sideBar = require('../side-bar-controller');
 var getDetails = require('../../place-details');
+var tuitionCall = require('../../tuition-call');
 
 // for the map
 var d3 = require('d3');
@@ -20,6 +21,7 @@ var topojson = require('../../topojson');
 var neighMap = require('../../neighMap');
 var zoom = require('../../zoom');
 var mouseOverZoom = require('../../educationmouseover');
+var mouseout = require('../../mouseout')
 
 router.route('search/:cityName/education', function (cityName){
   var citySplit = cityName.split(', ');
@@ -70,6 +72,32 @@ router.route('search/:cityName/education', function (cityName){
   var boundaryjson = [];
   var id = 0;
 
+  d3.select(".tri-2-edu").insert("h3", ".school-info").attr("class", "school-info-title").text("");
+
+  var mouseOutZoom = function (d) {
+    d3.selectAll(".maptext").attr("opacity", 0);
+
+    d3.selectAll("path")
+      .classed("active", false);
+
+    mouseout();
+    d3.select(".school-info-container").empty();
+    $(".school-info-title").text("");
+
+    return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
+  };
+
+  var mouseZoom = function(d) {
+    $(".maptext").attr("opacity", 0);
+
+    $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+
+    d3.selectAll(".feature-city").on("click", mouseOutZoom);
+
+    $(".school-info-title").text("Schools near " + d.properties.NAME);
+
+    return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
+  };
 
   Promise.all([
 
@@ -107,23 +135,8 @@ router.route('search/:cityName/education', function (cityName){
 
       if (boundaryjson){
         zoom(cityjson, boundaryjson, g, path, width * aspect, width);
-
-        var mouseOutZoom = function (d) {
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 0);
-
-          d3.selectAll("path")
-            .classed("active", false)
-
-          return zoom(cityjson, boundaryjson, g, path, width * aspect, width);
-        };
-
-        var mouseZoom = function(d) {
-          $(".maptext").attr("opacity", 0);
-          $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
-          return mouseOverZoom(d, path, g, width * aspect, width, mouseOutZoom, state, city);
-        };
-
         d3.selectAll(".feature-neighborhoodTP").on("click", mouseZoom);
+        d3.selectAll(".feature-city").on("click", mouseOutZoom);
 
       } else {
 
@@ -144,19 +157,28 @@ router.route('search/:cityName/education', function (cityName){
   places(cityName, "colleges", ".tab-data1", ".tab-title1");
   places(cityName, "community college", ".tab-data2", ".tab-title2");
 
+  tuitionCall(state, city);
+
+
   $('.main-content').on('click', '.r-tabs-anchor', function(){
     $('.details-right').html('');
-      var searchTerm = $(this).text()
-      var request = {
-        query: searchTerm + " " + city
-      };  
 
-      map = new google.maps.Map(document.getElementById('map'));
-      service = new google.maps.places.PlacesService(map);
-      service.textSearch(request, function(results) {
-        var id = results[0].place_id;
-          getDetails(id)
-      });
+      var searchTerm = $(this).text();
+
+      if(searchTerm != 'US News Best Colleges') {
+
+        var request = {
+          query: searchTerm + " " + city
+        };
+
+        map = new google.maps.Map(document.getElementById('map'));
+        service = new google.maps.places.PlacesService(map);
+        service.textSearch(request, function(results) {
+          var id = results[0].place_id;
+            getDetails(id)
+        });
+      }
+
   });
 
   $('.city-all-container').on('click', '.clickSpan', function (){
@@ -175,4 +197,3 @@ router.route('search/:cityName/education', function (cityName){
 
 // bottom
 });
-

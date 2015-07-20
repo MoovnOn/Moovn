@@ -10,7 +10,6 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     mouseout(d);
     zoomout(d);
     $(".school-info-container").empty();
-    $(".school-info-title").text("Select a Neighborhood to see it's schools");
 
   } else {
     $(".school-info-container").empty();
@@ -66,7 +65,7 @@ module.exports = function (d, path, g, height, width, zoomout, state, city){
     };
 
     clicked();
-    var ident = d3.geo.path().projection({stream: function(d){return d;}})
+    var ident = d3.geo.path().projection({stream: function(d){return d;}});
     educationRequests(state, city, d.properties['GEOID10'], ident.centroid(d));
   }
 

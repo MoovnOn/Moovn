@@ -138,6 +138,8 @@ module.exports = function(svg, state, city, height, width) {
 		// the data set with bubble positions
 		bubbles = bubble.nodes(data_list)
 
+		bubbles = bubbles.sort(function(a, b){ return b.r - a.r;})
+
 		// nodes with positions for the circles
 		var node = g.selectAll(".node")
 				.data(bubbles)
