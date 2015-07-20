@@ -158,6 +158,6 @@ router.route('search/:cityName/housing', function (cityName){
     getDetails(id)
   },1000);
 
-$('.graph-title').html("Housing Prices In The Area");
+$('.graph-title').html("Housing Prices In The Area<br>Updated Monthly");
 
 });

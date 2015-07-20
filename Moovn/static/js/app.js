@@ -24225,7 +24225,7 @@ $.widget( "ui.tooltip", {
  *  Version: 1.4.5
  *  License: MIT
  */
-var jQuery = require("jquery");
+ var jQuery = require("jquery");
 ;(function ( $, window, undefined ) {
 
     /** Default settings */
@@ -25379,7 +25379,7 @@ router.route('search/:cityName/housing', function (cityName){
     getDetails(id)
   },1000);
 
-$('.graph-title').html("Housing Prices In The Area");
+$('.graph-title').html("Housing Prices In The Area<br>Updated Monthly");
 
 });
 
