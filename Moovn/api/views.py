@@ -261,14 +261,14 @@ def parity_view(request, state, name):
     if parity:
         if parity <= 100:
             new_data = round((100 - parity), 1)
-            string = "Cost of living in {} is {}% lower than the national" \
-                     + "average.".format(name.name, new_data)
+            string = """Cost of living in {} is {}% lower than
+            the national average.""".format(name.name, new_data)
 
             return HttpResponse(string)
 
         else:
             new_data = round((parity - 100))
-            string = "Cost of living in {} is {}% higher than the national" \
-                     + "average.".format(name.name, new_data)
+            string = """Cost of living in {} is {}% higher
+            than the national average.""".format(name.name, new_data)
 
     return HttpResponse(string)
