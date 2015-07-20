@@ -16,13 +16,8 @@ module.exports = function(state, city, job, height, width) {
 
 
 		var draw = true;
+		values.forEach(function(d){ if (d === undefined){ draw=false;}});
 
-		values.forEach(function(d){ if (d === undefined){ draw = false;}});
-		// for (var i = 0; i < values.length; i++){
-		// 	if (values[i] === undefined) {
-		// 		draw = false;
-		// 	}
-		// }
 
 		if (draw) {
 
@@ -34,7 +29,6 @@ module.exports = function(state, city, job, height, width) {
 				return .05 * svg.attr("width") + .9 * svg.attr("width") *
 							 (val - values[0]) / (values[4] - values[0]);
 			};
-
 
 				bp.append("line")
 					.attr("x1", x(values[0]))
@@ -103,13 +97,11 @@ module.exports = function(state, city, job, height, width) {
 						.attr("y", .35 * height)
 						.text('$' + values[4]);
 
-
-					//bp.attr("transform", "translate(" + [ width, -.5 * height] +")scale(" + 2.5 + ")")
 					bp.attr("transform", "translate("+ [0, - scale * height * .65] +")scale(" + 3.5 + ")")
-					//bp.attr("transform", "scale(" + 2.5 + ")")
+
 		} else {
 
-			d3.select(".tri-1").insert("h3", "#boxplot").text("No data found for entry \'" + job + "\'")
+			d3.select(".tri-1").insert("h3", "#plotdiv").text("No data found for entry \'" + job + "\'")
 
 		}
   });
