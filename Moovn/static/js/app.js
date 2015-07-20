@@ -25300,18 +25300,23 @@ router.route('search/:cityName/housing', function (cityName){
   var boundaryjson = [];
   var id = 0;
 
+  $(".graph-title").text("Housing prices in " + city);
+
   var mouseOutZoom = function (d) {
     $(".maptext").attr("opacity", 0);
     d3.selectAll("path")
       .classed("active", false);
     housingGraphGeneral(state, city, '.housing-graph');
     mouseout();
+    $(".graph-title").text("Housing prices in " + city);
     return zoom(cityjson, boundaryjson, g, path, aspect * width, width);
   };
 
   var mouseZoom = function(d) {
     $(".maptext").attr("opacity", 0);
     $("#" + d.properties.GEOID10 + "T").attr("opacity", 1);
+    console.log(d)
+    $(".graph-title").text("Housing prices in " + d.properties.NAME);
     return mouseOverZoom(d, path, g, aspect * width, width, mouseOutZoom, state, city);
   };
 
@@ -25385,8 +25390,6 @@ router.route('search/:cityName/housing', function (cityName){
     var id = $('.clickSpan').eq(0).attr('id')
     getDetails(id)
   },1000);
-
-$('.graph-title').html("Housing Prices In The Area");
 
 });
 
