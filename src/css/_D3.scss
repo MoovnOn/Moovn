@@ -31,15 +31,23 @@
   padding-left: 3.5em;
 }
 .salary-title{
-  color: $comp-color;
+  line-height: 1.5;
 }
+.salary-title-job{
+  color: $graph5;
+}
+
 .industry-form, .salary-title{
   padding-top:1em;
-  text-align: center;
+  text-align: left;
+  padding-left:2em;
 }
 .income-title{
   text-align: center;
   color: $comp-color;
   padding-top:1em;
   padding-bottom:1em;
+}
+#plotdiv p{
+  padding-left:2em;
 }

@@ -2088,17 +2088,24 @@ header {
   padding-left: 3.5em; }
 
 .salary-title {
-  color: #B27700; }
+  line-height: 1.5; }
+
+.salary-title-job {
+  color: #55818F; }
 
 .industry-form, .salary-title {
   padding-top: 1em;
-  text-align: center; }
+  text-align: left;
+  padding-left: 2em; }
 
 .income-title {
   text-align: center;
   color: #B27700;
   padding-top: 1em;
   padding-bottom: 1em; }
+
+#plotdiv p {
+  padding-left: 2em; }
 
 @media screen and (max-width: 1024px) {
   .overview-graph-container {

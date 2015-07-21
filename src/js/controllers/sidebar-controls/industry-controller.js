@@ -84,7 +84,7 @@ router.route('search/:cityName/industry', function (cityName){
 
   $('.industry-form').submit(function(){
     var job = $('.job-input').val();
-    $('.salary-title').html('Salaries for '+ job +" in " + cityName);
+    $('.salary-title').html('Salaries for <span class="salary-title-job">'+ job +"</span> in " + cityName);
   })
 
  $(document).ready(function() {
