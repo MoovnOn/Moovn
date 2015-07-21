@@ -25341,7 +25341,7 @@ router.route('search/:cityName/housing', function (cityName){
   var projection = d3.geo.albers().scale(200).translate([150,140]);
   var path = d3.geo.path().projection(projection);
 
-  //City wide housing graph
+//D3 for map in housing
   var housingdata = housingGraphGeneral(state, city, '.housing-graph');
   var cityjson = [];
   var boundaryjson = [];
@@ -25439,7 +25439,7 @@ router.route('search/:cityName/housing', function (cityName){
   },1000);
 
 
-$('.graph-title').html("Housing Prices In The Area<br>Updated Monthly");
+$('.graph-title').after("<p class=neighborhood-housing-subtitle>Updated Monthly<p>");
 
 });
 
@@ -25577,8 +25577,8 @@ router.route('search/:cityName/internet', function (cityName){
 
   parseCell(state, city, '.duo-1', '.duo-2');
 
-  $('.download-title').prepend('<h2 class = "pure-u-1 graph-download-title">User Reported Data Speeds</h2><br><p class = "graph-download-subtitle">updated weekly</p><p class = "graph-download-subtitle">data availability varies</p>');
-  $('.rel-title').prepend('<h2 class = "pure-u-1 graph-rel-title">User Reported Reliability Scores</h2><br><p class = "graph-download-subtitle">updated weekly</p><p class = "graph-download-subtitle">data availability varies</p>');
+  $('.download-title').prepend('<h2 class = "pure-u-1 graph-download-title">User Reported Data Speeds</h2><br><p class = "graph-download-subtitle">Updated weekly, data availability varies</p>');
+  $('.rel-title').prepend('<h2 class = "pure-u-1 graph-rel-title">User Reported Reliability Scores</h2><br><p class = "graph-download-subtitle">Updated weekly, data availability varies</p>');
     
 });
 
@@ -25744,17 +25744,19 @@ router.route('search/:cityName/places', function (cityName){
 
   // Sets up search in the sixth tab
   $('.tab-title8').children('a').text('Search');
-  $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" value="Search ' + city + '"><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>');
+  $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" placeholder="Search ' + city + '"><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>');
 
-  $('.main-content').on('submit', '.tab-search-form' , function(e){
-    e.preventDefault();
-
+  var searchClick = function () {
     var searchVal = $('.search-tab-input').val();
       $('.tab-data8').children('.list-left').html('');
       $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>')
       places(cityName, searchVal, ".tab-data8", "Search");
-  });
+  };
 
+  $('.main-content').on('submit', '.tab-search-form' , function(e){
+    e.preventDefault();
+    searchClick(); 
+  });
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
@@ -25779,7 +25781,7 @@ router.route('search/:cityName/places', function (cityName){
 
 
   $('.main-content').on('click', '.r-tabs-anchor', function(){
-    $('.details-right').html('');
+    
     var searchTerm = $(this).text();
       var request = {
         query: searchTerm + " " + city
@@ -25791,7 +25793,7 @@ router.route('search/:cityName/places', function (cityName){
         var id = results[0].place_id;
             getDetails(id)
       });
-  
+
   });
 
 
@@ -26388,51 +26390,76 @@ module.exports = function(state, city, element) {
 
 
   function parseHousing(allHousingData){
-    var housingResponse = allHousingData["Demographics:demographics"].response.pages.page;
     var housingAfford= allHousingData["Demographics:demographics"].response.pages.page[0].tables.table.data.attribute;
-    var housingRealEstate= allHousingData["Demographics:demographics"].response.pages.page[1].tables.table;
-    var housingPeople= allHousingData["Demographics:demographics"].response.pages.page[2].tables.table;
+      
+      try {
+            var housingAffordCondo = housingAfford[2].values.city.value["#text"];
+      } catch (error) {
+        // console.log(error);
+        housingAffordCondo = 0;
+      }
+      try {
+          var housingAfford2Bed = housingAfford[3].values.city.value["#text"];
+      } catch (error) {
+        // console.log(error);
+        housingAfford2Bed = 0;
+      }
+      try {
+          var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
+      } catch (error) {
+        // console.log(error);
+        housingAfford3Bed = 0;
+      }
+      try {
+          var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
+      } catch (error) {
+        // console.log(error);
+        housingAfford4Bed = 0;
+      }
+      
+     if(housingAffordCondo + housingAfford2Bed + housingAfford3Bed + housingAfford4Bed == 0){
+        $(element).html("<p>Sorry, no data is available for this area.</p>");
+     }else{
 
-    var housingAffordCondo = housingAfford[2].values.city.value["#text"];
-    var housingAfford2Bed = housingAfford[3].values.city.value["#text"];
-    var housingAfford3Bed = housingAfford[4].values.city.value["#text"];
-    var housingAfford4Bed = housingAfford[5].values.city.value["#text"];
-
-      var data = {
-        bindto: element,
-        data: {
-          columns: [
-              ['Condo', housingAffordCondo],
-              ['2-Bed', housingAfford2Bed],
-              ['3-Bed', housingAfford3Bed],
-              ['4-Bed', housingAfford4Bed],
-          ],
-          type: 'bar',
-          colors: {
-            'Condo': '#B1D3DD',
-            '2-Bed': '#BDBBC3',
-            '3-Bed': '#51ABD2',
-            '4-Bed': '#55818F',
-          },
-        },
-        axis: {
-          x: {
-            type: 'category',
-            categories: ['Median Housing Prices']
-        	},
-            y : {
-              tick: {
-                format: d3.format("$,"),
-              }
-            }
-          },
-          size: {
-        		height: 400
-      		},
-       }
+            var data = {
+              bindto: element,
+              data: {
+                columns: [
+                    ['Condo', housingAffordCondo],
+                    ['2-Bed', housingAfford2Bed],
+                    ['3-Bed', housingAfford3Bed],
+                    ['4-Bed', housingAfford4Bed],
+                ],
+                type: 'bar',
+                colors: {
+                  'Condo': '#B1D3DD',
+                  '2-Bed': '#BDBBC3',
+                  '3-Bed': '#51ABD2',
+                  '4-Bed': '#55818F',
+                },
+              },
+              axis: {
+                x: {
+                  type: 'category',
+                  categories: ['Median Housing Prices']
+              	},
+                  y : {
+                    tick: {
+                      format: d3.format("$,"),
+                    }
+                  }
+                },
+                size: {
+              		height: 400
+            		},
+             }
+           }
 
       var chart = c3.generate(data);
       return data;
+      
+ 
+
   }; 
 };
 
