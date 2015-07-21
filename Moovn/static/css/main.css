@@ -1352,7 +1352,8 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   height: 100vh;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
-  display: none; }
+  display: none;
+  z-index: 5; }
 
 @media screen and (max-width: 670px) {
   .side-nav-container {
@@ -2078,9 +2079,6 @@ header {
 .tri-2 {
   width: 100%; }
 
-.tri-1 {
-  margin: auto; }
-
 .bubble-title {
   letter-spacing: 0; }
 
@@ -2091,8 +2089,7 @@ header {
   font-size: 1.8em; }
 
 #boxplot {
-  overflow: visible;
-  padding-left: 3.5em; }
+  overflow: visible; }
 
 .salary-title {
   line-height: 1.5; }
@@ -2116,7 +2113,9 @@ header {
 
 @media screen and (max-width: 1024px) {
   .overview-graph-container {
-    margin-bottom: 6em; } }
+    margin-bottom: 6em; }
+  .tri-1 {
+    padding-bottom: 6em; } }
 
 @media screen and (max-width: 768px) {
   .overview-cityImg-container-mobile {
@@ -2158,15 +2157,13 @@ header {
 .list-left {
   position: relative; }
 
-.search-places-form {
-  position: absolute;
-  top: 0;
-  left: 0; }
-
 .tab-search-btn {
   margin-left: 0.5em; }
 
 body {
+  font-family: Century Gothic, sans-serif; }
+
+h1 {
   font-family: Century Gothic, sans-serif; }
 
 h2 {

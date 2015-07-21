@@ -49,7 +49,7 @@ router.route('search/:cityName/industry', function (cityName){
     .attr("preserveAspectRatio", "xMidYMid")
     .attr("viewBox", "0 0 1000 1000")
     .attr("width", width2)
-    .attr("height", width2 * aspect);
+    .attr("height", (width2 * aspect) /3);
 
   $(window).resize(function(){
     var width = $(".bubble-chart").width();
@@ -57,7 +57,7 @@ router.route('search/:cityName/industry', function (cityName){
     svg.attr("width", width);
     svg.attr("height", width * aspect);
     svg2.attr("width", width2);
-    svg2.attr("height", width2 * aspect);
+    svg2.attr("height", (width2 * aspect) /3);
   });
 
   $('.main-content').on('submit', '.industry-form', function(e) {

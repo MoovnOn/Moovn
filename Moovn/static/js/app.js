@@ -25023,6 +25023,12 @@ var $ = require('jquery');
       $('.side-bar-background').fadeOut();
     });
     
+    $(window).resize(function(){
+       if($(window).width() > 670){
+          $('.side-nav-container').fadeIn();
+        }
+    })
+ 
     
     //changes side-nav styles to indicate which selection user is on.
     if( window.location.href.indexOf("housing") > -1 ){
@@ -25495,7 +25501,7 @@ router.route('search/:cityName/industry', function (cityName){
     .attr("preserveAspectRatio", "xMidYMid")
     .attr("viewBox", "0 0 1000 1000")
     .attr("width", width2)
-    .attr("height", width2 * aspect);
+    .attr("height", (width2 * aspect) /3);
 
   $(window).resize(function(){
     var width = $(".bubble-chart").width();
@@ -25503,7 +25509,7 @@ router.route('search/:cityName/industry', function (cityName){
     svg.attr("width", width);
     svg.attr("height", width * aspect);
     svg2.attr("width", width2);
-    svg2.attr("height", width2 * aspect);
+    svg2.attr("height", (width2 * aspect) /3);
   });
 
   $('.main-content').on('submit', '.industry-form', function(e) {
@@ -25742,7 +25748,7 @@ router.route('search/:cityName/places', function (cityName){
 
   show('content/tabs-lists-places', '.duo-1');
 
-  // Sets up search in the sixth tab
+  // Sets up search in the eighth tab
   $('.tab-title8').children('a').text('Search');
   $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" placeholder="Search ' + city + '"><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>');
 
@@ -27287,8 +27293,8 @@ module.exports = function(state, city, job, height, width) {
 						.attr("y", .35 * height)
 						.text('$' + values[4]);
 
-					var scale = 1.5;
-					bp.attr("transform", "translate("+ [0,  - height * .1] +")scale(" + scale + ")")
+					var scale = 4;
+					bp.attr("transform", "translate("+ [-500,  - height * .2] +")scale(" + scale + ")")
 
 		} else {
 
