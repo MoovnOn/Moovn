@@ -90,11 +90,6 @@ module.exports = function (state1, city1, state2, city2, el1, el2) {
       downloadGraph(data3, el1);
       downloadGraph(data4, el2);
 
-    //   if (el2 != undefined) {
-    //     downloadGraph(data2, el1);
-    //     reliabilityGraph(data2, el2);
-    //   } else {
-    //     downloadGraph(data2, el1);}
     });
 
   });
