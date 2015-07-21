@@ -20,17 +20,9 @@ module.exports = function(array1, array2) {
 	var srtArr1 = loadSpeeds1.sort(function(a, b){return b-a});
 	var srtArr2 = loadSpeeds2.sort(function(a, b){return b-a});
 
-	console.log(srtArr1)
-	console.log(srtArr2)
-
 	var twoHighest = [srtArr1[0], srtArr2[0]];
 
-	console.log(twoHighest);
-
 	var highest = twoHighest.sort(function(a, b){return b-a});
-
-
-	console.log(highest);
 
 	var maxVal = Math.ceil(highest[0]);
 
