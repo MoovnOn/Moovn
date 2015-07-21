@@ -1646,6 +1646,9 @@ header {
 .comp-graph-title p {
   font-size: 0.8em; }
 
+.overview-graph2 p {
+  text-align: center; }
+
 .full-screen-container {
   margin-top: 0em;
   margin-right: 0em;

@@ -69,7 +69,7 @@ router.route('search/:cityName/housing', function (cityName){
   var projection = d3.geo.albers().scale(200).translate([150,140]);
   var path = d3.geo.path().projection(projection);
 
-  //City wide housing graph
+//D3 for map in housing
   var housingdata = housingGraphGeneral(state, city, '.housing-graph');
   var cityjson = [];
   var boundaryjson = [];
