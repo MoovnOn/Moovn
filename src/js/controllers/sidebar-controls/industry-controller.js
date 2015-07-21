@@ -34,7 +34,9 @@ router.route('search/:cityName/industry', function (cityName){
   var width = $(".bubble-chart").width(),
       aspect = 1;
 
-  var width2 = $(".bubble-chart").width();
+  var width2 = $("#plotdiv").width();
+  d3.select("#plotdiv").insert("p", "#boxplot")
+    .text("Percentiles shown: 10th, 25th, 50th, 75th, 90th");
 
   var svg = d3.select(".bubble-chart").append("svg")
               .attr("preserveAspectRatio", "xMidYMid")
@@ -62,7 +64,7 @@ router.route('search/:cityName/industry', function (cityName){
     e.preventDefault();
     e.stopPropagation();
     var job = $('.job-input').val();
-    salaryPer(state, city, job, (aspect * width)*2, width);
+    salaryPer(state, city, job, aspect * width, width);
   });
 
 

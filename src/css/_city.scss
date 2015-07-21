@@ -76,6 +76,9 @@
 .graph-download-subtitle{
   text-align: center;
 }
+.comp-graph-title p{
+  font-size: 0.8em;
+}
 
 //adjusts tabs in certain views to go fullscreen
 .full-screen-container{
@@ -93,6 +96,11 @@
   border-right:none;
   border-left:none;
 }
+//education
+.school-info-title{
+  text-align: center;
+}
+
 
 // css for places details 
 .clickSpan {

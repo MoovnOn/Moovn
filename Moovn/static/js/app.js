@@ -24941,8 +24941,8 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
     $( ".side-nav-container" ).toggle( "slide" );
   });
 
-  peopleAge(state1, city1, '.comp-chart1-5');
-  peopleAge(state2, city2, '.comp-chart2-5');
+  peopleAge(state1, city1, '.comp-chart1-5', 'bar');
+  peopleAge(state2, city2, '.comp-chart2-5', 'bar');
 
   costLiving(state1, city1, ".comp1-1");
   costLiving(state2, city2, ".comp2-1");
@@ -25480,7 +25480,9 @@ router.route('search/:cityName/industry', function (cityName){
   var width = $(".bubble-chart").width(),
       aspect = 1;
 
-  var width2 = $(".bubble-chart").width();
+  var width2 = $("#plotdiv").width();
+  d3.select("#plotdiv").insert("p", "#boxplot")
+    .text("Percentiles shown: 10th, 25th, 50th, 75th, 90th");
 
   var svg = d3.select(".bubble-chart").append("svg")
               .attr("preserveAspectRatio", "xMidYMid")
@@ -25508,7 +25510,7 @@ router.route('search/:cityName/industry', function (cityName){
     e.preventDefault();
     e.stopPropagation();
     var job = $('.job-input').val();
-    salaryPer(state, city, job, (aspect * width)*2, width);
+    salaryPer(state, city, job, aspect * width, width);
   });
 
 
@@ -25700,9 +25702,9 @@ router.route('search/:cityName/people', function (cityName){
   var state = citySplit[1];
 
 
-  peopleAge(state, city, '.people-top-graph');
-  peopleHousehold(state, city, '.people-middle-graph');
-  peopleRelationships(state, city, '.people-bottom-graph');
+  peopleAge(state, city, '.people-top-graph', 'donut');
+  peopleHousehold(state, city, '.people-middle-graph', 'donut');
+  peopleRelationships(state, city, '.people-bottom-graph', 'donut');
 
   liveshere(state, city);
 
@@ -26001,17 +26003,9 @@ module.exports = function(array1, array2) {
 	var srtArr1 = loadSpeeds1.sort(function(a, b){return b-a});
 	var srtArr2 = loadSpeeds2.sort(function(a, b){return b-a});
 
-	console.log(srtArr1)
-	console.log(srtArr2)
-
 	var twoHighest = [srtArr1[0], srtArr2[0]];
 
-	console.log(twoHighest);
-
 	var highest = twoHighest.sort(function(a, b){return b-a});
-
-
-	console.log(highest);
 
 	var maxVal = Math.ceil(highest[0]);
 
@@ -26634,7 +26628,7 @@ module.exports = function(svg, state, city, height, width) {
 			.padding(circleStrokeWidth / 2);
 
 		//console.log(bubble.nodes(data_list))
-		g = svg.append("g")
+		var g = svg.append("g")
 
 		// synced ID generators
 		var count = counter();
@@ -26663,7 +26657,7 @@ module.exports = function(svg, state, city, height, width) {
 				.attr("fill", function(d){ return color(d.name);});
 
 		// fill the svg
-		g.attr("transform", "scale(" + 4 + ")");
+		g.attr("transform", "scale(" + 3 + ")");
 
 		// create list items
 		jobList.selectAll("li")
@@ -26977,7 +26971,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city, bindTo ) {
+module.exports = function(state, city, bindTo, graphType) {
 
   $.ajax({
     method: 'GET',
@@ -26999,6 +26993,10 @@ module.exports = function(state, city, bindTo ) {
     var housingPeople60 = housingPeople[1].data.attribute[7].value['#text'];
     var housingPeople70 = housingPeople[1].data.attribute[0].value['#text'];
     
+    console.log(housingPeople20);
+    var foo = Math.round(housingPeople20 * 100);
+    console.log(foo);
+    
       c3.generate({
           bindto: bindTo,
           data: {
@@ -27012,7 +27010,7 @@ module.exports = function(state, city, bindTo ) {
                   ['60-69', housingPeople60],
                   ['70+', housingPeople70],
               ],
-              type : 'donut',
+              type : graphType,
               onclick: function (d, i) {},
               onmouseover: function (d, i) {},
               onmouseout: function (d, i) {},
@@ -27027,6 +27025,18 @@ module.exports = function(state, city, bindTo ) {
                 '70+': '#C492B3',
               },
           },
+          axis: {
+                 x: {
+                    type: 'category',
+                    categories: ['Demographics from the US Census']
+                  },
+                  y: {
+                    tick: {
+                      format: d3.format('%')
+                      //or format: function (d) { return '$' + d; }
+                    }
+                  }
+                },
           donut: {
               title: "Age of Population (yrs)"
           },
@@ -27044,7 +27054,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city, element) {
+module.exports = function(state, city, element, graphType) {
 
   $.ajax({
     method: 'GET',
@@ -27066,7 +27076,7 @@ module.exports = function(state, city, element) {
                   ['% No Kids', housingNoKids],
                   ['% With Kids', housingWithKids],
               ],
-              type : 'donut',
+              type : graphType,
               onclick: function (d, i) {},
               onmouseover: function (d, i) {  },
               onmouseout: function (d, i) { },
@@ -27092,7 +27102,7 @@ var c3 = require('c3');
 var d3 = require('d3');
 var $ = require('jquery');
 
-module.exports = function(state, city, element) {
+module.exports = function(state, city, element, graphType) {
 
   $.ajax({
     method: 'GET',
@@ -27128,7 +27138,7 @@ module.exports = function(state, city, element) {
                   // ['Widowed Female', housingWidowedFemale],
                   // ['Widowed Male', housingWidowedMale],
               ],
-              type : 'donut',
+              type : graphType,
               onclick: function (d, i) {},
               onmouseover: function (d, i) {},
               onmouseout: function (d, i) {},
@@ -27165,11 +27175,8 @@ module.exports = function(state, city, job, height, width) {
 		d3.select(".tri-1").select("h3").remove();
 		$("#boxplot").empty();
 
-		console.log(data);
   	var values = [data[job+"10th"], data[job+"25th"], data[job+"50th"],
 									data[job+"75th"], data[job+"90th"]];
-
-
 
 		var draw = true;
 		values.forEach(function(d){ if (d === undefined){ draw=false;}});
@@ -27209,15 +27216,15 @@ module.exports = function(state, city, job, height, width) {
 
 				bp.append("rect")
 					.attr("x", x(values[1]))
-					.attr("y", .45 * height)
-					.attr("height", .1 * height)
+					.attr("y", .425 * height)
+					.attr("height", .15 * height)
 					.attr("width", x(values[2]) - x(values[1]))
 					.style({"stroke-width": 2, "stroke": "black", "fill": "#B1D3DD"});
 
 					bp.append("rect")
 						.attr("x", x(values[2]))
-						.attr("y", .45 * height)
-						.attr("height", .1 * height)
+						.attr("y", .425 * height)
+						.attr("height", .15 * height)
 						.attr("width", x(values[3]) - x(values[2]))
 						.style({"stroke-width": 2, "stroke": "black", "fill": "#B1D3DD"});
 
@@ -27253,7 +27260,8 @@ module.exports = function(state, city, job, height, width) {
 						.attr("y", .35 * height)
 						.text('$' + values[4]);
 
-					bp.attr("transform", "translate("+ [0, - scale * height * .65] +")scale(" + 3.5 + ")")
+					var scale = 1.5;
+					bp.attr("transform", "translate("+ [0,  - height * .1] +")scale(" + scale + ")")
 
 		} else {
 

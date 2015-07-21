@@ -129,7 +129,7 @@ module.exports = function(svg, state, city, height, width) {
 			.padding(circleStrokeWidth / 2);
 
 		//console.log(bubble.nodes(data_list))
-		g = svg.append("g")
+		var g = svg.append("g")
 
 		// synced ID generators
 		var count = counter();
@@ -158,7 +158,7 @@ module.exports = function(svg, state, city, height, width) {
 				.attr("fill", function(d){ return color(d.name);});
 
 		// fill the svg
-		g.attr("transform", "scale(" + 4 + ")");
+		g.attr("transform", "scale(" + 3 + ")");
 
 		// create list items
 		jobList.selectAll("li")
