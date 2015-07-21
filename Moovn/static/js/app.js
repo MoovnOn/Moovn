@@ -25495,7 +25495,7 @@ router.route('search/:cityName/industry', function (cityName){
     .attr("preserveAspectRatio", "xMidYMid")
     .attr("viewBox", "0 0 1000 1000")
     .attr("width", width2)
-    .attr("height", width2 * aspect);
+    .attr("height", (width2 * aspect) /3);
 
   $(window).resize(function(){
     var width = $(".bubble-chart").width();
@@ -25503,7 +25503,7 @@ router.route('search/:cityName/industry', function (cityName){
     svg.attr("width", width);
     svg.attr("height", width * aspect);
     svg2.attr("width", width2);
-    svg2.attr("height", width2 * aspect);
+    svg2.attr("height", (width2 * aspect) /3);
   });
 
   $('.main-content').on('submit', '.industry-form', function(e) {
@@ -27285,8 +27285,8 @@ module.exports = function(state, city, job, height, width) {
 						.attr("y", .35 * height)
 						.text('$' + values[4]);
 
-					var scale = 1.5;
-					bp.attr("transform", "translate("+ [0,  - height * .1] +")scale(" + scale + ")")
+					var scale = 3.5;
+					bp.attr("transform", "translate("+ [-500,  - height * .2] +")scale(" + scale + ")")
 
 		} else {
 

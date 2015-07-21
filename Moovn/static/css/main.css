@@ -1352,7 +1352,8 @@ https://github.com/yahoo/pure/blob/master/LICENSE.md
   height: 100vh;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
-  display: none; }
+  display: none;
+  z-index: 5; }
 
 @media screen and (max-width: 670px) {
   .side-nav-container {
@@ -2078,9 +2079,6 @@ header {
 .tri-2 {
   width: 100%; }
 
-.tri-1 {
-  margin: auto; }
-
 .bubble-title {
   letter-spacing: 0; }
 
@@ -2091,8 +2089,7 @@ header {
   font-size: 1.8em; }
 
 #boxplot {
-  overflow: visible;
-  padding-left: 3.5em; }
+  overflow: visible; }
 
 .salary-title {
   line-height: 1.5; }
@@ -2167,6 +2164,9 @@ header {
   margin-left: 0.5em; }
 
 body {
+  font-family: Century Gothic, sans-serif; }
+
+h1 {
   font-family: Century Gothic, sans-serif; }
 
 h2 {
