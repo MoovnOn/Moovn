@@ -16,6 +16,9 @@ var $ = require('jquery');
        if($(window).width() > 670){
           $('.side-nav-container').fadeIn();
         }
+        if($(window).width() < 670){
+          $('.side-nav-container').fadeOut();
+        }
     })
  
     
