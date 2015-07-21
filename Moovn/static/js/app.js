@@ -27285,7 +27285,7 @@ module.exports = function(state, city, job, height, width) {
 						.attr("y", .35 * height)
 						.text('$' + values[4]);
 
-					var scale = 3.5;
+					var scale = 4;
 					bp.attr("transform", "translate("+ [-500,  - height * .2] +")scale(" + scale + ")")
 
 		} else {

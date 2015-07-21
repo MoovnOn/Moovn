@@ -2113,7 +2113,9 @@ header {
 
 @media screen and (max-width: 1024px) {
   .overview-graph-container {
-    margin-bottom: 6em; } }
+    margin-bottom: 6em; }
+  .tri-1 {
+    padding-bottom: 4em; } }
 
 @media screen and (max-width: 768px) {
   .overview-cityImg-container-mobile {
