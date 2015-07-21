@@ -1649,6 +1649,10 @@ header {
 .overview-graph2 p {
   text-align: center; }
 
+.neighborhood-housing-subtitle {
+  color: black;
+  text-align: center; }
+
 .full-screen-container {
   margin-top: 0em;
   margin-right: 0em;
@@ -1720,7 +1724,8 @@ header {
   background-color: white; }
 
 .overview-tax-container, .overview-cost-container {
-  padding-top: 3em; }
+  padding-top: 3em;
+  padding-right: 1em; }
 
 .overview-tax-container p {
   line-height: 1.5; }
@@ -2068,7 +2073,6 @@ header {
 .bubble-title h2 {
   text-align: center;
   padding: 1em;
-  font-size: 1.5em;
   color: #B27700; }
 
 .tri-2 {
@@ -2166,7 +2170,8 @@ body {
   font-family: Century Gothic, sans-serif; }
 
 h2 {
-  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif; }
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 1.2em; }
 
 p {
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
@@ -2191,3 +2196,6 @@ p {
 
 .pure-g > * {
   box-sizing: border-box; }
+
+.pure-g [class*="pure-u"] {
+  font-family: none; }

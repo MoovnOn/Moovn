@@ -25439,7 +25439,7 @@ router.route('search/:cityName/housing', function (cityName){
   },1000);
 
 
-$('.graph-title').html("Housing Prices In The Area<br>Updated Monthly");
+$('.graph-title').after("<p class=neighborhood-housing-subtitle>Updated Monthly<p>");
 
 });
 
@@ -25577,8 +25577,8 @@ router.route('search/:cityName/internet', function (cityName){
 
   parseCell(state, city, '.duo-1', '.duo-2');
 
-  $('.download-title').prepend('<h2 class = "pure-u-1 graph-download-title">User Reported Data Speeds</h2><br><p class = "graph-download-subtitle">updated weekly</p><p class = "graph-download-subtitle">data availability varies</p>');
-  $('.rel-title').prepend('<h2 class = "pure-u-1 graph-rel-title">User Reported Reliability Scores</h2><br><p class = "graph-download-subtitle">updated weekly</p><p class = "graph-download-subtitle">data availability varies</p>');
+  $('.download-title').prepend('<h2 class = "pure-u-1 graph-download-title">User Reported Data Speeds</h2><br><p class = "graph-download-subtitle">Updated weekly, data availability varies</p>');
+  $('.rel-title').prepend('<h2 class = "pure-u-1 graph-rel-title">User Reported Reliability Scores</h2><br><p class = "graph-download-subtitle">Updated weekly, data availability varies</p>');
     
 });
 

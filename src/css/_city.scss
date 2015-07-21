@@ -82,6 +82,10 @@
 .overview-graph2 p{
   text-align: center;
 }
+.neighborhood-housing-subtitle{
+  color: black;
+  text-align: center;
+}
 
 //adjusts tabs in certain views to go fullscreen
 .full-screen-container{
@@ -164,6 +168,7 @@
 }
 .overview-tax-container, .overview-cost-container{
   padding-top: 3em;
+  padding-right:1em;
 }
 .overview-tax-container p{
   line-height: 1.5;
