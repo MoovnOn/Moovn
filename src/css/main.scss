@@ -20,8 +20,12 @@
 body{
   font-family: Century Gothic, sans-serif;
 }
+h1{
+  font-family: Century Gothic, sans-serif;
+}
 h2{
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  font-size: 1.2em;
 }
 p {
   font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
@@ -45,5 +49,8 @@ p {
   background-color: transparent;
 }
 .pure-g > *{
-  box-sizing: border-box; 
+  box-sizing: border-box;
+}
+.pure-g [class*="pure-u"]{
+  font-family: none;
 }

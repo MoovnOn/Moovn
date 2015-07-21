@@ -12,6 +12,15 @@ var $ = require('jquery');
       $('.side-bar-background').fadeOut();
     });
     
+    $(window).resize(function(){
+       if($(Document).width() > 670){
+          $('.side-nav-container').fadeIn();
+        }
+        if($(Document).width() < 670){
+          $('.side-nav-container').fadeOut();
+        }
+    })
+ 
     
     //changes side-nav styles to indicate which selection user is on.
     if( window.location.href.indexOf("housing") > -1 ){

@@ -29,19 +29,21 @@ router.route('search/:cityName/places', function (cityName){
 
   show('content/tabs-lists-places', '.duo-1');
 
-  // Sets up search in the sixth tab
+  // Sets up search in the eighth tab
   $('.tab-title8').children('a').text('Search');
-  $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" value="Search ' + city + '"><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>');
+  $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" placeholder="Search ' + city + '"><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>');
 
-  $('.main-content').on('submit', '.tab-search-form' , function(e){
-    e.preventDefault();
-
+  var searchClick = function () {
     var searchVal = $('.search-tab-input').val();
       $('.tab-data8').children('.list-left').html('');
       $('.tab-data8').children('.list-left').append('<form class="tab-search-form search-places-form pure-form"><input type="text" class="search-tab-input" autofocus><button type="submit" class="tab-search-btn pure-button" style="display:inline-block">Search</button></form><br>')
       places(cityName, searchVal, ".tab-data8", "Search");
-  });
+  };
 
+  $('.main-content').on('submit', '.tab-search-form' , function(e){
+    e.preventDefault();
+    searchClick(); 
+  });
 
   //gets the lists displaying as tabs and can change to accordian
   $('#responsiveTabsDemo').responsiveTabs({
@@ -66,7 +68,7 @@ router.route('search/:cityName/places', function (cityName){
 
 
   $('.main-content').on('click', '.r-tabs-anchor', function(){
-    $('.details-right').html('');
+    
     var searchTerm = $(this).text();
       var request = {
         query: searchTerm + " " + city
@@ -78,7 +80,7 @@ router.route('search/:cityName/places', function (cityName){
         var id = results[0].place_id;
             getDetails(id)
       });
-  
+
   });
 
 
