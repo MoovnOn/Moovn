@@ -99,6 +99,7 @@ module.exports = function (state1, city1, state2, city2, el1, el2) {
       dataArray2.push(parsedData2);
 
       var maxVal = maxCompare(dataArray, dataArray2);
+      console.log(maxVal);
       downloadGraph(dataArray, el1, maxVal);
       downloadGraph(dataArray2, el2, maxVal);
 

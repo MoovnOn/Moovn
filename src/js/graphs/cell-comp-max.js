@@ -17,21 +17,22 @@ module.exports = function(array1, array2) {
 		loadSpeeds2.push(e.type4G.downloadSpeed)
 	})
 
-	var srtArr1 = loadSpeeds1.sort(function(a, b){return a-b});
-	var srtArr2 = loadSpeeds2.sort(function(a, b){return a-b});
+	var srtArr1 = loadSpeeds1.sort(function(a, b){return b-a});
+	var srtArr2 = loadSpeeds2.sort(function(a, b){return b-a});
 
-	var srtReverse = srtArr1.reverse();
-	var srtReverse2 = srtArr2.reverse();
+	console.log(srtArr1)
+	console.log(srtArr2)
 
-	var maxValFn = function() {
-		if(srtReverse[0] > srtReverse2[0]) {
-			return srtReverse[0]
-		} else {
-			return srtReverse2[0]
-		}
-	};
+	var twoHighest = [srtArr1[0], srtArr2[0]];
 
-	var maxVal = Math.ceil(maxValFn());
+	console.log(twoHighest);
+
+	var highest = twoHighest.sort(function(a, b){return b-a});
+
+
+	console.log(highest);
+
+	var maxVal = Math.ceil(highest[0]);
 
 	return maxVal;
 	
