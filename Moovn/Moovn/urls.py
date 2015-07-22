@@ -22,6 +22,7 @@ from . import views
 urlpatterns = [
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.IndexView.as_view()),
+    url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/favicon.ico'}),
     # url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'api/', include('api.urls')),
 ]
