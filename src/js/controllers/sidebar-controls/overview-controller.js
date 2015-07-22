@@ -44,7 +44,7 @@ commuteTime(state, city, '.overview-graph1');
   var zipRegex = /\b\d{5}\b/g;
    
    var client = new XMLHttpRequest();
-      client.open("GET", "http://api.zippopotam.us/us/" + state + "/" + city, true);
+      client.open("GET", "https://api.zippopotam.us/us/" + state + "/" + city, true);
       client.onreadystatechange = function () {
         if(client.readyState == 4) {
       		var response = client.responseText;
