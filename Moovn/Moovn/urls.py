@@ -16,13 +16,14 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 import rest_framework
+from django.views.generic.base import RedirectView
 
 from . import views
 
 urlpatterns = [
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^$', views.IndexView.as_view()),
-    url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/static/images/favicon.ico'}),
+    url(r'^favicon\.ico$', RedirectView.as_view(url='/static/images/favicon.ico', permanent=True)),
     # url(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'api/', include('api.urls')),
 ]
