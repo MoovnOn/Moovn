@@ -21,7 +21,16 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
  
 if($(Document).width() < 670){
   show('comparison-mobile', '.main-content', {city1: cityName1, city2: cityName2});
-    $('.right').hide();    
+ $('.right').hide();    
+}
+
+if($(Document).width() > 670){
+  show('comparison', '.main-content', {city1: cityName1, city2: cityName2});
+}
+
+//swipe for mobile
+
+
       $('.left').on('swipe',function(){
         $('.left').hide();
         $('.right').show();
@@ -31,11 +40,8 @@ if($(Document).width() < 670){
         $('.right').hide();
         $('.left').show();
       });
-}
-
-if($(Document).width() > 670){
-  show('comparison', '.main-content', {city1: cityName1, city2: cityName2});
-}
+      
+//
 
   sideBar();
   
