@@ -24919,12 +24919,12 @@ var commuteComp = require('../commute-comp');
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
  
-if($(Document).width() < 670){
+if($(document).width() < 670){
   show('comparison-mobile', '.main-content', {city1: cityName1, city2: cityName2});
  $('.right').hide();    
 }
 
-if($(Document).width() > 670){
+if($(document).width() > 670){
   show('comparison', '.main-content', {city1: cityName1, city2: cityName2});
 }
 
@@ -25018,10 +25018,10 @@ var $ = require('jquery');
     });
     
     $(window).resize(function(){
-       if($(Document).width() > 670){
+       if($(document).width() > 670){
           $('.side-nav-container').fadeIn();
         }
-        if($(Document).width() < 670){
+        if($(document).width() < 670){
           $('.side-nav-container').fadeOut();
         }
     })
