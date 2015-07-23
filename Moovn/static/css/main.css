@@ -2158,9 +2158,7 @@ header {
     width: 100%; }
   .comp-subtitle {
     padding-top: 0.4em;
-    font-size: 0.6em; }
-  .left, .right {
-    max-width: 90%; } }
+    font-size: 0.6em; } }
 
 .list-left {
   position: relative; }

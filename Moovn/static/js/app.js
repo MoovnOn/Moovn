@@ -24955,7 +24955,6 @@ if($(document).width() > 670){
 
 
   parseCell(state1, city1, state2, city2, '.comp-chart1-4', '.comp-chart2-4');
-  // parseCell(state2, city2, '.comp-chart2-4');
 
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
