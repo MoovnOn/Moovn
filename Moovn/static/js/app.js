@@ -24919,12 +24919,26 @@ var commuteComp = require('../commute-comp')
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
  
-  // show('side-bar-city-search', '.side-bar-content', {city1: cityName1});
-  // searchFunction();
-  show('comparison', '.main-content', {city1: cityName1, city2: cityName2})
+if($(Document).width() < 670){
+  show('comparison-mobile', '.main-content', {city1: cityName1, city2: cityName2});
+    $('.right').hide();    
+      $('.left').on('swipe',function(){
+        $('.left').hide();
+        $('.right').show();
+      });
+      
+      $('.right').on('swipe',function(){
+        $('.right').hide();
+        $('.left').show();
+      });
+}
+
+if($(Document).width() > 670){
+  show('comparison', '.main-content', {city1: cityName1, city2: cityName2});
+}
+
   sideBar();
   
-
   var citySplit1 = cityName1.split(', ');
   var city1 = citySplit1[0];
   var state1 = citySplit1[1];
@@ -24958,6 +24972,18 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
   commuteTime(state1, city1, '.comp-chart1-6');
   commuteTime(state2, city2, '.comp-chart2-6');
 
+  // $(window).resize(function(){
+  
+       // if($(Document).width() < 670){
+        //   $('.comp-chart1-2').hide();
+        //   $(".comp-chart2-2").on("swipeleft",function(){
+        //     $('.comp-chart1-2').show();
+        //   });
+        // }
+        // else if($(Document).width() > 670){
+        //   $('.comp-chart1-2').show();
+        // }
+    // })
 
   
 });
