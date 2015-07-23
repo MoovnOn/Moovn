@@ -1971,7 +1971,7 @@ header {
     top: 0; } }
 
 .comp-grid {
-  margin-top: 100px; }
+  margin-top: 75px; }
 
 .comp-chart-cont {
   width: 45%;
@@ -2158,7 +2158,9 @@ header {
     width: 100%; }
   .comp-subtitle {
     padding-top: 0.4em;
-    font-size: 0.6em; } }
+    font-size: 0.6em; }
+  .left, .right {
+    max-width: 90%; } }
 
 .list-left {
   position: relative; }

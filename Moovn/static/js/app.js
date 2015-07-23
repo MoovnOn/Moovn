@@ -24931,15 +24931,15 @@ if($(Document).width() > 670){
 //swipe for mobile
 
 
-      $('.left').on('click',function(){
-        $('.left').hide();
-        $('.right').show();
+      $('.comp-header').on('click',function(){
+        $('.left').toggle();
+        $('.right').toggle();
       });
       
-      $('.right').on('click',function(){
-        $('.right').hide();
-        $('.left').show();
-      });
+      // $('.right').on('click',function(){
+      //   $('.right').hide();
+      //   $('.left').show();
+      // });
       
 //
 
