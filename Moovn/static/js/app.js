@@ -24919,12 +24919,12 @@ var commuteComp = require('../commute-comp');
 
 router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
  
-if($(Document).width() < 670){
+if($(document).width() < 670){
   show('comparison-mobile', '.main-content', {city1: cityName1, city2: cityName2});
  $('.right').hide();    
 }
 
-if($(Document).width() > 670){
+if($(document).width() > 670){
   show('comparison', '.main-content', {city1: cityName1, city2: cityName2});
 }
 
@@ -24955,7 +24955,6 @@ if($(Document).width() > 670){
 
 
   parseCell(state1, city1, state2, city2, '.comp-chart1-4', '.comp-chart2-4');
-  // parseCell(state2, city2, '.comp-chart2-4');
 
   $('.bar-menu-icon').click(function() {
     $( ".side-nav-container" ).toggle( "slide" );
@@ -25018,10 +25017,10 @@ var $ = require('jquery');
     });
     
     $(window).resize(function(){
-       if($(Document).width() > 670){
+       if($(document).width() > 670){
           $('.side-nav-container').fadeIn();
         }
-        if($(Document).width() < 670){
+        if($(document).width() < 670){
           $('.side-nav-container').fadeOut();
         }
     })

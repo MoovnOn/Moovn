@@ -13,10 +13,10 @@ var $ = require('jquery');
     });
     
     $(window).resize(function(){
-       if($(Document).width() > 670){
+       if($(document).width() > 670){
           $('.side-nav-container').fadeIn();
         }
-        if($(Document).width() < 670){
+        if($(document).width() < 670){
           $('.side-nav-container').fadeOut();
         }
     })
