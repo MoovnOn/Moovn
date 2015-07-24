@@ -1580,10 +1580,6 @@ header {
 .duo-2 {
   margin-top: 1.5em; }
 
-.duo-1-vert, .duo-2-vert {
-  padding-right: 2em;
-  padding-left: 2em; }
-
 .city-all-container {
   margin-right: 2em;
   margin-bottom: 2em;
@@ -2009,6 +2005,9 @@ header {
 
 .cost-taxes {
   margin-left: 6em; }
+
+.comp-chart1-2, .comp-chart2-2 {
+  padding-left: 2em; }
 
 .tri-1-edu, .tri-2-edu {
   margin-top: 1em; }
