@@ -21,29 +21,22 @@ router.route( 'search/:cityName1/:cityName2', function (cityName1, cityName2){
  
 if($(document).width() < 670){
   show('comparison-mobile', '.main-content', {city1: cityName1, city2: cityName2});
- $('.right').hide();    
+ $('.right').hide();
+ 
 }
 
 if($(document).width() > 670){
   show('comparison', '.main-content', {city1: cityName1, city2: cityName2});
 }
 
-//swipe for mobile
+//JS for mobile
+    $('.comp-header').on('click',function(){
+      $('.left').toggle();
+      $('.right').toggle();
+    });
+ 
 
-
-      $('.comp-header').on('click',function(){
-        $('.left').toggle();
-        $('.right').toggle();
-      });
-      
-      // $('.right').on('click',function(){
-      //   $('.right').hide();
-      //   $('.left').show();
-      // });
-      
-//
-
-  sideBar();
+  // sideBar();
   
   var citySplit1 = cityName1.split(', ');
   var city1 = citySplit1[0];
@@ -56,26 +49,27 @@ if($(document).width() > 670){
 
   parseCell(state1, city1, state2, city2, '.comp-chart1-4', '.comp-chart2-4');
 
-  $('.bar-menu-icon').click(function() {
-    $( ".side-nav-container" ).toggle( "slide" );
-  });
+  // $('.bar-menu-icon').click(function() {
+  //   $( ".side-nav-container" ).toggle( "slide" );
+  // });
 
-  peopleAge(state1, city1, '.comp-chart1-5', 'bar');
   peopleAge(state2, city2, '.comp-chart2-5', 'bar');
+  peopleAge(state1, city1, '.comp-chart1-5', 'bar');
 
+costLiving(state2, city2, ".comp2-1");
   costLiving(state1, city1, ".comp1-1");
-  costLiving(state2, city2, ".comp2-1");
-
+  
+commuteComp(state2, city2, ".comp2-2");
   commuteComp(state1, city1, ".comp1-2");
-  commuteComp(state2, city2, ".comp2-2");
-
+  
+taxDetails(state2, city2, ".comp2-3");
   taxDetails(state1, city1, ".comp1-3");
-  taxDetails(state2, city2, ".comp2-3");
-
+  
   housingGraph(state1, city1, state2, city2);
 
-  commuteTime(state1, city1, '.comp-chart1-6');
   commuteTime(state2, city2, '.comp-chart2-6');
+  commuteTime(state1, city1, '.comp-chart1-6');
+  
 
 
   

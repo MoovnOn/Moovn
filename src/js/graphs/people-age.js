@@ -23,10 +23,7 @@ module.exports = function(state, city, bindTo, graphType) {
     var housingPeople50 = housingPeople[1].data.attribute[6].value['#text'];
     var housingPeople60 = housingPeople[1].data.attribute[7].value['#text'];
     var housingPeople70 = housingPeople[1].data.attribute[0].value['#text'];
-    
-    console.log(housingPeople20);
-    var foo = Math.round(housingPeople20 * 100);
-    console.log(foo);
+
     
       c3.generate({
           bindto: bindTo,
