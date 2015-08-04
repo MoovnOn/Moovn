@@ -9,6 +9,7 @@ var reliabilityGraph = require('./cell-reliability');
 module.exports = function (state, city, el1, el2) {
   var centroid = [];
   var newArray = [];
+
   Promise.all([
 
     $.ajax({
@@ -24,13 +25,15 @@ module.exports = function (state, city, el1, el2) {
   ]).then(function(results) {
 
     Promise.all([
+
     $.ajax({
       method: "GET",
       url: "api/celldata/" + state + "/" + city + "/?lat=" + centroid[0] + "&lon=" + centroid[1],
     }).then(function(data){
-        var array = data.networkRank;
+       var array = data.networkRank;
 
        array.forEach(function(prov) {
+
          if (prov.networkName === "AT&T") {
            newArray[0] = prov;
          }
@@ -50,10 +53,11 @@ module.exports = function (state, city, el1, el2) {
   ]).then(function(results){
       var data2 = parse2(newArray);
       if (el2 != undefined) {
-        downloadGraph(data2, el1);
-        reliabilityGraph(data2, el2);
+        downloadGraph(newArray, el1);
+        reliabilityGraph(newArray, el2);
       } else {
-        downloadGraph(data2, el1);}
+        downloadGraph(data2, el1);
+      }
     });
 
   });

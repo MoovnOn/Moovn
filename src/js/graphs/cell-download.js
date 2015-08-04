@@ -2,7 +2,7 @@ var $ = require('jquery');
 var c3 = require('c3');
 
 module.exports = function (data, bindTo) {
-
+  
     var dwnldArr = [];
 
     var aTDwnld3 = Math.round(data[0].type3G.downloadSpeed);

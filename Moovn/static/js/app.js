@@ -26086,7 +26086,7 @@ var $ = require('jquery');
 var c3 = require('c3');
 
 module.exports = function (data, bindTo) {
-
+  
     var dwnldArr = [];
 
     var aTDwnld3 = Math.round(data[0].type3G.downloadSpeed);
@@ -26159,14 +26159,14 @@ var c3 = require('c3');
 
 module.exports = function(data, bindTo) {
 
-		var aTRel3 = Math.round(data[0].type3G.reliability);
-  	var vRel3 = Math.round(data[1].type3G.reliability);
-		var tmRel3 = Math.round(data[3].type3G.reliability);
+		var aTRel3 = Math.round(data[0].type3G.reliability * 100);  
+  	var vRel3 = Math.round(data[1].type3G.reliability * 100);
+		var tmRel3 = Math.round(data[3].type3G.reliability * 100);
 
-		var aTRel4 = Math.round(data[0].type4G.reliability);
-  	var vRel4 = Math.round(data[1].type4G.reliability);
-		var sRel4 = Math.round(data[2].type4G.reliability);
-		var tmRel4 = Math.round(data[3].type4G.reliability);
+		var aTRel4 = Math.round(data[0].type4G.reliability * 100);
+  	var vRel4 = Math.round(data[1].type4G.reliability * 100);
+		var sRel4 = Math.round(data[2].type4G.reliability * 100);
+		var tmRel4 = Math.round(data[3].type4G.reliability * 100);
 
 		var chart = c3.generate({
     bindto: bindTo,
@@ -26782,8 +26782,6 @@ module.exports = function (allHousingData){
 },{"c3":"c3","d3":"d3","jquery":"jquery"}],29:[function(require,module,exports){
 module.exports = function(data) {
 
-    return data
-
     data.forEach(function(e){
         if(!e.type3G.uploadSpeed){
           e.type3G.uploadSpeed = "undefined";
@@ -26909,7 +26907,7 @@ module.exports = function (state1, city1, state2, city2, el1, el2) {
       dataArray2.push(parsedData2);
 
       var maxVal = maxCompare(dataArray, dataArray2);
-      console.log(maxVal);
+      
       downloadGraph(dataArray, el1, maxVal);
       downloadGraph(dataArray2, el2, maxVal);
 
@@ -26939,6 +26937,7 @@ var reliabilityGraph = require('./cell-reliability');
 module.exports = function (state, city, el1, el2) {
   var centroid = [];
   var newArray = [];
+
   Promise.all([
 
     $.ajax({
@@ -26954,13 +26953,15 @@ module.exports = function (state, city, el1, el2) {
   ]).then(function(results) {
 
     Promise.all([
+
     $.ajax({
       method: "GET",
       url: "api/celldata/" + state + "/" + city + "/?lat=" + centroid[0] + "&lon=" + centroid[1],
     }).then(function(data){
-        var array = data.networkRank;
+       var array = data.networkRank;
 
        array.forEach(function(prov) {
+
          if (prov.networkName === "AT&T") {
            newArray[0] = prov;
          }
@@ -26980,10 +26981,11 @@ module.exports = function (state, city, el1, el2) {
   ]).then(function(results){
       var data2 = parse2(newArray);
       if (el2 != undefined) {
-        downloadGraph(data2, el1);
-        reliabilityGraph(data2, el2);
+        downloadGraph(newArray, el1);
+        reliabilityGraph(newArray, el2);
       } else {
-        downloadGraph(data2, el1);}
+        downloadGraph(data2, el1);
+      }
     });
 
   });
