@@ -59,7 +59,7 @@ module.exports = function (data, bindTo) {
   	 		axis: {
        		x: {
             type: 'category',
-            categories: ['3G Download', '3G Upload' , '4G Download', '4G Upload']
+            categories: ['3G Download', '3G Upload' , '4G Download', '4G Upload'],
         	},
           y: {
             label: "Megabits Per Second",

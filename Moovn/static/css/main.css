@@ -1580,10 +1580,6 @@ header {
 .duo-2 {
   margin-top: 1.5em; }
 
-.duo-1-vert, .duo-2-vert {
-  padding-right: 0.7em;
-  padding-left: 0.7em; }
-
 .city-all-container {
   margin-right: 2em;
   margin-bottom: 2em;
@@ -1971,7 +1967,7 @@ header {
     top: 0; } }
 
 .comp-grid {
-  margin-top: 100px; }
+  margin-top: 75px; }
 
 .comp-chart-cont {
   width: 45%;
@@ -2009,6 +2005,9 @@ header {
 
 .cost-taxes {
   margin-left: 6em; }
+
+.comp-chart1-2, .comp-chart2-2 {
+  padding-left: 2em; }
 
 .tri-1-edu, .tri-2-edu {
   margin-top: 1em; }
@@ -2151,7 +2150,14 @@ header {
     display: none; }
   .overview-graph-container {
     margin-bottom: 0em;
-    border-bottom: none; } }
+    border-bottom: none; }
+  .comp-city-title-mobile-left,
+  .comp-city-title-mobile-right {
+    text-align: center;
+    width: 100%; }
+  .comp-subtitle {
+    padding-top: 0.4em;
+    font-size: 0.6em; } }
 
 .list-left {
   position: relative; }
