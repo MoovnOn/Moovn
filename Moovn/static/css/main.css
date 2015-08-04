@@ -1550,9 +1550,8 @@ header {
 .list-left {
   display: inline-block; }
 
-@media screen and (max-width: 670px) {
+@media screen and (max-width: 970px) {
   .details-right {
-    display: none;
     position: absolute;
     margin: 1.5em;
     margin-top: 4em;
@@ -1565,7 +1564,7 @@ header {
   .close-button {
     display: inline-block; } }
 
-@media screen and (min-width: 670px) {
+@media screen and (min-width: 970px) {
   .details-right {
     display: inline-block; } }
 

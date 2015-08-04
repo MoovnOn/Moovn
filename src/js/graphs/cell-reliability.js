@@ -3,14 +3,14 @@ var c3 = require('c3');
 
 module.exports = function(data, bindTo) {
 
-		var aTRel3 = Math.round(data[0].type3G.reliability);
-  	var vRel3 = Math.round(data[1].type3G.reliability);
-		var tmRel3 = Math.round(data[3].type3G.reliability);
+		var aTRel3 = Math.round(data[0].type3G.reliability * 100);  
+  	var vRel3 = Math.round(data[1].type3G.reliability * 100);
+		var tmRel3 = Math.round(data[3].type3G.reliability * 100);
 
-		var aTRel4 = Math.round(data[0].type4G.reliability);
-  	var vRel4 = Math.round(data[1].type4G.reliability);
-		var sRel4 = Math.round(data[2].type4G.reliability);
-		var tmRel4 = Math.round(data[3].type4G.reliability);
+		var aTRel4 = Math.round(data[0].type4G.reliability * 100);
+  	var vRel4 = Math.round(data[1].type4G.reliability * 100);
+		var sRel4 = Math.round(data[2].type4G.reliability * 100);
+		var tmRel4 = Math.round(data[3].type4G.reliability * 100);
 
 		var chart = c3.generate({
     bindto: bindTo,

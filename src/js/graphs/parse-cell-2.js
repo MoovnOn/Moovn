@@ -1,7 +1,5 @@
 module.exports = function(data) {
 
-    return data
-
     data.forEach(function(e){
         if(!e.type3G.uploadSpeed){
           e.type3G.uploadSpeed = "undefined";
