@@ -8,7 +8,6 @@ module.exports = function(array1, array2) {
 	var loadSpeeds1 = [];
 	var loadSpeeds2 = [];
 
-
 	firstArray.forEach(function(e){
 		loadSpeeds1.push(e.type4G.downloadSpeed)
 	})

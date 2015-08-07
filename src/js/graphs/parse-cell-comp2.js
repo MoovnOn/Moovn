@@ -54,6 +54,7 @@ module.exports = function (state1, city1, state2, city2, el1, el2) {
     }),
 
   ]).then(function(results){
+
       var parsedData = parse2(newArray);
       dataArray.push(parsedData);
       
@@ -95,13 +96,18 @@ module.exports = function (state1, city1, state2, city2, el1, el2) {
       })
 
     ]).then(function(results){
+
       var parsedData2 = parse2(newArray2);
       dataArray2.push(parsedData2);
 
-      var maxVal = maxCompare(dataArray, dataArray2);
-      
-      downloadGraph(dataArray, el1, maxVal);
-      downloadGraph(dataArray2, el2, maxVal);
+      setTimeout(function() {
+
+        var maxVal = maxCompare(dataArray, dataArray2);
+
+        downloadGraph(dataArray, el1, maxVal);
+        downloadGraph(dataArray2, el2, maxVal);
+
+      }, 2000);
 
     });     
   
