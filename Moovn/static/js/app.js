@@ -25990,7 +25990,6 @@ module.exports = function(array1, array2) {
 	var loadSpeeds1 = [];
 	var loadSpeeds2 = [];
 
-
 	firstArray.forEach(function(e){
 		loadSpeeds1.push(e.type4G.downloadSpeed)
 	})
@@ -26780,32 +26779,40 @@ module.exports = function (allHousingData){
 };
 
 },{"c3":"c3","d3":"d3","jquery":"jquery"}],29:[function(require,module,exports){
+$ = require('jquery');
+
 module.exports = function(data) {
 
     data.forEach(function(e){
+
+        if($(e).attr('type3G') === undefined) {
+          $(e).attr('type3G', {});
+        }
+
         if(!e.type3G.uploadSpeed){
-          e.type3G.uploadSpeed = "undefined";
+          e.type3G.uploadSpeed = undefined;
         }
         if(!e.type3G.downloadSpeed){
-          e.type3G.downloadSpeed = "undefined";
+          e.type3G.downloadSpeed = undefined;
         }
         if(!e.type3G.reliability){
-          e.type3G.reliability = "undefined";
+          e.type3G.reliability = undefined;
         }
         if(!e.type4G.uploadSpeed){
-          e.type4G.uploadSpeed = "undefined";
+          e.type4G.uploadSpeed = undefined;
         }
         if(!e.type4G.downloadSpeed){
-          e.type4G.downloadSpeed = "undefined";
+          e.type4G.downloadSpeed = undefined;
         }
         if(!e.type4G.reliability){
-          e.type4G.reliability = "undefined";
+          e.type4G.reliability = undefined;
         }
-        return data
+        return data;
       })
+    return data;
 
   }  
-},{}],30:[function(require,module,exports){
+},{"jquery":"jquery"}],30:[function(require,module,exports){
 var $ = require('jquery');
 var c3 = require('c3');
 var topojson = require('../topojson');
@@ -26862,6 +26869,7 @@ module.exports = function (state1, city1, state2, city2, el1, el2) {
     }),
 
   ]).then(function(results){
+
       var parsedData = parse2(newArray);
       dataArray.push(parsedData);
       
@@ -26903,13 +26911,18 @@ module.exports = function (state1, city1, state2, city2, el1, el2) {
       })
 
     ]).then(function(results){
+
       var parsedData2 = parse2(newArray2);
       dataArray2.push(parsedData2);
 
-      var maxVal = maxCompare(dataArray, dataArray2);
-      
-      downloadGraph(dataArray, el1, maxVal);
-      downloadGraph(dataArray2, el2, maxVal);
+      setTimeout(function() {
+
+        var maxVal = maxCompare(dataArray, dataArray2);
+
+        downloadGraph(dataArray, el1, maxVal);
+        downloadGraph(dataArray2, el2, maxVal);
+
+      }, 2000);
 
     });     
   
