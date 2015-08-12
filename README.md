@@ -1,29 +1,12 @@
-# API/DATA Sources
-Weather: http://openweathermap.org/current#name
-
-#Design Cues
-D3 Zoomable Map http://bl.ocks.org/mbostock/2374239
-Comparison Chart example http://www.zillow.com/durham-nc/home-values/
-Slide up/fade in example http://normandrobert.com/
+In 2 weeks our team built Moovn On to solve common problems people encounter when moving from one city to another. We pull in data from several API's, parse, calculate, and then visualize the data so end users can find the info they need for the places they are going.
 
 
-# Welcome to your new Django single-page app project!
 
-This template will ease your way in building a single-page app backed by a Django API.
+## Development Files of note
 
-To use this template, run:
+* `Moovn/templates/index.html` - This is where all HTML should go. It has a few funny things in there. Make sure to use `\{% static "path/to/file.css" %\}` for all links to static files.
 
-```
-django-admin.py startproject YOUR_PROJECT_NAME --template=https://github.com/tiyd-python-2015-05/single-page-app-template/archive/master.zip --extension=py,md --name=Procfile
-```
-
-Change YOUR_PROJECT_NAME before running the above.
-
-## Files you should know about
-
-* `Moovn/templates/index.html` - This is where all your HTML should go. It has a few funny things in there. Make sure to use `\{% static "path/to/file.css" %\}` for all links to static files.
-
-* `Moovn/static/` - All your static files go here. You can write them by hand or generate them with gulp or another tool.
+* `Moovn/static/` - All static files go here. You can write them by hand or generate them with gulp or another tool.
 
 ## Heroku instructions
 
